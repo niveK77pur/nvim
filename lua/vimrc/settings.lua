@@ -17,8 +17,8 @@ if &t_Co > 255 && $TERM !=# "linux"
 endif
 ]])
 
--- vim.g.everforest_transparent_background = 1
--- vim.cmd([[colorscheme everforest]])
+vim.g.everforest_transparent_background = 1
+vim.cmd([[colorscheme everforest]])
 
 -- Options for indentation --
 
