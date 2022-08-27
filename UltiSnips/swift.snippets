@@ -1,0 +1,332 @@
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                   Dispatch
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Threads ----------------------------------------------------------------------
+snippet dq "DispatchQueue(label: '...')" i
+DispatchQueue(label: "$1")
+endsnippet
+
+snippet DQ "DispatchQueue(label: '...')" b
+let $1Queue = DispatchQueue(label: "$2")
+endsnippet
+
+snippet dqc "DispatchQueue(label: '...', attributes: .concurrent)" i
+DispatchQueue(label: "$1", attributes: .concurrent)
+endsnippet
+
+snippet DQC "DispatchQueue(label: '...', attributes: .concurrent)" b
+let $1Queue = DispatchQueue(label: "$2", attributes: .concurrent)
+endsnippet
+
+snippet dg "DispatchGroup()" i
+DispatchGroup()
+endsnippet
+
+snippet .async ".async(group: ___)" i
+.async(group: ${1:group}) {
+	${VISUAL}$0
+}
+endsnippet
+
+# Semaphores -------------------------------------------------------------------
+
+snippet ds "DispatchSemaphore(value: ...)" i
+DispatchSemaphore(value:$1)
+endsnippet
+
+snippet DS "DispatchSemaphore(value: ...)" b
+let $1Sempahore = DispatchSemaphore(value:$2)
+endsnippet
+
+snippet '(\S.+).ws' "xxx.wait() ... xxx.signal()" br
+`!p snip.rv = match.group(1) + '.wait()'`
+${VISUAL}$0
+`!p snip.rv = match.group(1) + '.signal()'`
+endsnippet
+
+# Time -------------------------------------------------------------------------
+snippet dt "DispatchTime.now()" i
+DispatchTime.now()
+endsnippet
+
+snippet .upns ".uptimeNanoseconds" i
+.uptimeNanoseconds
+endsnippet
+
+snippet '(\w+)\.ups' ".uptimeNanoseconds -- in seconds" ir
+Double(`!p snip.rv = match.group(1)`.uptimeNanoseconds) / 1000000000.0
+endsnippet
+
+snippet '\|(.+)-(.+)\|' "elapsed time in seconds --> time_A - time_B" ir
+`!p snip.rv = '(Double('+match.group(1)+'.uptimeNanoseconds - '+match.group(2)+'.uptimeNanoseconds)) / 1000000000.0'`
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    Socket
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet .conn ".connect()" i
+.connect(to:${1:host}, port:${2:port})
+endsnippet
+
+snippet .w ".write()" i
+.write(from:${1:String})
+endsnippet
+
+snippet .r ".read()" i
+.read(into: &${1:Data})
+endsnippet
+
+snippet '(\w+)\.READ' "read from socket + convert to string" br
+var ${1:readData} = Data(capacity:4096)
+guard try `!p snip.rv = match.group(1)`.read(into: &$1) > 0 else {
+	print("Connection terminated.")
+	break
+}
+guard let ${2:message} = String(data:$1, encoding:.utf8) else {
+	print("Error decoding message.")
+	break
+}
+endsnippet
+
+snippet .l ".listen()" i
+.listen(on:${1:port})
+endsnippet
+
+snippet .acc ".acceptClientConnection()" i
+.acceptClientConnection()
+endsnippet
+
+snippet Data "Data()"
+Data(capacity:${1:4096})
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                   JSON RPC
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet jsonHandler "create a jsonRPC handler" b
+func ${1:name}Handler(jsonRequest:String) throws -> String {
+	return try jsonRPCHandler(jsonRequest) { (${2:parameters}) -> ${3:"return type"} in
+		$0
+	}
+}
+endsnippet
+
+# snippet jsonHANDLER "create 'expanded' JRPC handler" b
+# func ${1:name}(${2:parameters}) -> ${3:return type} {
+#	  $0
+# }
+# func $1Handler(jsonRequest:String) throws -> String {
+#	  return try jsonRPCHandler(jsonRequest, handlerBlock: $1)
+# }
+# endsnippet
+
+snippet jsonRPC "make jsonRPC request"
+try jsonRPC(method: "$1", parameters: $2, toURL: ${3:url})
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                     REST
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Register routes --------------------------------------------------------------
+snippet .get "register REST get route" i
+.get("/$1", handler: get$2Handler)
+endsnippet
+
+snippet .put "register REST put route" i
+.put("/$1", handler: update$2Handler)
+endsnippet
+
+snippet .post "register REST post route" i
+.post("/$1", handler: add$2Handler)
+endsnippet
+
+# Server Handlers --------------------------------------------------------------
+snippet restHandlerGet "create a REST get handler" b
+func get$1Handler(${2:id:$3, }completion:(${4:"Server return parameters"}?, RequestError?) -> Void) {	
+	$0
+}
+endsnippet
+
+snippet restHandlerPut "create a REST put handler" b
+func update$1Handler(id:$2, receivedData:$3, completion:(${4:"Server return parameters"}?, RequestError?) -> Void) {	
+	$0
+}
+endsnippet
+
+snippet restHandlerPost "create a REST post handler" b
+func add$1Handler(receivedData:$2, completion:(${3:"Server return parameters"}?, RequestError?) -> Void) {	
+	$0
+}
+endsnippet
+
+# Client handlers --------------------------------------------------------------
+snippet restClientFunc "create client function" b
+func $1(_ client:KituraKit$2) {
+	$0
+}
+endsnippet
+
+snippet .GET "call REST get handler" i
+.get("/$1") {
+	($2Response:$3?, error:RequestError?) -> Void in
+	guard let $2 = $2Response else {
+		print("Error in getting $2: \(error!)")
+		return
+	}
+	$0
+}
+endsnippet
+
+snippet .PUT "call REST put handler" i
+.put("/$1", identifier:$2, data:$3) {
+	($4Response:$5?, error:RequestError?) -> Void in
+	guard let $4 = $4Response else {
+		print("Error in updating $4: \(error!)")
+		return
+	}
+	$0
+}
+endsnippet
+
+snippet .POST "call REST post handler" i
+.post("/$1", data:$2) {
+	($3Response:$4?, error:RequestError?) -> Void in
+	guard let $3 = $3Response else {
+		print("Error in creating $3: \(error!)")
+		return
+	}
+	$0
+}
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    Promise
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet promiseFunc "create function that returns a promise" b
+func $1Promise($2) -> Promise<$3> {
+	return Promise { seal in
+		$0
+	}
+}
+endsnippet
+
+snippet .then "chained promises" i
+.then { ${1:"returned promise"} in
+	$0
+}
+endsnippet
+
+snippet .THEN "chained promises (explicit)" i
+.then { (${1:"returned promise"}) -> Promise<$2> in
+	$0
+}
+endsnippet
+
+snippet .done "finishing block for promise" i
+.done { ${1:"returned promise"} in
+	$0
+}.catch { error in
+	print("Error occured for promise: \(error)")
+}
+endsnippet
+
+snippet .DONE "finishing block for promise (explicit)" i
+.done { (${1:"returned promise"}) in
+	$0
+}.catch { error in
+	print("Error occured for promise: \(error)")
+}
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    String
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet ii "string \(interpolation)" i
+\(${1:${VISUAL}})
+endsnippet
+
+snippet SD "String(data:..., encoding:.utf8)"
+String(data:${1:Data}, encoding:.utf8)
+endsnippet
+
+snippet .sp ".split()" i
+.split(separator:$1)
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                     Loops
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet w "while ... { ___ }"
+while $1 {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet f "for ... in ... { ___ }"
+for $1 in $2 {
+	${0:${VISUAL}}
+}
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    Blocks
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet .b "make a block : ... { ___ }"
+$1 {
+	${VISUAL}$0
+}
+endsnippet
+
+snippet b. "make a block : ___ { ... }"
+$1${VISUAL}$2 {
+	$0
+}
+endsnippet
+
+snippet guard "guard ___ else { ... }" b
+guard ${VISUAL}$1 else {
+	$0
+}
+endsnippet
+
+snippet guard. "guard ... else { ___ }" b
+guard $1 else {
+	${VISUAL}$0
+}
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    Classes
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet csc "CustomStringConvertible"
+CustomStringConvertible
+endsnippet
+
+snippet c "Codable"
+Codable
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                 Miscellaneous
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet p "print('___')"
+print("${VISUAL}$1")
+endsnippet
+
+snippet .rand "TYPE.random(in: ...)" i
+.random(in: $1)
+endsnippet
+
+snippet sleep "sleep(UInt32.random(in: ...))" i
+sleep(UInt32.random(in: $1))
+endsnippet

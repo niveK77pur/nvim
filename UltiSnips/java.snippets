@@ -1,0 +1,34 @@
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                   Functions
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet pubf "public function" Ab
+public $1($2) {
+	$0
+}
+endsnippet
+
+snippet getset "getter and setter function" Ab
+public ${1:Type} get${2:Variable}() {`!p lowerName = t[2][0].lower() + t[2][1:] if t[2]!="" else ""`
+    return `!p snip.rv = lowerName`;
+}
+public void set$2($1 `!p snip.rv = lowerName`) {
+    this.`!p snip.rv = lowerName` = `!p snip.rv = lowerName`;
+}
+endsnippet
+
+snippet p "print to terminal"
+System.out.println("$1");
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    JavaDoc
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet jdoc "template for a JavaDoc" Ab
+/**
+ * @param $1
+ * @return $2
+ * @throws $3
+ */
+endsnippet

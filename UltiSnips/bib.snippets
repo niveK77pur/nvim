@@ -1,0 +1,9 @@
+snippet '@(\w+)' "@xxx -> @xxx{...}" rb
+@`!p snip.rv = match.group(1)`{$1,
+	title = {$2},
+	author = {$3},
+	date = {$4},
+	url = {$5},
+	urldate = {`!p import datetime; snip.rv = datetime.datetime.now().strftime("%F")`},
+}
+endsnippet

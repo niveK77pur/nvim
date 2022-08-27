@@ -69,6 +69,14 @@ return require('packer').startup({function(use)
         end, -- }}}
     }
 
+    use {
+        'SirVer/ultisnips',
+        config = function() -- {{{
+            vim.g.UltiSnipsEditSplit = 'tabdo'
+            vim.g.UltiSnipsSnippetDirectories = { vim.fn.stdpath('config') .. '/UltiSnips' }
+        end, --}}}
+    }
+
     -- Interface --
     use 'sainnhe/everforest'
 end,

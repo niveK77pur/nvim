@@ -1,0 +1,87 @@
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    Globals
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+global !p
+def get_tw():
+	"""Get text width (80 if &tw==0)"""
+	tw = vim.eval('&textwidth')
+	return int(tw) if tw != '0' else 80
+
+def get_cc():
+	"""Get comment character"""
+	return vim.eval('GetCommentCharacter()')
+
+def compute_space(text, mode, exclude=(0,0)):
+	exclude_before, exclude_after = exclude
+	total_exclude = exclude_before + exclude_after
+	if mode == 'center':
+		# spaces needed to center a piece of text
+		#      <center text>  &  <adjust spacing based on parameters>
+		return (get_tw()//2 - len(text)//2) - (len(get_cc()) + total_exclude)
+	if mode == 'center-front':
+		return compute_space(text, 'center', exclude)
+	if mode == 'center-rear':
+		# a more sensitive centering (especially for placment after text)
+		return compute_space(text, 'center', exclude) - (1 if len(t[1])%2 != 0 else 0)
+	elif mode == 'fill':
+		# spaces needed to fill until "end of the line"
+		return get_tw() - len(get_cc()) - total_exclude
+	elif mode == 'text':
+		# space needed to fill a certain part according to the text
+		return len(text) - total_exclude
+
+endglobal
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                       Boxes
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet box "== box ==" b
+`!p snip.rv = "=" * (6 + len(t[1]))`
+== $1 ==
+`!p snip.rv = "=" * (6 + len(t[1]))`
+endsnippet
+
+snippet letter "[box] style [5]" b
+ ____`!p snip.rv = '_' * len(t[1])`____
+/\   `!p snip.rv = ' ' * len(t[1])`    \
+\_|  `!p snip.rv = ' ' * len(t[1])`    |
+  |   ${1:${VISUAL}}   |  
+  |  `!p snip.rv = ' ' * len(t[1])`    |
+  |  `!p snip.rv = '_' * len(t[1])`____|_
+  \_/`!p snip.rv = '_' * len(t[1])`_____/
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    Headers
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# https://asciiart.website/
+# https://asciiart.website/index.php?art=art%20and%20design/borders
+# https://www.asciiart.eu/art-and-design/dividers
+# http://www.asciiworld.com/-Edges-and-Funds-.html
+
+snippet MH "MakeHeader(...)" b
+`!p text_len = get_tw() - len(get_cc())`
+`!p snip.rv = '{}{}'.format(get_cc(), '~' * text_len)`
+`!p snip.rv = get_cc() + ' ' * (get_tw()//2 - len(t[1])//2 - len(get_cc()))`${1:${VISUAL}}
+`!p snip.rv = '{}{}'.format(get_cc(), '~' * text_len)`
+endsnippet
+
+snippet MS "MakeSection(...)" b
+`!p text_len = get_tw() - len(get_cc()) - len(t[1]) - 2`
+`!p snip.rv = get_cc()` ${1:${VISUAL}} `!p snip.rv = '-' * text_len`
+endsnippet
+
+snippet MSC "centered version of MS" b
+`!p snip.rv = get_cc() + '-'*compute_space(t[1],'center',(0,1))` ${1:${VISUAL}} `!p snip.rv = '-' * compute_space(t[1],'center-rear',(1,0))`
+endsnippet
+
+
+snippet banner "Cool text banner" b
+        ___`!p snip.rv = "_"*compute_space(t[1],'fill',(11,11))`___
+_______|   `!p snip.rv = " "*compute_space(t[1],'fill',(11,11))`   |_______
+\      |   `!p snip.rv = " "*compute_space(t[1],'center-front',(11,0))`${1:${VISUAL}}`!p snip.rv = " "*compute_space(t[1],'center-rear',(0,11))`   |      /
+ ›     |___`!p snip.rv = "_"*compute_space(t[1],'fill',(11,11))`___|     ‹
+/_________)`!p snip.rv = " "*compute_space(t[1],'fill',(11,11))`(_________\
+endsnippet

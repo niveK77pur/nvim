@@ -1,0 +1,152 @@
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                     Signs
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet fe "\fermata" i
+\fermata $0
+endsnippet
+
+snippet ar "\arpeggio" i
+\arpeggio $0
+endsnippet
+
+snippet pa "\parenthesize" i
+\parenthesize
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    Voices
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet pt "Polyphonic passage << {===...} \new Voice {...} >>" b
+<< { \voiceOne 
+		${VISUAL:r}$1
+	}
+	\new Voice { \voiceTwo 
+		${2:r}
+	}
+>> \oneVoice
+endsnippet
+
+snippet p\ "<< {===...} \\ {...} >>"
+<< { ${VISUAL}$1 } \\\\ { $2 } >>
+endsnippet
+
+snippet p\\ "<< {===...} \\ {...} >>" b
+<<
+	{ ${VISUAL}$1 }
+	\\\\
+	{ $2 }
+>>
+endsnippet
+
+snippet 1v "\oneVoice" i
+\oneVoice
+endsnippet
+
+snippet v1 "\voiceOne" i
+\voiceOne
+endsnippet
+
+snippet v2 "\voiceTwo" i
+\voiceTwo
+endsnippet
+
+snippet v3 "\voiceThree" i
+\voiceThree
+endsnippet
+
+snippet v4 "\voiceFour" i
+\voiceFour
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    Staves
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet re "\relative ... {___}"
+\relative $1 {
+	${VISUAL}$0
+}
+endsnippet
+
+snippet chl "\change Staff = 'left'"
+\change Staff = "left" $0
+endsnippet
+
+snippet chr "\change Staff = 'right'"
+\change Staff = "right" $0
+endsnippet
+
+snippet 'ot(-?\d)' "\ottava x" ir
+`!p snip.rv = '\\ottava ' + match.group(1)` $0
+endsnippet
+
+snippet ottavation "manual ottavation" b
+\set Staff.ottavation = #"8vb"
+\once \override Staff.OttavaBracket.direction = #DOWN
+\set Voice.middleCPosition = #(+ 6 7)
+${VISUAL}$1
+\unset Staff.ottavation
+\unset Voice.middleCPosition
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    Phrases
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet gg "\grace{...}" i
+\grace { ${VISUAL}$1 }
+endsnippet
+
+snippet ga "\acciaccatura{...}" i
+\acciaccatura { ${VISUAL}$1 }
+endsnippet
+
+snippet gap "\appoggiatura{...}" i
+\appoggiatura { ${VISUAL}$1 }
+endsnippet
+
+snippet shape "[-]\shape displacements item"
+\shape #'((0 . 0) (0 . 0) (0 . 0) (0 . 0)) ${1:Slur}
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                     Notes
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet hn "\hideNotes"
+\hideNotes
+endsnippet
+
+snippet uhn "\unHideNotes"
+\unHideNotes
+endsnippet
+
+snippet t "\tuplet ... { ___ }"
+\tuplet ${1:3/2} { ${VISUAL}$2 }$0
+endsnippet
+
+snippet 's(\d+\.?)(\*\d+)?' "s4.*9 -> 9 times 's4. |'" r
+`!p snip.rv = ' '.join(['s'+match.group(1)+' |'] * (int(match.group(2)[1:]) if match.group(2)!=None else 1))`
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                     Score
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet 'c([tb])([_^]\d+)?' "\clef 'treble'" r
+\clef "`!p snip.rv = { 't':'treble', 'b':'bass' }[match.group(1)] + (match.group(2) or '')`" $0
+endsnippet
+
+snippet te "\tempo d = v"
+\time $1 = $2
+endsnippet
+
+snippet 'k(\w+)m' "\key ... \minor" r
+\key `!p snip.rv = match.group(1)` \minor
+endsnippet
+
+snippet 'k(\w+)M' "\key ... \major" r
+\key `!p snip.rv = match.group(1)` \major
+endsnippet

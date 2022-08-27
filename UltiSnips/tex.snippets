@@ -1,0 +1,292 @@
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    Globals
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+global !p
+brackets = {
+	'(' : ')',
+	'[' : ']',
+	'{' : '}'
+}
+endglobal
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    Blocks
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet be "\begin{...} ___ \end{}" b
+\begin{$1}
+	${VISUAL}$0
+\end{$1}
+endsnippet
+
+snippet 'be(\w+\*?)' "\begin{} ___ \end{}" br
+\begin{`!p snip.rv = match.group(1)`}
+	${VISUAL}$0
+\end{`!p snip.rv = match.group(1)`}
+endsnippet
+
+snippet i "\item" b
+\item $0
+endsnippet
+
+snippet .i "\item[===] ..." b
+\item[${VISUAL}] $0
+endsnippet
+
+snippet i. "\item[...] ===..." b
+\item[$1] ${VISUAL}$0
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                   Sections
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet "s([123])(\*?)" "s1* -> \section*{___} or s2 -> \subsection{___} or ..." br
+`!p snip.rv = "\\{}section{}".format(
+	(int(match.group(1)) - 1) * "sub", match.group(2))`{${1:${VISUAL}}}
+$0
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                 Text Commands
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet fn "\footnote{___}" i
+\footnote{${1:${VISUAL}}}
+endsnippet
+
+snippet url "\url{___}" i
+\url{${1:${VISUAL}}}
+endsnippet
+
+snippet '(?<![:tslf]):(\w+)' ":x -> \gls{x}" ir
+\gls{`!p snip.rv = match.group(1)`}
+endsnippet
+
+snippet '::(\w+)' "::x -> \glspl{x}" ir
+\glspl{`!p snip.rv = match.group(1)`}
+endsnippet
+
+snippet '([tslf]):(\w+)' "t:x -> \glsentrytext{x}" ir
+\glsentry`!p snip.rv = {'t':'text','s':'short','l':'long','f':'full'}[match.group(1)]`{`!p snip.rv = match.group(2)`}
+endsnippet
+
+snippet '!(.*?)!' "!...! -> \alert{...}" ir
+\alert{`!p snip.rv = match.group(1)`}
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                 Text Families
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet 't(i|t)' "ti,tt -> \textit{___},\texttt{___}" ir
+`!p snip.rv = '\\text' + match.group(1) + 't'`{${1:${VISUAL}}}
+endsnippet
+
+snippet tb "\textbf{___}" i
+\textbf{${1:${VISUAL}}}
+endsnippet
+
+snippet em "\emph{___}" i
+\emph{${1:${VISUAL}}}
+endsnippet
+
+snippet ul "\underline{___}" i
+\underline{${1:${VISUAL}}}
+endsnippet
+
+snippet hl "\hl{___}" i
+\hl{${1:${VISUAL}}}
+endsnippet
+
+snippet | "\verb|___|" i
+\verb|${1:${VISUAL}}|
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                     Math
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet '#?([\d\w\.\+\-\*\^{}\(\)\\]+)/([\d\w\.\+\-\*\^{}\(\)\\]+)(#)?' "x/y\ -> \tfrac{x}{y}" r
+`!p snip.rv = '\\' + ('t' if match.group(3) else '') + 'frac{' + match.group(1) + '}{' + match.group(2) + '}'`
+endsnippet
+
+snippet '(\[\]|{}|\(\))' "(),{},[] -> \left(...\right)" ir
+\left`!p snip.rv = match.group(1)[0]`${VISUAL}$1\right`!p snip.rv = match.group(1)[1]`
+endsnippet
+
+snippet 'nl$' "\\" ir
+\\\\
+$0
+endsnippet
+
+snippet >= "\geq" i
+\geq 
+endsnippet
+
+snippet <= "\leq" i
+\leq 
+endsnippet
+
+# snippet * "\times" i
+# \times
+# endsnippet
+
+snippet log "\log{___}" i
+\log{${VISUAL}$1}$0
+endsnippet
+
+# snippet sq "\sqrt{___}" i
+# \sqrt{${VISUAL}$1}$0
+# endsnippet
+
+snippet '<(.)' "\vec{...}" ir
+\vec{`!p snip.rv = match.group(1)`}
+endsnippet
+
+snippet '<(.*?)>' "\overrightarrow{...}" ir
+\overrightarrow{`!p snip.rv = match.group(1)`}
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    siunitx
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet sn "\num{}"
+\num{$1}
+endsnippet
+
+snippet sq "\qty{}{}"
+\qty{$1}{$2}
+endsnippet
+
+snippet sa "\ang{}"
+\ang{$1}
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                     Lists
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+post_jump "if snip.tabstop == 0: snip.expand_anon('\n\\item $1$0')"
+snippet	itemize "create an itemize environment"
+\begin{itemize}
+	\item $1$0
+\end{itemize}
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                             Figures, Tables, ...
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet includegraphics "command to include a graphic"
+\includegraphics[${2:width=$4\\${3:linewidth}}]{$1}
+endsnippet
+
+snippet INCLUDEGRAPHICS "create figure containing the graphic" b
+\begin{figure}
+	\centering
+	\includegraphics[${4:width=$6\\${5:linewidth}}]{$3}
+	\caption{$1}
+	\label{fig:$2}
+\end{figure}
+endsnippet
+
+snippet table "\begin{table}...\begin{tabular} ..." b
+\begin{table}
+	\centering
+	\begin{tabular}{$3}
+		$0
+	\end{tabular}
+	\caption{$1}
+	\label{tab:$2}
+\end{table}
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    BEAMER
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Frames -----------------------------------------------------------------------
+snippet frame "create a frame" b
+\begin{frame}{${1:Frame title}} %{{{
+	$0
+\end{frame} %}}}
+endsnippet
+
+snippet framel "create a frame with label"
+\begin{frame}[label=$2]{${1:Frame title}} %{{{
+	$0
+\end{frame} %}}}
+endsnippet
+
+snippet frames "create a single slide frame" b
+\begin{frame}[environment=singleslide]{${1:Frame title}} %{{{
+	$0
+\end{frame} %}}}
+endsnippet
+
+snippet framels "create a Labeled Single slide frame" b
+\begin{frame}[environment=singleslide, label=$2]{${1:Frame title}} %{{{
+	$0
+\end{frame} %}}}
+endsnippet
+
+# Columns ----------------------------------------------------------------------
+snippet columns "create 2 columns" b
+\begin{columns}[c]
+	\column{0.5\textwidth}
+		${VISUAL}$1
+	\column{0.5\textwidth}
+		$2
+\end{columns}
+endsnippet
+
+snippet minicolumns "create 2 columns with minipages" b
+\begin{columns}[c]
+	\column{0.5\textwidth}
+		\begin{minipage}[c][0.8\textheight]{\columnwidth}
+			${VISUAL}$1
+		\end{minipage}
+	\column{0.5\textwidth}
+		\begin{minipage}[c][0.8\textheight]{\columnwidth}
+			$2
+		\end{minipage}
+\end{columns}
+endsnippet
+
+# Speaker notes ----------------------------------------------------------------
+
+snippet 'n([0-9-]*)' "add speaker note" br
+\note`!p snip.rv = '<{}>'.format(match.group(1)) if match.group(1) else ''`[item]{$1}
+endsnippet
+
+# beamerarticle ----------------------------------------------------------------
+
+# snippet P "<presentation>" i
+# <presentation>
+# endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                   Commands
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet up "\usepackage{___}" b
+\usepackage{${1:${VISUAL}}}
+endsnippet
+
+snippet UP "\usepackage[...]{___}" b
+\usepackage[$2]{${1:${VISUAL}}}
+endsnippet
+
+snippet 'newac ([^ ]+) (.*)' "\newacronym{...}{...}{...}" br
+\newacronym{`!p snip.rv = match.group(1).lower()`}{`!p snip.rv = match.group(1)`}{`!p snip.rv = match.group(2)`}
+endsnippet
+
+snippet 'newgl ([^ ]+) (.*)' "\newglossaryentry{...}{name={...},description={...}}" br
+\newglossaryentry{`!p snip.rv = match.group(1).lower()`}{
+	name = {`!p snip.rv = match.group(1)`},
+	description = {`!p snip.rv =  match.group(2)`},
+}
+endsnippet

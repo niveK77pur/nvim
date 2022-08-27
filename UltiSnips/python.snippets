@@ -1,0 +1,84 @@
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                  Print stuff
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+post_jump "if snip.tabstop == 2: snip.expand_anon(''.join( ( '$'+str(i+1)+'\{\}' for i in range(len(snip.tabstops[1].current_text.split(','))) ) ))"
+snippet pf "print format : print('...'.format(...))"
+print("$2".format($1))$0
+endsnippet
+
+snippet pd "print debug : print('a: {}, b: {}'.format(a,b))"
+print("`!p snip.rv = ', '.join( (param.strip()+': {}' for param in t[1].split(',')) )`".format($1))
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                     Loops
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet f "for ... in ...: ===" b
+for ${1:i} in ${2:range($3)}:
+	${VISUAL}$0
+endsnippet
+
+snippet w "while ...: ===" b
+while $1:
+	${VISUAL}$0
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                  ROS Python
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet rospub "create a ROS publisher" b
+${1:pub} = rospy.Publisher("/${2:channel}", ${3:Type}, queue_size=1)
+$1_rate = rospy.Rate(${4:2})
+while not rospy.is_shutdown():
+	$1.publish(${5:VALUE})
+	$1_rate.sleep()
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                 Miscellaneous
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet ':(.*)/l' ":a,b,c/l --> ['a', 'b', 'c']" r
+`!p snip.rv = match.group(1).strip().split(',')`
+endsnippet
+
+snippet 'def isPrime' "function to generate primes" b
+def isPrime(n):
+	if n < 2:
+		return False
+	elif n == 2:
+		return True
+	elif n % 2 == 0:
+		return False
+	else:
+		for i in range(3,int(sqrt(n)),2):
+			if n % i == 0:
+				return False
+		return True
+endsnippet
+
+snippet timeit "enclose selection with time keeping code" b
+print("Starting $1 ...")
+from time import time
+s = time()
+${2:${VISUAL}}
+e = time()
+print("Finished $1.")
+print(">> Took {} seconds".format(e-s))
+endsnippet
+
+snippet timeitloop "enclose selection with time keeping code" b
+print("Starting $1 ...")
+from time import time
+time_entries = []
+for i in range(${2:10}):
+	s = time()
+	${3:${VISUAL}}
+	e = time()
+	time_entries.append(e-s)
+print("Finished $1.")
+print(">> Took {} seconds on average".format(sum(time_entries)/len(time_entries)))
+endsnippet

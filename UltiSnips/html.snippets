@@ -1,0 +1,13 @@
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                     Tags
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet '\bt([\w-]+)' "tags (one line)" r
+<`!p snip.rv = match.group(1)`$1>${VISUAL}$0</`!p snip.rv = match.group(1)`>
+endsnippet
+
+snippet '\bT([\w-]+)' "tags (multi line)" r
+<`!p snip.rv = match.group(1)`$1>
+	${VISUAL}$0
+</`!p snip.rv = match.group(1)`>
+endsnippet

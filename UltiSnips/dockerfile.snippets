@@ -1,0 +1,17 @@
+snippet useradd "commands to add user" b
+# create user
+ARG USER=${1:myuser}
+ARG HOME=/home/${USER}
+RUN useradd -m ${USER}
+endsnippet
+
+snippet adduser "commands to add user (alpine)" b
+# create user (alpine)
+ARG USER=${1:myuser}
+ARG HOME=/home/${USER}
+RUN adduser --disabled-password --gecos "${USER}" ${USER}
+endsnippet
+
+snippet COPYU "copy with $USER privileges" b
+COPY --chown=${USER}:${USER} ${1:src} ${2:dest}
+endsnippet

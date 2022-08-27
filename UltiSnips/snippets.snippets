@@ -1,0 +1,116 @@
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                               Defining snippets
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet S "snippet ... endsnippet" bA
+`!p snip.rv = 'snippet'` $1 "$2"
+$0
+`!p snip.rv = 'endsnippet'`
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                 Placeholders
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet V "${VISUAL}" i
+`!p snip.rv = '${VISUAL}'`$0
+endsnippet
+
+snippet '\$(\d+)v' "$16v -> ${16:${VISUAL}}" ir
+`!p snip.rv = "${" + match.group(1) + ":${VISUAL}}"`
+endsnippet
+
+snippet '\$v(\d+)' "$v16 -> ${VISUAL}$16" ir
+`!p snip.rv = "${VISUAL}$" + match.group(1)`
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                 Interpolation
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet !p "`!p ...`" i
+\`!p $1\`
+endsnippet
+
+snippet !pr "`!p snip.rv = ...`" i
+\`!p snip.rv = $1\`
+endsnippet
+
+snippet sr "snip.rv = ..."
+snip.rv = ${0:${VISUAL}}
+endsnippet
+
+snippet 'mg(\d+)' "match.group()" ir
+`!p snip.rv = 'match.group(' + match.group(1) + ')'`
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    Testing
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Define snippets just using Python --------------------------------------------
+# https://pastebin.com/V4bLCN8y
+
+# global !p
+# def PostJumpExample1():
+#     snip.buffer[snip.line] = 'giggles'
+#     snip.cursor.set(snip.line, len(snip.buffer[snip.line]))
+# endglobal
+ 
+# post_jump "PostJumpExample1()"
+# snippet test1 "."
+# \$1
+# ($1)
+# \$2
+# [$2]
+# \$3
+# ($3)
+# endsnippet
+ 
+# global !p
+# def PostJumpExample2():
+#     snip.expand_anon("== $1another $2 just $3 <==")
+# endglobal
+ 
+# post_jump "PostJumpExample2()"
+# snippet test2 "."
+# endsnippet
+
+# Generate snippet based on regex ----------------------------------------------
+# https://pastebin.com/s7FPPadE
+
+global !p
+def VinLudens():
+    import re
+    CurrentLine = snip.buffer[snip.line]
+    Pattern = re.compile("[^:,]+")
+    LiteralSnippet = ""
+    Index = 1
+    snip.buffer[snip.line] = ""
+    for j in Pattern.findall(CurrentLine):
+        LiteralSnippet += (j + " = $" + str(Index)  + "\n")
+        Index += 1
+    snip.expand_anon(LiteralSnippet)
+endglobal
+ 
+ 
+# |TODO|: Find out how to make the first placeholder to set the cursor in its
+# correct position (it appears one character behind its correct position
+ 
+pre_expand "VinLudens()"
+snippet "^:.+:$" "" rA
+endsnippet
+ 
+# SNAP
+# ===============================
+# -> :1,2:<tab>
+# a =$1
+# b = $2
+# ===============================
+# -> :1,2,3,4,5:<tab>
+# 1 =$1
+# 2 = $2
+# 3 = $3
+# 4 = $4
+# 5 = $5
+# ===============================
