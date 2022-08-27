@@ -51,6 +51,24 @@ return require('packer').startup({function(use)
         end, -- }}}
     }
 
+    use { disable = true,
+        'nvim-telescope/telescope.nvim', tag = '0.1.0',
+        requires = { {'nvim-lua/plenary.nvim'} },
+        config = function() -- {{{
+            local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
+            local tb = require('telescope.builtin')
+            nmap('<leader>ff', function() tb.find_files() end)
+            nmap('<leader>fr', function() tb.live_grep() end)
+            nmap('<leader>fb', function() tb.buffers() end)
+            nmap('<leader>fh', function() tb.help_tags() end)
+            nmap('<leader>tj', function() tb.jumplist() end)
+            nmap('<leader>tm', function() tb.marks() end)
+            nmap('<leader>tc', function() tb.command_history() end)
+            nmap('<leader>ts', function() tb.search_history() end)
+            nmap('<leader>tt', function() tb.treesitter() end)
+        end, -- }}}
+    }
+
     -- Interface --
     use 'sainnhe/everforest'
 end,
