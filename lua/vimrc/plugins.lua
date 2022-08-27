@@ -16,6 +16,23 @@ vim.cmd([[
 return require('packer').startup({function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
+
+    -- Handy tools --
+    use { 'MunifTanjim/exrc.nvim', -- local .nvimrc files
+        requires = { 'MunifTanjim/nui.nvim', opt=true },
+        config = function() -- {{{
+            -- disable built-in local config file support
+            vim.o.exrc = false
+            require("exrc").setup({
+                files = {
+                    ".nvimrc.lua",
+                    ".nvimrc",
+                    ".exrc.lua",
+                    ".exrc",
+                },
+            })
+        end, -- }}}
+    }
     -- Interface --
     use 'sainnhe/everforest'
 end,
