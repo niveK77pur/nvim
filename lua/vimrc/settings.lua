@@ -61,6 +61,7 @@ vim.opt.statusline =
 -- }}}
 
 local fold_fill_char = '.'
+local lnum_far_right = false
 function _G.MyFoldText(fc) -- {{{
     -- https://www.reddit.com/r/neovim/comments/opznf4/custom_foldtext_in_lua/
     local fillchar = fc or fold_fill_char
@@ -76,15 +77,18 @@ function _G.MyFoldText(fc) -- {{{
         right = string.format("[%dL]", num_lines_folded),
     }
     -- Take into account line number column. It breaks when more columns are needed than specified, as there is no way to obtain the "effective" number column width. (i.e. the default value of 4 allows for line numbers up to 999; if you have line number 1000, then it will implicitly use 5 colums. There is no way to tell this. A hack is implemented by conditionally substracting the corresponding value.
-    local fillcharcount = vim.api.nvim_win_get_width(0)
-        - #line.left - #line.right
-        -- - (vim.o.textwidth or 80)
-        - ( (vim.o.number or vim.o.relativenumber or 0) and math.max(vim.o.numberwidth, vim.o.relativenumber and -1 or #tostring(vim.fn.line('$'))+1 ) )
+    local fillcharcount
+    if not lnum_far_right then -- put Line number at 'textwidth'
+        fillcharcount = ((vim.o.textwidth>0) or 80) - #line.left - #line.right
+    else -- put Line number at the very right edge
+        fillcharcount = vim.api.nvim_win_get_width(0) - #line.left - #line.right
+           - ( (vim.o.number or vim.o.relativenumber or 0) and math.max(vim.o.numberwidth, vim.o.relativenumber and -1 or #tostring(vim.fn.line('$'))+1 ) )
         --   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^^^^^^^                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         --   if no line numbers are set, do not substract anything
         --                                                  otherwise try to determine how wide the number column is
         --                                                                              if relative number is used, then 'numberwidth' should be fine (?)
         --                                                                              otherwise, take the number of lines in the buffer (+1; see :h numberwidth)
+    end
     -- Hard-coded value adjustment due to Nerd Font icon character length not
     -- being correctly computed.
     local fillcharcount = fillcharcount + 2
@@ -92,7 +96,7 @@ function _G.MyFoldText(fc) -- {{{
     return line['left'] .. vim.fn['repeat'](fillchar, fillcharcount) .. line['right']
 end -- }}}
 vim.opt.foldtext = 'v:lua.MyFoldText()'
--- vim.opt.fillchars = [[fold:]] .. fold_fill_char
+vim.opt.fillchars = [[fold: ]]
 -- vim.opt.fillchars = [[fold:·]]
 
 -- Editor --
