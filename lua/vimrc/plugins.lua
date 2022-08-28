@@ -20,6 +20,7 @@ return require('packer').startup({function(use)
 
     -- Handy tools --
 
+    use { disable=true, 'thinca/vim-localrc' }
     use { 'MunifTanjim/exrc.nvim', -- local .nvimrc files
         requires = { 'MunifTanjim/nui.nvim', opt=true },
         config = function() -- {{{
