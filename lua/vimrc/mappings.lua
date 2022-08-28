@@ -112,8 +112,8 @@ map('i', '<down>', '<c-o>g<down>')
 
 -- " use ALT+{h,j,k,l} to move cursor in insert mode "{{{
 map('i', '<a-h>', '<left>')
-map('i', '<a-j>', '<down>')
-map('i', '<a-k>', '<up>')
+map('i', '<a-j>', '<c-o>g<down>')
+map('i', '<a-k>', '<c-o>g<up>')
 map('i', '<a-l>', '<right>')
 -- "}}}
 
