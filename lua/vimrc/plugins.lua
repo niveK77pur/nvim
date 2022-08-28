@@ -218,7 +218,7 @@ return require('packer').startup({function(use)
                 desc = 'Set which VIM characters should be auto-paired.',
             })
             -- Default: <M-p>
-            -- vim.g.AutoPairsShortcutToggle = "<Leader><M-p>"
+            vim.g.AutoPairsShortcutToggle = "<Leader><M-p>"
             -- Default: <M-b>
             -- vim.g.AutoPairsBackInsert = "<Leader><M-b>"
         end, -- }}}
