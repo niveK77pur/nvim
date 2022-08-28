@@ -10,6 +10,20 @@ Plugins are managed using [packer.nvim][packer]. An interesting features is the 
 
 ## Quickly edit config files
 
+## Navigation
+
+### Windows
+
+Use `ALT+{hjkl}` to nagivate the open windows. Works from normal, insert and terminal mode!
+
+### Tabs
+
+Use `ALT+{,.}` to cycle through the tabs. Works from normal, insert and terminal mode!
+
+### Insert mode
+
+Use `ALT+{hjkl}` to move the cursor in insert mode. Useful for small movements ~~or if you are too lazy to go to normal mode~~.
+
 ## Headers
 
 ## Lilypond
