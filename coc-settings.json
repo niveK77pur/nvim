@@ -1,0 +1,58 @@
+{
+
+  // Lua settings (sumneko-lua)
+  "sumneko-lua.enableNvimLuaDev": true,
+  "sumneko-lua.checkUpdate": false,
+  "Lua.diagnostics.globals": [ "vim" ],
+
+  // Python settings
+  "python.jediEnabled" : true,
+
+  // Vimtex settings
+  "coc.source.vimtex.enable": true,
+
+  // coc-sh settings
+  "sh.enable": true,
+  "sh.highlightParsingErrors": true,
+  
+  // Java settings
+  // "java.jdt.ls.vmargs": "-Dfile.encoding=UTF-8 -noverify -Xmx1G -XX:+UseG1GC -XX:+UseStringDeduplication",
+  // "java.home": "/usr/lib/jvm/default-runtime/",
+  // "java.import.gradle.enabled": true,
+
+  // Swift settings
+  // "languageserver": {
+  //   "swift": {
+  //     "trace.server": "verbose",
+  //     "command": "~/swift/sourcekite-master/.build/debug/sourcekite",
+  //     // "command": "~/swift/sourcekite-master/.build/release/sourcekite",
+  //     "args": [],
+  //     "filetypes": ["swift"],
+  //     "initializationOptions": {},
+  //     "settings": {
+  //     }
+  //   }
+  // }
+  
+  // CoC Settings
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.virtualText": true,
+  "diagnostic.virtualTextCurrentLineOnly": false,
+  "diagnostic.virtualTextPrefix": "    ┃ "
+  // "diagnostic.virtualTextPrefix": "    ■ ",
+  // "diagnostic.virtualTextPrefix": "    ▶ ",
+  // "diagnostic.virtualTextPrefix": "    ツ ",
+  // "diagnostic.virtualTextPrefix": "    〃 ",
+  // "diagnostic.virtualTextPrefix": "    ◎ ",
+  // "diagnostic.virtualTextPrefix": "    ░ ",
+  // "diagnostic.virtualTextPrefix": "    █ ",
+  // "diagnostic.virtualTextPrefix": "    ‖ ",
+  // "diagnostic.virtualTextPrefix": "    ♯ ",
+  // "diagnostic.virtualTextPrefix": "    ※ ",
+  // "diagnostic.virtualTextPrefix": "    ∴ ",
+  // "diagnostic.virtualTextPrefix": "    ∵ ",
+  // "diagnostic.virtualTextPrefix": "    ∷ ",
+
+}
+
+// vim: ts=2
