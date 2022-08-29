@@ -4,11 +4,11 @@ local map = vim.keymap.set
 
 ---- Config Files ----
 
-map('n', '<Leader>ve', function() vim.cmd(string.format('Files %s/lua/vimrc', vim.fn.stdpath('config'))) end, {
+map('n', '<Leader>ve', function() vim.cmd(('Files %s/lua/vimrc'):format(vim.fn.stdpath('config'))) end, {
     desc = 'edit vimrc files'
 })
 
-map('n', '<Leader>F', function() vim.cmd(string.format('tabnew %s/ftplugin/%s.lua', vim.fn.stdpath('config'), vim.o.filetype)) end, {
+map('n', '<Leader>F', function() vim.cmd(('tabnew %s/ftplugin/%s.lua').format(vim.fn.stdpath('config'), vim.o.filetype)) end, {
     desc = 'edit filetype plugin of current filetype',
 })
 
@@ -17,12 +17,12 @@ map('n', '<Leader>S', ':UltiSnipsEdit<CR>', {
 })
 
 --[[ if vim.fn.exists(':ExrcSource') then
-    map('n', '<Leader>L', function() vim.cmd(string.format("tabnew %s", 'exrc-broken')) end, {
+    map('n', '<Leader>L', function() vim.cmd(("tabnew %s":format('exrc-broken')) end, {
         desc = 'Edit local vimrc file (exrc.nvim)'
     })
 elseif isLoaded('vim-localrc') then
     map('n', '<Leader>L', function()
-        vim.cmd(string.format('tabnew %s', vim.fn.join(vim.g['localrc#search'](vim.g.localrc_filename), ' ')))
+        vim.cmd(('tabnew %s':format(vim.fn.join(vim.g['localrc#search'](vim.g.localrc_filename), ' ')))
         end, {
             desc = 'Edit local vimrc file (vim-localrc)',
     })
@@ -44,7 +44,7 @@ map('n', '<Leader>gf', ':e <cfile><CR>', { desc = "'gf' but make it create new f
 
 map('n', '<Leader>{', function()
         local cs = vim.o.commentstring
-        vim.fn.append('.', { string.format(cs,' {{{'), string.format(cs,' }}}') })
+        vim.fn.append('.', { cs:format(' {{{'), cs:format(' }}}') })
     end, {
         desc = "add '{{{' and '}}}' markings for folding"
 })
