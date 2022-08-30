@@ -170,6 +170,11 @@ return require('packer').startup({function(use)
             vim.cmd([[colorscheme everforest]])
         end
     }
+
+    use { disable=true,
+        'EdenEast/nightfox.nvim'
+    }
+
     -- Editing --
 
     use { disable=true, 'scrooloose/nerdcommenter' }
