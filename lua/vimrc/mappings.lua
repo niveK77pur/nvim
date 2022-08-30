@@ -8,7 +8,7 @@ map('n', '<Leader>ve', function() vim.cmd(('Files %s/lua/vimrc'):format(vim.fn.s
     desc = 'edit vimrc files'
 })
 
-map('n', '<Leader>F', function() vim.cmd(('tabnew %s/ftplugin/%s.lua').format(vim.fn.stdpath('config'), vim.o.filetype)) end, {
+map('n', '<Leader>F', function() vim.cmd(('tabnew %s/ftplugin/%s.lua'):format(vim.fn.stdpath('config'), vim.o.filetype)) end, {
     desc = 'edit filetype plugin of current filetype',
 })
 
