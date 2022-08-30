@@ -162,8 +162,14 @@ return require('packer').startup({function(use)
 
 
     -- Interface --
-    use 'sainnhe/everforest'
 
+    use {
+        'sainnhe/everforest',
+        config = function ()
+            vim.g.everforest_transparent_background = 1
+            vim.cmd([[colorscheme everforest]])
+        end
+    }
     -- Editing --
 
     use { disable=true, 'scrooloose/nerdcommenter' }
