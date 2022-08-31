@@ -60,3 +60,73 @@ do -- UltiSnips snippet files {{{
     })
 end -- }}}
 
+do -- lua/vimrc/plugins.lua {{{
+    function _G.foldexprVIMRCplugins(lnum, POI)
+        local line = vim.fn.getline(lnum)
+
+        -- START : Move cursor --
+        local view = vim.fn.winsaveview()
+        vim.api.nvim_win_set_cursor(0, {lnum,0})
+
+        -- determine current location in the code
+        local in_preamble = vim.fn.search([[^return require('packer')\.startup]], 'Wn') > 0
+        local in_use = false
+        do
+            local prev_use = vim.fn.search([[^\s*use\s*{]], 'Wb')
+            if prev_use == 0 then -- no fold if there is no previous 'use'
+                goto nouse
+            end
+            vim.cmd[[normal! f{]]
+            local prev_use_end = vim.fn.searchpair('{', '', '}', 'n')
+            -- cursor is in a line before the closing bracket of use {}
+            in_use = (lnum <= prev_use_end)
+            ::nouse::
+        end
+
+        vim.fn.winrestview(view)
+        -- END : Reset cursor --
+
+        if in_preamble then
+            -- we are in the 'preamble' (i.e. before packer startup call)
+            if line:match('^%-%-') then -- start new fold on commented line
+                return '>1'
+            elseif line:match('^%s*$') then -- reset fold on empty lines
+                return '0'
+            end
+            return '='
+        else
+            if line:match("^return require%('packer'%)") then
+                -- reset indent when startup begins
+                return '0'
+            end
+
+            if line:match("^%s*use%s*{.*}") then
+                -- no fold if use starts and finishes on same line
+                return '0'
+            elseif line:match("^%s*use%s*{") then
+                return '>1'
+            elseif in_use then
+                if line:match('config = function') then
+                    return '>2'
+                end
+                return '1'
+            else
+                return '0'
+            end
+        end
+    end
+    vim.api.nvim_create_autocmd({ "BufRead" }, {
+        group = augroup_MyVIMRC,
+        pattern = { ('%s/lua/vimrc/plugins.lua'):format(vim.fn.stdpath('config')) },
+        desc = "Set foldexpr for 'vimrc.plugins' module file",
+        callback = function()
+            vim.wo.foldcolumn = '4'
+            vim.wo.foldmethod = 'expr'
+            vim.g.foldstate = { preamble = true, packer = false, }
+            vim.b.points_of_interest = {  }
+            vim.wo.foldexpr = 'v:lua.foldexprVIMRCplugins(v:lnum, b:points_of_interest)'
+        end,
+    })
+end -- }}}
+
+-- vim: fdm=marker
