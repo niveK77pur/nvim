@@ -88,7 +88,7 @@ function _G.MyFoldText(fc) -- {{{
     end
     -- Hard-coded value adjustment due to Nerd Font icon character length not
     -- being correctly computed.
-    local fillcharcount = fillcharcount + 2
+    fillcharcount = fillcharcount + 2
     -- 'repeat' is a lua keyword, we need to use a different syntax to call the function
     return line['left'] .. vim.fn['repeat'](fillchar, fillcharcount) .. line['right']
 end -- }}}
