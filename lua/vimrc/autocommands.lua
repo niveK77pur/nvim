@@ -49,3 +49,14 @@ do -- lua/vimrc/functions.lua {{{
     })
 end -- }}}
 
+do -- UltiSnips snippet files {{{
+    vim.api.nvim_create_autocmd({ "BufRead" }, {
+        group = augroup_MyVIMRC,
+        pattern = { "*.snippets" },
+        desc = "Set foldexpr for UltiSnips snippet files",
+        callback = function()
+            vim.wo.foldlevel = 0
+        end,
+    })
+end -- }}}
+
