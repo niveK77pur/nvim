@@ -73,6 +73,45 @@ function myfs.getvpos() -- {{{
     local v_end   = pos_v[2] > pos_d[2] and pos_v or pos_d
 
     return v_start, v_end
+
+
+function myfs.GetCommentCharacter()
+    for _,v in pairs(vim.fn.split(vim.o.comments, ',')) do
+        if v:match('^b?:') then
+            return v:match(':(.*)')
+        end
+    end
+    return ''
+end
+
+function myfs.MakeHeader(text, ret)
+    local indent = vim.fn.substitute(vim.fn.getline('.'), [[^\s*\zs\S.*]], '', '')
+    local comment_character = myfs.GetCommentCharacter()
+    local textwidth = (vim.o.textwidth>0) or 80
+    local width = textwidth - #indent - #comment_character
+    local space = (' '):rep(vim.fn.round( width/2 - #text/2 ))
+
+    local banner = ("%s%s%s"):format(indent, comment_character, ('~'):rep(width))
+    local text_line = ("%s%s%s%s"):format(indent, comment_character, space, text)
+    vim.fn.append('.', {
+        banner,
+        text_line,
+        banner,
+    })
+end
+
+function myfs.MakeSection(text, ret)
+    local indent = vim.fn.substitute(vim.fn.getline('.'), [[^\s*\zs\S.*]], '', '')
+    local comment_character = myfs.GetCommentCharacter()
+    local textwidth = (vim.o.textwidth>0) or 80
+    local width = textwidth - #indent - #comment_character
+    text = (' %s '):format(text)
+
+    local banner = ('-'):rep(width - #text)
+    local text_line = ("%s%s%s%s"):format(indent, comment_character, text, banner)
+    vim.fn.append('.', {
+        text_line,
+    })
 end
 -- }}}
 
