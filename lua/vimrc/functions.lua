@@ -73,6 +73,7 @@ function myfs.getvpos() -- {{{
     local v_end   = pos_v[2] > pos_d[2] and pos_v or pos_d
 
     return v_start, v_end
+end -- }}}
 
 
 function myfs.GetCommentCharacter()
@@ -113,7 +114,6 @@ function myfs.MakeSection(text, ret)
         text_line,
     })
 end
--- }}}
 
 
 return myfs
