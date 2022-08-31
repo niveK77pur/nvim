@@ -1,20 +1,20 @@
--- install packer if not found {{{1
+-- install packer if not found
 local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 local packer_bootstrap
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   packer_bootstrap = vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
   vim.cmd [[packadd packer.nvim]]
 end
--- automatically :PackerCompile when file is written  {{{1
+-- automatically :PackerCompile when file is written
 vim.cmd([[
   augroup packer_user_config
     autocmd!
     autocmd BufWritePost plugins.lua source <afile> | PackerCompile
   augroup end
 ]])
--- }}}1
 
 return require('packer').startup({function(use)
+
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
@@ -166,8 +166,7 @@ return require('packer').startup({function(use)
         end
     } -- }}}
 
-    use { disable=true, 'EdenEast/nightfox.nvim', -- {{{
-    } -- }}}
+    use { disable=true, 'EdenEast/nightfox.nvim' }
 
     -- Editing --
 
@@ -555,5 +554,3 @@ config = { -- {{{
         enable = true,
     },
 }}) -- }}}
-
--- vim: fdm=marker
