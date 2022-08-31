@@ -9,6 +9,7 @@ local vimrc_files = {
 	'vimrc.mappings',
 	'vimrc.plugins',
 	'vimrc.settings',
+	'vimrc.autocommands',
 }
 
 for _,vfile in pairs(vimrc_files) do

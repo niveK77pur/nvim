@@ -17,3 +17,37 @@
 --         au BufNewFile description.txt 0r $HOME/.vim/skeletons/Miscellaneous/Youtube_description.txt
 -- augroup END
 -- "}}}
+
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--                                  VIMRC Files
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+local augroup_MyVIMRC = vim.api.nvim_create_augroup('MyVIMRC', {})
+
+do
+    function _G.foldexprVIMRCfunctions(lnum)
+        local line = vim.fn.getline(lnum)
+        if line:match('^function') then
+            return 'a1'
+        elseif line:match('^end') then
+            return 's1'
+        else
+            return '='
+        end
+    end
+    vim.api.nvim_create_autocmd({ "BufRead" }, {
+        group = augroup_MyVIMRC,
+        pattern = { ('%s/lua/vimrc/functions.lua'):format(vim.fn.stdpath('config')) },
+        -- pattern = { '*.lua' },
+        desc = "Settings for 'vimrc.function' module",
+        callback = function()
+            -- print("Entered functions file")
+            vim.wo.foldcolumn = '4'
+            vim.wo.foldmethod = 'expr'
+            vim.wo.foldexpr = 'v:lua.foldexprVIMRCfunctions(v:lnum)'
+        end,
+    })
+end
+
+-- vim.cmd [[au! BufRead,BufEnter * :echom 'test vim autocmd']]
