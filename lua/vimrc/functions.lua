@@ -85,7 +85,7 @@ function myfs.GetCommentCharacter()
     return ''
 end
 
-function myfs.MakeHeader(text, ret)
+function myfs.MakeHeader(text)
     local indent = vim.fn.substitute(vim.fn.getline('.'), [[^\s*\zs\S.*]], '', '')
     local comment_character = myfs.GetCommentCharacter()
     local textwidth = (vim.o.textwidth>0) or 80
@@ -101,7 +101,7 @@ function myfs.MakeHeader(text, ret)
     })
 end
 
-function myfs.MakeSection(text, ret)
+function myfs.MakeSection(text)
     local indent = vim.fn.substitute(vim.fn.getline('.'), [[^\s*\zs\S.*]], '', '')
     local comment_character = myfs.GetCommentCharacter()
     local textwidth = (vim.o.textwidth>0) or 80
