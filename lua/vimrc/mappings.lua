@@ -69,7 +69,7 @@ map('i', '<A-p>', '<c-r>"', { desc = 'paste text in " register more easily in in
 ---- Macros ----
 
 map('n', 'Q', '@', { desc = 'execute macros more comfortably (and remove unnecessary ex mode, see :h gQ)' })
-map('x', 'Q', function()
+map('x', 'Q', function() -- {{{
         -- Inspiration:
         --  https://stackoverflow.com/a/3338360
         --  https://medium.com/@schtoeffel/you-don-t-need-more-than-one-cursor-in-vim-2c44117d51db#.10y7wvl5y
@@ -99,6 +99,7 @@ map('x', 'Q', function()
             end,
         }
     end, { desc = 'execute macros more comfortably (on every line matching a pattern)' })
+-- }}}
 
 -- map('n', '<space>', '@q', { desc = 'conveniently execute macro in register 'q'' })
 -- map('n', '<c-space>', ':let @q=""<CR>', { desc = "empty the 'q' register to avoid running a macro by accident" })
