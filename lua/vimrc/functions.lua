@@ -1,8 +1,8 @@
-local myfunctions = {}
+local myfs = {}
 
 
 
-function myfunctions.nuiInput(params) -- {{{
+function myfs.nuiInput(params) -- {{{
     params.position  = params.position  or "50%"
     params.width     = params.width     or 30
     params.text      = params.text      or 'Input Box'
@@ -50,7 +50,7 @@ function myfunctions.nuiInput(params) -- {{{
 end -- }}}
 
 
-function myfunctions.getvpos() -- {{{
+function myfs.getvpos() -- {{{
 
     --[[
         Inspired by https://github.com/ibhagwan/nvim-lua/blob/main/lua/utils.lua#L89
@@ -77,6 +77,6 @@ end
 -- }}}
 
 
-return myfunctions
+return myfs
 
 -- vim: fdm=marker
