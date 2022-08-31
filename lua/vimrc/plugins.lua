@@ -21,7 +21,7 @@ return require('packer').startup({function(use)
     -- Handy tools --
 
     use { disable=true, 'thinca/vim-localrc' }
-    use { 'MunifTanjim/exrc.nvim', -- local .nvimrc files
+    use { 'MunifTanjim/exrc.nvim', -- local .nvimrc files {{{
         requires = { 'MunifTanjim/nui.nvim', opt=true },
         config = function() -- {{{
             -- disable built-in local config file support
@@ -35,9 +35,9 @@ return require('packer').startup({function(use)
                 },
             })
         end, -- }}}
-    }
+    } -- }}}
 
-    use { 'mg979/vim-visual-multi', branch = 'master',
+    use { 'mg979/vim-visual-multi', branch = 'master', -- {{{
         config = function() -- {{{
             vim.g.VM_leader = [[\]]
             vim.g.VM_theme = 'iceblue'
@@ -52,10 +52,9 @@ return require('packer').startup({function(use)
                 ["Redo"] = '<C-r>',
             }
         end, -- }}}
-    }
+    } -- }}}
 
-    use { disable = true,
-        'nvim-telescope/telescope.nvim', tag = '0.1.0',
+    use { 'nvim-telescope/telescope.nvim', tag = '0.1.0', disable = true, -- {{{
         requires = { {'nvim-lua/plenary.nvim'} },
         config = function() -- {{{
             local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
@@ -70,10 +69,10 @@ return require('packer').startup({function(use)
             nmap('<leader>ts', function() tb.search_history() end)
             nmap('<leader>tt', function() tb.treesitter() end)
         end, -- }}}
-    }
+    } -- }}}
 
-    use {
-        { 'junegunn/fzf', run = './install --xdg --all' },
+    use { { 'junegunn/fzf', -- {{{
+            run = './install --xdg --all' },
         {
             'junegunn/fzf.vim',
             config = function() -- {{{
@@ -101,20 +100,18 @@ return require('packer').startup({function(use)
                 imap('<Leader><c-x><c-L>', '<plug>(fzf-complete-buffer-line)')
             end, -- }}}
         },
-    }
+    } -- }}}
 
-    use {
-        'SirVer/ultisnips',
+    use { 'SirVer/ultisnips',-- {{{
         config = function() -- {{{
             vim.g.UltiSnipsEditSplit = 'tabdo'
             vim.g.UltiSnipsSnippetDirectories = { vim.fn.stdpath('config') .. '/UltiSnips' }
         end, --}}}
-    }
+    } -- }}}
 
     -- Writing --
 
-    use {
-        'preservim/vim-pencil',
+    use { 'preservim/vim-pencil',-- {{{
         ft = { 'tex', 'latex', 'text', 'clipboard' },
         config = function() -- {{{
             local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
@@ -128,10 +125,9 @@ return require('packer').startup({function(use)
             nmap('<Leader>ph', ':PencilHard<CR>')
             nmap('<Leader>ps', ':PencilSoft<CR>')
         end, --}}}
-    }
+    } -- }}}
 
-    use {
-        'dbmrq/vim-ditto',
+    use { 'dbmrq/vim-ditto',-- {{{
         ft = { 'tex', 'latex', 'text', 'markdown' },
         config = function() -- {{{
             local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
@@ -158,28 +154,25 @@ return require('packer').startup({function(use)
                 augroup END
             ]]
         end, --}}}
-    }
+    } -- }}}
 
 
     -- Interface --
 
-    use {
-        'sainnhe/everforest',
+    use { 'sainnhe/everforest',-- {{{
         config = function ()
             vim.g.everforest_transparent_background = 1
             vim.cmd([[colorscheme everforest]])
         end
-    }
+    } -- }}}
 
-    use { disable=true,
-        'EdenEast/nightfox.nvim'
-    }
+    use { disable=true, 'EdenEast/nightfox.nvim'-- {{{
+    } -- }}}
 
     -- Editing --
 
     use { disable=true, 'scrooloose/nerdcommenter' }
-    use {
-        'numToStr/Comment.nvim',
+    use { 'numToStr/Comment.nvim',-- {{{
         config = function() -- {{{
             require('Comment').setup{
                 -- Enable keybindings
@@ -196,10 +189,9 @@ return require('packer').startup({function(use)
                 -- makes operator-pending mappings not work
             }
         end, -- }}}
-    }
+    } -- }}}
 
-    use {
-        'jiangmiao/auto-pairs',
+    use { 'jiangmiao/auto-pairs',-- {{{
         config = function() -- {{{
             local augroup = vim.api.nvim_create_augroup('AutoPairsVim', { clear=false })
             vim.api.nvim_create_autocmd('FileType', {
@@ -233,12 +225,11 @@ return require('packer').startup({function(use)
             -- Default: <M-b>
             -- vim.g.AutoPairsBackInsert = "<Leader><M-b>"
         end, -- }}}
-    }
+    } -- }}}
 
     use { 'tpope/vim-surround' }
 
-    use {
-        'junegunn/vim-easy-align',
+    use { 'junegunn/vim-easy-align',-- {{{
         config = function() -- {{{
             local map = function(mode, LH, RH, args) vim.keymap.set(mode, LH, RH, args) end
 
@@ -248,24 +239,22 @@ return require('packer').startup({function(use)
             -- https://github.com/junegunn/vim-easy-align#disabling-foldmethod-during-alignment
             vim.g.easy_align_bypass_fold = 1
         end, -- }}}
-    }
+    } -- }}}
 
     use { 'tommcdo/vim-exchange' }
 
-    use { disable=true,
-        'matze/vim-move',
+    use { disable=true, 'matze/vim-move',-- {{{
         config = function() -- {{{
             -- vim.g.move_key_modifier = 'S-A'
             -- vim.g.move_key_modifier_visualmode = 'S-A'
         end, -- }}}
-    }
+    } -- }}}
 
     -- Music --
 
     -- Language support --
 
-    use {
-        'nvim-treesitter/nvim-treesitter',
+    use { 'nvim-treesitter/nvim-treesitter',-- {{{
         run = function()
             require('nvim-treesitter.install').update({ with_sync = true })
         end,
@@ -320,21 +309,18 @@ return require('packer').startup({function(use)
             -- ENDWORKAROUND
 
         end, -- }}}
-    }
+    } -- }}}
 
-    use {
-        'euclidianAce/BetterLua.vim',
+    use { 'euclidianAce/BetterLua.vim',-- {{{
         ft = 'lua',
-    }
+    } -- }}}
 
-    use {
-        'martineausimon/nvim-lilypond-suite',
+    use { 'martineausimon/nvim-lilypond-suite',-- {{{
         requires = { 'MunifTanjim/nui.nvim' },
         ft = { 'lilypond' },
-    }
+    } -- }}}
 
-    use {
-        'lervag/vimtex',
+    use { 'lervag/vimtex',-- {{{
         ft = { 'latex', 'tex', 'plaintex', 'context', 'bib' },
         config = function() -- {{{
             local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
@@ -375,19 +361,17 @@ return require('packer').startup({function(use)
                 -- },
             }
         end, --}}}
-    }
+    } -- }}}
 
     -- Collaboration --
-    use { disable = true,
-        'jbyuki/instant.nvim',
+    use { disable = true, 'jbyuki/instant.nvim',-- {{{
         -- set cmd = ???
         config = function()
             vim.g.instant_username = 'MaceVimdu'
         end,
-    }
+    } -- }}}
     -- Language Server --
-    use {
-        'neoclide/coc.nvim', branch = 'release',
+    use { 'neoclide/coc.nvim', branch = 'release',-- {{{
         run = ':CocUpdate',
         config = function() -- {{{
             local map = function(mode, LH, RH, args) vim.keymap.set(mode, LH, RH, args) end
@@ -442,12 +426,11 @@ return require('packer').startup({function(use)
             ]]
 
         end, -- }}}
-    }
+    } -- }}}
 
     -- Candy --
 
-    use {
-        'raghur/vim-ghost',
+    use { 'raghur/vim-ghost',-- {{{
         run = ':GhostInstall',
         cmd = { 'GhostInstall', 'GhostStart' },
         config = function() -- {{{
@@ -480,10 +463,9 @@ return require('packer').startup({function(use)
                 augroup END
             ]]
         end, -- }}}
-    }
+    } -- }}}
 
-    use {
-        'voldikss/vim-floaterm',
+    use { 'voldikss/vim-floaterm',-- {{{
         -- cmd = { 'FloatermNew' },
         config = function() --{{{
             local map = vim.keymap.set
@@ -493,11 +475,11 @@ return require('packer').startup({function(use)
             })
 
         end --}}}
-    }
+    } -- }}}
 
     use { 'MunifTanjim/nui.nvim' }
 
-    use{ 'anuvyklack/pretty-fold.nvim',
+    use{ 'anuvyklack/pretty-fold.nvim', -- {{{
         config = function() -- {{{
 
             local global_setup = {
@@ -538,14 +520,14 @@ return require('packer').startup({function(use)
             }) -- }}}
 
         end, -- }}}
-    }
+    } -- }}}
 
-    use { 'anuvyklack/fold-preview.nvim',
+    use { 'anuvyklack/fold-preview.nvim', -- {{{
         requires = 'anuvyklack/keymap-amend.nvim',
         config = function()
             require('fold-preview').setup()
         end
-    }
+    } -- }}}
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
