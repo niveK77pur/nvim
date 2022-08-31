@@ -7,3 +7,22 @@ for ${1} do
 	${VISUAL}$0
 end
 endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                     NeoVim
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet aug "vim.api.nvim_create_augroup" b
+local augroup_${1:NAME} = vim.api.nvim_create_augroup('$1', {})
+endsnippet
+
+snippet au "vim.api.nvim_create_autocmd" b
+vim.api.nvim_create_autocmd({ ${1:"BufEnter"} }, {
+	group = $2,
+	pattern = { $3 },
+	desc = "$4",
+	callback = function()
+		${5:print('hello')}
+	end,
+})
+endsnippet
