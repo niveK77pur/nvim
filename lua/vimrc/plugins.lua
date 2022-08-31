@@ -519,7 +519,13 @@ return require('packer').startup({function(use)
                     { '^%s*do$', 'end' }, -- do ... end blocks
                     { '^%s*if', 'end' },  -- if ... end
                     { '^%s*for', 'end' }, -- for
-                    { 'function%s*%w*%(', 'end' }, -- 'function( or 'function (''
+                    { 'function[^%(]*%(', 'end' }, -- 'function( or 'function (''
+                },
+            }) -- }}}
+
+            ft_setup('vim', { -- {{{
+                matchup_patterns = {
+                    { '^%s*function!?[^%(]*%(', 'endfunction' },
                 },
             }) -- }}}
 
