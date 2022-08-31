@@ -166,7 +166,7 @@ return require('packer').startup({function(use)
         end
     } -- }}}
 
-    use { disable=true, 'EdenEast/nightfox.nvim'-- {{{
+    use { disable=true, 'EdenEast/nightfox.nvim', -- {{{
     } -- }}}
 
     -- Editing --
@@ -364,13 +364,16 @@ return require('packer').startup({function(use)
     } -- }}}
 
     -- Collaboration --
+
     use { disable = true, 'jbyuki/instant.nvim',-- {{{
         -- set cmd = ???
         config = function()
             vim.g.instant_username = 'MaceVimdu'
         end,
     } -- }}}
+
     -- Language Server --
+
     use { 'neoclide/coc.nvim', branch = 'release',-- {{{
         run = ':CocUpdate',
         config = function() -- {{{
