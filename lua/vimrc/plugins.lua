@@ -482,7 +482,7 @@ return require('packer').startup({function(use)
 
     use { 'MunifTanjim/nui.nvim' }
 
-    use{ 'anuvyklack/pretty-fold.nvim', -- {{{
+    use { 'anuvyklack/pretty-fold.nvim', -- {{{
         config = function() -- {{{
 
             local global_setup = {
