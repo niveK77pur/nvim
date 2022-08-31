@@ -514,6 +514,7 @@ return require('packer').startup({function(use)
                     { '%(', ')' }, -- % to escape lua pattern char
                     { '%[', ']' }, -- % to escape lua pattern char
                 },
+                -- add_close_pattern = true,
             }
 
             local function ft_setup(lang, options) -- {{{
