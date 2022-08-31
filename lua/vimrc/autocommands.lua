@@ -25,7 +25,9 @@
 
 local augroup_MyVIMRC = vim.api.nvim_create_augroup('MyVIMRC', {})
 
-do
+-- Folding ---------------------------------------------------------------------
+
+do -- lua/vimrc/functions.lua {{{
     function _G.foldexprVIMRCfunctions(lnum)
         local line = vim.fn.getline(lnum)
         if line:match('^function') then
@@ -39,15 +41,11 @@ do
     vim.api.nvim_create_autocmd({ "BufRead" }, {
         group = augroup_MyVIMRC,
         pattern = { ('%s/lua/vimrc/functions.lua'):format(vim.fn.stdpath('config')) },
-        -- pattern = { '*.lua' },
-        desc = "Settings for 'vimrc.function' module",
+        desc = "Set foldexpr for 'vimrc.function' module file",
         callback = function()
-            -- print("Entered functions file")
-            vim.wo.foldcolumn = '4'
             vim.wo.foldmethod = 'expr'
             vim.wo.foldexpr = 'v:lua.foldexprVIMRCfunctions(v:lnum)'
         end,
     })
-end
+end -- }}}
 
--- vim.cmd [[au! BufRead,BufEnter * :echom 'test vim autocmd']]
