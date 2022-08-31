@@ -2,7 +2,7 @@ local myfs = {}
 
 
 
-function myfs.nuiInput(params) -- {{{
+function myfs.nuiInput(params)
     params.position  = params.position  or "50%"
     params.width     = params.width     or 30
     params.text      = params.text      or 'Input Box'
@@ -47,10 +47,10 @@ function myfs.nuiInput(params) -- {{{
 
     -- mount/open the component
     input:mount()
-end -- }}}
+end
 
 
-function myfs.getvpos() -- {{{
+function myfs.getvpos()
 
     --[[
         Inspired by https://github.com/ibhagwan/nvim-lua/blob/main/lua/utils.lua#L89
@@ -73,7 +73,7 @@ function myfs.getvpos() -- {{{
     local v_end   = pos_v[2] > pos_d[2] and pos_v or pos_d
 
     return v_start, v_end
-end -- }}}
+end
 
 
 function myfs.GetCommentCharacter()
@@ -117,5 +117,3 @@ end
 
 
 return myfs
-
--- vim: fdm=marker
