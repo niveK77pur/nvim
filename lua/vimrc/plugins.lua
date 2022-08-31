@@ -500,6 +500,7 @@ return require('packer').startup({function(use)
                     { '%[', ']' }, -- % to escape lua pattern char
                 },
                 -- add_close_pattern = true,
+                process_comment_signs = ({'delete', 'spaces', false})[2]
             }
 
             local function ft_setup(lang, options) -- {{{
