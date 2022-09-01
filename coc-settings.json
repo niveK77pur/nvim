@@ -4,6 +4,11 @@
   "sumneko-lua.enableNvimLuaDev": true,
   "sumneko-lua.checkUpdate": false,
   "Lua.diagnostics.globals": [ "vim" ],
+  // "Lua.completion.showParams": false,
+  // "Lua.hint.paramName": "Disable",
+  // "Lua.hint.paramType": true,
+  // "Lua.hint.setType": true,
+  "Lua.telemetry.enable": false,
 
   // Python settings
   "python.jediEnabled" : true,
