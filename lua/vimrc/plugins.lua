@@ -20,7 +20,7 @@ return require('packer').startup({function(use)
 
     -- Handy tools --
 
-    use { disable=true, 'thinca/vim-localrc' }
+    use { 'thinca/vim-localrc', disable=true }
     use { 'MunifTanjim/exrc.nvim', -- local .nvimrc files {{{
         requires = { 'MunifTanjim/nui.nvim', opt=true },
         config = function() -- {{{
@@ -159,18 +159,18 @@ return require('packer').startup({function(use)
 
     -- Interface --
 
-    use { 'sainnhe/everforest',-- {{{
+    use { 'sainnhe/everforest', disable=true,-- {{{
         config = function ()
             vim.g.everforest_transparent_background = 1
             vim.cmd([[colorscheme everforest]])
         end
     } -- }}}
 
-    use { disable=true, 'EdenEast/nightfox.nvim' }
+    use { 'EdenEast/nightfox.nvim', disable=true }
 
     -- Editing --
 
-    use { disable=true, 'scrooloose/nerdcommenter' }
+    use { 'scrooloose/nerdcommenter', disable=true }
     use { 'numToStr/Comment.nvim',-- {{{
         config = function() -- {{{
             require('Comment').setup{
@@ -242,7 +242,7 @@ return require('packer').startup({function(use)
 
     use { 'tommcdo/vim-exchange' }
 
-    use { disable=true, 'matze/vim-move',-- {{{
+    use { 'matze/vim-move', disable=true,-- {{{
         config = function() -- {{{
             -- vim.g.move_key_modifier = 'S-A'
             -- vim.g.move_key_modifier_visualmode = 'S-A'
@@ -364,7 +364,7 @@ return require('packer').startup({function(use)
 
     -- Collaboration --
 
-    use { disable = true, 'jbyuki/instant.nvim',-- {{{
+    use { 'jbyuki/instant.nvim', disable = true,-- {{{
         -- set cmd = ???
         config = function()
             vim.g.instant_username = 'MaceVimdu'
