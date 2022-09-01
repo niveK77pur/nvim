@@ -159,14 +159,39 @@ return require('packer').startup({function(use)
 
     -- Interface --
 
-    use { 'sainnhe/everforest', disable=true,-- {{{
+    use { 'sainnhe/everforest', disable=true,
         config = function ()
             vim.g.everforest_transparent_background = 1
             vim.cmd([[colorscheme everforest]])
         end
-    } -- }}}
+    }
 
-    use { 'EdenEast/nightfox.nvim', disable=true }
+    use { 'EdenEast/nightfox.nvim', disable=false,
+        run = ":NightfoxCompile",
+        config = function()
+
+            require('nightfox').setup({
+                options = {
+                    transparent = false, -- Disable setting background
+                    dim_inactive = true,
+                    styles = {
+                        comments = "italic",
+                    },
+                    inverse = {             -- Inverse highlight for different types
+                        match_paren = false,
+                        visual = false,
+                        search = false,
+                    },
+                },
+            })
+
+            vim.cmd( ('colorscheme %sfox'):format(
+                ({ 'night','day','dawn','dusk','nord','tera','carbon' })[1]
+                --   111  , 222 , 3333 , 4444 , 5555 , 6666 , 777777
+            ) )
+
+        end
+    }
 
     -- Editing --
 
@@ -309,6 +334,9 @@ return require('packer').startup({function(use)
 
         end, -- }}}
     } -- }}}
+    use { 'nvim-treesitter/playground',
+        run = ':TSInstall query',
+    }
 
     use { 'euclidianAce/BetterLua.vim',-- {{{
         ft = 'lua',
