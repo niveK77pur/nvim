@@ -1,5 +1,15 @@
 local myfs = {}
 
+function myfs.tstestfunc()
+    local v = 'yo'
+    local function helper(t)
+        return ('>%s<'):format(t)
+    end
+    local h = function(t)
+        return ('<%s>'):format(t)
+    end
+    return h(helper(v))
+end
 
 
 function myfs.nuiInput(params)
