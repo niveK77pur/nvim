@@ -160,17 +160,19 @@ return require('packer').startup({function(use)
     -- Interface --
 
     use { 'sainnhe/everforest', disable=true,
-        config = function ()
+        setup = function()
             vim.g.everforest_transparent_background = 1
-            vim.cmd([[colorscheme everforest]])
             -- treesitter highlighting seem to interfere with everforest
             pcall(vim.cmd, 'TSDisable highlight')
-        end
+        end,
+        config = function()
+            vim.cmd([[colorscheme everforest]])
+        end,
     }
 
-    use { 'EdenEast/nightfox.nvim', disable=false,
+    use { 'EdenEast/nightfox.nvim', disable=true,
         run = ":NightfoxCompile",
-        config = function()
+        setup = function()
 
             require('nightfox').setup({
                 options = {
@@ -187,11 +189,174 @@ return require('packer').startup({function(use)
                 },
             })
 
+        end,
+        config = function()
+
             vim.cmd( ('colorscheme %sfox'):format(
                 ({ 'night','day','dawn','dusk','nord','tera','carbon' })[1]
                 --   111  , 222 , 3333 , 4444 , 5555 , 6666 , 777777
             ) )
 
+        end,
+    }
+
+    use { 'embark-theme/vim',
+        as = 'embark',
+        config = function()
+            vim.cmd('colorscheme embark')
+        end
+    }
+
+    use { 'matsuuu/pinkmare', disable=true,
+        config = function()
+            vim.cmd 'colorscheme pinkmare'
+        end
+    }
+
+    use { 'bkegley/gloombuddy', disable=true,
+        requires = 'tjdevries/colorbuddy.vim',
+        config = function ()
+            require'colorbuddy'.colorscheme('gloombuddy')
+        end,
+    }
+
+    use { 'Yagua/nebulous.nvim', disable=true,
+        setup = function()
+
+            require("nebulous").setup {
+                variant = "midnight",
+                -- disable = {
+                --     background = true,
+                --     endOfBuffer = false,
+                --     terminal_colors = false,
+                -- },
+                -- italic = {
+                --     comments   = false,
+                --     keywords   = true,
+                --     functions  = false,
+                --     variables  = true,
+                -- },
+                --[[ custom_colors = { -- this table can hold any group of colors with their respective values
+                    LineNr = { fg = "#5BBBDA", bg = "NONE", style = "NONE" },
+                    CursorLineNr = { fg = "#E1CD6C", bg = "NONE", style = "NONE" },
+
+                    -- it is possible to specify only the element to be changed
+                    TelescopePreviewBorder = { fg = "#A13413" },
+                    LspDiagnosticsDefaultError = { bg = "#E11313" },
+                    TSTagDelimiter = { style = "bold,italic" },
+                } ]]
+            }
+
+        end,
+        config = function()
+            vim.cmd 'colorscheme nebulous'
+        end
+    }
+
+    use { 'NTBBloodbath/doom-one.nvim', disable=true,
+        setup = function()
+            -- Add color to cursor
+            vim.g.doom_one_cursor_coloring = false
+            -- Set :terminal colors
+            vim.g.doom_one_terminal_colors = true
+            -- Enable italic comments
+            vim.g.doom_one_italic_comments = true
+            -- Enable TS support
+            vim.g.doom_one_enable_treesitter = true
+            -- Color whole diagnostic text or only underline
+            vim.g.doom_one_diagnostics_text_color = false
+            -- Enable transparent background
+            vim.g.doom_one_transparent_background = false
+
+            -- Pumblend transparency
+            vim.g.doom_one_pumblend_enable = false
+            vim.g.doom_one_pumblend_transparency = 20
+
+            -- Plugins integration
+            vim.g.doom_one_plugin_neorg = true
+            vim.g.doom_one_plugin_barbar = false
+            vim.g.doom_one_plugin_telescope = false
+            vim.g.doom_one_plugin_neogit = true
+            vim.g.doom_one_plugin_nvim_tree = true
+            vim.g.doom_one_plugin_dashboard = true
+            vim.g.doom_one_plugin_startify = true
+            vim.g.doom_one_plugin_whichkey = true
+            vim.g.doom_one_plugin_indent_blankline = true
+            vim.g.doom_one_plugin_vim_illuminate = true
+            vim.g.doom_one_plugin_lspsaga = false
+        end,
+        config = function()
+            vim.cmd("colorscheme doom-one")
+        end,
+    }
+
+    use { 'shaunsingh/seoul256.nvim', disable=true,
+        -- setup = function()
+        --     vim.g.seoul256_italic_comments = true
+        --     vim.g.seoul256_italic_keywords = true
+        --     vim.g.seoul256_italic_functions = true
+        --     vim.g.seoul256_italic_variables = false
+        --     vim.g.seoul256_contrast = true
+        --     vim.g.seoul256_borders = false
+        --     vim.g.seoul256_disable_background = false
+        --     vim.g.seoul256_hl_current_line = true
+        -- end,
+        config = function()
+            require('seoul256')
+        end,
+    }
+
+    use { 'yonlu/omni.vim', disable=true,
+        config = function()
+            vim.cmd 'colorscheme omni'
+        end
+    }
+
+    use { 'franbach/miramare', disable=true,
+        setup = function()
+            vim.g.miramare_enable_italic = 1
+        end,
+        config = function()
+            vim.cmd 'colorscheme miramare'
+        end,
+    }
+
+    use { 'mhartington/oceanic-next', disable=true,
+        setup = function()
+            vim.g.oceanic_next_terminal_bold = 1
+            vim.g.oceanic_next_terminal_italic = 1
+
+            -- transparency
+            -- vim.cmd [[
+            --     hi Normal guibg=NONE ctermbg=NONE
+            --     hi LineNr guibg=NONE ctermbg=NONE
+            --     hi SignColumn guibg=NONE ctermbg=NONE
+            --     hi EndOfBuffer guibg=NONE ctermbg=NONE
+            -- ]]
+        end,
+        config = function()
+            vim.cmd 'colorscheme OceanicNext'
+        end,
+    }
+
+    use { 'monsonjeremy/onedark.nvim', disable=true,
+        config = function()
+            require('onedark').setup()
+        end
+    }
+
+    use { 'marko-cerovac/material.nvim', disable=true,
+        setup = function()
+            vim.g.material_style = ({
+                'darker',     -- 1
+                'lighter',    -- 2
+                'oceanic',    -- 3
+                'palenight',  -- 4
+                'deep ocean', -- 5
+            })[4]
+        end,
+        config = function()
+            vim.cmd 'colorscheme material'
         end
     }
 
