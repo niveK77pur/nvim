@@ -69,66 +69,69 @@ do -- lua/vimrc/functions.lua {{{
 end -- }}}
 
 do -- lua/vimrc/plugins.lua {{{
-    function _G.foldexprVIMRCplugins(lnum, POI)
-        local line = vim.fn.getline(lnum)
+    function _G.foldexprVIMRCplugins(lnum)
+        local parser = vim.treesitter.get_parser(0)
+        local tree = parser:parse()
+        local root = tree[1]:root()
 
-        -- START : Move cursor --
-        local view = vim.fn.winsaveview()
-        vim.api.nvim_win_set_cursor(0, {lnum,0})
+        local query = vim.treesitter.parse_query( -- {{{
+            parser:lang(), [[
+            (return_statement
+              (expression_list
+                (function_call
+                  (arguments
+                    (table_constructor
+                      (field
+                        (function_definition
+                          (block
+                            (function_call
+                              (identifier) @fname (#eq? @fname "use")
+                            ) @use
+                          )
+                        )
+                      )
+                    )
+                  )
+                ) 
+              )
+            ) @startup
+        ]]) -- }}}
 
-        -- determine current location in the code
-        local in_preamble = vim.fn.search([[^return require('packer')\.startup]], 'Wn') > 0
-        local in_use = false
-        do
-            local prev_use = vim.fn.search([[^\s*use\s*{]], 'Wb')
-            if prev_use == 0 then -- no fold if there is no previous 'use'
-                goto nouse
-            end
-            vim.cmd[[normal! f{]]
-            local prev_use_end = vim.fn.searchpair('{', '', '}', 'n')
-            -- cursor is in a line before the closing bracket of use {}
-            in_use = (lnum <= prev_use_end)
-            ::nouse::
-        end
+        for _, match, _ in query:iter_matches(root,0) do
+            local fname, use, startup = match[1], match[2], match[3]
 
-        vim.fn.winrestview(view)
-        -- END : Reset cursor --
-
-        if in_preamble then
-            -- we are in the 'preamble' (i.e. before packer startup call)
-            if line:match('^%-%-') then -- start new fold on commented line
-                return '>1'
-            elseif line:match('^%s*$') then -- reset fold on empty lines
-                return '0'
-            end
-            return '='
-        else
-            if line:match("^return require%('packer'%)") then
-                -- reset indent when startup begins
-                return '0'
-            end
-
-            if line:match("^%s*use%s*{.*}") then
-                -- no fold if use starts and finishes on same line
-                return '0'
-            elseif line:match("^%s*use%s*{") then
-                return '>1'
-            elseif in_use then
-                if line:match('config = function') then
-                    return '>2'
+            local psr1, _, psr2, _ = startup:range()
+            if lnum < (psr1+1) then
+                -- we are in the 'preamble' (i.e. before packer startup call)
+                local line = vim.fn.getline(lnum)
+                if line:match('^%-%-') then -- start new fold on commented line
+                    return '>1'
+                elseif line:match('^%s*$') then -- reset fold on empty lines
+                    return '0'
                 end
-                return '1'
-            else
+                return '='
+            end
+
+            local ur1, _, ur2, _ = use:range()
+
+            if lnum == (ur1+1) and lnum == (ur2+1) then
                 return '0'
             end
+            local fold_level = setFoldLevelRegion(1, lnum, ur1+1, ur2+1)
+            if fold_level then
+                return fold_level
+            end
+
         end
+        return '='
+
     end
     vim.api.nvim_create_autocmd({ "BufRead" }, {
         group = augroup_MyVIMRC,
         pattern = { ('%s/lua/vimrc/plugins.lua'):format(vim.fn.stdpath('config')) },
         desc = "Set foldexpr for 'vimrc.plugins' module file",
         callback = function()
-            -- vim.wo.foldcolumn = '4'
+            vim.wo.foldcolumn = '4'
             vim.wo.foldmethod = 'expr'
             vim.g.foldstate = { preamble = true, packer = false, }
             vim.b.points_of_interest = {  }
