@@ -71,36 +71,33 @@ return require('packer').startup({function(use)
         end, -- }}}
     } -- }}}
 
-    use { { 'junegunn/fzf', -- {{{
-            run = './install --xdg --all' },
-        {
-            'junegunn/fzf.vim',
-            config = function() -- {{{
-                local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
-                local imap = function(LH, RH, args) vim.keymap.set('i', LH, RH, args) end
+    use { 'junegunn/fzf', run = './install --xdg --all' }
+    use { 'junegunn/fzf.vim',
+        config = function() -- {{{
+            local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
+            local imap = function(LH, RH, args) vim.keymap.set('i', LH, RH, args) end
 
-                -- FZF Commands
-                nmap('<Leader>fr', ':Rg<CR>')
-                nmap('<Leader>ff', ':Files<CR>')
-                nmap('<Leader>fg', ':GFiles<CR>')
-                nmap('<Leader>fb', ':Buffers<CR>')
-                nmap('<Leader>fl', ':BLines<CR>')
-                nmap('<Leader>fL', ':Lines<CR>')
-                nmap('<Leader>fh', ':Helptags<CR>')
-                nmap('<Leader>fm', ':Marks<CR>')
-                nmap('<Leader>f:', ':History:<CR>')
-                nmap('<Leader>f/', ':History/:<CR>')
-                nmap('<Leader>fs', ':Snippets:<CR>')
+            -- FZF Commands
+            nmap('<Leader>fr', ':Rg<CR>')
+            nmap('<Leader>ff', ':Files<CR>')
+            nmap('<Leader>fg', ':GFiles<CR>')
+            nmap('<Leader>fb', ':Buffers<CR>')
+            nmap('<Leader>fl', ':BLines<CR>')
+            nmap('<Leader>fL', ':Lines<CR>')
+            nmap('<Leader>fh', ':Helptags<CR>')
+            nmap('<Leader>fm', ':Marks<CR>')
+            nmap('<Leader>f:', ':History:<CR>')
+            nmap('<Leader>f/', ':History/:<CR>')
+            nmap('<Leader>fs', ':Snippets:<CR>')
 
-                -- Insert mode completion
-                imap('<Leader><c-x><c-k>', '<plug>(fzf-complete-word)')
-                imap('<Leader><c-x><c-f>', '<plug>(fzf-complete-path)')
-                imap('<Leader><c-x><c-j>', '<plug>(fzf-complete-file-ag)')
-                imap('<Leader><c-x><c-l>', '<plug>(fzf-complete-line)')
-                imap('<Leader><c-x><c-L>', '<plug>(fzf-complete-buffer-line)')
-            end, -- }}}
-        },
-    } -- }}}
+            -- Insert mode completion
+            imap('<Leader><c-x><c-k>', '<plug>(fzf-complete-word)')
+            imap('<Leader><c-x><c-f>', '<plug>(fzf-complete-path)')
+            imap('<Leader><c-x><c-j>', '<plug>(fzf-complete-file-ag)')
+            imap('<Leader><c-x><c-l>', '<plug>(fzf-complete-line)')
+            imap('<Leader><c-x><c-L>', '<plug>(fzf-complete-buffer-line)')
+        end, -- }}}
+    }
 
     use { 'SirVer/ultisnips',-- {{{
         config = function() -- {{{
