@@ -68,14 +68,14 @@ do -- lua/vimrc/functions.lua {{{
     })
 end -- }}}
 
+-- TODO optimize loops??
 do -- lua/vimrc/plugins.lua {{{
     function _G.foldexprVIMRCplugins(lnum)
         local parser = vim.treesitter.get_parser(0)
         local tree = parser:parse()
         local root = tree[1]:root()
 
-        -- TODO: query for config= and alike and fold the functions
-        local query = vim.treesitter.parse_query( -- {{{
+        local query_use = vim.treesitter.parse_query( -- {{{
             parser:lang(), [[
             (return_statement
               (expression_list
@@ -97,11 +97,21 @@ do -- lua/vimrc/plugins.lua {{{
               )
             ) @startup
         ]]) -- }}}
+        local query_usearg = vim.treesitter.parse_query( -- {{{
+            parser:lang(), [[
+              (arguments (
+                table_constructor
+                  (field
+                    (identifier) @fusename (#any-of? @fusename "config" "setup")
+                  ) @usearg
+                )
+              )
+        ]]) -- }}}
 
-        for _, match, _ in query:iter_matches(root,0) do
-            local fname, use, startup = match[1], match[2], match[3]
+        for _, match, _ in query_use:iter_matches(root,0) do
+            local use, startup = match[2], match[3]
 
-            local psr1, _, psr2, _ = startup:range()
+            local psr1, _, _, _ = startup:range()
             if lnum < (psr1+1) then
                 -- we are in the 'preamble' (i.e. before packer startup call)
                 local line = vim.fn.getline(lnum)
@@ -118,9 +128,17 @@ do -- lua/vimrc/plugins.lua {{{
             if lnum == (ur1+1) and lnum == (ur2+1) then
                 return '0'
             end
-            local fold_level = setFoldLevelRegion(1, lnum, ur1+1, ur2+1)
-            if fold_level then
-                return fold_level
+
+            local use_level = setFoldLevelRegion(1, lnum, ur1+1,  ur2+1)
+            if use_level then
+                for _, usematch, _ in query_usearg:iter_matches(use,0) do
+                    local uar1, _, uar2, _ = usematch[2]:range()
+                    local usearg_level = setFoldLevelRegion(2, lnum, uar1+1, uar2+1)
+                    if usearg_level then
+                        return usearg_level
+                    end
+                end
+                return use_level
             end
 
         end
