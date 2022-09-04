@@ -27,6 +27,17 @@ local augroup_MyVIMRC = vim.api.nvim_create_augroup('MyVIMRC', {})
 
 -- Folding ---------------------------------------------------------------------
 
+local function setFoldLevelRegion(level, row_nr, row_start, row_end)
+    if row_nr == row_start then -- the fold starts
+        return ('>%s'):format(level)
+    elseif row_nr == row_end then -- the fold ends
+        return ('<%s'):format(level)
+    elseif row_nr > row_start and row_nr < row_end then -- inside fold block
+        return '='
+    end
+    return nil
+end
+
 do -- lua/vimrc/functions.lua {{{
     function _G.foldexprVIMRCfunctions(lnum)
         local line = vim.fn.getline(lnum)
