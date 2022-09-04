@@ -207,9 +207,30 @@ return require('packer').startup({function(use)
         end
     }
 
+    use { 'yonlu/omni.vim', disable=true,
+        config = function()
+            vim.cmd 'colorscheme omni'
+        end
+    }
+
     use { 'matsuuu/pinkmare', disable=true,
         config = function()
             vim.cmd 'colorscheme pinkmare'
+        end
+    }
+
+    use { 'marko-cerovac/material.nvim', disable=true,
+        setup = function()
+            vim.g.material_style = ({
+                'darker',     -- 1
+                'lighter',    -- 2
+                'oceanic',    -- 3
+                'palenight',  -- 4
+                'deep ocean', -- 5
+            })[4]
+        end,
+        config = function()
+            vim.cmd 'colorscheme material'
         end
     }
 
@@ -306,12 +327,6 @@ return require('packer').startup({function(use)
         end,
     }
 
-    use { 'yonlu/omni.vim', disable=true,
-        config = function()
-            vim.cmd 'colorscheme omni'
-        end
-    }
-
     use { 'franbach/miramare', disable=true,
         setup = function()
             vim.g.miramare_enable_italic = 1
@@ -342,21 +357,6 @@ return require('packer').startup({function(use)
     use { 'monsonjeremy/onedark.nvim', disable=true,
         config = function()
             require('onedark').setup()
-        end
-    }
-
-    use { 'marko-cerovac/material.nvim', disable=true,
-        setup = function()
-            vim.g.material_style = ({
-                'darker',     -- 1
-                'lighter',    -- 2
-                'oceanic',    -- 3
-                'palenight',  -- 4
-                'deep ocean', -- 5
-            })[4]
-        end,
-        config = function()
-            vim.cmd 'colorscheme material'
         end
     }
 
