@@ -68,17 +68,6 @@ do -- lua/vimrc/functions.lua {{{
     })
 end -- }}}
 
-do -- UltiSnips snippet files {{{
-    vim.api.nvim_create_autocmd({ "BufRead" }, {
-        group = augroup_MyVIMRC,
-        pattern = { "*.snippets" },
-        desc = "Set foldexpr for UltiSnips snippet files",
-        callback = function()
-            vim.wo.foldlevel = 0
-        end,
-    })
-end -- }}}
-
 do -- lua/vimrc/plugins.lua {{{
     function _G.foldexprVIMRCplugins(lnum, POI)
         local line = vim.fn.getline(lnum)
@@ -144,6 +133,17 @@ do -- lua/vimrc/plugins.lua {{{
             vim.g.foldstate = { preamble = true, packer = false, }
             vim.b.points_of_interest = {  }
             vim.wo.foldexpr = 'v:lua.foldexprVIMRCplugins(v:lnum, b:points_of_interest)'
+        end,
+    })
+end -- }}}
+
+do -- UltiSnips snippet files {{{
+    vim.api.nvim_create_autocmd({ "BufRead" }, {
+        group = augroup_MyVIMRC,
+        pattern = { "*.snippets" },
+        desc = "Set foldexpr for UltiSnips snippet files",
+        callback = function()
+            vim.wo.foldlevel = 0
         end,
     })
 end -- }}}
