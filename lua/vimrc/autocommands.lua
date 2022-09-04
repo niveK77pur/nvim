@@ -40,14 +40,22 @@ end
 
 do -- lua/vimrc/functions.lua {{{
     function _G.foldexprVIMRCfunctions(lnum)
-        local line = vim.fn.getline(lnum)
-        if line:match('^function') then
-            return 'a1'
-        elseif line:match('^end') then
-            return 's1'
-        else
-            return '='
+        local parser = vim.treesitter.get_parser(0)
+        local tree = parser:parse()
+        local root = tree[1]:root()
+
+        local query = vim.treesitter.parse_query(parser:lang(), [[
+            (function_declaration) @fnblock
+        ]])
+
+        for _, match, _ in query:iter_captures(root,0) do
+            local r1, c1, r2, c2 = match:range()
+            local fold_level = setFoldLevelRegion(1, lnum, r1+1, r2+1)
+            if fold_level then
+                return fold_level
+            end
         end
+        return '='
     end
     vim.api.nvim_create_autocmd({ "BufRead" }, {
         group = augroup_MyVIMRC,
