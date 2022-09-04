@@ -74,6 +74,7 @@ do -- lua/vimrc/plugins.lua {{{
         local tree = parser:parse()
         local root = tree[1]:root()
 
+        -- TODO: query for config= and alike and fold the functions
         local query = vim.treesitter.parse_query( -- {{{
             parser:lang(), [[
             (return_statement
