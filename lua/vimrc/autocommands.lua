@@ -69,6 +69,7 @@ do -- lua/vimrc/functions.lua {{{
 end -- }}}
 
 -- TODO optimize loops??
+-- Idea: seperate query_use to seperately query 'startup' and then 'use' (similar to query_usearg is done)
 do -- lua/vimrc/plugins.lua {{{
     function _G.foldexprVIMRCplugins(lnum)
         local parser = vim.treesitter.get_parser(0)
