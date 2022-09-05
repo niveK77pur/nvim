@@ -229,6 +229,7 @@ return require('packer').startup({function(use)
                     -- TSVariable = { fg = colors.none },
 
                     PMenuSel = { fg = colors.White, bg = colors.Grey },
+                    Conceal = { fg = colors.DarkBlue },
 
                 },
             }
