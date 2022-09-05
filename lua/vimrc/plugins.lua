@@ -229,11 +229,7 @@ return require('packer').startup({function(use)
                     -- Normal = { fg = colors.none, bg = colors.Black, style = colors.none },
                     -- TSVariable = { fg = colors.none },
 
-                    -- PMenu      = { fg = colors.none,  bg = colors.LightGrey },
-                    -- PMenuSbar  = { fg = colors.none,  bg = colors.Grey },
-                    -- PMenuSel   = { fg = colors.Black, bg = colors.Grey },
                     PMenuSel   = { fg = colors.White, bg = colors.Grey },
-                    -- PMenuThumb = { fg = colors.none,  bg = colors.Yellow },
 
                 },
             }
