@@ -197,7 +197,7 @@ return require('packer').startup({function(use)
         end,
     }
 
-    use { 'embark-theme/vim',
+    use { 'embark-theme/vim', disable=true,
         as = 'embark',
         setup = function ()
             vim.g.embark_terminal_italics = 1
@@ -207,15 +207,27 @@ return require('packer').startup({function(use)
         end
     }
 
-    use { 'yonlu/omni.vim', disable=true,
-        config = function()
-            vim.cmd 'colorscheme omni'
-        end
-    }
-
     use { 'matsuuu/pinkmare', disable=true,
         config = function()
             vim.cmd 'colorscheme pinkmare'
+        end
+    }
+
+    use { 'tiagovla/tokyodark.nvim', disable=true,
+        setup = function()
+            vim.g.tokyodark_transparent_background = false
+            vim.g.tokyodark_enable_italic_comment = true
+            vim.g.tokyodark_enable_italic = false
+            vim.g.tokyodark_color_gamma = "1.0"
+        end,
+        config = function()
+            vim.cmd("colorscheme tokyodark")
+        end
+    }
+
+    use { 'yonlu/omni.vim', disable=true,
+        config = function()
+            vim.cmd 'colorscheme omni'
         end
     }
 
