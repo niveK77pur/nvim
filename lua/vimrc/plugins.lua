@@ -228,6 +228,12 @@ return require('packer').startup({function(use)
                 custom_colors = {
                     -- Normal = { fg = colors.none, bg = colors.Black, style = colors.none },
                     -- TSVariable = { fg = colors.none },
+
+                    -- PMenu      = { fg = colors.none,  bg = colors.LightGrey },
+                    -- PMenuSbar  = { fg = colors.none,  bg = colors.Grey },
+                    PMenuSel   = { fg = colors.Black, bg = colors.Grey },
+                    -- PMenuThumb = { fg = colors.none,  bg = colors.Yellow },
+
                 },
                 -- custom_colors = { -- this table can hold any group of colors with their respective values
                 --     LineNr = { fg = "#5BBBDA", bg = "NONE", style = "NONE" },
