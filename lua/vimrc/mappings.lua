@@ -86,6 +86,10 @@ map('x', 'Q', function() -- {{{
             end,
             on_submit = function(register)
 
+                if register and register == '' then
+                    return
+                end
+
                 require('vimrc.functions').nuiInput{
                     text = "Regex",
                     default = [[^..*$]],
