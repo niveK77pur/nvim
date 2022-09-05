@@ -745,4 +745,7 @@ config = { -- {{{
     profile = {
         enable = true,
     },
+    git = {
+        clone_timeout = 60, -- Timeout, in seconds, for git clones
+    },
 }}) -- }}}
