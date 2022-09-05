@@ -209,7 +209,6 @@ return require('packer').startup({function(use)
 
     use { 'Yagua/nebulous.nvim', disable=false,
         config = function()
-            --Put this lines inside your vimrc to set the colorscheme
             local variant = ({ 'night', 'twilight', 'midnight', 'fullmoon', 'nova', 'quasar', })[3]
             local colors = require("nebulous.functions").get_colors(variant) -- < variant name
             require("nebulous").setup {
