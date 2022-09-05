@@ -75,13 +75,13 @@ map('x', 'Q', function() -- {{{
         --  https://medium.com/@schtoeffel/you-don-t-need-more-than-one-cursor-in-vim-2c44117d51db#.10y7wvl5y
 
         local v_start, v_end = require('vimrc.functions').getvpos()
+        vim.api.nvim_feedkeys('\027', 'nt', false) -- <ESC> to finish visual selection before opening NUI input field
 
         require('vimrc.functions').nuiInput{
             text = "Register",
             on_change = function(value)
                 if #value > 0 then
-                    -- <CR> after single character
-                    vim.api.nvim_feedkeys('\013', 'nt', false)
+                    vim.api.nvim_feedkeys('\013', 'nt', false) -- <CR> after single character
                 end
             end,
             on_submit = function(register)
