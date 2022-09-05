@@ -237,7 +237,7 @@ return require('packer').startup({function(use)
 
                 },
             }
-            end
+        end
     }
 
     use { 'embark-theme/vim', disable=true,
