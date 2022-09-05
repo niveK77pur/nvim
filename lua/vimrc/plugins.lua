@@ -247,13 +247,11 @@ return require('packer').startup({function(use)
             vim.cmd('colorscheme embark')
         end
     }
-
     use { 'matsuuu/pinkmare', disable=true,
         config = function()
             vim.cmd 'colorscheme pinkmare'
         end
     }
-
     use { 'tiagovla/tokyodark.nvim', disable=true,
         setup = function()
             vim.g.tokyodark_transparent_background = false
@@ -265,7 +263,6 @@ return require('packer').startup({function(use)
             vim.cmd("colorscheme tokyodark")
         end
     }
-
     use { 'yonlu/omni.vim', disable=true,
         config = function()
             vim.cmd 'colorscheme omni'
