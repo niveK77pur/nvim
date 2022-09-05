@@ -195,7 +195,7 @@ return require('packer').startup({function(use)
     }
 
     use { 'marko-cerovac/material.nvim', disable=true,
-        setup = function()
+        config = function()
             vim.g.material_style = ({
                 'darker',     -- 1
                 'lighter',    -- 2
@@ -203,8 +203,6 @@ return require('packer').startup({function(use)
                 'palenight',  -- 4
                 'deep ocean', -- 5
             })[4]
-        end,
-        config = function()
             vim.cmd 'colorscheme material'
         end
     }
@@ -212,28 +210,34 @@ return require('packer').startup({function(use)
     use { 'Yagua/nebulous.nvim', disable=false,
         config = function()
             --Put this lines inside your vimrc to set the colorscheme
+            local variant = ({ 'night', 'twilight', 'midnight', 'fullmoon', 'nova', 'quasar', })[3]
+            local colors = require("nebulous.functions").get_colors(variant) -- < variant name
             require("nebulous").setup {
-                variant = "midnight",
+                variant = variant,
                 disable = {
-                    background = true,
+                    background = false,
                     endOfBuffer = false,
                     terminal_colors = false,
                 },
                 italic = {
-                    comments   = false,
-                    keywords   = true,
+                    comments   = true,
+                    keywords   = false,
                     functions  = false,
-                    variables  = true,
+                    variables  = false,
                 },
-                custom_colors = { -- this table can hold any group of colors with their respective values
-                    LineNr = { fg = "#5BBBDA", bg = "NONE", style = "NONE" },
-                    CursorLineNr = { fg = "#E1CD6C", bg = "NONE", style = "NONE" },
-
-                    -- it is possible to specify only the element to be changed
-                    TelescopePreviewBorder = { fg = "#A13413" },
-                    LspDiagnosticsDefaultError = { bg = "#E11313" },
-                    TSTagDelimiter = { style = "bold,italic" },
-                }
+                custom_colors = {
+                    -- Normal = { fg = colors.none, bg = colors.Black, style = colors.none },
+                    -- TSVariable = { fg = colors.none },
+                },
+                -- custom_colors = { -- this table can hold any group of colors with their respective values
+                --     LineNr = { fg = "#5BBBDA", bg = "NONE", style = "NONE" },
+                --     CursorLineNr = { fg = "#E1CD6C", bg = "NONE", style = "NONE" },
+                --
+                --     -- it is possible to specify only the element to be changed
+                --     TelescopePreviewBorder = { fg = "#A13413" },
+                --     LspDiagnosticsDefaultError = { bg = "#E11313" },
+                --     TSTagDelimiter = { style = "bold,italic" },
+                -- }
             }
             end
     }
