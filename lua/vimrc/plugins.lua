@@ -167,9 +167,9 @@ return require('packer').startup({function(use)
         end,
     }
 
-    use { 'EdenEast/nightfox.nvim', disable=true,
+    use { 'EdenEast/nightfox.nvim', disable=false,
         run = ":NightfoxCompile",
-        setup = function()
+        config = function()
 
             require('nightfox').setup({
                 options = {
@@ -186,11 +186,8 @@ return require('packer').startup({function(use)
                 },
             })
 
-        end,
-        config = function()
-
             vim.cmd( ('colorscheme %sfox'):format(
-                ({ 'night','day','dawn','dusk','nord','tera','carbon' })[1]
+                ({ 'night','day','dawn','dusk','nord','tera','carbon' })[4]
                 --   111  , 222 , 3333 , 4444 , 5555 , 6666 , 777777
             ) )
 
