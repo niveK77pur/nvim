@@ -152,7 +152,7 @@ do -- lua/vimrc/plugins.lua {{{
         pattern = { ('%s/lua/vimrc/plugins.lua'):format(vim.fn.stdpath('config')) },
         desc = "Set foldexpr for 'vimrc.plugins' module file",
         callback = function()
-            vim.wo.foldcolumn = '4'
+            -- vim.wo.foldcolumn = '4'
             vim.wo.foldmethod = 'expr'
             vim.g.foldstate = { preamble = true, packer = false, }
             vim.b.points_of_interest = {  }
