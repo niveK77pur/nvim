@@ -228,7 +228,7 @@ return require('packer').startup({function(use)
                     -- Normal = { fg = colors.none, bg = colors.Black, style = colors.none },
                     -- TSVariable = { fg = colors.none },
 
-                    PMenuSel   = { fg = colors.White, bg = colors.Grey },
+                    PMenuSel = { fg = colors.White, bg = colors.Grey },
 
                 },
             }
