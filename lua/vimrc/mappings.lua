@@ -44,6 +44,7 @@ map('n', '<Leader>gf', ':e <cfile><CR>', { desc = "'gf' but make it create new f
 
 map('n', '<Leader>{', function()
         local cs = vim.o.commentstring
+        cs = cs:gsub('%%[^s]', '%%%0') -- % -> %%
         vim.fn.append('.', { cs:format(' {{{'), cs:format(' }}}') })
     end, {
         desc = "add '{{{' and '}}}' markings for folding"
