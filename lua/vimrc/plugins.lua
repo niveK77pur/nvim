@@ -167,7 +167,7 @@ return require('packer').startup({function(use)
         end,
     }
 
-    use { 'EdenEast/nightfox.nvim', disable=false,
+    use { 'EdenEast/nightfox.nvim', disable=true,
         run = ":NightfoxCompile",
         config = function()
 
