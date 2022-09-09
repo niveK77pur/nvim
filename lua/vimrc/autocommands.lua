@@ -133,13 +133,13 @@ do -- lua/vimrc/plugins.lua {{{
             local use_level = setFoldLevelRegion(1, lnum, ur1+1,  ur2+1)
             if use_level then
                 -- fold inner 'config' blocks
-                for _, usematch, _ in query_usearg:iter_matches(use,0) do
-                    local uar1, _, uar2, _ = usematch[2]:range()
-                    local usearg_level = setFoldLevelRegion(2, lnum, uar1+1, uar2+1)
-                    if usearg_level then
-                        return usearg_level
-                    end
-                end
+                -- for _, usematch, _ in query_usearg:iter_matches(use,0) do
+                --     local uar1, _, uar2, _ = usematch[2]:range()
+                --     local usearg_level = setFoldLevelRegion(2, lnum, uar1+1, uar2+1)
+                --     if usearg_level then
+                --         return usearg_level
+                --     end
+                -- end
                 return use_level
             end
 
