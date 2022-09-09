@@ -21,7 +21,7 @@ return require('packer').startup({function(use)
     -- Handy tools --
 
     use { 'thinca/vim-localrc', disable=true }
-    use { 'MunifTanjim/exrc.nvim', disable=true, -- local .nvimrc files {{{
+    use { 'MunifTanjim/exrc.nvim', disable=false, -- local .nvimrc files {{{
         requires = { 'MunifTanjim/nui.nvim', opt=true },
         config = function() -- {{{
             -- disable built-in local config file support
@@ -666,9 +666,9 @@ return require('packer').startup({function(use)
         end --}}}
     } -- }}}
 
-    use { 'MunifTanjim/nui.nvim', disable=true }
+    use { 'MunifTanjim/nui.nvim', disable=false }
 
-    use { 'anuvyklack/pretty-fold.nvim', disable=true, -- {{{
+    use { 'anuvyklack/pretty-fold.nvim', disable=false, -- {{{
         config = function() -- {{{
 
             local global_setup = {
@@ -717,7 +717,7 @@ return require('packer').startup({function(use)
 
         end, -- }}}
     } -- }}}
-    use { 'anuvyklack/fold-preview.nvim', disable=true, -- {{{
+    use { 'anuvyklack/fold-preview.nvim', disable=false, -- {{{
         requires = 'anuvyklack/keymap-amend.nvim',
         config = function()
             require('fold-preview').setup()
