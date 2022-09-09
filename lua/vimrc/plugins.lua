@@ -21,7 +21,7 @@ return require('packer').startup({function(use)
     -- Handy tools --
 
     use { 'thinca/vim-localrc', disable=true }
-    use { 'MunifTanjim/exrc.nvim', -- local .nvimrc files {{{
+    use { 'MunifTanjim/exrc.nvim', disable=true, -- local .nvimrc files {{{
         requires = { 'MunifTanjim/nui.nvim', opt=true },
         config = function() -- {{{
             -- disable built-in local config file support
@@ -37,7 +37,7 @@ return require('packer').startup({function(use)
         end, -- }}}
     } -- }}}
 
-    use { 'mg979/vim-visual-multi', branch = 'master', -- {{{
+    use { 'mg979/vim-visual-multi', branch = 'master', disable=false, -- {{{
         config = function() -- {{{
             vim.g.VM_leader = [[\]]
             vim.g.VM_theme = 'iceblue'
@@ -71,8 +71,8 @@ return require('packer').startup({function(use)
         end, -- }}}
     } -- }}}
 
-    use { 'junegunn/fzf', run = './install --xdg --all' }
-    use { 'junegunn/fzf.vim',
+    use { 'junegunn/fzf', run = './install --xdg --all', disable=false }
+    use { 'junegunn/fzf.vim', disable=false,
         config = function() -- {{{
             local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
             local imap = function(LH, RH, args) vim.keymap.set('i', LH, RH, args) end
@@ -99,7 +99,7 @@ return require('packer').startup({function(use)
         end, -- }}}
     }
 
-    use { 'SirVer/ultisnips',-- {{{
+    use { 'SirVer/ultisnips', disable=false, -- {{{
         config = function() -- {{{
             vim.g.UltiSnipsEditSplit = 'tabdo'
             vim.g.UltiSnipsSnippetDirectories = { vim.fn.stdpath('config') .. '/UltiSnips' }
@@ -108,7 +108,7 @@ return require('packer').startup({function(use)
 
     -- Writing --
 
-    use { 'preservim/vim-pencil',-- {{{
+    use { 'preservim/vim-pencil', disable=false, -- {{{
         ft = { 'tex', 'latex', 'text', 'clipboard' },
         config = function() -- {{{
             local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
@@ -124,7 +124,7 @@ return require('packer').startup({function(use)
         end, --}}}
     } -- }}}
 
-    use { 'dbmrq/vim-ditto',-- {{{
+    use { 'dbmrq/vim-ditto', disable=false, -- {{{
         ft = { 'tex', 'latex', 'text', 'markdown' },
         config = function() -- {{{
             local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
@@ -363,7 +363,7 @@ return require('packer').startup({function(use)
     -- Editing --
 
     use { 'scrooloose/nerdcommenter', disable=true }
-    use { 'numToStr/Comment.nvim',-- {{{
+    use { 'numToStr/Comment.nvim', disable=false, -- {{{
         config = function() -- {{{
             require('Comment').setup{
                 -- Enable keybindings
@@ -382,7 +382,7 @@ return require('packer').startup({function(use)
         end, -- }}}
     } -- }}}
 
-    use { 'jiangmiao/auto-pairs',-- {{{
+    use { 'jiangmiao/auto-pairs', disable=false, -- {{{
         config = function() -- {{{
             local augroup = vim.api.nvim_create_augroup('AutoPairsVim', { clear=false })
             vim.api.nvim_create_autocmd('FileType', {
@@ -418,9 +418,9 @@ return require('packer').startup({function(use)
         end, -- }}}
     } -- }}}
 
-    use { 'tpope/vim-surround' }
+    use { 'tpope/vim-surround', disable=false,  }
 
-    use { 'junegunn/vim-easy-align',-- {{{
+    use { 'junegunn/vim-easy-align', disable=false,-- {{{
         config = function() -- {{{
             local map = function(mode, LH, RH, args) vim.keymap.set(mode, LH, RH, args) end
 
@@ -432,7 +432,7 @@ return require('packer').startup({function(use)
         end, -- }}}
     } -- }}}
 
-    use { 'tommcdo/vim-exchange' }
+    use { 'tommcdo/vim-exchange', disable=false,  }
 
     use { 'matze/vim-move', disable=true,-- {{{
         config = function() -- {{{
@@ -445,7 +445,7 @@ return require('packer').startup({function(use)
 
     -- Language support --
 
-    use { 'nvim-treesitter/nvim-treesitter',-- {{{
+    use { 'nvim-treesitter/nvim-treesitter', disable=false, -- {{{
         run = function()
             require('nvim-treesitter.install').update({ with_sync = true })
         end,
@@ -493,20 +493,20 @@ return require('packer').startup({function(use)
 
         end, -- }}}
     } -- }}}
-    use { 'nvim-treesitter/playground',
+    use { 'nvim-treesitter/playground', disable=false,
         run = ':TSInstall query',
     }
 
-    use { 'euclidianAce/BetterLua.vim',-- {{{
+    use { 'euclidianAce/BetterLua.vim', disable=false,-- {{{
         ft = 'lua',
     } -- }}}
 
-    use { 'martineausimon/nvim-lilypond-suite',-- {{{
+    use { 'martineausimon/nvim-lilypond-suite', disable=false,-- {{{
         requires = { 'MunifTanjim/nui.nvim' },
         ft = { 'lilypond' },
     } -- }}}
 
-    use { 'lervag/vimtex',-- {{{
+    use { 'lervag/vimtex', disable=false,-- {{{
         ft = { 'latex', 'tex', 'plaintex', 'context', 'bib' },
         config = function() -- {{{
             local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
@@ -560,7 +560,7 @@ return require('packer').startup({function(use)
 
     -- Language Server --
 
-    use { 'neoclide/coc.nvim', branch = 'release',-- {{{
+    use { 'neoclide/coc.nvim', branch = 'release', disable=false,-- {{{
         run = ':CocUpdate',
         config = function() -- {{{
             local map = function(mode, LH, RH, args) vim.keymap.set(mode, LH, RH, args) end
@@ -619,7 +619,7 @@ return require('packer').startup({function(use)
 
     -- Candy --
 
-    use { 'raghur/vim-ghost',-- {{{
+    use { 'raghur/vim-ghost', disable=false,-- {{{
         run = ':GhostInstall',
         cmd = { 'GhostInstall', 'GhostStart' },
         config = function() -- {{{
@@ -654,7 +654,7 @@ return require('packer').startup({function(use)
         end, -- }}}
     } -- }}}
 
-    use { 'voldikss/vim-floaterm',-- {{{
+    use { 'voldikss/vim-floaterm', disable=false,-- {{{
         -- cmd = { 'FloatermNew' },
         config = function() --{{{
             local map = vim.keymap.set
@@ -666,9 +666,9 @@ return require('packer').startup({function(use)
         end --}}}
     } -- }}}
 
-    use { 'MunifTanjim/nui.nvim' }
+    use { 'MunifTanjim/nui.nvim', disable=true }
 
-    use { 'anuvyklack/pretty-fold.nvim', -- {{{
+    use { 'anuvyklack/pretty-fold.nvim', disable=true, -- {{{
         config = function() -- {{{
 
             local global_setup = {
@@ -717,7 +717,7 @@ return require('packer').startup({function(use)
 
         end, -- }}}
     } -- }}}
-    use { 'anuvyklack/fold-preview.nvim', -- {{{
+    use { 'anuvyklack/fold-preview.nvim', disable=true, -- {{{
         requires = 'anuvyklack/keymap-amend.nvim',
         config = function()
             require('fold-preview').setup()
