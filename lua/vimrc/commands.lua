@@ -13,7 +13,7 @@ vim.api.nvim_create_user_command('MakeTitle', function(opts)
 
     if opts.args and opts.args == '' then
         -- query title with NUI if not specified with the command
-        vfn.nuiInput{ text = "Title", on_submit = function(title)
+        vfn.nuiInput{ text = "Title", width = '70%', on_submit = function(title)
             titlefn(title)
         end }
     else

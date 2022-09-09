@@ -9,6 +9,7 @@ local vimrc_files = {
 	'vimrc.mappings',
 	'vimrc.plugins',
 	'vimrc.settings',
+	'vimrc.commands',
 	'vimrc.autocommands',
 }
 
