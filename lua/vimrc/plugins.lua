@@ -470,7 +470,7 @@ return require('packer').startup({function(use)
                 highlight = {
                     enable = true,
                     -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is the name of the parser)
-                    -- disable = { "c", "rust" },
+                    disable = { "latex" },
                 },
                 incremental_selection = { enable = true },
                 indent = { enable = false },
