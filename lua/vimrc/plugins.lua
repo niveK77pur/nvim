@@ -727,8 +727,8 @@ return require('packer').startup({function(use)
     use { 'ggandor/leap.nvim', disable=false,
         config = function()
             local l = require('leap')
-            vim.api.nvim_set_hl(0, 'LeapBackdrop', { fg = '#707070' })
-            -- l.leap { target_windows = { vim.fn.win_getid() } }
+            -- vim.api.nvim_set_hl(0, 'LeapBackdrop', { fg = '#707070' })
+            -- l.set_default_keymaps(true)
             l.set_default_keymaps()
         end
     }
