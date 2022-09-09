@@ -717,13 +717,48 @@ return require('packer').startup({function(use)
 
         end, -- }}}
     } -- }}}
-
     use { 'anuvyklack/fold-preview.nvim', -- {{{
         requires = 'anuvyklack/keymap-amend.nvim',
         config = function()
             require('fold-preview').setup()
         end
     } -- }}}
+
+    use { 'ggandor/leap.nvim', disable=false,
+        config = function()
+            local l = require('leap')
+            vim.api.nvim_set_hl(0, 'LeapBackdrop', { fg = '#707070' })
+            -- l.leap { target_windows = { vim.fn.win_getid() } }
+            l.set_default_keymaps()
+        end
+    }
+    use { 'jinh0/eyeliner.nvim', disable=true,
+        config = function()
+            require'eyeliner'.setup {
+                highlight_on_key = true
+            }
+        end
+    }
+    use { 'rlane/pounce.nvim', disable=true,
+        config = function ()
+            require'pounce'.setup{
+                accept_keys = "JFKDLSAHGNUVRBYTMICEOXWPQZ",
+                accept_best_key = "<enter>",
+                multi_window = true,
+                debug = false,
+            }
+
+            vim.cmd [[
+                nmap a <cmd>Pounce<CR>
+                nmap A <cmd>PounceRepeat<CR>
+                vmap a <cmd>Pounce<CR>
+                omap ga <cmd>Pounce<CR>  " 's' is used by vim-surround
+            ]]
+
+            -- change colors with :highlight (check ':h pounce.txt')
+
+        end
+    }
 
     -- Automatically set up your configuration after cloning packer.nvim {{{
     -- Put this at the end after all plugins
