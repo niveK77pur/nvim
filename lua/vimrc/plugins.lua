@@ -768,6 +768,20 @@ return require('packer').startup({function(use)
         end
     }
 
+    use { 'NvChad/nvim-colorizer.lua', disable=false,
+        config = function()
+            require'colorizer'.setup{
+                mode = ({'foreground','background', 'virtualtext'})[3],
+            }
+        end
+    }
+    use { "max397574/colortils.nvim", disable=true,
+        cmd = "Colortils",
+        config = function()
+            require("colortils").setup()
+        end,
+    }
+
     -- Automatically set up your configuration after cloning packer.nvim {{{
     -- Put this at the end after all plugins
     if packer_bootstrap then
