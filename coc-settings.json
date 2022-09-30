@@ -12,6 +12,8 @@
 
   // Python settings
   "python.jediEnabled" : true,
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
 
   // Vimtex settings
   "coc.source.vimtex.enable": true,
