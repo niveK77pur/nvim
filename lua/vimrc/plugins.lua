@@ -457,15 +457,15 @@ return require('packer').startup({function(use)
                         surrounds = {
                             ['s'] = {
                                 add = { '[[', ']]' },
-                                find = "%[(=*)%[.*%]%1%]",
+                                find = "%[(=*)%[.-%]%1%]",
                                 -- find = function()
                                 --     local config = require("nvim-surround.config")
                                 --     -- return config.get_selection({ motion = '2a[' })
                                 --     return config.get_selection({ node = 'string' })
                                 -- end,
-                                delete = "^(%[=*%[)().*(%]=*%])()$",
+                                delete = "^(%[=*%[)().-(%]=*%])()$",
                                 -- delete = '^(%[%[)().*(%]%])()$',
-                                change = { target =  "^(%[=*%[)().*(%]=*%])()$"},
+                                change = { target =  "^(%[=*%[)().-(%]=*%])()$"},
                             },
                         }
                     }
