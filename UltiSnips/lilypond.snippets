@@ -107,8 +107,8 @@ snippet gap "\appoggiatura{...}" i
 \appoggiatura { ${VISUAL}$1 }
 endsnippet
 
-snippet shape "[-]\shape displacements item"
-\shape #'((0 . 0) (0 . 0) (0 . 0) (0 . 0)) ${1:Slur}
+snippet '(v?)shape' "[-]\shape displacements item" r
+\\`!p snip.rv = match.group(1)`shape #'((0 . 0) (0 . 0) (0 . 0) (0 . 0)) ${1:Slur}
 endsnippet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
