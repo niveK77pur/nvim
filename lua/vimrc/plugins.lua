@@ -559,6 +559,12 @@ return require('packer').startup({function(use)
     use { 'martineausimon/nvim-lilypond-suite', disable=false,-- {{{
         requires = { 'MunifTanjim/nui.nvim' },
         ft = { 'lilypond' },
+        config = function()
+            vim.api.nvim_create_autocmd( 'QuickFixCmdPost', {
+                command = "cwindow",
+                pattern = "*"
+            })
+        end
     } -- }}}
 
     use { 'lervag/vimtex', disable=false,-- {{{
