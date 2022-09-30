@@ -548,6 +548,7 @@ return require('packer').startup({function(use)
         end, -- }}}
     } -- }}}
     use { 'nvim-treesitter/playground', disable=false,
+        cmd = { 'TSPlaygroundToggle' },
         run = ':TSInstall query',
     }
 
