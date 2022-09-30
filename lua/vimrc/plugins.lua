@@ -229,9 +229,13 @@ return require('packer').startup({function(use)
                     -- TSVariable = { fg = colors.none },
 
                     PMenuSel = { fg = colors.White, bg = colors.Grey },
-                    Conceal = { fg = colors.DarkBlue },
+                    Conceal  = { fg = colors.DarkBlue },
 
-                },
+                    -- disable italic by default:
+                    Special = { style = "NONE" },
+                    String  = { style = "NONE" },
+
+                }
             }
         end
     }
