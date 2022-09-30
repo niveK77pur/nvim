@@ -150,3 +150,22 @@ endsnippet
 snippet 'k(\w+)M' "\key ... \major" r
 \key `!p snip.rv = match.group(1)` \major
 endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    Commands
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet rep "\repeat ... {  }"
+\repeat ${1:unfold} ${2:count} { $3 }
+endsnippet
+
+snippet oov "\once\override"
+\once\override $1 = #$2
+endsnippet
+
+snippet setf "\set fingeringOrientations"
+\set fingeringOrientations = #'(${1:left right up down})
+endsnippet
+snippet unsetf "\unset fingeringOrientations"
+\unset fingeringOrientations
+endsnippet
