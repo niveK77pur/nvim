@@ -1,5 +1,7 @@
--- VIMSCRIPT Code From Original VIMRC
---
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--                       Templates/Skeletons for new files
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 -- " templates/skeletons for new files "{{{
 -- augroup script_templates
 --         "insert templete on :new *.filetype
@@ -18,6 +20,27 @@
 -- augroup END
 -- "}}}
 
+local augroup_skeletons = vim.api.nvim_create_augroup('skeletons', {})
+
+local skeleton_map = {
+    ['*.pas']   = '$HOME/.vim/skeletons/Pascal/template_consoleApp.pas',
+    ['*.py']    = '$HOME/.vim/skeletons/Python/HashBang.py',
+    ['*.lua']   = '$HOME/.vim/skeletons/Lua/HashBang.py',
+    ['*.sh']    = '$HOME/.vim/skeletons/Bash/HashBang.sh',
+    ['*.yml']   = '$HOME/.vim/skeletons/Yaml/new.yml',
+    ['*.tex']   = '$HOME/.vim/skeletons/Latex/new.tex',
+    ['*.swift'] = '$HOME/.vim/skeletons/Swift/foundation.swift',
+    ['*.html']  = '$HOME/.vim/skeletons/HTML/new.html',
+}
+
+for extension, file in pairs(skeleton_map) do
+    vim.api.nvim_create_autocmd({ 'BufNewFile' }, {
+        group = augroup_skeletons,
+        pattern = { extension },
+        desc = ("Insert skeleton on %s"):format(extension),
+        command = ('0r %s'):format(file),
+    })
+end
 
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --                                  VIMRC Files
