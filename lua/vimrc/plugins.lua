@@ -560,6 +560,23 @@ return require('packer').startup({function(use)
         requires = { 'MunifTanjim/nui.nvim' },
         ft = { 'lilypond' },
         config = function()
+            require('nvls').setup{
+                lilypond = {
+                    mappings = {
+                        player = "<F3>",
+                        compile = "<F5>",
+                        open_pdf = "<F6>",
+                        switch_buffers = "<F2>",
+                        insert_version = "<F4>"
+                    },
+                    options = {
+                        pitches_language = "default",
+                        output = "pdf",
+                        main_file = "SUPERMAIN.ly"
+                    },
+                },
+            }
+
             vim.api.nvim_create_autocmd( 'QuickFixCmdPost', {
                 command = "cwindow",
                 pattern = "*"
