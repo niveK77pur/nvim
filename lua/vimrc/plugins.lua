@@ -502,6 +502,7 @@ return require('packer').startup({function(use)
     use { 'nvim-treesitter/nvim-treesitter', disable=false, -- {{{
         run = function()
             require('nvim-treesitter.install').update({ with_sync = true })
+            vim.cmd[[TSUpdateSync]]
         end,
         config = function() -- {{{
             require'nvim-treesitter.configs'.setup {
