@@ -646,6 +646,10 @@ return require('packer').startup({function(use)
         end,
     }
 
+    use { 'luk400/vim-jukit', disable=false,
+        event = 'BufEnter *.ipynb,*.py',
+    }
+
     -- Collaboration --
 
     use { 'jbyuki/instant.nvim', disable = true,-- {{{
@@ -826,7 +830,7 @@ return require('packer').startup({function(use)
             local l = require('leap')
             -- vim.api.nvim_set_hl(0, 'LeapBackdrop', { fg = '#707070' })
             -- l.set_default_keymaps(true)
-            l.set_default_keymaps()
+            l.add_default_mappings()
         end
     }
     use { 'jinh0/eyeliner.nvim', disable=true,
