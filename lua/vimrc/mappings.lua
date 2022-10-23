@@ -69,7 +69,7 @@ map('i', '<A-p>', '<c-r>"', { desc = 'paste text in " register more easily in in
 
 ---- Macros ----
 
-map('n', 'Q', '@', { desc = 'execute macros more comfortably (and remove unnecessary ex mode, see :h gQ)' })
+-- map('n', 'Q', '@', { desc = 'execute macros more comfortably (and remove unnecessary ex mode, see :h gQ)' })
 map('x', 'Q', function() -- {{{
         -- Inspiration:
         --  https://stackoverflow.com/a/3338360

@@ -647,7 +647,7 @@ return require('packer').startup({function(use)
     }
 
     use { 'luk400/vim-jukit', disable=false,
-        event = 'BufEnter *.ipynb,*.py',
+        event = 'BufEnter *.ipynb',
     }
 
     -- Collaboration --
