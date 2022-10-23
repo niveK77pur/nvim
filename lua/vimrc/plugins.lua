@@ -647,7 +647,19 @@ return require('packer').startup({function(use)
     }
 
     use { 'luk400/vim-jukit', disable=false,
-        event = 'BufEnter *.ipynb',
+        event = 'BufRead *.ipynb',
+        config = function()
+            for _,keys in ipairs{'so','sl','j','k','J','K'} do
+                vim.cmd(([[nunmap <Leader>%s]]):format(keys))
+            end
+            vim.cmd[[
+                nnoremap <leader>So :call jukit#splits#show_last_cell_output(1)<cr>
+                nnoremap <leader>Sl :call jukit#layouts#set_layout()<cr>
+                nnoremap <leader>j :call jukit#cells#jump_to_next_cell()<cr>
+                nnoremap <leader>k :call jukit#cells#jump_to_previous_cell()<cr>
+            ]]
+        end,
+
     }
 
     -- Collaboration --
