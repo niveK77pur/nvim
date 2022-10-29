@@ -653,10 +653,16 @@ return require('packer').startup({function(use)
                 vim.cmd(([[nunmap <Leader>%s]]):format(keys))
             end
             vim.cmd[[
+                nunmap <cr>
+                vunmap <cr>
+            ]]
+            vim.cmd[[
                 nnoremap <leader>So :call jukit#splits#show_last_cell_output(1)<cr>
                 nnoremap <leader>Sl :call jukit#layouts#set_layout()<cr>
                 nnoremap <leader>j :call jukit#cells#jump_to_next_cell()<cr>
                 nnoremap <leader>k :call jukit#cells#jump_to_previous_cell()<cr>
+                nnoremap <leader><cr> :call jukit#send#line()<cr>
+                vnoremap <leader><cr> :<C-U>call jukit#send#selection()<cr>
             ]]
         end,
 
