@@ -23,14 +23,14 @@
 local augroup_skeletons = vim.api.nvim_create_augroup('skeletons', {})
 
 local skeleton_map = {
-    ['*.pas']   = '$HOME/.vim/skeletons/Pascal/template_consoleApp.pas',
-    ['*.py']    = '$HOME/.vim/skeletons/Python/HashBang.py',
-    ['*.lua']   = '$HOME/.vim/skeletons/Lua/HashBang.py',
-    ['*.sh']    = '$HOME/.vim/skeletons/Bash/HashBang.sh',
-    ['*.yml']   = '$HOME/.vim/skeletons/Yaml/new.yml',
-    ['*.tex']   = '$HOME/.vim/skeletons/Latex/new.tex',
-    ['*.swift'] = '$HOME/.vim/skeletons/Swift/foundation.swift',
-    ['*.html']  = '$HOME/.vim/skeletons/HTML/new.html',
+    ['*.pas']   = vim.fn.stdpath('config') .. '/skeletons/Pascal/template_consoleApp.pas',
+    ['*.py']    = vim.fn.stdpath('config') .. '/skeletons/Python/HashBang.py',
+    ['*.lua']   = vim.fn.stdpath('config') .. '/skeletons/Lua/HashBang.py',
+    ['*.sh']    = vim.fn.stdpath('config') .. '/skeletons/Bash/HashBang.sh',
+    ['*.yml']   = vim.fn.stdpath('config') .. '/skeletons/Yaml/new.yml',
+    ['*.tex']   = vim.fn.stdpath('config') .. '/skeletons/Latex/new.tex',
+    ['*.swift'] = vim.fn.stdpath('config') .. '/skeletons/Swift/foundation.swift',
+    ['*.html']  = vim.fn.stdpath('config') .. '/skeletons/HTML/new.html',
 }
 
 for extension, file in pairs(skeleton_map) do
