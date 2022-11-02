@@ -290,3 +290,11 @@ snippet 'newgl ([^ ]+) (.*)' "\newglossaryentry{...}{name={...},description={...
 	description = {`!p snip.rv =  match.group(2)`},
 }
 endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                      Lua
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet lp "\luaexec{tex.print(...)}" i
+\luaexec{tex.print($1)}
+endsnippet
