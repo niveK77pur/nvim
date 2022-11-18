@@ -634,11 +634,11 @@ return require('packer').startup({function(use)
 
             -- Warnings to ignore --
             vim.g.vimtex_quickfix_ignore_filters = {
-                'Underfull',
+                -- 'Underfull',
                 'Overfull',
-                'Font Warning:',
+                -- 'Font Warning:',
                 'Empty bibliography',
-                'LaTeX hooks Warning: Generic hook',
+                -- 'LaTeX hooks Warning: Generic hook',
                 'Package hyperref Warning: Draft mode on.',
                 -- 'siunitx/group-digits',
                 -- ['overfull'] = 0,
