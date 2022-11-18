@@ -639,6 +639,7 @@ return require('packer').startup({function(use)
                 'Font Warning:',
                 'Empty bibliography',
                 'LaTeX hooks Warning: Generic hook',
+                'Package hyperref Warning: Draft mode on.',
                 -- 'siunitx/group-digits',
                 -- ['overfull'] = 0,
                 -- ['underfull'] = 0,
