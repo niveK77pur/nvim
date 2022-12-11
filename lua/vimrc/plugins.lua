@@ -808,6 +808,7 @@ return require('packer').startup({function(use)
                 automatic_installation = true,
             }
 
+            -- add nvim-cmp capabilities
             local lspconfig = require("lspconfig")
             local capabilities = vim.tbl_deep_extend(
                 'force',
