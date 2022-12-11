@@ -18,7 +18,9 @@ return require('packer').startup({function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
-    -- Handy tools --
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    --                                Handy Tools
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     use { 'thinca/vim-localrc', disable=true }
     use { 'MunifTanjim/exrc.nvim', disable=false, -- local .nvimrc files {{{
@@ -106,7 +108,9 @@ return require('packer').startup({function(use)
         end, --}}}
     } -- }}}
 
-    -- Writing --
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    --                                  Writing
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     use { 'preservim/vim-pencil', disable=false, -- {{{
         ft = { 'tex', 'latex', 'text', 'clipboard' },
@@ -154,7 +158,9 @@ return require('packer').startup({function(use)
     } -- }}}
 
 
-    -- Interface --
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    --                                 Interface
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     use { 'sainnhe/everforest', disable=true,
         setup = function()
@@ -364,7 +370,9 @@ return require('packer').startup({function(use)
         end
     }
 
-    -- Editing --
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    --                                  Editing
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     use { 'scrooloose/nerdcommenter', disable=true }
     use { 'numToStr/Comment.nvim', disable=false, -- {{{
@@ -516,9 +524,13 @@ return require('packer').startup({function(use)
         end
     }
 
-    -- Music --
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    --                                   Music
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    -- Language support --
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    --                             Language Support
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     use { 'nvim-treesitter/nvim-treesitter', disable=false, -- {{{
         run = function()
@@ -707,7 +719,9 @@ return require('packer').startup({function(use)
 
     }
 
-    -- Collaboration --
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    --                               Collaboration
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     use { 'jbyuki/instant.nvim', disable = true,-- {{{
         -- set cmd = ???
@@ -716,7 +730,9 @@ return require('packer').startup({function(use)
         end,
     } -- }}}
 
-    -- Language Server --
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    --                              Language Server
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     use { 'neoclide/coc.nvim', branch = 'release', disable=true,-- {{{
         run = ':CocUpdate',
@@ -955,7 +971,9 @@ return require('packer').startup({function(use)
         end,
     }
 
-    -- Candy --
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    --                                   Candy
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     use { 'raghur/vim-ghost', disable=false,-- {{{
         run = ':GhostInstall',
