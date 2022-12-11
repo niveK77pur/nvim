@@ -101,5 +101,13 @@ endsnippet
 
 snippet main "__name__ == '__main__'" b
 if __name__ == '__main__':
-	$1
+	$0
+endsnippet
+
+snippet mainfunc "__name__ == '__main__': main()" b
+def main():
+	$0
+
+if __name__ == '__main__':
+	main()
 endsnippet
