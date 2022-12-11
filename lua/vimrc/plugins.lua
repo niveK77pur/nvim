@@ -18,7 +18,9 @@ return require('packer').startup({function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
-    -- Handy tools --
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    --                                Handy Tools
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     use { 'thinca/vim-localrc', disable=true }
     use { 'MunifTanjim/exrc.nvim', disable=false, -- local .nvimrc files {{{
@@ -106,7 +108,9 @@ return require('packer').startup({function(use)
         end, --}}}
     } -- }}}
 
-    -- Writing --
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    --                                  Writing
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     use { 'preservim/vim-pencil', disable=false, -- {{{
         ft = { 'tex', 'latex', 'text', 'clipboard' },
@@ -154,7 +158,9 @@ return require('packer').startup({function(use)
     } -- }}}
 
 
-    -- Interface --
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    --                                 Interface
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     use { 'sainnhe/everforest', disable=true,
         setup = function()
@@ -364,7 +370,9 @@ return require('packer').startup({function(use)
         end
     }
 
-    -- Editing --
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    --                                  Editing
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     use { 'scrooloose/nerdcommenter', disable=true }
     use { 'numToStr/Comment.nvim', disable=false, -- {{{
@@ -516,9 +524,13 @@ return require('packer').startup({function(use)
         end
     }
 
-    -- Music --
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    --                                   Music
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    -- Language support --
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    --                             Language Support
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     use { 'nvim-treesitter/nvim-treesitter', disable=false, -- {{{
         run = function()
@@ -707,7 +719,9 @@ return require('packer').startup({function(use)
 
     }
 
-    -- Collaboration --
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    --                               Collaboration
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     use { 'jbyuki/instant.nvim', disable = true,-- {{{
         -- set cmd = ???
@@ -716,9 +730,11 @@ return require('packer').startup({function(use)
         end,
     } -- }}}
 
-    -- Language Server --
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    --                              Language Server
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    use { 'neoclide/coc.nvim', branch = 'release', disable=false,-- {{{
+    use { 'neoclide/coc.nvim', branch = 'release', disable=true,-- {{{
         run = ':CocUpdate',
         config = function() -- {{{
             local map = function(mode, LH, RH, args) vim.keymap.set(mode, LH, RH, args) end
@@ -775,7 +791,203 @@ return require('packer').startup({function(use)
         end, -- }}}
     } -- }}}
 
-    -- Candy --
+    use { 'neovim/nvim-lspconfig', disabled = false,
+        requires = {
+            'hrsh7th/cmp-nvim-lsp',
+            'williamboman/mason.nvim',
+            'williamboman/mason-lspconfig.nvim',
+        },
+        config = function()
+
+            -- Setup -----------------------------------------------------------
+
+            -- https://github.com/williamboman/mason-lspconfig.nvim#setup
+            require("mason").setup()
+            require("mason-lspconfig").setup {
+                -- install LSPs that are set up via lspconfig below
+                automatic_installation = true,
+            }
+
+            -- add nvim-cmp capabilities
+            local lspconfig = require("lspconfig")
+            local capabilities = vim.tbl_deep_extend(
+                'force',
+                lspconfig.util.default_config.capabilities,
+                require('cmp_nvim_lsp').default_capabilities()
+            )
+
+            -- https://vonheikemen.github.io/devlog/tools/setup-nvim-lspconfig-plus-nvim-cmp/
+            local sign = function(opts)
+                vim.fn.sign_define(opts.name, {
+                    texthl = opts.name,
+                    text = opts.text,
+                    numhl = ''
+                })
+            end
+            sign({ name = 'DiagnosticSignError', text = '✘' })
+            sign({ name = 'DiagnosticSignWarn',  text = '▲' })
+            sign({ name = 'DiagnosticSignHint',  text = '∴' })
+            sign({ name = 'DiagnosticSignInfo',  text = '' })
+
+            -- Mappings --------------------------------------------------------
+
+            local nmap = function(LH, RH, opts) vim.keymap.set('n', LH, RH, opts) end
+            -- Diagnostics Mappings.
+            -- See `:help vim.diagnostic.*` for documentation on any of the below functions
+            local opts = { noremap = true, silent = true }
+            nmap('<Leader>ld', vim.diagnostic.open_float, opts)
+            nmap('[d', vim.diagnostic.goto_prev, opts)
+            nmap(']d', vim.diagnostic.goto_next, opts)
+            nmap('<Leader>lq', vim.diagnostic.setloclist, opts)
+
+            -- Use an on_attach function to only map the following keys
+            -- after the language server attaches to the current buffer
+            local on_attach = function(client, bufnr)
+                -- Enable completion triggered by <c-x><c-o>
+                vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+                -- LSP Mappings.
+                -- See `:help vim.lsp.*` for documentation on any of the below functions
+                local bufopts = { noremap = true, silent = true, buffer = bufnr }
+
+                nmap('<Leader>lgD', vim.lsp.buf.declaration, bufopts)
+                nmap('<Leader>lgd', vim.lsp.buf.definition, bufopts)
+                nmap('<Leader>lk', vim.lsp.buf.hover, bufopts)
+                nmap('<Leader>lgi', vim.lsp.buf.implementation, bufopts)
+                nmap('<C-k>', vim.lsp.buf.signature_help, bufopts)
+                -- nmap('<Leader>lwa', vim.lsp.buf.add_workspace_folder, bufopts)
+                -- nmap('<Leader>lwr', vim.lsp.buf.remove_workspace_folder, bufopts)
+                -- nmap('<Leader>lwl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, bufopts)
+                nmap('<Leader>lD', vim.lsp.buf.type_definition, bufopts)
+                nmap('<Leader>lrn', vim.lsp.buf.rename, bufopts)
+                nmap('<Leader>lca', vim.lsp.buf.code_action, bufopts)
+                nmap('<Leader>lre', vim.lsp.buf.references, bufopts)
+                nmap('<Leader>lf', function() vim.lsp.buf.format { async = true } end, bufopts)
+
+            end
+
+            -- LSPs ------------------------------------------------------------
+
+            -- lua
+            lspconfig.sumneko_lua.setup {
+                settings = {
+                    Lua = {
+                        diagnostics = {
+                            globals = { 'vim' },
+                        },
+                        telemetry = {
+                            enable = false,
+                        },
+                    }
+                },
+                capabilities = capabilities,
+                on_attach = on_attach,
+            }
+
+            -- python
+            lspconfig.pylsp.setup {
+                capabilities = capabilities,
+                on_attach = on_attach,
+            }
+
+            -- bash
+            lspconfig.bashls.setup {
+                capabilities = capabilities,
+                on_attach = on_attach,
+            }
+
+            -- latex
+            lspconfig.texlab.setup {
+                capabilities = capabilities,
+                -- on_attach = on_attach,
+            }
+
+        end,
+    }
+
+    use { 'hrsh7th/nvim-cmp', disable = false,
+        requires = {
+            'neovim/nvim-lspconfig',
+            'hrsh7th/cmp-nvim-lsp',
+            'hrsh7th/cmp-buffer',
+            -- 'hrsh7th/cmp-path',
+            -- 'hrsh7th/cmp-cmdline',
+            'hrsh7th/cmp-omni',
+            'hrsh7th/cmp-emoji',
+            'quangnguyen30192/cmp-nvim-ultisnips',
+            'onsails/lspkind.nvim',
+        },
+        config = function()
+            local cmp = require 'cmp'
+            local lspkind = require('lspkind')
+
+            cmp.setup {
+                formatting = {
+                    format = lspkind.cmp_format({
+                        -- mode = 'symbol',
+                    }),
+                },
+                view = {
+                    entries = { name = 'custom', selection_order = 'near_cursor' },
+                },
+                snippet = {
+                    expand = function(args)
+                        vim.fn["UltiSnips#Anon"](args.body)
+                    end,
+                },
+                window = {
+                    completion = cmp.config.window.bordered(),
+                    documentation = cmp.config.window.bordered(),
+                },
+                mapping = cmp.mapping.preset.insert({
+                    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+                    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+                    ['<C-Space>'] = cmp.mapping.complete(),
+                    ['<C-e>'] = cmp.mapping.abort(),
+                    ['<CR>'] = cmp.mapping.confirm({
+                        behavior = cmp.ConfirmBehavior.Replace,
+                        select = true,
+                    }),
+                }),
+                sources = cmp.config.sources(
+                    {
+                        { name = 'nvim_lsp' },
+                        { name = 'ultisnips' },
+                    },
+                    {
+                        -- { name = 'path', option = { trailing_slash = true } },
+                        { name = 'buffer' },
+                        { name = 'emoji', option = { insert = true } },
+                    }
+                ),
+            }
+
+            -- -- `/` cmdline setup.
+            -- cmp.setup.cmdline({ '/', '?' }, {
+            --     mapping = cmp.mapping.preset.cmdline(),
+            --     sources = {
+            --         { name = 'buffer' }
+            --     }
+            -- })
+
+            cmp.setup.filetype('tex', {
+                sources = cmp.config.sources(
+                    {
+                        { name = 'omni' },
+                        { name = 'ultisnips' },
+                    },
+                    {
+                        { name = 'nvim_lsp', },
+                    }
+                )
+            })
+
+        end,
+    }
+
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    --                                   Candy
+    --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     use { 'raghur/vim-ghost', disable=false,-- {{{
         run = ':GhostInstall',
