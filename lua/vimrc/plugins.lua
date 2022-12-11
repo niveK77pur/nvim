@@ -908,6 +908,12 @@ return require('packer').startup({function(use)
                 on_attach = on_attach,
             }
 
+            -- docker
+            lspconfig.dockerls.setup {
+                capabilities = capabilities,
+                on_attach = on_attach,
+            }
+
         end,
     }
 
