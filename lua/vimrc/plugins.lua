@@ -684,7 +684,7 @@ return require('packer').startup({function(use)
                 " Sending code
                 nnoremap <leader><space> :call jukit#send#section(0)<cr>
                 nnoremap <leader>cc :call jukit#send#until_current_section()<cr>
-                nnoremap <leader>all :call jukit#send#all()<cr>
+                nnoremap <leader>ca :call jukit#send#all()<cr>
                 nnoremap <leader><cr> :call jukit#send#line()<cr>
                 vnoremap <leader><cr> :<C-U>call jukit#send#selection()<cr>
                 " Cells
