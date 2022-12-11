@@ -816,6 +816,19 @@ return require('packer').startup({function(use)
                 require('cmp_nvim_lsp').default_capabilities()
             )
 
+            -- https://vonheikemen.github.io/devlog/tools/setup-nvim-lspconfig-plus-nvim-cmp/
+            local sign = function(opts)
+                vim.fn.sign_define(opts.name, {
+                    texthl = opts.name,
+                    text = opts.text,
+                    numhl = ''
+                })
+            end
+            sign({ name = 'DiagnosticSignError', text = '✘' })
+            sign({ name = 'DiagnosticSignWarn',  text = '▲' })
+            sign({ name = 'DiagnosticSignHint',  text = '∴' })
+            sign({ name = 'DiagnosticSignInfo',  text = '' })
+
             -- Mappings --------------------------------------------------------
 
             local nmap = function(LH, RH, opts) vim.keymap.set('n', LH, RH, opts) end
