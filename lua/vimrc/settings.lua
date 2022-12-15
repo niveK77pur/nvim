@@ -111,4 +111,11 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.infercase = false
 
+-- Diagnostics
+
+vim.diagnostic.config({
+    severity_sort = true,
+})
+
+
 -- vim: fdm=marker
