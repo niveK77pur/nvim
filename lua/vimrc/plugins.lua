@@ -1001,7 +1001,7 @@ return require('packer').startup({function(use)
     --                                   Candy
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    use { 'raghur/vim-ghost', disable=false,-- {{{
+    use { 'raghur/vim-ghost', disable=true,-- {{{
         run = ':GhostInstall',
         cmd = { 'GhostInstall', 'GhostStart' },
         config = function() -- {{{
@@ -1035,6 +1035,9 @@ return require('packer').startup({function(use)
             ]]
         end, -- }}}
     } -- }}}
+    use { 'subnut/nvim-ghost.nvim', disable=true,
+        run = ':call nvim_ghost#installer#install()',
+    }
 
     use { 'voldikss/vim-floaterm', disable=false,-- {{{
         -- cmd = { 'FloatermNew' },
