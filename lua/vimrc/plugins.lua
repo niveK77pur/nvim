@@ -646,7 +646,7 @@ return require('packer').startup({function(use)
 
             -- Warnings to ignore --
             vim.g.vimtex_quickfix_ignore_filters = {
-                -- 'Underfull',
+                'Underfull',
                 'Overfull',
                 -- 'Font Warning:',
                 'Empty bibliography',
