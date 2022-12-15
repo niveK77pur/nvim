@@ -87,12 +87,17 @@ end
 
 
 function myfs.GetCommentCharacter()
+    -- add stuff before and after comment character
+    local pre,post = '', ''
+    if vim.o.filetype == 'python' then
+        post = ' '
+    end
     for _,v in pairs(vim.fn.split(vim.o.comments, ',')) do
         if v:match('^b?:') then
-            return v:match(':(.*)')
+            return pre .. v:match(':(.*)') .. post
         end
     end
-    return ''
+    return pre .. '' .. post
 end
 
 function myfs.MakeHeader(text)
