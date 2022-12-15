@@ -985,11 +985,11 @@ return require('packer').startup({function(use)
             cmp.setup.filetype('tex', {
                 sources = cmp.config.sources(
                     {
-                        { name = 'omni' },
+                        { name = 'nvim_lsp', },
                         { name = 'ultisnips' },
                     },
                     {
-                        { name = 'nvim_lsp', },
+                        { name = 'omni' },
                     }
                 )
             })
