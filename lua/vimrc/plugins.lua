@@ -886,6 +886,22 @@ return require('packer').startup({function(use)
 
             -- python
             lspconfig.pylsp.setup {
+                settings = {
+                    pylsp = {
+                        plugins = {
+                            pycodestyle = {
+                                ignore = {
+                                    'E501', -- line too long
+                                    -- 'E302', -- expected 2 blank lines
+                                    -- 'E305', -- expected 2 blank lines after
+                                    'E221', -- multiple spaces before operator
+                                    'E201', -- whitespace before open bracket [{(
+                                    'E202', -- whitespace before close bracket )}]
+                                },
+                            },
+                        },
+                    },
+                },
                 capabilities = capabilities,
                 on_attach = on_attach,
             }
