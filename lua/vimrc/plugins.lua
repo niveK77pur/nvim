@@ -689,31 +689,31 @@ return require('packer').startup({function(use)
         config = function()
             vim.cmd[[
                 " Splits
-                nnoremap <leader>os :call jukit#splits#output()<cr>
-                nnoremap <leader>od :call jukit#splits#close_output_split()<cr>
-                nnoremap <leader>So :call jukit#splits#show_last_cell_output(1)<cr>
-                nnoremap <leader>Sl :call jukit#layouts#set_layout()<cr>
+                nnoremap <LocalLeader>os :call jukit#splits#output()<cr>
+                nnoremap <LocalLeader>od :call jukit#splits#close_output_split()<cr>
+                nnoremap <LocalLeader>So :call jukit#splits#show_last_cell_output(1)<cr>
+                nnoremap <LocalLeader>Sl :call jukit#layouts#set_layout()<cr>
                 " Sending code
-                nnoremap <leader><space> :call jukit#send#section(0)<cr>
-                nnoremap <leader>cc :call jukit#send#until_current_section()<cr>
-                nnoremap <leader>ca :call jukit#send#all()<cr>
-                nnoremap <leader><cr> :call jukit#send#line()<cr>
-                vnoremap <leader><cr> :<C-U>call jukit#send#selection()<cr>
+                nnoremap <LocalLeader><space> :call jukit#send#section(0)<cr>
+                nnoremap <LocalLeader>cc :call jukit#send#until_current_section()<cr>
+                nnoremap <LocalLeader>ca :call jukit#send#all()<cr>
+                nnoremap <LocalLeader><cr> :call jukit#send#line()<cr>
+                vnoremap <LocalLeader><cr> :<C-U>call jukit#send#selection()<cr>
                 " Cells
-                nnoremap <leader>j :call jukit#cells#jump_to_next_cell()<cr>
-                nnoremap <leader>k :call jukit#cells#jump_to_previous_cell()<cr>
-                nnoremap <leader>co :call jukit#cells#create_below(0)<cr>
-                nnoremap <leader>cO :call jukit#cells#create_above(0)<cr>
-                nnoremap <leader>ct :call jukit#cells#create_below(1)<cr>
-                nnoremap <leader>cT :call jukit#cells#create_above(1)<cr>
-                nnoremap <leader>cd :call jukit#cells#delete()<cr>
-                nnoremap <leader>cs :call jukit#cells#split()<cr>
-                nnoremap <leader>cM :call jukit#cells#merge_above()<cr>
-                nnoremap <leader>cm :call jukit#cells#merge_below()<cr>
-                nnoremap <leader>ck :call jukit#cells#move_up()<cr>
-                nnoremap <leader>cj :call jukit#cells#move_down()<cr>
+                nnoremap <LocalLeader>j :call jukit#cells#jump_to_next_cell()<cr>
+                nnoremap <LocalLeader>k :call jukit#cells#jump_to_previous_cell()<cr>
+                nnoremap <LocalLeader>co :call jukit#cells#create_below(0)<cr>
+                nnoremap <LocalLeader>cO :call jukit#cells#create_above(0)<cr>
+                nnoremap <LocalLeader>ct :call jukit#cells#create_below(1)<cr>
+                nnoremap <LocalLeader>cT :call jukit#cells#create_above(1)<cr>
+                nnoremap <LocalLeader>cd :call jukit#cells#delete()<cr>
+                nnoremap <LocalLeader>cs :call jukit#cells#split()<cr>
+                nnoremap <LocalLeader>cM :call jukit#cells#merge_above()<cr>
+                nnoremap <LocalLeader>cm :call jukit#cells#merge_below()<cr>
+                nnoremap <LocalLeader>ck :call jukit#cells#move_up()<cr>
+                nnoremap <LocalLeader>cj :call jukit#cells#move_down()<cr>
                 " ipynb conversion
-                nnoremap <leader>np :call jukit#convert#notebook_convert("jupyter-notebook")<cr>
+                nnoremap <LocalLeader>np :call jukit#convert#notebook_convert("jupyter-notebook")<cr>
             ]]
         end,
 
