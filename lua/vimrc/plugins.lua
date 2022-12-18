@@ -901,6 +901,7 @@ return require('packer').startup({function(use)
                                     'E221', -- multiple spaces before operator
                                     'E201', -- whitespace before open bracket [{(
                                     'E202', -- whitespace before close bracket )}]
+                                    'W503', -- line break before binary operator (conflicts with 'W504')
                                 },
                             },
                         },
