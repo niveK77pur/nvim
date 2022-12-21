@@ -130,8 +130,18 @@ vim.opt.infercase = false
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 vim.diagnostic.config({
+    float = {
+        source = 'if_many',
+        focusable = false,
+    },
+    virtual_text = {
+        source = 'if_many',
+    },
     severity_sort = true,
+    signs = true,
 })
+-- avoid sign column to make text area jump around
+vim.opt.signcolumn = 'yes'
 
 
 -- vim: fdm=marker
