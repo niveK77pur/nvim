@@ -881,30 +881,31 @@ return require('packer').startup({function(use)
                 },
             })
 
-            lsp.configure('pyright', {
-                -- handlers = {
-                --     ['textDocument/publishDiagnostics'] = function(...) end,
-                -- },
-            })
-
-            lsp.configure('pylsp', {
-                settings = {
-                    pylsp = {
-                        plugins = {
-                            pycodestyle = {
-                                ignore = {
-                                    'E501', -- line too long
-                                    -- 'E302', -- expected 2 blank lines
-                                    -- 'E305', -- expected 2 blank lines after
-                                    'E221', -- multiple spaces before operator
-                                    'E201', -- whitespace before open bracket [{(
-                                    'E202', -- whitespace before close bracket )}]
-                                    'W503', -- line break before binary operator (conflicts with 'W504')
-                                },
+            local pylsp_settings = {
+                pylsp = {
+                    plugins = {
+                        pycodestyle = {
+                            ignore = {
+                                'E501', -- line too long
+                                -- 'E302', -- expected 2 blank lines
+                                -- 'E305', -- expected 2 blank lines after
+                                'E221', -- multiple spaces before operator
+                                'E201', -- whitespace before open bracket [{(
+                                'E202', -- whitespace before close bracket )}]
+                                'W503', -- line break before binary operator (conflicts with 'W504')
                             },
                         },
                     },
                 },
+            }
+            if require('mason-registry').is_installed('pyright') then
+                -- additional tweaks to interfere less with 'pyright'
+                pylsp_settings = vim.tbl_deep_extend('force', pylsp_settings, {
+                    pylsp = { plugins = { pyflakes = { enabled = false } } }
+                })
+            end
+            lsp.configure('pylsp', {
+                settings = pylsp_settings,
             })
 
             -- Setup -----------------------------------------------------------
