@@ -791,63 +791,56 @@ return require('packer').startup({function(use)
         end, -- }}}
     } -- }}}
 
-    use { 'neovim/nvim-lspconfig', disabled = false,
+    use { 'VonHeikemen/lsp-zero.nvim', disable = false,
         requires = {
-            'hrsh7th/cmp-nvim-lsp',
+            'neovim/nvim-lspconfig',
             'williamboman/mason.nvim',
             'williamboman/mason-lspconfig.nvim',
         },
         config = function()
+            local lsp = require('lsp-zero')
 
-            -- Setup -----------------------------------------------------------
-
-            -- https://github.com/williamboman/mason-lspconfig.nvim#setup
-            require("mason").setup()
-            require("mason-lspconfig").setup {
-                -- install LSPs that are set up via lspconfig below
-                automatic_installation = true,
-            }
-
-            -- add nvim-cmp capabilities
-            local lspconfig = require("lspconfig")
-            local capabilities = vim.tbl_deep_extend(
-                'force',
-                lspconfig.util.default_config.capabilities,
-                require('cmp_nvim_lsp').default_capabilities()
-            )
-
-            -- https://vonheikemen.github.io/devlog/tools/setup-nvim-lspconfig-plus-nvim-cmp/
-            local sign = function(opts)
-                vim.fn.sign_define(opts.name, {
-                    texthl = opts.name,
-                    text = opts.text,
-                    numhl = ''
-                })
-            end
-            sign({ name = 'DiagnosticSignError', text = '✘' })
-            sign({ name = 'DiagnosticSignWarn',  text = '▲' })
-            sign({ name = 'DiagnosticSignHint',  text = '∴' })
-            sign({ name = 'DiagnosticSignInfo',  text = '' })
+            -- Preliminary -----------------------------------------------------
+            -- lsp.preset('recommended')
+            lsp.set_preferences({
+                suggest_lsp_servers = true,
+                setup_servers_on_start = true,
+                set_lsp_keymaps = false,
+                configure_diagnostics = true,
+                cmp_capabilities = true,
+                manage_nvim_cmp = false, -- separate custom configuration
+                call_servers = 'local',
+                sign_icons = {
+                    error = '✘',-- '✘',
+                    warn  = '▲',-- '▲',
+                    hint  = '⚑',-- '∴',
+                    info  = '',-- ''
+                }
+            })
 
             -- Mappings --------------------------------------------------------
 
-            local nmap = function(LH, RH, opts, desc)
-                opts['desc'] = desc
-                vim.keymap.set('n', LH, RH, opts)
-            end
-            -- Diagnostics Mappings.
-            -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-            local opts = { noremap = true, silent = true }
-            nmap('<Leader>ld', vim.diagnostic.open_float, opts, 'Show diagnostic in float window')
-            nmap('[d', vim.diagnostic.goto_prev, opts, 'Go to previous diagnostic')
-            nmap(']d', vim.diagnostic.goto_next, opts, 'Go to next diagnostic')
-            nmap('<Leader>lq', vim.diagnostic.setloclist, opts, 'Add buffer diagnostics to location list')
-
-            -- Use an on_attach function to only map the following keys
-            -- after the language server attaches to the current buffer
-            local on_attach = function(client, bufnr)
+            -- LSP
+            lsp.on_attach(function(client, bufnr)
+                local nmap = function(LH, RH, opts, desc)
+                    opts['desc'] = desc
+                    vim.keymap.set('n', LH, RH, opts)
+                end
+                -- Diagnostics Mappings.
+                -- See `:help vim.diagnostic.*` for documentation on any of the below functions
+                local opts = { noremap = true, silent = true }
+                nmap('<Leader>ld', vim.diagnostic.open_float, opts, 'Show diagnostic in float window')
+                nmap('[d', vim.diagnostic.goto_prev, opts, 'Go to previous diagnostic')
+                nmap(']d', vim.diagnostic.goto_next, opts, 'Go to next diagnostic')
+                nmap('<Leader>lq', vim.diagnostic.setloclist, opts, 'Add buffer diagnostics to location list')
                 -- Enable completion triggered by <c-x><c-o>
-                vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+                do
+                    -- interferes with vimtex
+                    local vimtex_loaded = packer_plugins['vimtex'] and packer_plugins['vimtex'].loaded
+                    if not ( vimtex_loaded ) then
+                        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+                    end
+                end
 
                 -- LSP Mappings.
                 -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -866,14 +859,16 @@ return require('packer').startup({function(use)
                 nmap('<Leader>lrn', vim.lsp.buf.rename, bufopts, 'Rename all references of symbol')
                 nmap('<Leader>lca', vim.lsp.buf.code_action, bufopts, 'Select available code action')
                 nmap('<Leader>lre', vim.lsp.buf.references, bufopts, 'List all references to symbol')
-                nmap('<Leader>lf', function() vim.lsp.buf.format { async = true } end, bufopts, 'Format buffer using LSP')
-
-            end
+                nmap('<Leader>lf', function() vim.lsp.buf.format { async = false } end, bufopts, 'Format buffer using LSP')
+            end)
 
             -- LSPs ------------------------------------------------------------
 
-            -- lua
-            lspconfig.sumneko_lua.setup {
+            lsp.ensure_installed({
+                'sumneko_lua',
+            })
+
+            lsp.configure('sumneko_lua', {
                 settings = {
                     Lua = {
                         diagnostics = {
@@ -884,19 +879,15 @@ return require('packer').startup({function(use)
                         },
                     }
                 },
-                capabilities = capabilities,
-                on_attach = on_attach,
-            }
+            })
 
-            -- python
-            lspconfig.pyright.setup {
-                capabilities = capabilities,
-                on_attach = on_attach,
+            lsp.configure('pyright', {
                 -- handlers = {
                 --     ['textDocument/publishDiagnostics'] = function(...) end,
                 -- },
-            }
-            lspconfig.pylsp.setup {
+            })
+
+            lsp.configure('pylsp', {
                 settings = {
                     pylsp = {
                         plugins = {
@@ -914,48 +905,32 @@ return require('packer').startup({function(use)
                         },
                     },
                 },
-                capabilities = capabilities,
-                on_attach = on_attach,
-            }
+            })
 
-            -- bash
-            lspconfig.bashls.setup {
-                capabilities = capabilities,
-                on_attach = on_attach,
-            }
-
-            -- latex
-            lspconfig.texlab.setup {
-                capabilities = capabilities,
-                -- on_attach = on_attach,
-            }
-
-            -- markdown
-            lspconfig.marksman.setup {
-                capabilities = capabilities,
-                on_attach = on_attach,
-            }
-
-            -- docker
-            lspconfig.dockerls.setup {
-                capabilities = capabilities,
-                on_attach = on_attach,
-            }
+            -- Setup -----------------------------------------------------------
+            do
+                local diagnostic_config = vim.diagnostic.config()
+                lsp.setup()
+                vim.diagnostic.config(diagnostic_config)
+            end
 
         end,
     }
 
     use { 'hrsh7th/nvim-cmp', disable = false,
         requires = {
-            'neovim/nvim-lspconfig',
-            'hrsh7th/cmp-nvim-lsp',
             'hrsh7th/cmp-buffer',
-            -- 'hrsh7th/cmp-path',
-            -- 'hrsh7th/cmp-cmdline',
-            'hrsh7th/cmp-omni',
             'hrsh7th/cmp-emoji',
-            'quangnguyen30192/cmp-nvim-ultisnips',
+            'hrsh7th/cmp-nvim-lsp',
+            'hrsh7th/cmp-nvim-lua',
+            'hrsh7th/cmp-omni',
+            'hrsh7th/cmp-path',
+            'neovim/nvim-lspconfig',
             'onsails/lspkind.nvim',
+            'quangnguyen30192/cmp-nvim-ultisnips',
+            -- 'hrsh7th/cmp-cmdline',
+            -- 'hrsh7th/cmp-path',
+            -- 'saadparwaiz1/cmp_luasnip',
         },
         config = function()
             local cmp = require 'cmp'
