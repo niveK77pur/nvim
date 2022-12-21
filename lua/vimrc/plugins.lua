@@ -1,17 +1,19 @@
--- install packer if not found
+-- install packer if not found {{{
 local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 local packer_bootstrap
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   packer_bootstrap = vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
   vim.cmd [[packadd packer.nvim]]
 end
--- automatically :PackerCompile when file is written
+--  }}}
+-- automatically :PackerCompile when file is written {{{
 vim.cmd([[
   augroup packer_user_config
     autocmd!
     autocmd BufWritePost plugins.lua source <afile> | PackerCompile
   augroup end
 ]])
+--  }}}
 
 return require('packer').startup({function(use)
 
@@ -25,7 +27,7 @@ return require('packer').startup({function(use)
     use { 'thinca/vim-localrc', disable=true }
     use { 'MunifTanjim/exrc.nvim', disable=false, -- local .nvimrc files {{{
         requires = { 'MunifTanjim/nui.nvim', opt=true },
-        config = function() -- {{{
+        config = function()
             -- disable built-in local config file support
             vim.o.exrc = false
             require("exrc").setup({
@@ -36,11 +38,11 @@ return require('packer').startup({function(use)
                     ".exrc",
                 },
             })
-        end, -- }}}
+        end,
     } -- }}}
 
     use { 'mg979/vim-visual-multi', branch = 'master', disable=false, -- {{{
-        config = function() -- {{{
+        config = function()
             vim.g.VM_leader = [[\]]
             vim.g.VM_theme = 'iceblue'
             vim.g.VM_mouse_mappings = 1
@@ -53,12 +55,12 @@ return require('packer').startup({function(use)
                 ["Undo"] = 'u',
                 ["Redo"] = '<C-r>',
             }
-        end, -- }}}
+        end,
     } -- }}}
 
     use { 'nvim-telescope/telescope.nvim', tag = '0.1.0', disable = true, -- {{{
         requires = { {'nvim-lua/plenary.nvim'} },
-        config = function() -- {{{
+        config = function()
             local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
             local tb = require('telescope.builtin')
             nmap('<leader>ff', function() tb.find_files() end)
@@ -70,12 +72,12 @@ return require('packer').startup({function(use)
             nmap('<leader>tc', function() tb.command_history() end)
             nmap('<leader>ts', function() tb.search_history() end)
             nmap('<leader>tt', function() tb.treesitter() end)
-        end, -- }}}
+        end,
     } -- }}}
 
     use { 'junegunn/fzf', run = './install --xdg --all', disable=false }
-    use { 'junegunn/fzf.vim', disable=false,
-        config = function() -- {{{
+    use { 'junegunn/fzf.vim', disable=false, -- {{{
+        config = function()
             local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
             local imap = function(LH, RH, args) vim.keymap.set('i', LH, RH, args) end
 
@@ -98,14 +100,14 @@ return require('packer').startup({function(use)
             imap('<Leader><c-x><c-j>', '<plug>(fzf-complete-file-ag)')
             imap('<Leader><c-x><c-l>', '<plug>(fzf-complete-line)')
             imap('<Leader><c-x><c-L>', '<plug>(fzf-complete-buffer-line)')
-        end, -- }}}
-    }
+        end,
+    } -- }}}
 
     use { 'SirVer/ultisnips', disable=false, -- {{{
-        config = function() -- {{{
+        config = function()
             vim.g.UltiSnipsEditSplit = 'tabdo'
             vim.g.UltiSnipsSnippetDirectories = { vim.fn.stdpath('config') .. '/UltiSnips' }
-        end, --}}}
+        end,
     } -- }}}
 
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -114,7 +116,7 @@ return require('packer').startup({function(use)
 
     use { 'preservim/vim-pencil', disable=false, -- {{{
         ft = { 'tex', 'latex', 'text', 'clipboard' },
-        config = function() -- {{{
+        config = function()
             local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
             -- vim.g['pencil#autoformat'] = 1
             -- vim.g['pencil#wrapModeDefault'] = 'hard'   -- default is 'hard'
@@ -125,12 +127,12 @@ return require('packer').startup({function(use)
             nmap('<Leader>po', ':PencilOff<CR>')
             nmap('<Leader>ph', ':PencilHard<CR>')
             nmap('<Leader>ps', ':PencilSoft<CR>')
-        end, --}}}
+        end,
     } -- }}}
 
     use { 'dbmrq/vim-ditto', disable=false, -- {{{
         ft = { 'tex', 'latex', 'text', 'markdown' },
-        config = function() -- {{{
+        config = function()
             local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
 
             -- Turn Ditto on and off
@@ -154,7 +156,7 @@ return require('packer').startup({function(use)
                     au FileType markdown,text,tex,latex DittoOn
                 augroup END
             ]]
-        end, --}}}
+        end,
     } -- }}}
 
 
@@ -162,7 +164,7 @@ return require('packer').startup({function(use)
     --                                 Interface
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    use { 'sainnhe/everforest', disable=true,
+    use { 'sainnhe/everforest', disable=true, --  {{{
         setup = function()
             vim.g.everforest_transparent_background = 1
             -- treesitter highlighting seem to interfere with everforest
@@ -171,9 +173,9 @@ return require('packer').startup({function(use)
         config = function()
             vim.cmd([[colorscheme everforest]])
         end,
-    }
+    } --  }}}
 
-    use { 'EdenEast/nightfox.nvim', disable=true,
+    use { 'EdenEast/nightfox.nvim', disable=true, --  {{{
         run = ":NightfoxCompile",
         config = function()
 
@@ -198,9 +200,9 @@ return require('packer').startup({function(use)
             ) )
 
         end,
-    }
+    } --  }}}
 
-    use { 'marko-cerovac/material.nvim', disable=true,
+    use { 'marko-cerovac/material.nvim', disable=true, -- {{{
         config = function()
             vim.g.material_style = ({
                 'darker',     -- 1
@@ -211,9 +213,9 @@ return require('packer').startup({function(use)
             })[4]
             vim.cmd 'colorscheme material'
         end
-    }
+    } -- }}}
 
-    use { 'Yagua/nebulous.nvim', disable=false,
+    use { 'Yagua/nebulous.nvim', disable=false, -- {{{
         config = function()
             local variant = ({ 'night', 'twilight', 'midnight', 'fullmoon', 'nova', 'quasar', })[3]
             local colors = require("nebulous.functions").get_colors(variant) -- < variant name
@@ -244,9 +246,9 @@ return require('packer').startup({function(use)
                 }
             }
         end
-    }
+    } -- }}}
 
-    use { 'embark-theme/vim', disable=true,
+    use { 'embark-theme/vim', disable=true, -- {{{
         as = 'embark',
         setup = function ()
             vim.g.embark_terminal_italics = 1
@@ -254,13 +256,13 @@ return require('packer').startup({function(use)
         config = function()
             vim.cmd('colorscheme embark')
         end
-    }
-    use { 'matsuuu/pinkmare', disable=true,
+    } -- }}}
+    use { 'matsuuu/pinkmare', disable=true, -- {{{
         config = function()
             vim.cmd 'colorscheme pinkmare'
         end
-    }
-    use { 'tiagovla/tokyodark.nvim', disable=true,
+    } -- }}}
+    use { 'tiagovla/tokyodark.nvim', disable=true, -- {{{
         setup = function()
             vim.g.tokyodark_transparent_background = false
             vim.g.tokyodark_enable_italic_comment = true
@@ -270,21 +272,21 @@ return require('packer').startup({function(use)
         config = function()
             vim.cmd("colorscheme tokyodark")
         end
-    }
-    use { 'yonlu/omni.vim', disable=true,
+    } -- }}}
+    use { 'yonlu/omni.vim', disable=true, -- {{{
         config = function()
             vim.cmd 'colorscheme omni'
         end
-    }
+    } -- }}}
 
-    use { 'bkegley/gloombuddy', disable=true,
+    use { 'bkegley/gloombuddy', disable=true, -- {{{
         requires = 'tjdevries/colorbuddy.vim',
         config = function ()
             require'colorbuddy'.colorscheme('gloombuddy')
         end,
-    }
+    } -- }}}
 
-    use { 'NTBBloodbath/doom-one.nvim', disable=true,
+    use { 'NTBBloodbath/doom-one.nvim', disable=true, -- {{{
         setup = function()
             -- Add color to cursor
             vim.g.doom_one_cursor_coloring = false
@@ -319,9 +321,9 @@ return require('packer').startup({function(use)
         config = function()
             vim.cmd("colorscheme doom-one")
         end,
-    }
+    } -- }}}
 
-    use { 'shaunsingh/seoul256.nvim', disable=true,
+    use { 'shaunsingh/seoul256.nvim', disable=true, -- {{{
         -- setup = function()
         --     vim.g.seoul256_italic_comments = true
         --     vim.g.seoul256_italic_keywords = true
@@ -335,18 +337,18 @@ return require('packer').startup({function(use)
         config = function()
             require('seoul256')
         end,
-    }
+    } -- }}}
 
-    use { 'franbach/miramare', disable=true,
+    use { 'franbach/miramare', disable=true, -- {{{
         setup = function()
             vim.g.miramare_enable_italic = 1
         end,
         config = function()
             vim.cmd 'colorscheme miramare'
         end,
-    }
+    } -- }}}
 
-    use { 'mhartington/oceanic-next', disable=true,
+    use { 'mhartington/oceanic-next', disable=true, -- {{{
         setup = function()
             vim.g.oceanic_next_terminal_bold = 1
             vim.g.oceanic_next_terminal_italic = 1
@@ -362,13 +364,13 @@ return require('packer').startup({function(use)
         config = function()
             vim.cmd 'colorscheme OceanicNext'
         end,
-    }
+    } -- }}}
 
-    use { 'monsonjeremy/onedark.nvim', disable=true,
+    use { 'monsonjeremy/onedark.nvim', disable=true, -- {{{
         config = function()
             require('onedark').setup()
         end
-    }
+    } -- }}}
 
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     --                                  Editing
@@ -376,7 +378,7 @@ return require('packer').startup({function(use)
 
     use { 'scrooloose/nerdcommenter', disable=true }
     use { 'numToStr/Comment.nvim', disable=false, -- {{{
-        config = function() -- {{{
+        config = function()
             require('Comment').setup{
                 -- Enable keybindings
                 -- NOTE: If given `false` then the plugin won't create any mappings
@@ -391,11 +393,11 @@ return require('packer').startup({function(use)
                 -- Changing mappings to use <Leader>c (like NERDCommenter)
                 -- makes operator-pending mappings not work
             }
-        end, -- }}}
+        end,
     } -- }}}
 
     use { 'jiangmiao/auto-pairs', disable=false, -- {{{
-        config = function() -- {{{
+        config = function()
             local augroup = vim.api.nvim_create_augroup('AutoPairsVim', { clear=false })
             vim.api.nvim_create_autocmd('FileType', {
                 group = augroup,
@@ -427,10 +429,10 @@ return require('packer').startup({function(use)
             vim.g.AutoPairsShortcutToggle = "<Leader><M-p>"
             -- Default: <M-b>
             -- vim.g.AutoPairsBackInsert = "<Leader><M-b>"
-        end, -- }}}
+        end,
     } -- }}}
 
-    use { 'tpope/vim-surround', disable=true,
+    use { 'tpope/vim-surround', disable=true, -- {{{
         config = function()
             local map = vim.keymap.set
 
@@ -438,8 +440,8 @@ return require('packer').startup({function(use)
             map('n', 'ds', '<Plug>Dsurround')
             map('n', 'cs', '<Plug>Csurround')
         end
-    }
-    use { 'kylechui/nvim-surround', disable=false,
+    } -- }}}
+    use { 'kylechui/nvim-surround', disable=false, -- {{{
         config = function()
             require("nvim-surround").setup({
                 keymaps = {
@@ -480,10 +482,10 @@ return require('packer').startup({function(use)
                 end,
             })
         end
-    }
+    } -- }}}
 
     use { 'junegunn/vim-easy-align', disable=false,-- {{{
-        config = function() -- {{{
+        config = function()
             local map = function(mode, LH, RH, args) vim.keymap.set(mode, LH, RH, args) end
 
             -- https://github.com/junegunn/vim-easy-align#1-plug-mappings-interactive-mode
@@ -491,19 +493,19 @@ return require('packer').startup({function(use)
 
             -- https://github.com/junegunn/vim-easy-align#disabling-foldmethod-during-alignment
             vim.g.easy_align_bypass_fold = 1
-        end, -- }}}
+        end,
     } -- }}}
 
-    use { 'tommcdo/vim-exchange', disable=false,  }
+    use { 'tommcdo/vim-exchange', disable=false }
 
     use { 'matze/vim-move', disable=true,-- {{{
-        config = function() -- {{{
+        config = function()
             -- vim.g.move_key_modifier = 'S-A'
             -- vim.g.move_key_modifier_visualmode = 'S-A'
-        end, -- }}}
+        end,
     } -- }}}
 
-    use { "cshuaimin/ssr.nvim", disable=false,
+    use { "cshuaimin/ssr.nvim", disable=false, -- {{{
         module = "ssr",
         setup = function()
             -- ts : Treesitter Search-and-replace
@@ -522,7 +524,7 @@ return require('packer').startup({function(use)
                 },
             }
         end
-    }
+    } -- }}}
 
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     --                                   Music
@@ -537,7 +539,7 @@ return require('packer').startup({function(use)
             require('nvim-treesitter.install').update({ with_sync = true })
             vim.cmd[[TSUpdateSync]]
         end,
-        config = function() -- {{{
+        config = function()
             require'nvim-treesitter.configs'.setup {
 
                 -- A list of parser names, or "all"
@@ -579,12 +581,12 @@ return require('packer').startup({function(use)
             --]]
             -- ENDWORKAROUND
 
-        end, -- }}}
+        end,
     } -- }}}
-    use { 'nvim-treesitter/playground', disable=false,
+    use { 'nvim-treesitter/playground', disable=false, -- {{{
         cmd = { 'TSPlaygroundToggle' },
         run = ':TSInstall query',
-    }
+    } -- }}}
 
     use { 'euclidianAce/BetterLua.vim', disable=false,-- {{{
         ft = 'lua',
@@ -620,7 +622,7 @@ return require('packer').startup({function(use)
 
     use { 'lervag/vimtex', disable=false,-- {{{
         ft = { 'latex', 'tex', 'plaintex', 'context', 'bib' },
-        config = function() -- {{{
+        config = function()
             local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
             -- Settings --
             -- vim.g.vimtex_view_method = 'zathura'
@@ -659,10 +661,10 @@ return require('packer').startup({function(use)
                 --    ['hyperref'] = 0,
                 -- },
             }
-        end, --}}}
+        end,
     } -- }}}
 
-    use { 'zhaozg/vim-diagram', disable=true,
+    use { 'zhaozg/vim-diagram', disable=true, -- {{{
         cond = function()
             local ext = vim.fn.expand('%:e')
             return ext == 'mmd' or ext == 'seq' or ext == 'sequence'
@@ -678,9 +680,9 @@ return require('packer').startup({function(use)
                 end,
             })
         end,
-    }
+    } -- }}}
 
-    use { 'luk400/vim-jukit', disable=false,
+    use { 'luk400/vim-jukit', disable=false, -- {{{
         event = 'BufRead *.ipynb',
         setup = function()
             -- disable default mappings
@@ -717,7 +719,7 @@ return require('packer').startup({function(use)
             ]]
         end,
 
-    }
+    } -- }}}
 
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     --                               Collaboration
@@ -736,7 +738,7 @@ return require('packer').startup({function(use)
 
     use { 'neoclide/coc.nvim', branch = 'release', disable=true,-- {{{
         run = ':CocUpdate',
-        config = function() -- {{{
+        config = function()
             local map = function(mode, LH, RH, args) vim.keymap.set(mode, LH, RH, args) end
 
             vim.g.coc_global_extensions = {
@@ -788,10 +790,10 @@ return require('packer').startup({function(use)
                 highlight link CocHintVirtualText Macro
             ]]
 
-        end, -- }}}
+        end,
     } -- }}}
 
-    use { 'VonHeikemen/lsp-zero.nvim', disable = false,
+    use { 'VonHeikemen/lsp-zero.nvim', disable = false, -- {{{
         requires = {
             'neovim/nvim-lspconfig',
             'williamboman/mason.nvim',
@@ -802,7 +804,7 @@ return require('packer').startup({function(use)
 
             -- Preliminary -----------------------------------------------------
             -- lsp.preset('recommended')
-            lsp.set_preferences({
+            lsp.set_preferences({ -- {{{
                 suggest_lsp_servers = true,
                 setup_servers_on_start = true,
                 set_lsp_keymaps = false,
@@ -816,33 +818,33 @@ return require('packer').startup({function(use)
                     hint  = '⚑',-- '∴',
                     info  = '',-- ''
                 }
-            })
+            }) -- }}}
 
             -- Mappings --------------------------------------------------------
 
-            -- LSP
-            lsp.on_attach(function(client, bufnr)
+            lsp.on_attach(function(client, bufnr) --  {{{
                 local nmap = function(LH, RH, opts, desc)
                     opts['desc'] = desc
                     vim.keymap.set('n', LH, RH, opts)
                 end
-                -- Diagnostics Mappings.
-                -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-                local opts = { noremap = true, silent = true }
-                nmap('<Leader>ld', vim.diagnostic.open_float, opts, 'Show diagnostic in float window')
-                nmap('[d', vim.diagnostic.goto_prev, opts, 'Go to previous diagnostic')
-                nmap(']d', vim.diagnostic.goto_next, opts, 'Go to next diagnostic')
-                nmap('<Leader>lq', vim.diagnostic.setloclist, opts, 'Add buffer diagnostics to location list')
-                -- Enable completion triggered by <c-x><c-o>
+                -- Enable completion triggered by <c-x><c-o> {{{
                 do
                     -- interferes with vimtex
                     local vimtex_loaded = packer_plugins['vimtex'] and packer_plugins['vimtex'].loaded
                     if not ( vimtex_loaded ) then
                         vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
                     end
-                end
+                end --  }}}
 
-                -- LSP Mappings.
+                -- Diagnostics Mappings. {{{
+                -- See `:help vim.diagnostic.*` for documentation on any of the below functions
+                local opts = { noremap = true, silent = true }
+                nmap('<Leader>ld', vim.diagnostic.open_float, opts, 'Show diagnostic in float window')
+                nmap('[d', vim.diagnostic.goto_prev, opts, 'Go to previous diagnostic')
+                nmap(']d', vim.diagnostic.goto_next, opts, 'Go to next diagnostic')
+                nmap('<Leader>lq', vim.diagnostic.setloclist, opts, 'Add buffer diagnostics to location list')
+                --  }}}
+                -- LSP Mappings. {{{
                 -- See `:help vim.lsp.*` for documentation on any of the below functions
                 local bufopts = { noremap = true, silent = true, buffer = bufnr }
                 -- local extopts = function (opt1, opt2) return vim.fn.tbl_deep_extend('force', opt1, opt2) end
@@ -860,7 +862,8 @@ return require('packer').startup({function(use)
                 nmap('<Leader>lca', vim.lsp.buf.code_action, bufopts, 'Select available code action')
                 nmap('<Leader>lre', vim.lsp.buf.references, bufopts, 'List all references to symbol')
                 nmap('<Leader>lf', function() vim.lsp.buf.format { async = false } end, bufopts, 'Format buffer using LSP')
-            end)
+                --  }}}
+            end) --  }}}
 
             -- LSPs ------------------------------------------------------------
 
@@ -868,7 +871,7 @@ return require('packer').startup({function(use)
                 'sumneko_lua',
             })
 
-            lsp.configure('sumneko_lua', {
+            lsp.configure('sumneko_lua', { -- {{{
                 settings = {
                     Lua = {
                         diagnostics = {
@@ -879,9 +882,9 @@ return require('packer').startup({function(use)
                         },
                     }
                 },
-            })
+            }) -- }}}
 
-            local pylsp_settings = {
+            local pylsp_settings = { -- {{{
                 pylsp = {
                     plugins = {
                         pycodestyle = {
@@ -906,7 +909,7 @@ return require('packer').startup({function(use)
             end
             lsp.configure('pylsp', {
                 settings = pylsp_settings,
-            })
+            }) -- }}}
 
             -- Setup -----------------------------------------------------------
             do
@@ -916,9 +919,9 @@ return require('packer').startup({function(use)
             end
 
         end,
-    }
+    } -- }}}
 
-    use { 'hrsh7th/nvim-cmp', disable = false,
+    use { 'hrsh7th/nvim-cmp', disable = false, -- {{{
         requires = {
             'hrsh7th/cmp-buffer',
             'hrsh7th/cmp-emoji',
@@ -937,7 +940,7 @@ return require('packer').startup({function(use)
             local cmp = require 'cmp'
             local lspkind = require('lspkind')
 
-            cmp.setup {
+            cmp.setup { -- {{{
                 formatting = {
                     format = lspkind.cmp_format({
                         -- mode = 'symbol',
@@ -976,7 +979,7 @@ return require('packer').startup({function(use)
                         { name = 'emoji', option = { insert = true } },
                     }
                 ),
-            }
+            } -- }}}
 
             -- -- `/` cmdline setup.
             -- cmp.setup.cmdline({ '/', '?' }, {
@@ -986,7 +989,7 @@ return require('packer').startup({function(use)
             --     }
             -- })
 
-            cmp.setup.filetype('tex', {
+            cmp.setup.filetype('tex', { -- {{{
                 sources = cmp.config.sources(
                     {
                         { name = 'nvim_lsp', },
@@ -996,10 +999,10 @@ return require('packer').startup({function(use)
                         { name = 'omni' },
                     }
                 )
-            })
+            }) -- }}}
 
         end,
-    }
+    } -- }}}
 
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     --                                   Candy
@@ -1008,7 +1011,7 @@ return require('packer').startup({function(use)
     use { 'raghur/vim-ghost', disable=true,-- {{{
         run = ':GhostInstall',
         cmd = { 'GhostInstall', 'GhostStart' },
-        config = function() -- {{{
+        config = function()
             vim.cmd [[
                 function! s:SetupGhostBuffer()
                     " mappings
@@ -1037,28 +1040,28 @@ return require('packer').startup({function(use)
                     au User vim-ghost#connected call s:SetupGhostBuffer()
                 augroup END
             ]]
-        end, -- }}}
+        end,
     } -- }}}
-    use { 'subnut/nvim-ghost.nvim', disable=true,
+    use { 'subnut/nvim-ghost.nvim', disable=true, -- {{{
         run = ':call nvim_ghost#installer#install()',
-    }
+    } -- }}}
 
     use { 'voldikss/vim-floaterm', disable=false,-- {{{
         -- cmd = { 'FloatermNew' },
-        config = function() --{{{
+        config = function()
             local map = vim.keymap.set
 
             map('n', '<Leader><m-l>', ':FloatermNew --width=0.8 --height=0.8 --title=lazygit lazygit<CR>', {
                 desc = 'FloatTerm with LazyGit',
             })
 
-        end --}}}
+        end
     } -- }}}
 
     use { 'MunifTanjim/nui.nvim', disable=false }
 
     use { 'anuvyklack/pretty-fold.nvim', disable=false, -- {{{
-        config = function() -- {{{
+        config = function()
 
             local global_setup = {
                 sections = {
@@ -1104,7 +1107,7 @@ return require('packer').startup({function(use)
                 },
             }) -- }}}
 
-        end, -- }}}
+        end,
     } -- }}}
     use { 'anuvyklack/fold-preview.nvim', disable=false, -- {{{
         requires = 'anuvyklack/keymap-amend.nvim',
@@ -1113,29 +1116,29 @@ return require('packer').startup({function(use)
         end
     } -- }}}
 
-    use { 'ggandor/leap.nvim', disable=false,
+    use { 'ggandor/leap.nvim', disable=false, -- {{{
         config = function()
             local l = require('leap')
             -- vim.api.nvim_set_hl(0, 'LeapBackdrop', { fg = '#707070' })
             -- l.set_default_keymaps(true)
             l.add_default_mappings()
 
-            -- target_windows = { vim.fn.win_getid()
+            -- target_windows = { vim.fn.win_getid() }
             -- require('leap').leap { target_windows = { vim.fn.win_getid() } }
             -- require('leap').leap { target_windows = vim.tbl_filter(
             --   function (win) return vim.api.nvim_win_get_config(win).focusable end,
             --   vim.api.nvim_tabpage_list_wins(0)
             -- )}
         end
-    }
-    use { 'jinh0/eyeliner.nvim', disable=true,
+    } -- }}}
+    use { 'jinh0/eyeliner.nvim', disable=true, -- {{{
         config = function()
             require'eyeliner'.setup {
                 highlight_on_key = true
             }
         end
-    }
-    use { 'rlane/pounce.nvim', disable=true,
+    } -- }}}
+    use { 'rlane/pounce.nvim', disable=true, -- {{{
         config = function ()
             require'pounce'.setup{
                 accept_keys = "JFKDLSAHGNUVRBYTMICEOXWPQZ",
@@ -1154,23 +1157,23 @@ return require('packer').startup({function(use)
             -- change colors with :highlight (check ':h pounce.txt')
 
         end
-    }
+    } -- }}}
 
-    use { 'NvChad/nvim-colorizer.lua', disable=false,
+    use { 'NvChad/nvim-colorizer.lua', disable=false, -- {{{
         config = function()
             require'colorizer'.setup{
                 mode = ({'foreground','background', 'virtualtext'})[3],
             }
         end
-    }
-    use { "max397574/colortils.nvim", disable=true,
+    } -- }}}
+    use { "max397574/colortils.nvim", disable=true, -- {{{
         cmd = "Colortils",
         config = function()
             require("colortils").setup()
         end,
-    }
+    } -- }}}
 
-    use { "anuvyklack/windows.nvim", disable=false,
+    use { "anuvyklack/windows.nvim", disable=false, -- {{{
         requires = {
             "anuvyklack/middleclass",
             "anuvyklack/animation.nvim"
@@ -1196,9 +1199,9 @@ return require('packer').startup({function(use)
             nmap('<Leader>wt', '<cmd>WindowsToggleAutowidth<CR>')
             nmap('<Leader>wm', '<cmd>WindowsMaximaze<CR>')
         end
-    }
+    } -- }}}
 
-    use { "narutoxy/silicon.lua", disable=false,
+    use { "narutoxy/silicon.lua", disable=false, -- {{{
         requires = { "nvim-lua/plenary.nvim" },
         config = function()
             require('silicon').setup({})
@@ -1212,7 +1215,7 @@ return require('packer').startup({function(use)
             -- Generate current buffer line in normal mode
             -- vim.keymap.set('n', '<Leader>s',  function() silicon.visualise_api({to_clip = true}) end )
         end
-    }
+    } -- }}}
 
     -- Automatically set up your configuration after cloning packer.nvim {{{
     -- Put this at the end after all plugins
@@ -1233,3 +1236,4 @@ config = { -- {{{
         clone_timeout = 60, -- Timeout, in seconds, for git clones
     },
 }}) -- }}}
+-- vim: fdm=marker
