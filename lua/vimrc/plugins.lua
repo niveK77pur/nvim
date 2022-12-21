@@ -892,9 +892,9 @@ return require('packer').startup({function(use)
             lspconfig.pyright.setup {
                 capabilities = capabilities,
                 on_attach = on_attach,
-                handlers = {
-                    ['textDocument/publishDiagnostics'] = function(...) end,
-                },
+                -- handlers = {
+                --     ['textDocument/publishDiagnostics'] = function(...) end,
+                -- },
             }
             lspconfig.pylsp.setup {
                 settings = {
