@@ -1,8 +1,10 @@
 local map = vim.keymap.set
 
--- Editing --
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--                                    Editing
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
----- Config Files ----
+-- Config Files ----------------------------------------------------------------
 
 map('n', '<Leader>ve', function() vim.cmd(('Files %s/lua/vimrc'):format(vim.fn.stdpath('config'))) end, {
     desc = 'edit vimrc files'
@@ -28,7 +30,7 @@ elseif isLoaded('vim-localrc') then
     })
 end ]]
 
----- Text Manipulation ----
+-- Text Manipulation -----------------------------------------------------------
 
 map('n', '<F2>', ':set paste! paste?<CR>', { desc = "toggle 'paste'" })
 
@@ -36,11 +38,11 @@ map('i', 'jk', '<esc>', { desc = 'exit intert mode more comfortably' })
 
 map({'i','n'}, '<Leader>s', function() vim.cmd 'wa' end, { desc = 'save files' })
 
----- File Manipulation ----
+-- File Manipulation -----------------------------------------------------------
 
 map('n', '<Leader>gf', ':e <cfile><CR>', { desc = "'gf' but make it create new file if not existant" })
 
----- Handy Mappings ----
+-- Handy Mappings --------------------------------------------------------------
 
 map('n', '<Leader>{', function()
         local cs = vim.o.commentstring
@@ -63,11 +65,13 @@ map('n', '<Leader>j', [[/\[>VIM<\]<CR>]], { desc = 'jump to next [>VIM<] tag' })
 vim.cmd [[nnoremap <Leader><c-space> /\[>VIM<\]<CR>v//e<CR>s]]
 -- }}}
 
--- Registers --
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--                                   Registers
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 map('i', '<A-p>', '<c-r>"', { desc = 'paste text in " register more easily in insert mode' })
 
----- Macros ----
+-- Macros ----------------------------------------------------------------------
 
 -- map('n', 'Q', '@', { desc = 'execute macros more comfortably (and remove unnecessary ex mode, see :h gQ)' })
 map('x', 'Q', function() -- {{{
@@ -109,11 +113,15 @@ map('x', 'Q', function() -- {{{
 -- map('n', '<space>', '@q', { desc = 'conveniently execute macro in register 'q'' })
 -- map('n', '<c-space>', ':let @q=""<CR>', { desc = "empty the 'q' register to avoid running a macro by accident" })
 
--- Settings --
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--                                   Settings
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 map({'n','v','o'}, '<F5>', ':set wrap! wrap?<CR>', { desc = 'Toggle line wrapping' })
 
--- Interface --
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--                                   Interface
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -- Toggle highlighting stuff {{{
 map('n', '<Leader>hs', ':set hlsearch! hlsearch?<CR>')
@@ -124,7 +132,9 @@ map('n', '<Leader>hf', ':call ToggleFoldcolumn()<CR>') -- TODO: implement functi
 
 map('n', '<F12>', [[:echo '\°O°/'<CR>]])
 
--- Navigation --
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--                                  Navigation
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 -- navigate windows with ALT+{h,j,k,l} {{{

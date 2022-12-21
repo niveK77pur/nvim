@@ -1,9 +1,15 @@
--- Files --
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--                                     Files
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 vim.opt.autowrite = true
 
 vim.g.tex_flavor = 'latex'
 
--- Colorschemes --
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--                                 Colorschemes
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 vim.cmd([[
 if &t_Co > 255 && $TERM !=# "linux"
     " $TERM ==# 'linux' if it is running in a tty
@@ -17,7 +23,9 @@ if &t_Co > 255 && $TERM !=# "linux"
 endif
 ]])
 
--- Options for indentation --
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--                            Options for indentation
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 vim.opt.autoindent = true
 vim.opt.smartindent = true
@@ -28,7 +36,9 @@ vim.opt.expandtab = true
 vim.opt.breakindent = true
 vim.o.showbreak = '> '
 
--- Interface --
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--                                   Interface
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 vim.opt.mouse = 'a'
 vim.opt.relativenumber = true
@@ -96,7 +106,9 @@ vim.opt.foldtext = 'v:lua.MyFoldText()'
 vim.opt.fillchars = [[fold: ]]
 -- vim.opt.fillchars = [[fold:·]]
 
--- Editor --
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--                                    Editor
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -- vim.opt.splitright = true
 vim.opt.shiftround = true
@@ -105,13 +117,17 @@ vim.opt.writebackup = true
 vim.opt.backup = true
 vim.opt.backupdir = '/tmp'
 
--- Settings for auto-completion --
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--                         Settings for auto-completion
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.infercase = false
 
--- Diagnostics
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--                                  Diagnostics
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 vim.diagnostic.config({
     severity_sort = true,
