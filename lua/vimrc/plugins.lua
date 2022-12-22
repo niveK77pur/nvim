@@ -593,7 +593,10 @@ return require('packer').startup({function(use)
     } -- }}}
 
     use { 'martineausimon/nvim-lilypond-suite', disable=false,-- {{{
-        requires = { 'MunifTanjim/nui.nvim' },
+        requires = {
+            'MunifTanjim/nui.nvim',
+            'uga-rosa/cmp-dictionary',
+        },
         ft = { 'lilypond' },
         config = function()
             require('nvls').setup{
@@ -617,6 +620,33 @@ return require('packer').startup({function(use)
                 command = "cwindow",
                 pattern = "*"
             })
+
+            local LILYDICTPATH = packer_plugins['nvim-lilypond-suite'].path .. '/lilywords'
+            require('cmp_dictionary').setup{
+                dic = {
+                    ["lilypond"] = {
+                        LILYDICTPATH .. '/accidentalsStyles',
+                        LILYDICTPATH .. '/articulations',
+                        LILYDICTPATH .. '/clefs',
+                        LILYDICTPATH .. '/contextProperties',
+                        LILYDICTPATH .. '/contexts',
+                        LILYDICTPATH .. '/contextsCmd',
+                        LILYDICTPATH .. '/dynamics',
+                        LILYDICTPATH .. '/grobProperties',
+                        LILYDICTPATH .. '/grobs',
+                        LILYDICTPATH .. '/headerVariables',
+                        LILYDICTPATH .. '/keywords',
+                        LILYDICTPATH .. '/languageNames',
+                        LILYDICTPATH .. '/markupCommands',
+                        LILYDICTPATH .. '/musicCommands',
+                        LILYDICTPATH .. '/musicFunctions',
+                        LILYDICTPATH .. '/paperVariables',
+                        LILYDICTPATH .. '/repeatTypes',
+                        LILYDICTPATH .. '/scales',
+                        LILYDICTPATH .. '/translators',
+                    }
+                }
+            }
         end
     } -- }}}
 
@@ -998,6 +1028,15 @@ return require('packer').startup({function(use)
                     {
                         { name = 'omni' },
                     }
+                )
+            }) -- }}}
+
+            cmp.setup.filetype('lilypond', { -- {{{
+                sources = (
+                {
+                    { name = 'dictionary', keyword_length = 4 },
+                    { name = 'ultisnips' },
+                }
                 )
             }) -- }}}
 
