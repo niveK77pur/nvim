@@ -608,7 +608,7 @@ return require('packer').startup({function(use)
                     options = {
                         pitches_language = "default",
                         output = "pdf",
-                        main_file = "SUPERMAIN.ly"
+                        -- main_file = "main.ly"
                     },
                 },
             }
