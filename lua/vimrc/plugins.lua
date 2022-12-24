@@ -941,6 +941,14 @@ return require('packer').startup({function(use)
                 settings = pylsp_settings,
             }) -- }}}
 
+            lsp.configure('ltex', {
+                filetypes = { -- expanced from default (see :h 'lspconfig-all')
+                    "text", "markdown",
+                    "bib", "plaintex", "tex",
+                    "gitcommit", "org", "rst", "rnoweb",
+                },
+            })
+
             -- Setup -----------------------------------------------------------
             do
                 local diagnostic_config = vim.diagnostic.config()
