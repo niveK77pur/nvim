@@ -110,6 +110,17 @@ return require('packer').startup({function(use)
         end,
     } -- }}}
 
+    use { 'rareitems/printer.nvim', disable = false,
+        config = function()
+            require('printer').setup({
+                keymap = "gp",
+                -- add_to_inside = function(text)
+                --     return text
+                -- end,
+            })
+        end
+    }
+
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     --                                  Writing
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
