@@ -505,7 +505,7 @@ return require('packer').startup({function(use)
         end,
     } -- }}}
 
-    use { "cshuaimin/ssr.nvim", disable=false, -- {{{
+    use { "cshuaimin/ssr.nvim", disable=true, -- {{{
         module = "ssr",
         setup = function()
             -- ts : Treesitter Search-and-replace
@@ -944,13 +944,13 @@ return require('packer').startup({function(use)
                 settings = pylsp_settings,
             }) -- }}}
 
-            lsp.configure('ltex', {
+            lsp.configure('ltex', { --  {{{
                 filetypes = { -- expanded from default (see :h 'lspconfig-all')
                     "text", "markdown",
                     "bib", "plaintex", "tex",
                     "gitcommit", "org", "rst", "rnoweb",
                 },
-            })
+            }) --  }}}
 
             -- Setup -----------------------------------------------------------
             do
