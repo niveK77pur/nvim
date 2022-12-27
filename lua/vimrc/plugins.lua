@@ -899,6 +899,9 @@ return require('packer').startup({function(use)
 
             lsp.ensure_installed({
                 'sumneko_lua',
+                'pyright',
+                'pylsp',
+                'bashls'
             })
 
             lsp.configure('sumneko_lua', { -- {{{
