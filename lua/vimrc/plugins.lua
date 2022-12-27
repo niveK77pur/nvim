@@ -942,7 +942,7 @@ return require('packer').startup({function(use)
             }) -- }}}
 
             lsp.configure('ltex', {
-                filetypes = { -- expanced from default (see :h 'lspconfig-all')
+                filetypes = { -- expanded from default (see :h 'lspconfig-all')
                     "text", "markdown",
                     "bib", "plaintex", "tex",
                     "gitcommit", "org", "rst", "rnoweb",
