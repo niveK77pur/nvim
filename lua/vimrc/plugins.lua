@@ -1109,8 +1109,11 @@ return require('packer').startup({function(use)
             ]]
         end,
     } -- }}}
-    use { 'subnut/nvim-ghost.nvim', disable=true, -- {{{
+    use { 'subnut/nvim-ghost.nvim', disable=false, -- {{{
         run = ':call nvim_ghost#installer#install()',
+        config = function()
+            vim.g.nvim_ghost_super_quiet = 1
+        end,
     } -- }}}
 
     use { 'voldikss/vim-floaterm', disable=false,-- {{{
