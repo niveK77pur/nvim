@@ -942,6 +942,7 @@ return require('packer').startup({function(use)
                                 -- 'E302', -- expected 2 blank lines
                                 -- 'E305', -- expected 2 blank lines after
                                 'E221', -- multiple spaces before operator
+                                'E241', -- multiple spaces after ':'
                                 'E201', -- whitespace before open bracket [{(
                                 'E202', -- whitespace before close bracket )}]
                                 'W503', -- line break before binary operator (conflicts with 'W504')
