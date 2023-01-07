@@ -671,7 +671,7 @@ return require('packer').startup({function(use)
         config = function()
             local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
             -- Settings --
-            -- vim.g.vimtex_view_method = 'zathura'
+            vim.g.vimtex_view_method = 'zathura'
             vim.g.vimtex_fold_enabled = 1
             vim.g.tex_conceal = 'adbmgs'
 
