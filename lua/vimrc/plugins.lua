@@ -1124,9 +1124,19 @@ return require('packer').startup({function(use)
                 callback = function()
                     vim.opt.filetype = 'tex'
                     vim.opt.foldenable = false
-                    vim.opt.textwidth = 0
-                    vim.opt.tabstop = 4
-                    vim.opt.shiftwidth = 0
+                    vim.opt.wrap = true
+
+                    -- avoid being overwriten by ftplugin
+                    vim.schedule(function()
+                        vim.opt.textwidth = 0
+                        vim.opt.tabstop = 4
+                        vim.opt.shiftwidth = 0
+                    end)
+
+                    -- taken from markdown ftplugin
+                    for _,key in pairs{ 'j', 'k', '0', '$' } do
+                        vim.keymap.set('n', key, 'g'..key, { desc = string.format('remap %s for better text editing', key) })
+                    end
                 end,
             })
 
