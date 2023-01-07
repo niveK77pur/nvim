@@ -1113,6 +1113,23 @@ return require('packer').startup({function(use)
         run = ':call nvim_ghost#installer#install()',
         config = function()
             vim.g.nvim_ghost_super_quiet = 1
+
+            -- All autocommands should be in 'nvim_ghost_user_autocommands' group
+            local augroup_nvim_ghost_user_autocommands = vim.api.nvim_create_augroup('nvim_ghost_user_autocommands', {})
+
+            vim.api.nvim_create_autocmd({ 'User' }, {
+                group = augroup_nvim_ghost_user_autocommands,
+                pattern = { 'www.overleaf.com' },
+                desc = "nvim-ghost: set Overleaf settings",
+                callback = function()
+                    vim.opt.filetype = 'tex'
+                    vim.opt.foldenable = false
+                    vim.opt.textwidth = 0
+                    vim.opt.tabstop = 4
+                    vim.opt.shiftwidth = 0
+                end,
+            })
+
         end,
     } -- }}}
 
