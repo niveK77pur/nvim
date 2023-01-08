@@ -110,7 +110,7 @@ return require('packer').startup({function(use)
         end,
     } -- }}}
 
-    use { 'rareitems/printer.nvim', disable = false,
+    use { 'rareitems/printer.nvim', disable = false, --  {{{
         config = function()
             require('printer').setup({
                 keymap = "gp",
@@ -124,7 +124,7 @@ return require('packer').startup({function(use)
                 },
             })
         end
-    }
+    } --  }}}
 
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     --                                  Writing
