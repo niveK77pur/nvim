@@ -1199,6 +1199,14 @@ return require('packer').startup({function(use)
                 end --  }}}
             }
 
+            addWebsiteSettings {
+                pattern = { 'github.com' },
+                desc = "nvim-ghost: set GitHub settings",
+                callback = function()
+                    vim.opt.filetype = 'markdown'
+                end
+            }
+
         end,
     } -- }}}
 
