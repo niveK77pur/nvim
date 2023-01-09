@@ -1168,12 +1168,19 @@ return require('packer').startup({function(use)
 
             -- All autocommands should be in 'nvim_ghost_user_autocommands' group
             local augroup_nvim_ghost_user_autocommands = vim.api.nvim_create_augroup('nvim_ghost_user_autocommands', {})
+            local function addWebsiteSettings(opts) --  {{{
+                vim.api.nvim_create_autocmd({ 'User' }, {
+                    group = augroup_nvim_ghost_user_autocommands,
+                    pattern = opts.pattern,
+                    desc = opts.desc,
+                    callback = opts.callback,
+                })
+            end --  }}}
 
-            vim.api.nvim_create_autocmd({ 'User' }, {
-                group = augroup_nvim_ghost_user_autocommands,
+            addWebsiteSettings {
                 pattern = { 'www.overleaf.com' },
                 desc = "nvim-ghost: set Overleaf settings",
-                callback = function()
+                callback = function() --  {{{
                     vim.opt.filetype = 'tex'
                     vim.opt.foldenable = false
                     vim.opt.wrap = true
@@ -1189,8 +1196,8 @@ return require('packer').startup({function(use)
                     for _,key in pairs{ 'j', 'k', '0', '$' } do
                         vim.keymap.set('n', key, 'g'..key, { desc = string.format('remap %s for better text editing', key) })
                     end
-                end,
-            })
+                end --  }}}
+            }
 
         end,
     } -- }}}
