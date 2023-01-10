@@ -27,6 +27,7 @@ local function labelFromLine(labeltype)
     -- filter contents
     content = content:lower()
     content = content:gsub('[^a-z0-9 ]', '')
+    content = content:gsub(' ', '-')
 
     local newlines = { string.format([[\label{%s:%s}]], labeltype, content) }
     local linenr = vim.api.nvim_win_get_cursor(0)[1]
