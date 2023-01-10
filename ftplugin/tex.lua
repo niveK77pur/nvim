@@ -17,6 +17,37 @@ vim.bo.smartindent   = false
 -- vim.wo.foldenable    = false
 
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--                                   Functions
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+local function labelFromLine(labeltype)
+    local line = vim.api.nvim_get_current_line()
+    local content = line:match([[\%w+{(.+)}]])
+
+    -- filter contents
+    content = content:lower()
+    content = content:gsub('[^a-z0-9 ]', '')
+
+    local newlines = { string.format([[\label{%s:%s}]], labeltype, content) }
+    local linenr = vim.api.nvim_win_get_cursor(0)[1]
+    vim.api.nvim_buf_set_lines(
+        0,
+        linenr,
+        linenr,
+        false,
+        newlines
+    )
+end
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--                                   Mappings
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+vim.keymap.set('n', '<LocalLeader>lA', function()
+  labelFromLine('sec')
+end, { desc = 'Add label to section' })
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --                                 AutoCommands
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
