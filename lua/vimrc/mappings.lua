@@ -6,7 +6,10 @@ local map = vim.keymap.set
 
 -- Config Files ----------------------------------------------------------------
 
-map('n', '<Leader>ve', function() vim.cmd(('Files %s/lua/vimrc'):format(vim.fn.stdpath('config'))) end, {
+map('n', '<Leader>ve', function()
+        -- for telescope: https://github.com/nvim-telescope/telescope.nvim#lists-picker
+        vim.cmd(('Files %s/lua/vimrc'):format(vim.fn.stdpath('config')))
+    end, {
     desc = 'edit vimrc files'
 })
 

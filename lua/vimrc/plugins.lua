@@ -58,7 +58,7 @@ return require('packer').startup({function(use)
         end,
     } -- }}}
 
-    use { 'nvim-telescope/telescope.nvim', tag = '0.1.0', disable = true, -- {{{
+    use { 'nvim-telescope/telescope.nvim', disable = false, -- {{{
         requires = { {'nvim-lua/plenary.nvim'} },
         config = function()
             local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
@@ -66,17 +66,24 @@ return require('packer').startup({function(use)
             nmap('<leader>ff', function() tb.find_files() end)
             nmap('<leader>fr', function() tb.live_grep() end)
             nmap('<leader>fb', function() tb.buffers() end)
+            nmap('<leader>fl', function() tb.current_buffer_fuzzy_find() end)
             nmap('<leader>fh', function() tb.help_tags() end)
-            nmap('<leader>tj', function() tb.jumplist() end)
-            nmap('<leader>tm', function() tb.marks() end)
-            nmap('<leader>tc', function() tb.command_history() end)
-            nmap('<leader>ts', function() tb.search_history() end)
-            nmap('<leader>tt', function() tb.treesitter() end)
+            nmap('<leader>fj', function() tb.jumplist() end)
+            nmap('<leader>fm', function() tb.marks() end)
+            nmap('<leader>f:', function() tb.command_history() end)
+            nmap('<leader>f/', function() tb.search_history() end)
+            nmap('<leader>ft', function() tb.treesitter() end)
+            -- nmap('<leader>ft', function() tb.filetypes() end)
+            nmap('z=', function() tb.spell_suggest() end)
+
+            -- require('telescope.sorters').get_fzy_sorter()
+            -- https://github.com/nvim-telescope/telescope-fzy-native.nvim
+            -- require('telescope').load_extension('fzy_native')
         end,
     } -- }}}
 
     use { 'junegunn/fzf', run = './install --xdg --all', disable=false }
-    use { 'junegunn/fzf.vim', disable=false, -- {{{
+    use { 'junegunn/fzf.vim', disable=true, -- {{{
         config = function()
             local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
             local imap = function(LH, RH, args) vim.keymap.set('i', LH, RH, args) end
