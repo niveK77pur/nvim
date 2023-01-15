@@ -97,6 +97,8 @@ return require('packer').startup({function(use)
     use { 'junegunn/fzf', run = './install --xdg --all', disable=false }
     use { 'junegunn/fzf.vim', disable=false, -- {{{
         config = function()
+            vim.g.fzf_preview_window = { 'right,50%,<70(up,40%)', 'alt-p' }
+
             local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
             local imap = function(LH, RH, args) vim.keymap.set('i', LH, RH, args) end
 
