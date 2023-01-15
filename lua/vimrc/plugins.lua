@@ -59,7 +59,11 @@ return require('packer').startup({function(use)
     } -- }}}
 
     use { 'nvim-telescope/telescope.nvim', disable = false, -- {{{
-        requires = { {'nvim-lua/plenary.nvim'} },
+        requires = {
+            {'nvim-lua/plenary.nvim'},
+            {'https://github.com/nvim-telescope/telescope-fzy-native.nvim'},
+            -- {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+        },
         config = function()
             local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
             local tb = require('telescope.builtin')
@@ -78,7 +82,15 @@ return require('packer').startup({function(use)
 
             -- require('telescope.sorters').get_fzy_sorter()
             -- https://github.com/nvim-telescope/telescope-fzy-native.nvim
-            -- require('telescope').load_extension('fzy_native')
+            require('telescope').setup {
+                extensions = {
+                    fzy_native = {
+                        override_generic_sorter = true,
+                        override_file_sorter = true,
+                    }
+                }
+            }
+            require('telescope').load_extension('fzy_native')
         end,
     } -- }}}
 
