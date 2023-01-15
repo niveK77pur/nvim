@@ -58,7 +58,7 @@ return require('packer').startup({function(use)
         end,
     } -- }}}
 
-    use { 'nvim-telescope/telescope.nvim', disable = false, -- {{{
+    use { 'nvim-telescope/telescope.nvim', disable=true, -- {{{
         requires = {
             {'nvim-lua/plenary.nvim'},
             {'https://github.com/nvim-telescope/telescope-fzy-native.nvim'},
@@ -95,7 +95,7 @@ return require('packer').startup({function(use)
     } -- }}}
 
     use { 'junegunn/fzf', run = './install --xdg --all', disable=false }
-    use { 'junegunn/fzf.vim', disable=true, -- {{{
+    use { 'junegunn/fzf.vim', disable=false, -- {{{
         config = function()
             local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
             local imap = function(LH, RH, args) vim.keymap.set('i', LH, RH, args) end
