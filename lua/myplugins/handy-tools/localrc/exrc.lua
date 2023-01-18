@@ -1,6 +1,4 @@
-local localrc = { 'thinca/vim-localrc', disable = true }
-
-local exrc = { 'MunifTanjim/exrc.nvim', disable = false, -- local .nvimrc files
+return { 'MunifTanjim/exrc.nvim', disable = false, -- local .nvimrc files
     requires = { 'MunifTanjim/nui.nvim', opt = true },
     config = function()
         -- disable built-in local config file support
@@ -15,5 +13,3 @@ local exrc = { 'MunifTanjim/exrc.nvim', disable = false, -- local .nvimrc files
         })
     end,
 }
-
-return exrc

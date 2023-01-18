@@ -24,7 +24,7 @@ return require('packer').startup({function(use)
     --                                Handy Tools
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    use(require('myplugins.handy-tools.local-vimrc'))
+    use(require('myplugins.handy-tools.localrc'))
     use(require('myplugins.handy-tools.multi-cursor'))
     use(require('myplugins.handy-tools.printer'))
 
