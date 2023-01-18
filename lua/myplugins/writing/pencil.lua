@@ -1,4 +1,4 @@
-return { 'preservim/vim-pencil', disable = false, -- {{{
+return { 'preservim/vim-pencil',
     ft = { 'tex', 'latex', 'text', 'clipboard' },
     config = function()
         local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
@@ -12,4 +12,4 @@ return { 'preservim/vim-pencil', disable = false, -- {{{
         nmap('<Leader>ph', ':PencilHard<CR>')
         nmap('<Leader>ps', ':PencilSoft<CR>')
     end,
-} -- }}}
+}

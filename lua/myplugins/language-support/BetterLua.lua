@@ -1,3 +1,3 @@
-return { 'euclidianAce/BetterLua.vim', disable=false,
+return { 'euclidianAce/BetterLua.vim',
     ft = 'lua',
 }

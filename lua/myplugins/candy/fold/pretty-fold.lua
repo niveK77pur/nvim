@@ -1,4 +1,4 @@
-return { 'anuvyklack/pretty-fold.nvim', disable=false,
+return { 'anuvyklack/pretty-fold.nvim',
     config = function()
 
         local global_setup = {

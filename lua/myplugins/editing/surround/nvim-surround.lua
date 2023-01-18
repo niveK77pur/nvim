@@ -1,4 +1,4 @@
-return { 'kylechui/nvim-surround', disable=false,
+return { 'kylechui/nvim-surround',
     config = function()
         require("nvim-surround").setup({
             keymaps = {

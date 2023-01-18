@@ -1,4 +1,4 @@
-return { 'ggandor/leap.nvim', disable=false,
+return { 'ggandor/leap.nvim',
     config = function()
         local l = require('leap')
         -- vim.api.nvim_set_hl(0, 'LeapBackdrop', { fg = '#707070' })

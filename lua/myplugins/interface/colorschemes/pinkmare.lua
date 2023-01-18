@@ -1,4 +1,4 @@
-return { 'matsuuu/pinkmare', disable=true,
+return { 'matsuuu/pinkmare',
     config = function()
         vim.cmd 'colorscheme pinkmare'
     end

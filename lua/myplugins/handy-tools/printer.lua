@@ -1,4 +1,4 @@
-return { 'rareitems/printer.nvim', disable = false,
+return { 'rareitems/printer.nvim',
     config = function()
         require('printer').setup({
             keymap = "gp",

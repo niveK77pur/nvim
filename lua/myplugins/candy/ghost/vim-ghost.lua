@@ -1,4 +1,4 @@
-return { 'raghur/vim-ghost', disable=true,
+return { 'raghur/vim-ghost',
     run = ':GhostInstall',
     cmd = { 'GhostInstall', 'GhostStart' },
     config = function()

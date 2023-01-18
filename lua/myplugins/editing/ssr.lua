@@ -1,4 +1,4 @@
-return { "cshuaimin/ssr.nvim", disable=true,
+return { "cshuaimin/ssr.nvim",
     module = "ssr",
     setup = function()
         -- ts : Treesitter Search-and-replace

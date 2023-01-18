@@ -1,4 +1,4 @@
-return { 'embark-theme/vim', disable=true,
+return { 'embark-theme/vim',
     as = 'embark',
     setup = function ()
         vim.g.embark_terminal_italics = 1

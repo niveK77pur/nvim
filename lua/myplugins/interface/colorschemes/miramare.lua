@@ -1,4 +1,4 @@
-return { 'franbach/miramare', disable=true,
+return { 'franbach/miramare',
     setup = function()
         vim.g.miramare_enable_italic = 1
     end,

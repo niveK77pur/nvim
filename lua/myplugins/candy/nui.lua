@@ -1,1 +1,1 @@
-return { 'MunifTanjim/nui.nvim', disable=false }
+return { 'MunifTanjim/nui.nvim' }

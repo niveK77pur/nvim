@@ -1,4 +1,4 @@
-return { "anuvyklack/windows.nvim", disable=false,
+return { "anuvyklack/windows.nvim",
     requires = {
         "anuvyklack/middleclass",
         "anuvyklack/animation.nvim"

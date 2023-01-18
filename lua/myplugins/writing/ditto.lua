@@ -1,4 +1,4 @@
-return { 'dbmrq/vim-ditto', disable = false, -- {{{
+return { 'dbmrq/vim-ditto',
     ft = { 'tex', 'latex', 'text', 'markdown' },
     config = function()
         local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
@@ -25,4 +25,4 @@ return { 'dbmrq/vim-ditto', disable = false, -- {{{
             augroup END
         ]]
     end,
-} -- }}}
+}

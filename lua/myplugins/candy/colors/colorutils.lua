@@ -1,4 +1,4 @@
-return { "max397574/colortils.nvim", disable=true,
+return { "max397574/colortils.nvim",
     cmd = "Colortils",
     config = function()
         require("colortils").setup()

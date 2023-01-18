@@ -1,4 +1,4 @@
-return { 'jiangmiao/auto-pairs', disable = false,
+return { 'jiangmiao/auto-pairs',
     config = function()
         local augroup = vim.api.nvim_create_augroup('AutoPairsVim', { clear = false })
         vim.api.nvim_create_autocmd('FileType', {

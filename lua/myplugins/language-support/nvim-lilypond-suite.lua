@@ -1,4 +1,4 @@
-return { 'martineausimon/nvim-lilypond-suite', disable=false,
+return { 'martineausimon/nvim-lilypond-suite',
     requires = {
         'MunifTanjim/nui.nvim',
         'uga-rosa/cmp-dictionary',

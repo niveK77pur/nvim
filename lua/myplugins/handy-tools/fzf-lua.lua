@@ -1,4 +1,4 @@
-return { 'ibhagwan/fzf-lua', disable = false,
+return { 'ibhagwan/fzf-lua',
     requires = {
         -- 'nvim-tree/nvim-web-devicons',
         { 'junegunn/fzf', run = './install --xdg --all' },

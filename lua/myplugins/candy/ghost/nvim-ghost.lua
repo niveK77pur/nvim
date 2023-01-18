@@ -1,4 +1,4 @@
-return { 'subnut/nvim-ghost.nvim', disable=false,
+return { 'subnut/nvim-ghost.nvim',
     run = ':call nvim_ghost#installer#install()',
     config = function()
         vim.g.nvim_ghost_super_quiet = 1

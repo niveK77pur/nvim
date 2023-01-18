@@ -1,4 +1,4 @@
-return { 'Yagua/nebulous.nvim', disable=false,
+return { 'Yagua/nebulous.nvim',
     config = function()
         local variant = ({ 'night', 'twilight', 'midnight', 'fullmoon', 'nova', 'quasar', })[3]
         local colors = require("nebulous.functions").get_colors(variant) -- < variant name

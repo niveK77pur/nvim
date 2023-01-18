@@ -1,4 +1,4 @@
-return { 'rlane/pounce.nvim', disable=true,
+return { 'rlane/pounce.nvim',
     config = function ()
         require'pounce'.setup{
             accept_keys = "JFKDLSAHGNUVRBYTMICEOXWPQZ",

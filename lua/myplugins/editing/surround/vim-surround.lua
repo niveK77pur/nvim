@@ -1,4 +1,4 @@
-return { 'tpope/vim-surround', disable=true,
+return { 'tpope/vim-surround',
     config = function()
         local map = vim.keymap.set
 

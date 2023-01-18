@@ -1,4 +1,4 @@
-return { 'monsonjeremy/onedark.nvim', disable=true,
+return { 'monsonjeremy/onedark.nvim',
     config = function()
         require('onedark').setup()
     end

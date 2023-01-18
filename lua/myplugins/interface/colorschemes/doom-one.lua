@@ -1,4 +1,4 @@
-return { 'NTBBloodbath/doom-one.nvim', disable=true,
+return { 'NTBBloodbath/doom-one.nvim',
     setup = function()
         -- Add color to cursor
         vim.g.doom_one_cursor_coloring = false

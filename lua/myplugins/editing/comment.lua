@@ -1,6 +1,6 @@
 -- return { 'scrooloose/nerdcommenter', disable = true }
 
-return { 'numToStr/Comment.nvim', disable = false, -- {{{
+return { 'numToStr/Comment.nvim',
     config = function()
         require('Comment').setup {
             -- Enable keybindings
@@ -17,4 +17,4 @@ return { 'numToStr/Comment.nvim', disable = false, -- {{{
             -- makes operator-pending mappings not work
         }
     end,
-} -- }}}
+}

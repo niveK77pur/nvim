@@ -1,4 +1,4 @@
-return { 'VonHeikemen/lsp-zero.nvim', disable = false,
+return { 'VonHeikemen/lsp-zero.nvim',
     requires = {
         'neovim/nvim-lspconfig',
         'williamboman/mason.nvim',

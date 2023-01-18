@@ -1,4 +1,4 @@
-return { 'hrsh7th/nvim-cmp', disable = false,
+return { 'hrsh7th/nvim-cmp',
     requires = {
         'hrsh7th/cmp-buffer',
         'hrsh7th/cmp-emoji',

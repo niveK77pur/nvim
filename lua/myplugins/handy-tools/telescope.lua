@@ -1,4 +1,4 @@
-return { 'nvim-telescope/telescope.nvim', disable = true,
+return { 'nvim-telescope/telescope.nvim',
     requires = {
         { 'nvim-lua/plenary.nvim' },
         { 'https://github.com/nvim-telescope/telescope-fzy-native.nvim' },

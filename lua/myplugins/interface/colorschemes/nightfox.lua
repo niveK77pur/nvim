@@ -1,4 +1,4 @@
-return { 'EdenEast/nightfox.nvim', disable=true,
+return { 'EdenEast/nightfox.nvim',
     run = ":NightfoxCompile",
     config = function()
 

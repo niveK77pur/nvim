@@ -1,4 +1,4 @@
-return { 'MunifTanjim/exrc.nvim', disable = false, -- local .nvimrc files
+return { 'MunifTanjim/exrc.nvim',
     requires = { 'MunifTanjim/nui.nvim', opt = true },
     config = function()
         -- disable built-in local config file support
