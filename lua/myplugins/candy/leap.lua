@@ -1,5 +1,5 @@
 return {
-    require 'myplugins.candy.leap.leap',
-    -- require 'myplugins.candy.leap.eyeline',
-    -- require 'myplugins.candy.leap.pounce',
+    require 'myplugins.candy.leap-plugins.leap',
+    -- require 'myplugins.candy.leap-plugins.eyeline',
+    -- require 'myplugins.candy.leap-plugins.pounce',
 }

@@ -1,4 +1,4 @@
 return {
-    require 'myplugins.candy.fold.pretty-fold',
-    require 'myplugins.candy.fold.fold-preview',
+    require 'myplugins.candy.fold-plugins.pretty-fold',
+    require 'myplugins.candy.fold-plugins.fold-preview',
 }
