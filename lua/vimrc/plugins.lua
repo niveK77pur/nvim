@@ -84,12 +84,7 @@ return require('packer').startup({function(use)
     --                               Collaboration
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    use { 'jbyuki/instant.nvim', disable = true,-- {{{
-        -- set cmd = ???
-        config = function()
-            vim.g.instant_username = 'MaceVimdu'
-        end,
-    } -- }}}
+    use(require('myplugins.collaboration.instant'))
 
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     --                              Language Server
