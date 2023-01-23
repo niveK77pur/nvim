@@ -109,7 +109,7 @@ return require('packer').startup({function(use)
     use(require('myplugins.candy.nui')) -- works
 
     use(require('myplugins.candy.fold')) -- works
-    -- use(require('myplugins.candy.leap')) -- busted
+    use(require('myplugins.candy.leap')) -- works
 
     -- use(require('myplugins.candy.colors')) -- busted
     use(require('myplugins.candy.windows')) -- works
