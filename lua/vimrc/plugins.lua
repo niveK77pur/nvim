@@ -30,25 +30,25 @@ return require('packer').startup({function(use)
     --                                Handy Tools
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    use(require('myplugins.handy-tools.localrc'))
-    use(require('myplugins.handy-tools.multi-cursor'))
-    use(require('myplugins.handy-tools.printer'))
+    use(require('myplugins.handy-tools.localrc')) -- works
+    use(require('myplugins.handy-tools.multi-cursor')) -- works
+    use(require('myplugins.handy-tools.printer')) -- works
 
     -- use(require('myplugins.handy-tools.telescope'))
-    use(require('myplugins.handy-tools.fzf-lua'))
+    use(require('myplugins.handy-tools.fzf-lua')) -- works
     -- use(require('myplugins.handy-tools.fzf-vim'))
 
-    use(require('myplugins.handy-tools.snippets'))
+    use(require('myplugins.handy-tools.snippets')) -- works
 
     -- use(require('myplugins.handy-tools.gitsigns'))
-    use(require('myplugins.handy-tools.treesitter-context'))
+    use(require('myplugins.handy-tools.treesitter-context')) -- works
 
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     --                                  Writing
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    use(require('myplugins.writing.pencil'))
-    use(require('myplugins.writing.ditto'))
+    use(require('myplugins.writing.pencil')) -- works
+    use(require('myplugins.writing.ditto')) -- works
 
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     --                                 Interface
@@ -106,7 +106,7 @@ return require('packer').startup({function(use)
     use(require('myplugins.candy.ghost'))
 
     use(require('myplugins.candy.vim-floaterm'))
-    use(require('myplugins.candy.nui'))
+    use(require('myplugins.candy.nui')) -- works
 
     use(require('myplugins.candy.fold'))
     use(require('myplugins.candy.leap'))
