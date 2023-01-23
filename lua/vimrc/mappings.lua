@@ -8,7 +8,11 @@ local map = vim.keymap.set
 
 map('n', '<Leader>ve', function()
         -- for telescope: https://github.com/nvim-telescope/telescope.nvim#lists-picker
-        vim.cmd(('Files %s/lua/vimrc'):format(vim.fn.stdpath('config')))
+        if packer_plugins['fzf-lua'] and packer_plugins['fzf-lua'].loaded then
+            require('fzf-lua').files{ cwd = vim.fn.stdpath('config') .. '/lua/vimrc' }
+        elseif packer_plugins['fzf.vim'] and packer_plugins['fzf.vim'].loaded then
+            vim.cmd(('Files %s/lua/vimrc'):format(vim.fn.stdpath('config')))
+        end
     end, {
     desc = 'edit vimrc files'
 })
@@ -166,5 +170,11 @@ map('i', '<a-k>', '<c-o>g<up>')
 map('i', '<a-l>', '<right>')
 -- "}}}
 
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--                                     Handy
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-- map('n', '<CR>', [[:buffer #<CR>]])
+-- map('x', '<CR>', [[:buffer #<CR>]])
 
 -- vim: fdm=marker
