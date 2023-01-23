@@ -62,7 +62,7 @@ return require('packer').startup({function(use)
 
     use(require('myplugins.editing.comment')) -- works
     use(require('myplugins.editing.auto-pairs')) -- works
-    -- use(require('myplugins.editing.surround')) -- busted
+    use(require('myplugins.editing.surround')) -- works
     use(require('myplugins.editing.vim-easy-align')) -- works
     use(require('myplugins.editing.vim-exchange')) -- works
     -- use(require('myplugins.editing.vim-move'))
