@@ -1,4 +1,2 @@
-return {
-    -- require 'myplugins.candy.ghost-plugins.vim-ghost',
-    require 'myplugins.candy.ghost-plugins.nvim-ghost',
-}
+-- return require 'myplugins.candy.ghost-plugins.vim-ghost'
+return require 'myplugins.candy.ghost-plugins.nvim-ghost'

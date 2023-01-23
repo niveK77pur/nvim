@@ -103,7 +103,7 @@ return require('packer').startup({function(use)
     --                                   Candy
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    -- use(require('myplugins.candy.ghost')) -- busted
+    use(require('myplugins.candy.ghost')) -- works
 
     use(require('myplugins.candy.vim-floaterm')) -- works
     use(require('myplugins.candy.nui')) -- works
