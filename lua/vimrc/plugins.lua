@@ -54,7 +54,7 @@ return require('packer').startup({function(use)
     --                                 Interface
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    use(require('myplugins.interface.colorscheme'))
+    use(require('myplugins.interface.colorscheme')) -- works
 
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     --                                  Editing

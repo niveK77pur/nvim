@@ -1,16 +1,14 @@
-return {
-    -- require('myplugins.interface.colorscheme-plugins.everforest'),
-    -- require('myplugins.interface.colorscheme-plugins.nightfox'),
-    -- require('myplugins.interface.colorscheme-plugins.material'),
-    require('myplugins.interface.colorscheme-plugins.nebulous'),
-    -- require('myplugins.interface.colorscheme-plugins.embark'),
-    -- require('myplugins.interface.colorscheme-plugins.pinkmare'),
-    -- require('myplugins.interface.colorscheme-plugins.tokyodark'),
-    -- require('myplugins.interface.colorscheme-plugins.omni'),
-    -- require('myplugins.interface.colorscheme-plugins.gloombuddy'),
-    -- require('myplugins.interface.colorscheme-plugins.doom-one'),
-    -- require('myplugins.interface.colorscheme-plugins.seoul256'),
-    -- require('myplugins.interface.colorscheme-plugins.miramare'),
-    -- require('myplugins.interface.colorscheme-plugins.oceanic-next'),
-    -- require('myplugins.interface.colorscheme-plugins.onedark'),
-}
+-- return require('myplugins.interface.colorscheme-plugins.everforest')
+-- return require('myplugins.interface.colorscheme-plugins.nightfox')
+-- return require('myplugins.interface.colorscheme-plugins.material')
+return require('myplugins.interface.colorscheme-plugins.nebulous')
+-- return require('myplugins.interface.colorscheme-plugins.embark')
+-- return require('myplugins.interface.colorscheme-plugins.pinkmare')
+-- return require('myplugins.interface.colorscheme-plugins.tokyodark')
+-- return require('myplugins.interface.colorscheme-plugins.omni')
+-- return require('myplugins.interface.colorscheme-plugins.gloombuddy')
+-- return require('myplugins.interface.colorscheme-plugins.doom-one')
+-- return require('myplugins.interface.colorscheme-plugins.seoul256')
+-- return require('myplugins.interface.colorscheme-plugins.miramare')
+-- return require('myplugins.interface.colorscheme-plugins.oceanic-next')
+-- return require('myplugins.interface.colorscheme-plugins.onedark')
