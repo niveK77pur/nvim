@@ -13,12 +13,15 @@ end
 local packer_bootstrap = ensure_packer()
 --  }}}
 -- automatically :PackerCompile when file is written {{{
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-  augroup end
-]])
+local augroup_packer_user_config = vim.api.nvim_create_augroup('packer_user_config', {})
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+    group = augroup_packer_user_config,
+    pattern = { 'plugins.lua', vim.fn.stdpath('config') .. '/lua/myplugins/**/*.lua' },
+    desc = "automatically :PackerCompile when file is written",
+    callback = function()
+        vim.cmd[[source <afile> | PackerCompile]]
+    end,
+})
 --  }}}
 
 return require('packer').startup({function(use)
