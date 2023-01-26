@@ -43,6 +43,8 @@ return require('packer').startup({function(use)
     use(require('myplugins.handy-tools.gitsigns')) -- works
     use(require('myplugins.handy-tools.treesitter-context')) -- works
 
+    use(require('myplugins.handy-tools.trailblazer'))
+
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     --                                  Writing
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
