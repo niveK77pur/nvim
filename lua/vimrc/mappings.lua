@@ -144,11 +144,11 @@ map('n', '<F12>', [[:echo '\°O°/'<CR>]])
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
--- navigate windows with ALT+{h,j,k,l} {{{
-map({'t','i','n'}, '<A-h>', [[<C-\><C-N><C-w>h]], { desc = 'Navigate window using ALT+h' })
-map({'t','i','n'}, '<A-j>', [[<C-\><C-N><C-w>j]], { desc = 'Navigate window using ALT+j' })
-map({'t','i','n'}, '<A-k>', [[<C-\><C-N><C-w>k]], { desc = 'Navigate window using ALT+k' })
-map({'t','i','n'}, '<A-l>', [[<C-\><C-N><C-w>l]], { desc = 'Navigate window using ALT+l' })
+-- navigate windows with CTRL+ALT+{h,j,k,l} {{{
+map({'t','i','n'}, '<C-A-h>', [[<C-\><C-N><C-w>h]], { desc = 'Navigate window using ALT+h' })
+map({'t','i','n'}, '<C-A-j>', [[<C-\><C-N><C-w>j]], { desc = 'Navigate window using ALT+j' })
+map({'t','i','n'}, '<C-A-k>', [[<C-\><C-N><C-w>k]], { desc = 'Navigate window using ALT+k' })
+map({'t','i','n'}, '<C-A-l>', [[<C-\><C-N><C-w>l]], { desc = 'Navigate window using ALT+l' })
 -- }}}
 
 -- use ALT+{, .} to navigate tabs {{{
