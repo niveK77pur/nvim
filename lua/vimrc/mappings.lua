@@ -17,6 +17,12 @@ map('n', '<Leader>ve', function()
     desc = 'edit vimrc files'
 })
 
+map('n', '<Leader>vp', function()
+        require('fzf-lua').files{ cwd = vim.fn.stdpath('config') .. '/lua/myplugins' }
+    end, {
+    desc = 'edit packer plugin files'
+})
+
 map('n', '<Leader>F', function() vim.cmd(('tabnew %s/ftplugin/%s.lua'):format(vim.fn.stdpath('config'), vim.o.filetype)) end, {
     desc = 'edit filetype plugin of current filetype',
 })
