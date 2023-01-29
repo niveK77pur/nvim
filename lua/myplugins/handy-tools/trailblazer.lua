@@ -27,6 +27,13 @@ return {
                 --     ...
                 -- },
             },
+            trail_options = {
+                -- https://github.com/LeonHeidelbach/trailblazer.nvim/discussions/3#discussioncomment-4765300
+                newest_mark_symbol   = "",
+                cursor_mark_symbol   = "",
+                next_mark_symbol     = "ﭠ",
+                previous_mark_symbol = "ﭢ",
+            }
         })
     end,
 }
