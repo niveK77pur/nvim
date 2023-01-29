@@ -42,6 +42,7 @@ return require('packer').startup({function(use)
     use(require('myplugins.handy-tools.localrc'))
     use(require('myplugins.handy-tools.multi-cursor'))
     use(require('myplugins.handy-tools.printer'))
+    use(require('myplugins.handy-tools.trailblazer'))
 
     -- use(require('myplugins.handy-tools.telescope'))
     use(require('myplugins.handy-tools.fzf-lua'))
@@ -51,8 +52,6 @@ return require('packer').startup({function(use)
 
     use(require('myplugins.handy-tools.gitsigns'))
     use(require('myplugins.handy-tools.treesitter-context'))
-
-    use(require('myplugins.handy-tools.trailblazer'))
 
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     --                                  Writing
