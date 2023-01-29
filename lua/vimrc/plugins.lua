@@ -33,24 +33,24 @@ return require('packer').startup({function(use)
     --                                 Interface
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    use(require('myplugins.interface.colorscheme')) -- works
+    use(require('myplugins.interface.colorscheme'))
 
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     --                                Handy Tools
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    use(require('myplugins.handy-tools.localrc')) -- works
-    use(require('myplugins.handy-tools.multi-cursor')) -- works
-    use(require('myplugins.handy-tools.printer')) -- works
+    use(require('myplugins.handy-tools.localrc'))
+    use(require('myplugins.handy-tools.multi-cursor'))
+    use(require('myplugins.handy-tools.printer'))
 
     -- use(require('myplugins.handy-tools.telescope'))
-    use(require('myplugins.handy-tools.fzf-lua')) -- works
+    use(require('myplugins.handy-tools.fzf-lua'))
     -- use(require('myplugins.handy-tools.fzf-vim'))
 
-    use(require('myplugins.handy-tools.snippets')) -- works
+    use(require('myplugins.handy-tools.snippets'))
 
-    use(require('myplugins.handy-tools.gitsigns')) -- works
-    use(require('myplugins.handy-tools.treesitter-context')) -- works
+    use(require('myplugins.handy-tools.gitsigns'))
+    use(require('myplugins.handy-tools.treesitter-context'))
 
     use(require('myplugins.handy-tools.trailblazer'))
 
@@ -58,18 +58,18 @@ return require('packer').startup({function(use)
     --                                  Writing
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    use(require('myplugins.writing.pencil')) -- works
-    use(require('myplugins.writing.ditto')) -- works
+    use(require('myplugins.writing.pencil'))
+    use(require('myplugins.writing.ditto'))
 
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     --                                  Editing
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    use(require('myplugins.editing.comment')) -- works
-    use(require('myplugins.editing.auto-pairs')) -- works
-    use(require('myplugins.editing.surround')) -- works
-    use(require('myplugins.editing.vim-easy-align')) -- works
-    use(require('myplugins.editing.vim-exchange')) -- works
+    use(require('myplugins.editing.comment'))
+    use(require('myplugins.editing.auto-pairs'))
+    use(require('myplugins.editing.surround'))
+    use(require('myplugins.editing.vim-easy-align'))
+    use(require('myplugins.editing.vim-exchange'))
     -- use(require('myplugins.editing.vim-move'))
     -- use(require('myplugins.editing.ssr'))
 
@@ -81,14 +81,14 @@ return require('packer').startup({function(use)
     --                             Language Support
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    use(require('myplugins.language-support.treesitter')) -- works
-    use(require('myplugins.language-support.BetterLua')) -- works
+    use(require('myplugins.language-support.treesitter'))
+    use(require('myplugins.language-support.BetterLua'))
 
-    use(require('myplugins.language-support.nvim-lilypond-suite')) -- works
-    use(require('myplugins.language-support.vimtex')) -- works
+    use(require('myplugins.language-support.nvim-lilypond-suite'))
+    use(require('myplugins.language-support.vimtex'))
 
     -- use(require('myplugins.language-support.vim-diagram'))
-    use(require('myplugins.language-support.vim-jukit')) -- works
+    use(require('myplugins.language-support.vim-jukit'))
 
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     --                               Collaboration
@@ -101,23 +101,23 @@ return require('packer').startup({function(use)
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     -- use(require('myplugins.language-server.coc'))
-    use(require('myplugins.language-server.lsp-zero')) -- works
-    use(require('myplugins.language-server.nvim-cmp')) -- works
+    use(require('myplugins.language-server.lsp-zero'))
+    use(require('myplugins.language-server.nvim-cmp'))
 
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     --                                   Candy
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    use(require('myplugins.candy.ghost')) -- works
+    use(require('myplugins.candy.ghost'))
 
-    use(require('myplugins.candy.vim-floaterm')) -- works
-    use(require('myplugins.candy.nui')) -- works
+    use(require('myplugins.candy.vim-floaterm'))
+    use(require('myplugins.candy.nui'))
 
-    use(require('myplugins.candy.fold')) -- works
-    use(require('myplugins.candy.leap')) -- works
+    use(require('myplugins.candy.fold'))
+    use(require('myplugins.candy.leap'))
 
-    use(require('myplugins.candy.colors')) -- works
-    use(require('myplugins.candy.windows')) -- works
+    use(require('myplugins.candy.colors'))
+    use(require('myplugins.candy.windows'))
     -- use(require('myplugins.candy.silicon'))
 
     -- Automatically set up your configuration after cloning packer.nvim {{{
