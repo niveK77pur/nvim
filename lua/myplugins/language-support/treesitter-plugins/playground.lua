@@ -1,4 +1,5 @@
-return { 'nvim-treesitter/playground', disable=false,
+return { 'nvim-treesitter/playground',
+    requires = 'nvim-treesitter/nvim-treesitter',
     cmd = { 'TSPlaygroundToggle' },
     run = ':TSInstall query',
 }
