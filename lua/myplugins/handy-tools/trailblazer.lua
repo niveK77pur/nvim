@@ -1,5 +1,6 @@
 return {
     "LeonHeidelbach/trailblazer.nvim",
+    after =  'colorscheme',
     config = function()
         require("trailblazer").setup({
             mappings = {
