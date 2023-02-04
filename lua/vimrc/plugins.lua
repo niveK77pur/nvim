@@ -14,12 +14,17 @@ local packer_bootstrap = ensure_packer()
 --  }}}
 -- automatically :PackerCompile when file is written {{{
 local augroup_packer_user_config = vim.api.nvim_create_augroup('packer_user_config', {})
+local configlua = vim.fn.stdpath('config') .. '/lua'
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     group = augroup_packer_user_config,
-    pattern = { 'plugins.lua', vim.fn.stdpath('config') .. '/lua/myplugins/**/*.lua' },
+    pattern = {
+        configlua .. '/vimrc/plugins.lua',
+        configlua .. '/myplugins/**/*.lua'
+    },
     desc = "automatically :PackerCompile when file is written",
     callback = function()
         vim.cmd[[source <afile> | PackerCompile]]
+        -- vim.cmd('source ' .. configlua .. '/vimrc/plugins.lua | PackerCompile')
     end,
 })
 --  }}}
