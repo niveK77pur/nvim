@@ -76,6 +76,7 @@ return require('packer').startup({function(use)
     use(require('myplugins.editing.vim-exchange'))
     -- use(require('myplugins.editing.vim-move'))
     -- use(require('myplugins.editing.ssr'))
+    use(require('myplugins.editing.ts-node-action'))
 
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     --                                   Music
