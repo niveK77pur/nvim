@@ -1,7 +1,7 @@
 \version ""
 \include "global.ly"
 
-right = \absolute {
+right = \relative c' {
   \global
   r
 %}
