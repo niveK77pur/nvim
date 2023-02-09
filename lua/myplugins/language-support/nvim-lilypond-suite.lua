@@ -29,7 +29,7 @@ return { 'martineausimon/nvim-lilypond-suite',
 
         local LILYDICTPATH = packer_plugins['nvim-lilypond-suite'].path .. '/lilywords'
         require('cmp_dictionary').setup{
-            dic = {
+            dic = { --  {{{
                 ["lilypond"] = {
                     LILYDICTPATH .. '/accidentalsStyles',
                     LILYDICTPATH .. '/articulations',
@@ -51,7 +51,9 @@ return { 'martineausimon/nvim-lilypond-suite',
                     LILYDICTPATH .. '/scales',
                     LILYDICTPATH .. '/translators',
                 }
-            }
+            } --  }}}
         }
     end
 }
+
+-- vim: fdm=marker
