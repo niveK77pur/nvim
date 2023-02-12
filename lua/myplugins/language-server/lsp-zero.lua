@@ -73,13 +73,13 @@ return { 'VonHeikemen/lsp-zero.nvim',
         -- LSPs ------------------------------------------------------------
 
         lsp.ensure_installed({
-            'sumneko_lua',
+            'lua_ls',
             'pyright',
             'pylsp',
             'bashls'
         })
 
-        lsp.configure('sumneko_lua', { -- {{{
+        lsp.configure('lua_ls', { -- {{{
             settings = {
                 Lua = {
                     diagnostics = {
