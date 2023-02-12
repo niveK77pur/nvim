@@ -126,6 +126,11 @@ return { 'VonHeikemen/lsp-zero.nvim',
                 "bib", "plaintex", "tex",
                 "gitcommit", "org", "rst", "rnoweb",
             },
+            settings = {
+                ltex = {
+                    language = 'en-GB',
+                },
+            },
         }) --  }}}
 
         -- Setup -----------------------------------------------------------
