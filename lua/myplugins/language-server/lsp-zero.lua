@@ -133,6 +133,16 @@ return { 'VonHeikemen/lsp-zero.nvim',
             },
         }) --  }}}
 
+        lsp.configure('rust_analyzer', { --  {{{
+            settings = {
+                ['rust-analyzer'] = {
+                    check = {
+                        command = "clippy",
+                    },
+                },
+            },
+        }) --  }}}
+
         -- Setup -----------------------------------------------------------
         do
             local diagnostic_config = vim.diagnostic.config()
