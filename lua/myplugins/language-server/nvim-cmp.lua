@@ -1,4 +1,5 @@
-return { 'hrsh7th/nvim-cmp',
+return {
+    'hrsh7th/nvim-cmp',
     requires = {
         'hrsh7th/cmp-buffer',
         'hrsh7th/cmp-emoji',
@@ -23,6 +24,15 @@ return { 'hrsh7th/nvim-cmp',
                 format = lspkind.cmp_format({
                     -- mode = 'symbol',
                 }),
+                -- fields = { "kind", "abbr", "menu" },
+                -- format = function(entry, vim_item)
+                --     local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+                --     local strings = vim.split(kind.kind, "%s", { trimempty = true })
+                --     kind.kind = " " .. (strings[1] or "") .. " "
+                --     kind.menu = "    (" .. (strings[2] or "") .. ")"
+                --
+                --     return kind
+                -- end,
             },
             view = {
                 entries = { name = 'custom', selection_order = 'near_cursor' },
@@ -33,8 +43,14 @@ return { 'hrsh7th/nvim-cmp',
                 end,
             },
             window = {
-                completion = cmp.config.window.bordered(),
-                documentation = cmp.config.window.bordered(),
+                -- completion = cmp.config.window.bordered(),
+                -- documentation = cmp.config.window.bordered(),
+                completion = {
+                    winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+                    -- col_offset = -3,
+                    side_padding = 1,
+
+                },
             },
             mapping = cmp.mapping.preset.insert({
                 ['<C-b>'] = cmp.mapping.scroll_docs(-4),
