@@ -121,6 +121,10 @@ end
 -- add barline | at the end
 nmap('<LocalLeader>b', [[A |<ESC>]])
 imap('<LocalLeader>b', ([[<C-O>%sb]]):format(vim.g.maplocalleader), {remap=true})
+-- add barline with tie ~ | at the end
+nmap('<LocalLeader>B', [[A ~ |<ESC>]])
+imap('<LocalLeader>B', ([[<C-O>%sB]]):format(vim.g.maplocalleader), {remap=true})
+
 
 -- align lines
 nmap('<LocalLeader>a', function() _G.AlignCursors() end)
