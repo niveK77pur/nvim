@@ -24,5 +24,14 @@ return { 'junegunn/fzf.vim',
         imap('<Leader><c-x><c-j>', '<plug>(fzf-complete-file-ag)')
         imap('<Leader><c-x><c-l>', '<plug>(fzf-complete-line)')
         imap('<Leader><c-x><c-L>', '<plug>(fzf-complete-buffer-line)')
+
+        vim.cmd[[
+            " Mapping selecting mappings
+            nmap <leader><tab> <plug>(fzf-maps-n)
+            imap <leader><tab> <plug>(fzf-maps-i)
+            xmap <leader><tab> <plug>(fzf-maps-x)
+            omap <leader><tab> <plug>(fzf-maps-o)
+        ]]
+
     end,
 }
