@@ -51,7 +51,7 @@ return require('packer').startup({function(use)
 
     -- use(require('myplugins.handy-tools.telescope'))
     use(require('myplugins.handy-tools.fzf-lua'))
-    -- use(require('myplugins.handy-tools.fzf-vim'))
+    use(require('myplugins.handy-tools.fzf-vim'))
 
     use(require('myplugins.handy-tools.snippets'))
 

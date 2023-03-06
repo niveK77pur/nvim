@@ -66,12 +66,12 @@ return { 'ibhagwan/fzf-lua',
         -- suggestions
         nmap('z=', function() fzflua.spell_suggest() end)
 
-        -- Insert mode completion
-        imap('<Leader><c-x><c-k>', function() print('hello') end)
-        imap('<Leader><c-x><c-f>', function() print('hello') end)
-        imap('<Leader><c-x><c-j>', function() print('hello') end)
-        imap('<Leader><c-x><c-l>', function() print('hello') end)
-        imap('<Leader><c-x><c-L>', function() print('hello') end)
+        -- -- Insert mode completion (handled by junegunn/fzf.vim)
+        -- imap('<Leader><c-x><c-k>', function() print('hello') end)
+        -- imap('<Leader><c-x><c-f>', function() print('hello') end)
+        -- imap('<Leader><c-x><c-j>', function() print('hello') end)
+        -- imap('<Leader><c-x><c-l>', function() print('hello') end)
+        -- imap('<Leader><c-x><c-L>', function() print('hello') end)
 
         -- `:help vim.ui.select` for more info
         fzflua.register_ui_select()
