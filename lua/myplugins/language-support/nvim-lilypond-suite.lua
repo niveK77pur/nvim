@@ -5,7 +5,7 @@ return { 'martineausimon/nvim-lilypond-suite',
     },
     ft = { 'lilypond' },
     config = function()
-        require('nvls').setup{
+        require('nvls').setup {
             lilypond = {
                 mappings = {
                     player = "<F3>",
@@ -22,17 +22,17 @@ return { 'martineausimon/nvim-lilypond-suite',
             },
         }
 
-        vim.api.nvim_create_autocmd( 'QuickFixCmdPost', {
+        vim.api.nvim_create_autocmd('QuickFixCmdPost', {
             command = "cwindow",
             pattern = "*"
         })
-        vim.api.nvim_create_autocmd('BufEnter', { 
+        vim.api.nvim_create_autocmd('BufEnter', {
             command = "syntax sync fromstart",
             pattern = { '*.ly', '*.ily', '*.tex' }
         })
 
         local LILYDICTPATH = packer_plugins['nvim-lilypond-suite'].path .. '/lilywords'
-        require('cmp_dictionary').setup{
+        require('cmp_dictionary').setup {
             dic = { --  {{{
                 ["lilypond"] = {
                     LILYDICTPATH .. '/accidentalsStyles',
