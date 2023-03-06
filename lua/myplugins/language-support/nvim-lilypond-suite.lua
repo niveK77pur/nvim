@@ -26,6 +26,10 @@ return { 'martineausimon/nvim-lilypond-suite',
             command = "cwindow",
             pattern = "*"
         })
+        vim.api.nvim_create_autocmd('BufEnter', { 
+            command = "syntax sync fromstart",
+            pattern = { '*.ly', '*.ily', '*.tex' }
+        })
 
         local LILYDICTPATH = packer_plugins['nvim-lilypond-suite'].path .. '/lilywords'
         require('cmp_dictionary').setup{
