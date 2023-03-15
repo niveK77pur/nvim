@@ -1,5 +1,5 @@
 return { 'mhartington/oceanic-next',
-    setup = function()
+    init = function()
         vim.g.oceanic_next_terminal_bold = 1
         vim.g.oceanic_next_terminal_italic = 1
 

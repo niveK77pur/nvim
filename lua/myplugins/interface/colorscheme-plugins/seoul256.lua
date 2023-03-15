@@ -1,5 +1,5 @@
 return { 'shaunsingh/seoul256.nvim',
-    -- setup = function()
+    -- init = function()
     --     vim.g.seoul256_italic_comments = true
     --     vim.g.seoul256_italic_keywords = true
     --     vim.g.seoul256_italic_functions = true

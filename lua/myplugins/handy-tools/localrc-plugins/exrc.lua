@@ -1,5 +1,5 @@
 return { 'MunifTanjim/exrc.nvim',
-    requires = { 'MunifTanjim/nui.nvim', opt = true },
+    dependencies = { 'MunifTanjim/nui.nvim', lazy = true },
     config = function()
         -- disable built-in local config file support
         vim.o.exrc = false

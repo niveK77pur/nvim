@@ -1,4 +1,8 @@
-local packer_extra = { as = 'colorscheme' }
+local packer_extra = {
+    name = 'colorscheme',
+    lazy = false,
+    priority = 1000,
+}
 
 -- local plugin = require('myplugins.interface.colorscheme-plugins.everforest')
 -- local plugin = require('myplugins.interface.colorscheme-plugins.nightfox')

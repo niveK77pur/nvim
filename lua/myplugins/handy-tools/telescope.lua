@@ -1,8 +1,8 @@
 return { 'nvim-telescope/telescope.nvim',
-    requires = {
+    dependencies = {
         { 'nvim-lua/plenary.nvim' },
         { 'https://github.com/nvim-telescope/telescope-fzy-native.nvim' },
-        -- {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+        -- {'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     },
     config = function()
         local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end

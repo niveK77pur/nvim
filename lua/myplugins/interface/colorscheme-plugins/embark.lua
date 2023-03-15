@@ -1,6 +1,6 @@
 return { 'embark-theme/vim',
-    as = 'embark',
-    setup = function ()
+    name = 'embark',
+    init = function ()
         vim.g.embark_terminal_italics = 1
     end,
     config = function()

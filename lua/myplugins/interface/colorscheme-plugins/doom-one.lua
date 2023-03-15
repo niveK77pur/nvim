@@ -1,5 +1,5 @@
 return { 'NTBBloodbath/doom-one.nvim',
-    setup = function()
+    init = function()
         -- Add color to cursor
         vim.g.doom_one_cursor_coloring = false
         -- Set :terminal colors

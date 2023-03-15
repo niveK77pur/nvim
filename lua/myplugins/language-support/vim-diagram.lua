@@ -3,7 +3,7 @@ return { 'zhaozg/vim-diagram',
         local ext = vim.fn.expand('%:e')
         return ext == 'mmd' or ext == 'seq' or ext == 'sequence'
     end,
-    setup = function()
+    init = function()
         local augroup_mermaid = vim.api.nvim_create_augroup('mermaid', {})
         vim.api.nvim_create_autocmd({ "BufEnter" }, {
             group = augroup_mermaid,

@@ -1,7 +1,7 @@
 return { 'martineausimon/nvim-lilypond-suite',
-    requires = {
+    dependencies = {
         'MunifTanjim/nui.nvim',
-        { 'uga-rosa/cmp-dictionary', requires = 'hrsh7th/nvim-cmp' },
+        { 'uga-rosa/cmp-dictionary', dependencies = { 'hrsh7th/nvim-cmp' } },
     },
     ft = { 'lilypond' },
     config = function()

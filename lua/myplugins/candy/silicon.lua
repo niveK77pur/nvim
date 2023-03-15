@@ -1,5 +1,5 @@
 return { "narutoxy/silicon.lua",
-    requires = { "nvim-lua/plenary.nvim" },
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
         require('silicon').setup({})
         -- local silicon = require('silicon')

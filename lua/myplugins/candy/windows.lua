@@ -1,5 +1,5 @@
 return { "anuvyklack/windows.nvim",
-    requires = {
+    dependencies = {
         "anuvyklack/middleclass",
         "anuvyklack/animation.nvim"
     },

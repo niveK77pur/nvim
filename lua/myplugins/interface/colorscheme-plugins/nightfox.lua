@@ -1,5 +1,5 @@
 return { 'EdenEast/nightfox.nvim',
-    run = ":NightfoxCompile",
+    build = ":NightfoxCompile",
     config = function()
 
         require('nightfox').setup({

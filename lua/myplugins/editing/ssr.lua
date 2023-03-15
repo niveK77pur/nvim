@@ -1,6 +1,5 @@
 return { "cshuaimin/ssr.nvim",
-    module = "ssr",
-    setup = function()
+    init = function()
         -- ts : Treesitter Search-and-replace
         vim.keymap.set({ "n", "x" }, "<Leader>ts", function() require("ssr").open() end)
     end,

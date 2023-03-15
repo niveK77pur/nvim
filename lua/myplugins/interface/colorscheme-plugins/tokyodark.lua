@@ -1,5 +1,5 @@
 return { 'tiagovla/tokyodark.nvim',
-    setup = function()
+    init = function()
         vim.g.tokyodark_transparent_background = false
         vim.g.tokyodark_enable_italic_comment = true
         vim.g.tokyodark_enable_italic = false

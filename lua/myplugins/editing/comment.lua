@@ -1,4 +1,4 @@
--- return { 'scrooloose/nerdcommenter', disable = true }
+-- return { 'scrooloose/nerdcommenter', enabled = false }
 
 return { 'numToStr/Comment.nvim',
     config = function()
