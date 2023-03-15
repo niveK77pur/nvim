@@ -7,10 +7,13 @@ local map = vim.keymap.set
 -- Config Files ----------------------------------------------------------------
 
 map('n', '<Leader>ve', function()
+        local lazy_plugin_loaded = function(p)
+            return require('lazy.core.config').plugins[p] and require('lazy.core.config').plugins[p]._.loaded
+        end
         -- for telescope: https://github.com/nvim-telescope/telescope.nvim#lists-picker
-        if packer_plugins['fzf-lua'] and packer_plugins['fzf-lua'].loaded then
+        if lazy_plugin_loaded('fzf-lua') then
             require('fzf-lua').files{ cwd = vim.fn.stdpath('config') .. '/lua/vimrc' }
-        elseif packer_plugins['fzf.vim'] and packer_plugins['fzf.vim'].loaded then
+        elseif lazy_plugin_loaded('fzf.vim') then
             vim.cmd(('Files %s/lua/vimrc'):format(vim.fn.stdpath('config')))
         end
     end, {
@@ -20,7 +23,7 @@ map('n', '<Leader>ve', function()
 map('n', '<Leader>vp', function()
         require('fzf-lua').files{ cwd = vim.fn.stdpath('config') .. '/lua/myplugins' }
     end, {
-    desc = 'edit packer plugin files'
+    desc = 'edit plugin files'
 })
 
 map('n', '<Leader>F', function() vim.cmd(('tabnew %s/ftplugin/%s.lua'):format(vim.fn.stdpath('config'), vim.o.filetype)) end, {

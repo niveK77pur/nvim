@@ -31,7 +31,7 @@ return { 'martineausimon/nvim-lilypond-suite',
             pattern = { '*.ly', '*.ily', '*.tex' }
         })
 
-        local LILYDICTPATH = packer_plugins['nvim-lilypond-suite'].path .. '/lilywords'
+        local LILYDICTPATH = require('lazy.core.config').plugins['nvim-lilypond-suite'].dir .. '/lilywords'
         require('cmp_dictionary').setup {
             dic = { --  {{{
                 ["lilypond"] = {

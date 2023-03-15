@@ -1,4 +1,4 @@
-local packer_extra = {
+local lazy_extra = {
     name = 'colorscheme',
     lazy = false,
     priority = 1000,
@@ -19,4 +19,4 @@ local plugin = require('myplugins.interface.colorscheme-plugins.pinkmare')
 -- local plugin = require('myplugins.interface.colorscheme-plugins.oceanic-next')
 -- local plugin = require('myplugins.interface.colorscheme-plugins.onedark')
 
-return vim.tbl_deep_extend('force', plugin, packer_extra)
+return vim.tbl_deep_extend('force', plugin, lazy_extra)
