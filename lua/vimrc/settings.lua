@@ -23,6 +23,10 @@ if &t_Co > 255 && $TERM !=# "linux"
 endif
 ]])
 
+if require('lazy.core.config').plugins['pinkmare'] then
+    vim.cmd.colorscheme('pinkmare')
+end
+
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --                            Options for indentation
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

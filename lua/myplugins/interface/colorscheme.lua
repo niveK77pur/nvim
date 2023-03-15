@@ -1,5 +1,5 @@
 local lazy_extra = {
-    name = 'colorscheme',
+    -- name = 'colorscheme',
     lazy = false,
     priority = 1000,
 }
