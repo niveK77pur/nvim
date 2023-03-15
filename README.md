@@ -1,10 +1,21 @@
 # Installing
 
-Clone this repo into `~/.config/nvim` and simply launch neovim. The first time around, it will install all the plugins specified using [packer.nvim][packer].
+Clone this repo into `~/.config/nvim` and simply launch neovim. The first time around, it will install all the plugins specified using [lazy.nvim][lazy].
 
 # Plugins
 
-Plugins are managed using [packer.nvim][packer]. An interesting features is the [`config`](https://github.com/wbthomason/packer.nvim#specifying-plugins) specification, which allows to run code after the plugin has been loaded. This is where I put any plugin related configurations. Hence the plugins and their configurations reside in one single place.
+Plugins are managed using [lazy.nvim][lazy]. An interesting features is the [`config`](https://github.com/folke/lazy.nvim#-plugin-spec) specification, which allows to run code after the plugin has been loaded. This is where I put any plugin related configurations. Hence the plugins and their configurations reside in one single place.
+
+Initially, plugins were managed using [packer.nvim][packer] but there were some issues &mdash; very highly annoying ones &mdash; so I decided to switch teams and try out [lazy.nvim][lazy].
+- I had an autocommand which runs `:PackerCompile` whenever the plugin file(s) is/are saved. Saving 3 times in a row always caused an error. Closing and re-opening vim made it work again. But it would always error out after 3 consecutive saves for some reason.
+- Since I split my plugin configurations into different files, the `:PackerCompile` did not properly catch on and reflect the changes I made to individual plugin configuration files. For it to *actually* work I had to
+  1. `:PackerCompile` the separate plugin file
+  2. `:PackerCompile` the main `plugins.lua` file
+  3. Restart NeoVim
+  4. Run `:PackerCompile` again on the `plugins.lua` file
+  5. Restart NeoVim
+  6. Check if the changes took effect (i.e. `:PackerStatus` or executing a mapping or whatever else could manifest the modification I made)
+  7. If it still did not work, repeat steps 3-6 until it works.
 
 # Cool things in my config
 
@@ -42,4 +53,5 @@ It almost feels like I am betraying Vim by leaving VimScript for Lua, but [packe
 
 [77pur-vim]: https://github.com/niveK77pur/.vim
 [packer]: https://github.com/wbthomason/packer.nvim
+[lazy]: https://github.com/folke/lazy.nvim
 [nvim-appimage]: https://github.com/neovim/neovim/wiki/Installing-Neovim#appimage-universal-linux-package
