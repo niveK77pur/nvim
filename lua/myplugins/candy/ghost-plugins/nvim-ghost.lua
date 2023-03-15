@@ -1,8 +1,11 @@
 return { 'subnut/nvim-ghost.nvim',
     -- build = ':call nvim_ghost#installer#install()',
-    config = function()
+    cmd = { 'GhostTextEnable' },
+    init = function ()
         -- vim.g.nvim_ghost_super_quiet = 1
         vim.g.nvim_ghost_disabled = 1
+    end,
+    config = function()
 
         -- All autocommands should be in 'nvim_ghost_user_autocommands' group
         local augroup_nvim_ghost_user_autocommands = vim.api.nvim_create_augroup('nvim_ghost_user_autocommands', {})
