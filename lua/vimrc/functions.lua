@@ -131,4 +131,20 @@ function myfs.MakeSection(text)
 end
 
 
+function myfs.plugin_loaded(plugin_name)
+    return myfs.lazy_plugin_loaded(plugin_name)
+    -- return myfs.packer_plugin_loaded(plugin_name)
+end
+
+function myfs.lazy_plugin_loaded(plugin_name)
+    return require('lazy.core.config').plugins[plugin_name]
+        and require('lazy.core.config').plugins[plugin_name]._.loaded
+end
+
+function myfs.packer_plugin_loaded(plugin_name)
+    return packer_plugins[plugin_name]
+        and packer_plugins[plugin_name].loaded
+end
+
+
 return myfs

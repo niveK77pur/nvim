@@ -35,10 +35,7 @@ return { 'VonHeikemen/lsp-zero.nvim',
             -- Enable completion triggered by <c-x><c-o> {{{
             do
                 -- interferes with vimtex
-                local lazy_plugin_loaded = function(p)
-                    return require('lazy.core.config').plugins[p] and require('lazy.core.config').plugins[p]._.loaded
-                end
-                if not ( lazy_plugin_loaded('vimtex') ) then
+                if not ( require('vimrc.functions').plugin_loaded('vimtex') ) then
                     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
                 end
             end --  }}}

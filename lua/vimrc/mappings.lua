@@ -7,13 +7,10 @@ local map = vim.keymap.set
 -- Config Files ----------------------------------------------------------------
 
 map('n', '<Leader>ve', function()
-        local lazy_plugin_loaded = function(p)
-            return require('lazy.core.config').plugins[p] and require('lazy.core.config').plugins[p]._.loaded
-        end
         -- for telescope: https://github.com/nvim-telescope/telescope.nvim#lists-picker
-        if lazy_plugin_loaded('fzf-lua') then
+        if require('vimrc.functions').plugin_loaded('fzf-lua') then
             require('fzf-lua').files{ cwd = vim.fn.stdpath('config') .. '/lua/vimrc' }
-        elseif lazy_plugin_loaded('fzf.vim') then
+        elseif require('vimrc.functions').plugin_loaded('fzf.vim') then
             vim.cmd(('Files %s/lua/vimrc'):format(vim.fn.stdpath('config')))
         end
     end, {
