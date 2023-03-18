@@ -45,6 +45,10 @@ mkdir "$PROJECT"
 cd "$PROJECT"
 cp "$HOME/.config/nvim/skeletons/Lilypond/newfile"/* .
 
+# set nvim-lilypond-suite main file
+mv {,.}nvimrc.lua
+sed -i "s/MAINFILE/$MAINFILE/" .nvimrc.lua
+
 # Put lilypond's version in every file
 sed -i "s/\(.version \).*/\1\"$VERSION\"/" *.ly
 
