@@ -1,12 +1,14 @@
+local new_trail_mark_key = '<A-l>'
 return {
     "LeonHeidelbach/trailblazer.nvim",
     -- dependencies =  { 'colorscheme' },
+    keys = { new_trail_mark_key },
     config = function()
         require("trailblazer").setup({
             mappings = {
                 nv = { -- Mode union: normal & visual mode. Can be extended by adding i, x, ...
                     motions = {
-                        new_trail_mark = '<A-l>',
+                        new_trail_mark = new_trail_mark_key,
                         track_back = '<A-k>',
                         peek_move_next_down = '<A-J>',
                         peek_move_previous_up = '<A-K>',
