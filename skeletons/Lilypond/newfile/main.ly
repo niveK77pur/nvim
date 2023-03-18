@@ -27,6 +27,8 @@ date = #(strftime "%B %d %Y" (localtime (current-time)))
 \include "left.ly"
 \include "dynamics.ly"
 
+% \pointAndClickOff
+
 \score {
   \new PianoStaff \with {
     instrumentName = "Piano"
