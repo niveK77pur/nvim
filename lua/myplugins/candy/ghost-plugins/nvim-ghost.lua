@@ -1,9 +1,9 @@
 return { 'subnut/nvim-ghost.nvim',
     -- build = ':call nvim_ghost#installer#install()',
-    cmd = { 'GhostTextEnable' },
+    cmd = { 'GhostTextStart' },
     init = function ()
         -- vim.g.nvim_ghost_super_quiet = 1
-        vim.g.nvim_ghost_disabled = 1
+        vim.g.nvim_ghost_autostart = 0
     end,
     config = function()
 
