@@ -1,4 +1,5 @@
 return { 'EdenEast/nightfox.nvim',
+    enabled = false,
     build = ":NightfoxCompile",
     config = function()
 

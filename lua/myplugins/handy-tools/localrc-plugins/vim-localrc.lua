@@ -1,1 +1,4 @@
-return { 'thinca/vim-localrc' }
+return {
+    enabled = false,
+    'thinca/vim-localrc'
+}

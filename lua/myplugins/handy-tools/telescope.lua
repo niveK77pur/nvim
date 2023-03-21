@@ -1,4 +1,5 @@
 return { 'nvim-telescope/telescope.nvim',
+    enabled = false,
     dependencies = {
         { 'nvim-lua/plenary.nvim' },
         { 'https://github.com/nvim-telescope/telescope-fzy-native.nvim' },

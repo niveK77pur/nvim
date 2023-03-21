@@ -1,4 +1,5 @@
 return { 'neoclide/coc.nvim', branch = 'release',
+    enabled = false,
     build = ':CocUpdate',
     config = function()
         local map = function(mode, LH, RH, args) vim.keymap.set(mode, LH, RH, args) end

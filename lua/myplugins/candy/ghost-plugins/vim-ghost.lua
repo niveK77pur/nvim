@@ -1,4 +1,5 @@
 return { 'raghur/vim-ghost',
+    enabled = false,
     build = ':GhostInstall',
     cmd = { 'GhostInstall', 'GhostStart' },
     config = function()

@@ -2,6 +2,7 @@ local lazy_extra = {
     -- name = 'colorscheme',
     lazy = false,
     priority = 1000,
+    enabled = true,
 }
 
 -- local plugin = require('myplugins.interface.colorscheme-plugins.everforest')

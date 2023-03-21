@@ -1,4 +1,5 @@
 return { 'marko-cerovac/material.nvim',
+    enabled = false,
     config = function()
         vim.g.material_style = ({
             'darker',     -- 1

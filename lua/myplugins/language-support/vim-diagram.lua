@@ -1,4 +1,5 @@
 return { 'zhaozg/vim-diagram',
+    enabled = false,
     cond = function()
         local ext = vim.fn.expand('%:e')
         return ext == 'mmd' or ext == 'seq' or ext == 'sequence'
