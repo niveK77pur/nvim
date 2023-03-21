@@ -1,5 +1,5 @@
 return { 'matsuuu/pinkmare',
-    enabled = false,
+    enabled = true,
     config = function()
         vim.cmd 'colorscheme pinkmare'
     end
