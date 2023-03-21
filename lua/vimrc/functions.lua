@@ -146,5 +146,20 @@ function myfs.packer_plugin_loaded(plugin_name)
         and packer_plugins[plugin_name].loaded
 end
 
+function myfs.return_gathered_plugins(require_path, require_names)
+    local plugin_specs = {}
+    for _, r in ipairs(require_names) do
+        table.insert(
+            plugin_specs,
+            require(string.format(
+                "%s.%s",
+                require_path,
+                r
+            ))
+        )
+    end
+    return plugin_specs
+end
+
 
 return myfs
