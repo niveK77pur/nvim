@@ -44,6 +44,14 @@ return {
                         "Spaces",
                     },
                 }))
+            end,                                     --  }}}
+            rustfmt = function(source_name, methods) --  {{{
+                null_ls.register(null_ls.builtins.formatting.rustfmt.with({
+                    extra_args = {
+                        "--config",
+                        string.format("max_width=%s", column_width),
+                    },
+                }))
             end, --  }}}
         })
     end,
