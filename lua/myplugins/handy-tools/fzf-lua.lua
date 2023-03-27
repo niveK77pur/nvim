@@ -67,12 +67,13 @@ return { 'ibhagwan/fzf-lua',
         -- suggestions
         nmap('z=', function() fzflua.spell_suggest() end)
 
-        -- -- Insert mode completion (handled by junegunn/fzf.vim)
-        -- imap('<Leader><c-x><c-k>', function() print('hello') end)
-        -- imap('<Leader><c-x><c-f>', function() print('hello') end)
-        -- imap('<Leader><c-x><c-j>', function() print('hello') end)
-        -- imap('<Leader><c-x><c-l>', function() print('hello') end)
-        -- imap('<Leader><c-x><c-L>', function() print('hello') end)
+        -- Insert mode completion (also check junegunn/fzf.vim config)
+        imap('<Leader><c-x><c-f>', function() fzflua.complete_path() end)
+        imap('<Leader><c-x><c-l>', function() fzflua.complete_line() end)
+        imap('<Leader><c-x><c-L>', function() fzflua.complete_bline() end)
+
+        -- Mapping selecting mappings
+        vim.keymap.set({'n','i','c'}, '<Leader><tab>', function() fzflua.keymaps() end)
 
         -- `:help vim.ui.select` for more info
         fzflua.register_ui_select()

@@ -1,5 +1,5 @@
 return { 'junegunn/fzf.vim',
-    enabled = true,
+    enabled = false,
     config = function()
         vim.g.fzf_preview_window = { 'right,50%,<70(up,40%)', 'alt-p' }
 
