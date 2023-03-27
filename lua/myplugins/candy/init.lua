@@ -2,6 +2,7 @@ return require('vimrc.functions').return_gathered_plugins(
     'myplugins.candy',
     {
         'colors',
+        'deadcolumn',
         'fold',
         'ghost',
         'leap',
@@ -19,3 +20,5 @@ return require('vimrc.functions').return_gathered_plugins(
         'leap-plugins.leap',
         'leap-plugins.pounce',
     })
+
+-- vim: cc=60
