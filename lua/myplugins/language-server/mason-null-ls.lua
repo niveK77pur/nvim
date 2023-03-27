@@ -10,7 +10,7 @@ return {
         local null_ls = require("null-ls")
         local mason_null_ls = require("mason-null-ls")
 
-        local column_width = 80
+        local column_width = tonumber(vim.wo.colorcolumn) or 80
 
         require("mason").setup()
         mason_null_ls.setup({
