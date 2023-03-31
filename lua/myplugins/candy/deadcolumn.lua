@@ -1,5 +1,6 @@
 return {
     "Bekaboo/deadcolumn.nvim",
+    branch = "dev",
     enabled = true,
     event = { 'ColorScheme' },
     opts = {
