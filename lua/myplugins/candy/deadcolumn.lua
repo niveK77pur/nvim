@@ -1,8 +1,8 @@
 return {
     "Bekaboo/deadcolumn.nvim",
-    branch = "dev",
+    -- branch = "dev",
     enabled = true,
-    event = { 'ColorScheme' },
+    -- event = { 'ColorScheme' },
     opts = {
         modes = { 'i', 'n' },
         blending = {
@@ -15,4 +15,4 @@ return {
     },
 }
 
--- vim: cc=25 tw=35
+-- vim: cc=15 tw=35
