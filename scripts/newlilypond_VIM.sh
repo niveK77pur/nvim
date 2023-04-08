@@ -38,10 +38,29 @@ else
 fi
 
 # make sure the project does not exist
-[[ -d "$PROJECT" ]] && { echo "'$PROJECT' already exists. Aborting."; exit 1; }
+[[ -n "$(find "$PROJECT" -name "*.ly")" ]] && { echo "'$PROJECT' already exists. Aborting."; exit 1; }
+
+if type gh;
+then
+    # use github-cli if available
+    GH_ORGANISATION=VinLudens
+    gh repo create --public --template "$GH_ORGANISATION/lilypond-workflow-template" "$GH_ORGANISATION/$PROJECT"
+    gh repo clone "$GH_ORGANISATION/$PROJECT"
+    gh variable --repo "$GH_ORGANISATION/$PROJECT" set MAIN_FILE -b "$NAME" && (
+        cd "$PROJECT" \
+            && sed -i '/MAIN_FILE/s/\[ \]/[x]/' README.md \
+            && git add README.md \
+            && git commit -m "set MAIN_FILE" \
+            && git push
+    )
+    # new branch to avoid accidentally pushing to 'main'
+    ( cd "$PROJECT" && git checkout -b dev )
+else
+    # simply make a directory
+    mkdir -p "$PROJECT"
+fi
 
 # put all the files in place
-mkdir "$PROJECT"
 cd "$PROJECT"
 cp "$HOME/.config/nvim/skeletons/Lilypond/newfile"/* .
 
