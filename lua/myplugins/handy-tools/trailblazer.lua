@@ -5,7 +5,7 @@ return {
     keys = { new_trail_mark_key },
     config = function()
         require("trailblazer").setup({
-            mappings = {
+            force_mappings = {
                 nv = { -- Mode union: normal & visual mode. Can be extended by adding i, x, ...
                     motions = {
                         new_trail_mark = new_trail_mark_key,
