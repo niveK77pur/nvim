@@ -11,6 +11,9 @@ return { "anuvyklack/windows.nvim",
         vim.o.equalalways = false
 
         require('windows').setup{
+            autowidth = {
+                winwidth = 0.7,
+            },
             animation = {
                 enable = true,
                 duration = 150,
