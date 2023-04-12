@@ -14,45 +14,45 @@ return {
 
         require("mason").setup()
         mason_null_ls.setup({
-            --  {{{
-            ensure_installed = {
+            ensure_installed = { --  {{{
                 -- Opt to list sources here, when available in mason.
                 "stylua",
-            },
+            }, --  }}}
+            handlers = { --  {{{
+                function(source_name, methods)
+                    -- all sources with no handler get passed here
+                    require("mason-null-ls.automatic_setup")(
+                        source_name,
+                        methods
+                    )
+                end,
+                stylua = function(source_name, methods) --  {{{
+                    null_ls.register(null_ls.builtins.formatting.stylua.with({
+                        extra_args = {
+                            "--column-width",
+                            column_width,
+                            "--indent-type",
+                            "Spaces",
+                        },
+                    }))
+                end, --  }}}
+                rustfmt = function(source_name, methods) --  {{{
+                    null_ls.register(null_ls.builtins.formatting.rustfmt.with({
+                        extra_args = {
+                            "--config",
+                            string.format("max_width=%s", column_width),
+                        },
+                    }))
+                end, --  }}}
+            }, --  }}}
             automatic_installation = true,
             automatic_setup = true,
-        }) --  }}}
+        })
         null_ls.setup({
-            --  {{{
-            sources = {
+            sources = { --  {{{
                 -- Anything not supported by mason.
-            },
+            }, --  }}}
             -- default_timeout = -1,
-        }) --  }}}
-
-        mason_null_ls.setup_handlers({
-            function(source_name, methods)
-                -- all sources with no handler get passed here
-                require("mason-null-ls.automatic_setup")(source_name, methods)
-            end,
-            stylua = function(source_name, methods) --  {{{
-                null_ls.register(null_ls.builtins.formatting.stylua.with({
-                    extra_args = {
-                        "--column-width",
-                        column_width,
-                        "--indent-type",
-                        "Spaces",
-                    },
-                }))
-            end,                                     --  }}}
-            rustfmt = function(source_name, methods) --  {{{
-                null_ls.register(null_ls.builtins.formatting.rustfmt.with({
-                    extra_args = {
-                        "--config",
-                        string.format("max_width=%s", column_width),
-                    },
-                }))
-            end, --  }}}
         })
     end,
 }
