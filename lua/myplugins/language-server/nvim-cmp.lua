@@ -23,6 +23,7 @@ return {
             formatting = {
                 format = lspkind.cmp_format({
                     -- mode = 'symbol',
+                    symbol_map = { Codeium = "", }
                 }),
                 -- fields = { "kind", "abbr", "menu" },
                 -- format = function(entry, vim_item)
@@ -67,6 +68,7 @@ return {
                     { name = 'nvim_lsp' },
                     { name = 'ultisnips' },
                     { name = 'nvim_lsp_signature_help' },
+                    { name = 'codeium' },
                 },
                 {
                     -- { name = 'path', option = { trailing_slash = true } },

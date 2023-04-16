@@ -13,4 +13,6 @@ return require('vimrc.functions').return_gathered_plugins(
         'treesitter-context',
         'localrc-plugins.exrc',
         'localrc-plugins.vim-localrc',
+        'codeium-vim',
+        'codeium-nvim',
     })
