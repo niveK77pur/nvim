@@ -35,7 +35,7 @@ return {
                             "Spaces",
                         },
                     }))
-                end, --  }}}
+                end,                                     --  }}}
                 rustfmt = function(source_name, methods) --  {{{
                     null_ls.register(null_ls.builtins.formatting.rustfmt.with({
                         extra_args = {
@@ -60,7 +60,7 @@ return {
         null_ls.setup({
             sources = { --  {{{
                 -- Anything not supported by mason.
-            }, --  }}}
+            },          --  }}}
             -- default_timeout = -1,
         })
     end,
