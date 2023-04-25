@@ -39,8 +39,17 @@ return {
                 rustfmt = function(source_name, methods) --  {{{
                     null_ls.register(null_ls.builtins.formatting.rustfmt.with({
                         extra_args = {
-                            "--config",
-                            string.format("max_width=%s", column_width),
+                            "--config"
+                            .. " "
+                            .. "max_width="
+                            .. column_width
+                            .. ","
+                            .. "comment_width="
+                            .. column_width
+                            .. ","
+                            .. "wrap_comments=true"
+                            .. ","
+                            .. "format_code_in_doc_comments=true",
                         },
                     }))
                 end, --  }}}
