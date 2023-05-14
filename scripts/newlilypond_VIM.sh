@@ -6,7 +6,7 @@
 
 if [[ -z "$1" ]]
 then
-        echo "Usage: $(basename $0) NAME [KEY] [TIME]"
+        echo "Usage: $(basename "$0") NAME [KEY] [TIME]"
         echo 
         echo "NAME - seperate words with dashes (-); prefix categorie seperated by underscore (_)"
         echo 'KEY  - set the key signature (default: C major, see in `global.ly` file)'
@@ -61,7 +61,7 @@ else
 fi
 
 # put all the files in place
-cd "$PROJECT"
+cd "$PROJECT" || exit 2
 cp "$HOME/.config/nvim/skeletons/Lilypond/newfile"/* .
 
 # set nvim-lilypond-suite main file
@@ -69,7 +69,7 @@ mv {,.}nvimrc.lua
 sed -i "s/MAINFILE/$MAINFILE/" .nvimrc.lua
 
 # Put lilypond's version in every file
-sed -i "s/\(.version \).*/\1\"$VERSION\"/" *.ly
+sed -i "s/\(.version \).*/\1\"$VERSION\"/" -- *.ly
 
 # set the title
 TITLE="${NAME//-/ }"
@@ -88,7 +88,7 @@ then
         else
                 scale='major'
         fi
-        
+
         sed -i "s/c \(.\)major/$key \1$scale/" "$GLOBALFILE"
 fi
 
