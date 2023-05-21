@@ -16,9 +16,8 @@ return require('vimrc.functions').return_gathered_plugins(
         'fold-plugins.pretty-fold',
         'ghost-plugins.nvim-ghost',
         'ghost-plugins.vim-ghost',
-        'leap-plugins.eyeline',
-        'leap-plugins.leap',
-        'leap-plugins.pounce',
+        'eyeline',
+        'leap',
     })
 
 -- vim: cc=60
