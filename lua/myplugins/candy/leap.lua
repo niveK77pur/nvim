@@ -3,7 +3,7 @@ return { 'ggandor/leap.nvim',
     config = function()
         local l = require('leap')
         vim.schedule(function()
-            vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Fg' })
+            vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Conceal' })
         end)
         -- l.set_default_keymaps(true)
         l.add_default_mappings()
