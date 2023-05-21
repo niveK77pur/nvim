@@ -17,16 +17,16 @@ return { 'ggandor/leap.nvim',
 
         -- Bidirectional search. Initiate multi-window mode with the current
         -- window as the only target.
-        vim.keymap.set(
-            { "n" }, "s",
-            function()
-                require('leap').leap({ target_windows = { vim.fn.win_getid() } })
-            end,
-            {
-                desc = "Bidirectional search. Initiate " ..
-                    "multi-window mode with the current window as the only " ..
-                    "target"
-            }
-        )
+        -- vim.keymap.set(
+        --     { "n" }, "s",
+        --     function()
+        --         require('leap').leap({ target_windows = { vim.fn.win_getid() } })
+        --     end,
+        --     {
+        --         desc = "Bidirectional search. Initiate " ..
+        --             "multi-window mode with the current window as the only " ..
+        --             "target"
+        --     }
+        -- )
     end
 }
