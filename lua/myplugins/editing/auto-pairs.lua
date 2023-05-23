@@ -29,6 +29,10 @@ return { 'jiangmiao/auto-pairs',
         })
         -- Default: <M-p>
         vim.g.AutoPairsShortcutToggle = "<Leader><M-p>"
+        -- Default: <M-e>
+        vim.g.AutoPairsShortcutFastWrap = "<nop>"
+        -- Default: <M-n>
+        vim.g.AutoPairsShortcutJump = "<nop>"
         -- Default: <M-b>
         -- vim.g.AutoPairsBackInsert = "<Leader><M-b>"
     end,
