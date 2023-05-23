@@ -18,6 +18,7 @@ return require('vimrc.functions').return_gathered_plugins(
         'ghost-plugins.vim-ghost',
         'eyeline',
         'leap',
+        'vim-illuminate',
     })
 
 -- vim: cc=60
