@@ -66,6 +66,7 @@ cd "$PROJECT" || exit 2
 mkdir openlilylib &&
     (
         cd openlilylib \
+            && git submodule add 'https://github.com/openlilylib/oll-core.git' \
             && git submodule add 'https://github.com/openlilylib/edition-engraver.git'
     ) \
     && sed -i '/openlilylib/s/\[ \]/[x]/' README.md \
