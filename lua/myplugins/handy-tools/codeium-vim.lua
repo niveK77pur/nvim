@@ -1,5 +1,6 @@
 return {
     "Exafunction/codeium.vim",
+    enabled = false,
     setup = function()
         vim.g.codeium_disable_bindings = 1
     end,
