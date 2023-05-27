@@ -60,6 +60,15 @@ function _G.AlignCursors() --  {{{
     end
 end --  }}}
 
+function _G.EditionEngraverProbeVoices() --  {{{
+  local command, edition, measure, moment, context = vim.api.nvim_get_current_line():match([[(\editionMod)%s+(%w+)%s+(%d+)%s+(%d+/%d+)%s+(%w+%.Voice)]])
+  local probes = {''}
+  for voice in string.gmatch('ABCDEFGHIJKLMNOPQSTUVWXYZ', '%w') do
+    table.insert(probes, string.format([[%s %s %s %s %s.%s -"%s"]], command, edition, measure, moment, context, voice, voice))
+  end
+  vim.fn.append('.', probes)
+end --  }}}
+
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --                                   Commands
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -68,6 +77,10 @@ vim.api.nvim_create_user_command('Switch', [[:lua _G.SwitchNotes{<f-args>}]], {
   nargs = '+',
   -- range = true,
   desc = 'Change note into another (i.e. c -> d)',
+})
+
+vim.api.nvim_create_user_command('ProbeVoices', [[:lua _G.EditionEngraverProbeVoices()]], {
+  desc = 'Probe all voices A-Z (excluding R) for the edition engraver',
 })
 
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
