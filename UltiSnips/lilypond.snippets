@@ -169,3 +169,29 @@ endsnippet
 snippet unsetf "\unset fingeringOrientations"
 \unset fingeringOrientations
 endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                  OpenLilyLib
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# snippets ---------------------------------------------------------------------
+snippet compoundSlur "\compoundSlur instead of '('"
+\compoundSlur \with {
+	show-grid = ##t
+	annotate = ##t
+	% start-point = #'(0 . 0)
+	% start-angle = 0
+	% start-ratio = 0
+	% end-point = #'(0 . 0)
+	% end-angle = 0
+	% end-ratio = 0
+	inflection = #'(
+		(X-ratio . 0.0)
+		;(Y-offset . 0.0)
+		;(angle . 0)
+		;(ratio-left . 0.0)
+		;(ratio-right . 0.0)
+		(label . "*")
+	)
+}
+endsnippet
