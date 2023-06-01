@@ -34,3 +34,11 @@ endsnippet
 snippet l "<LocalLeader>" i
 <LocalLeader>
 endsnippet
+
+snippet '(.+)map' "*map -> vim.keymap.set()" r
+`!p mode = \
+	"'{}'".format(match.group(1)) \
+	if len(match.group(1))==1 \
+	else "{{'{}'}}".format("', '".join(list(match.group(1))))
+`vim.keymap.set(`!p snip.rv = mode`, '$1', '$2')
+endsnippet
