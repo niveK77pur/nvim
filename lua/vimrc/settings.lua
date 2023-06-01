@@ -147,5 +147,13 @@ vim.diagnostic.config({
 -- avoid sign column to make text area jump around
 vim.opt.signcolumn = 'yes'
 
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--                                     Netrw
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- https://vonheikemen.github.io/devlog/tools/using-netrw-vim-builtin-file-explorer/
+
+vim.g.netrw_keepdir = 0
+vim.g.netrw_winsize = 30
+-- vim.g.netrw_localcopydircmd = 'cp -r'
 
 -- vim: fdm=marker
