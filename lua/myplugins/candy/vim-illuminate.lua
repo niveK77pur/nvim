@@ -1,5 +1,6 @@
 return {
     "RRethy/vim-illuminate",
+    enabled = true,
     config = function()
         require("illuminate").configure({
             filetypes_denylist = { "lilypond" },

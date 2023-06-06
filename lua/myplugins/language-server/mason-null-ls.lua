@@ -6,6 +6,7 @@ return {
         "jose-elias-alvarez/null-ls.nvim",
         "nvim-lua/plenary.nvim",
     },
+    enabled = true,
     config = function()
         local null_ls = require("null-ls")
         local mason_null_ls = require("mason-null-ls")

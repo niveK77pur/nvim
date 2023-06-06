@@ -1,4 +1,5 @@
 return { 'luk400/vim-jukit',
+    enabled = true,
     event = 'BufRead *.ipynb',
     init = function()
         -- disable default mappings

@@ -1,4 +1,5 @@
 return { 'preservim/vim-pencil',
+    enabled = true,
     ft = { 'tex', 'latex', 'text', 'clipboard' },
     config = function()
         local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end

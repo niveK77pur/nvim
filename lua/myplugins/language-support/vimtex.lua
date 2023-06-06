@@ -1,4 +1,5 @@
 return { 'lervag/vimtex',
+    enabled = true,
     ft = { 'latex', 'tex', 'plaintex', 'context', 'bib' },
     config = function()
         local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end

@@ -1,10 +1,10 @@
 return {
     "ibhagwan/fzf-lua",
-    enabled = true,
     dependencies = {
         -- 'nvim-tree/nvim-web-devicons',
         { "junegunn/fzf", build = "./install --xdg --all" },
     },
+    enabled = true,
     config = function()
         local fzflua = require("fzf-lua")
         fzflua.setup({

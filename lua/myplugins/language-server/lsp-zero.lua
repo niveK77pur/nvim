@@ -4,6 +4,7 @@ return { 'VonHeikemen/lsp-zero.nvim',
         'williamboman/mason.nvim',
         'williamboman/mason-lspconfig.nvim',
     },
+    enabled = true,
     config = function()
         local lsp = require('lsp-zero')
 

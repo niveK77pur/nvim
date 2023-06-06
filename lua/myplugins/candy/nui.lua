@@ -1,1 +1,4 @@
-return { 'MunifTanjim/nui.nvim' }
+return {
+    "MunifTanjim/nui.nvim",
+    enabled = true,
+}

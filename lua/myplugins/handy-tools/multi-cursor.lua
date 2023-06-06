@@ -1,4 +1,5 @@
 return { 'mg979/vim-visual-multi', branch = 'master',
+    enabled = true,
     config = function()
         vim.g.VM_leader = [[\]]
         vim.g.VM_theme = 'iceblue'

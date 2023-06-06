@@ -3,6 +3,7 @@ return { "anuvyklack/windows.nvim",
         "anuvyklack/middleclass",
         "anuvyklack/animation.nvim"
     },
+    enabled = true,
     cmd = { 'WindowsEnableAutowidth', 'WindowsToggleAutowidth', 'WindowsMaximaze', },
     config = function()
         local width = 10

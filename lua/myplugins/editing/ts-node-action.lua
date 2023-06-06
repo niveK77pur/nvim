@@ -1,6 +1,7 @@
 return {
     "ckolkey/ts-node-action",
     dependencies = { "nvim-treesitter", "jose-elias-alvarez/null-ls.nvim" },
+    enabled = true,
     config = function()
         require("ts-node-action").setup({})
         vim.keymap.set(

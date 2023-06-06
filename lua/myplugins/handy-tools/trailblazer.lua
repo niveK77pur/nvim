@@ -2,6 +2,7 @@ local new_trail_mark_key = '<A-l>'
 return {
     "LeonHeidelbach/trailblazer.nvim",
     -- dependencies =  { 'colorscheme' },
+    enabled = true,
     keys = { new_trail_mark_key },
     config = function()
         require("trailblazer").setup({

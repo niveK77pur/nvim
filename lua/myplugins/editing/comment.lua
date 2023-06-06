@@ -1,6 +1,7 @@
 -- return { 'scrooloose/nerdcommenter', enabled = false }
 
 return { 'numToStr/Comment.nvim',
+    enabled = true,
     config = function()
         require('Comment').setup {
             -- Enable keybindings

@@ -1,1 +1,4 @@
-return { 'tommcdo/vim-exchange' }
+return {
+    "tommcdo/vim-exchange",
+    enabled = true,
+}

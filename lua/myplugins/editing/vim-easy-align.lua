@@ -1,4 +1,5 @@
 return { 'junegunn/vim-easy-align',
+    enabled = true,
     config = function()
         local map = function(mode, LH, RH, args) vim.keymap.set(mode, LH, RH, args) end
 

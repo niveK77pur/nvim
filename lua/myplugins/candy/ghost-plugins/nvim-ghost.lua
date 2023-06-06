@@ -1,4 +1,5 @@
 return { 'subnut/nvim-ghost.nvim',
+    enabled = true,
     -- build = ':call nvim_ghost#installer#install()',
     cmd = { 'GhostTextStart' },
     init = function ()

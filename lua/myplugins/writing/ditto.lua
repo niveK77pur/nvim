@@ -1,4 +1,5 @@
 return { 'dbmrq/vim-ditto',
+    enabled = true,
     ft = { 'tex', 'latex', 'text', 'markdown' },
     config = function()
         local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end

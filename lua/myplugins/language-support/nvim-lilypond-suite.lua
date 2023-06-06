@@ -3,6 +3,7 @@ return { 'martineausimon/nvim-lilypond-suite',
         'MunifTanjim/nui.nvim',
         { 'uga-rosa/cmp-dictionary', dependencies = { 'hrsh7th/nvim-cmp' } },
     },
+    enabled = true,
     ft = { 'lilypond' },
     config = function()
         require('nvls').setup {

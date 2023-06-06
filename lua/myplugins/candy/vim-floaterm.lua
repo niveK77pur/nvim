@@ -1,4 +1,5 @@
 return { 'voldikss/vim-floaterm',
+    enabled = true,
     -- cmd = { 'FloatermNew' },
     config = function()
         local map = vim.keymap.set

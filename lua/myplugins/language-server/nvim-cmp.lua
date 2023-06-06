@@ -15,6 +15,7 @@ return {
         -- 'hrsh7th/cmp-path',
         -- 'saadparwaiz1/cmp_luasnip',
     },
+    enabled = true,
     config = function()
         local cmp = require 'cmp'
         local lspkind = require('lspkind')
