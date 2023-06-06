@@ -34,6 +34,8 @@ return {
                             column_width,
                             "--indent-type",
                             "Spaces",
+                            "--quote-style",
+                            "AutoPreferSingle",
                         },
                     }))
                 end,
