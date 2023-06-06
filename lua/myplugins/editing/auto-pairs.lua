@@ -1,4 +1,4 @@
-return { 'jiangmiao/auto-pairs',
+return { 'LunarWatcher/auto-pairs',
     enabled = true,
     config = function()
         local augroup = vim.api.nvim_create_augroup('AutoPairsVim', { clear = false })
@@ -28,13 +28,8 @@ return { 'jiangmiao/auto-pairs',
             end,
             desc = 'Set which VIM characters should be auto-paired.',
         })
-        -- Default: <M-p>
-        vim.g.AutoPairsShortcutToggle = "<Leader><M-p>"
-        -- Default: <M-e>
-        vim.g.AutoPairsShortcutFastWrap = "<nop>"
-        -- Default: <M-n>
-        vim.g.AutoPairsShortcutJump = "<nop>"
-        -- Default: <M-b>
-        -- vim.g.AutoPairsBackInsert = "<Leader><M-b>"
+        -- see ':h autopairs-shortcut' and ':h autopairs-options-contents'
+        vim.g.AutoPairsMoveCharater = ''
+        vim.g.AutoPairsPrefix = '<C-a>'
     end,
 }
