@@ -61,7 +61,7 @@ snippet url "\url{___}" i
 \url{${1:${VISUAL}}}
 endsnippet
 
-snippet '(?<![:tslf]):(\w+)' ":x -> \gls{x}" ir
+snippet '(?<![:tslf]):([a-zA-z\-]+)' ":x -> \gls{x}" ir
 \gls{`!p snip.rv = match.group(1)`}
 endsnippet
 
