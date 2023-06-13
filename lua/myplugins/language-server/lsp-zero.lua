@@ -133,6 +133,19 @@ return { 'VonHeikemen/lsp-zero.nvim',
             },
         }) --  }}}
 
+        lsp.configure('texlab', {
+            settings = {
+                texlab = {
+                    -- formatterLineLength = vim.o.textwidth,
+                    bibtexFormatter = 'latexindent',
+                    latexFormatter = 'latexindent',
+                    latexindent = {
+                        modifyLineBreaks = true,
+                    }
+                }
+            }
+        })
+
         lsp.configure('rust_analyzer', { --  {{{
             settings = {
                 ['rust-analyzer'] = {
