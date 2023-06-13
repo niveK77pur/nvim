@@ -17,7 +17,7 @@ return { 'LunarWatcher/auto-pairs',
 
         -- see ':h autopairs-shortcut' and ':h autopairs-options-contents'
         vim.g.AutoPairsMoveCharater = ''
-        vim.g.AutoPairsPrefix = '<C-a>'
+        -- vim.g.AutoPairsPrefix = '<C-a>'
 
         -- backspace behaviour
         vim.g.AutoPairsMapBS = 1
