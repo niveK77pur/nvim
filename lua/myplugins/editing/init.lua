@@ -6,6 +6,7 @@ return require('vimrc.functions').return_gathered_plugins(
         'ssr',
         'surround',
         'ts-node-action',
+        'splitjoin',
         'vim-easy-align',
         'vim-exchange',
         'vim-move',
