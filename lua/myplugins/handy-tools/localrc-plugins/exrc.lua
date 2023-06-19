@@ -7,6 +7,7 @@ return { 'MunifTanjim/exrc.nvim',
         require("exrc").setup({
             files = {
                 ".nvimrc.lua",
+                ".nvim.lua",
                 ".nvimrc",
                 ".exrc.lua",
                 ".exrc",
