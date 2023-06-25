@@ -156,4 +156,12 @@ vim.g.netrw_keepdir = 0
 vim.g.netrw_winsize = 30
 -- vim.g.netrw_localcopydircmd = 'cp -r'
 
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--                                Shell specifics
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+if vim.fs.basename(vim.o.shell) == 'fish' then
+    vim.opt.shell = '/bin/sh'
+end
+
 -- vim: fdm=marker
