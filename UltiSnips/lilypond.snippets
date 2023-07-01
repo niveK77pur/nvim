@@ -171,6 +171,18 @@ snippet unsetf "\unset fingeringOrientations"
 endsnippet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                     Tweaks
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet layer "\once\override Score.XXX.layer"
+\once\override Score.${1:element}.layer = #${2:-1}
+endsnippet
+
+snippet whiteout "\once\override Score.XXX.{layer + whiteout}"
+\once\override Score.${1:element}.layer = #${2:-1} \once\override Score.$1.layer = #${3:3}
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #                                  OpenLilyLib
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
