@@ -7,8 +7,8 @@ date = #(strftime "%B %d %Y" (localtime (current-time)))
   composer = "VinLudens"
   %arranger = "Arr. by VinLudens"
   tagline = \markup { \center-column {
-    \with-url #"https://youtube.com/c/VinLudens"
-    \line { "Engraving with Lilypond" $(lilypond-version) \char ##x2014 "https://youtube.com/c/VinLudens" }
+    \with-url #"https://youtube.com/@VinLudens"
+    \line { "Engraving with Lilypond" $(lilypond-version) \char ##x2014 "https://youtube.com/@VinLudens" }
     \line { \small \italic {  \date  } }
   } }
 }
