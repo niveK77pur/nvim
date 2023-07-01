@@ -19,6 +19,9 @@ return { 'martineausimon/nvim-lilypond-suite',
                     pitches_language = "default",
                     output = "pdf",
                     -- main_file = "main.ly"
+                    include_dir = {
+                        './openlilylib',
+                    },
                 },
             },
         }
