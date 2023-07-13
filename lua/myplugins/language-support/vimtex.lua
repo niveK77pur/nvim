@@ -39,6 +39,7 @@ return { 'lervag/vimtex',
             -- ['packages'] = {
             --    ['hyperref'] = 0,
             -- },
+            [[You have requested package .\.\.]],
         }
     end,
 }
