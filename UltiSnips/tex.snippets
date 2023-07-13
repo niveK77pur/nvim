@@ -305,3 +305,11 @@ endsnippet
 snippet lp "\luaexec{tex.print(...)}" i
 \luaexec{tex.print($1)}
 endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                     Minted
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet mintinline "\mintinline{lang}{code}" wA
+\mintinline{${1:python}}{${2:${VISUAL}}}
+endsnippet
