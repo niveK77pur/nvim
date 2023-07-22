@@ -2,7 +2,7 @@ return {
     "ibhagwan/fzf-lua",
     dependencies = {
         -- 'nvim-tree/nvim-web-devicons',
-        { "junegunn/fzf", build = "./install --xdg --all" },
+        { "junegunn/fzf", build = "./install --xdg --all --no-fish" },
     },
     enabled = true,
     config = function()
