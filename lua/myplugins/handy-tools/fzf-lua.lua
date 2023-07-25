@@ -20,23 +20,23 @@ return {
                     -- Rotate preview clockwise/counter-clockwise
                     ["<F5>"] = "toggle-preview-ccw",
                     ["<F6>"] = "toggle-preview-cw",
-                    ["<c-d>"] = "preview-page-down",
-                    ["<c-u>"] = "preview-page-up",
+                    ["<c-f>"] = "preview-page-down",
+                    ["<c-b>"] = "preview-page-up",
                     ["<c-h>"] = "preview-page-reset",
                 },
                 fzf = {
                     -- fzf '--bind=' options
                     -- ["ctrl-u"] = "unix-line-discard",
-                    ["ctrl-f"] = "half-page-down",
-                    ["ctrl-b"] = "half-page-up",
+                    ["ctrl-d"] = "half-page-down",
+                    ["ctrl-u"] = "half-page-up",
                     ["ctrl-a"] = "beginning-of-line",
                     ["ctrl-e"] = "end-of-line",
                     ["alt-a"] = "toggle-all",
                     -- Only valid with fzf previewers (bat/cat/git/etc)
                     ["f3"] = "toggle-preview-wrap",
                     ["f4"] = "toggle-preview",
-                    ["ctrl-d"] = "preview-page-down",
-                    ["ctrl-u"] = "preview-page-up",
+                    ["ctrl-f"] = "preview-page-down",
+                    ["ctrl-b"] = "preview-page-up",
                 },
             }, --  }}}
             fzf_opts = {
