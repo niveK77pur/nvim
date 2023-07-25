@@ -37,6 +37,8 @@ return {
                 cursor_mark_symbol   = "󰁖",
                 next_mark_symbol     = "󰙡",
                 previous_mark_symbol = "󰙣",
+                multiple_mark_symbol_counters_enabled = false,
+                trail_mark_symbol_line_indicators_enabled = true,
             }
         })
     end,
