@@ -71,6 +71,39 @@ vim.opt.statusline =
     [[ %P]]
 -- }}}
 
+-- status column set up {{{
+-- see :h stc
+function _G.generateStatusColumn()
+    local elements = {
+        [[%C]], -- fold column(?)
+        [[%s]], -- sign column
+        [[%=]], -- left and right side
+    }
+
+    -- line numbers
+    local linenumbers = false
+    if vim.o.relativenumber and not vim.o.number then
+        table.insert(elements, [[%r]])
+        linenumbers = true
+    elseif not vim.o.relativenumber and vim.o.number then
+        table.insert(elements, [[%l]])
+        linenumbers = true
+    elseif vim.o.relativenumber and vim.o.number then
+        table.insert(elements, [[%{v:relnum ? v:relnum : v:lnum}]])
+        linenumbers = true
+    end
+
+    -- fancy separator
+    if #elements > 0 and linenumbers then
+        table.insert(elements, [[│]])
+        -- table.insert(elements, [[ ]])
+    end
+
+    return vim.fn.join(elements, '')
+end
+vim.opt.statuscolumn = [[%{% v:lua._G.generateStatusColumn() %}]]
+-- }}}
+
 local fold_fill_char = '.'
 local lnum_far_right = false
 function _G.MyFoldText(fc) -- {{{
