@@ -103,6 +103,18 @@ function _G.SetMeasureCounts()
 
     vim.api.nvim_buf_clear_namespace(0, namespace, 0, -1)
 
+    vim.api.nvim_set_hl_ns(namespace)
+    vim.api.nvim_set_hl(
+        namespace,
+        'LilypondMeasureCountExtmark',
+        { fg = '#88aa88' }
+    )
+    vim.api.nvim_set_hl(
+        namespace,
+        'LilypondPolyphonyMeasureCountExtmark',
+        { fg = '#aa8888' }
+    )
+
     local measure = 0
     local in_polyphony = false
     local polyphony_start_measure = nil
@@ -137,13 +149,26 @@ function _G.SetMeasureCounts()
             measure = measure + 1
         end
 
+        local measure_string = string.format([[%d]], measure)
+        local virt_text
+        if in_polyphony then
+            virt_text = {
+                { '󰽯 ', 'LilypondPolyPhonyMeasureCountExtmark' },
+                -- { ' ', 'LilypondPolyPhonyMeasureCountExtmark' },
+                -- { ' ', 'LilypondPolyPhonyMeasureCountExtmark' },
+                { measure_string, 'LilypondPolyPhonyMeasureCountExtmark' },
+            }
+        else
+            virt_text = {
+                { '󰽰 ', 'LilypondMeasureCountExtmark' },
+                { measure_string, 'LilypondMeasureCountExtmark' },
+            }
+        end
+
         local line_nr = i - 1
 
         vim.api.nvim_buf_set_extmark(0, namespace, line_nr, 0, {
-            virt_text = {
-                in_polyphony and { '󰽯 ' } or { '󰽰 ' },
-                { string.format([[%d]], measure) },
-            },
+            virt_text = virt_text,
             virt_text_pos = 'right_align',
         })
 
