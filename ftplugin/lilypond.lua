@@ -95,6 +95,34 @@ function _G.EditionEngraverProbeVoices() --  {{{
     vim.fn.append('.', probes)
 end --  }}}
 
+function _G.SetMeasureCounts()
+    local lines = vim.api.nvim_buf_get_lines(0, 0, -1, true)
+    local namespace = vim.api.nvim_create_namespace('lilypond-measure-count')
+
+    vim.api.nvim_buf_clear_namespace(0, namespace, 0, -1)
+
+    local measure = 0
+
+    for i, line in ipairs(lines) do
+        if not vim.regex([[\s\+|]]):match_str(line) then
+            goto continue
+        end
+
+        local line_nr = i - 1
+        measure = measure + 1
+
+        vim.api.nvim_buf_set_extmark(0, namespace, line_nr, 0, {
+            virt_text = {
+                { '󰽯 ', '' },
+                { string.format([[%s]], measure), '' },
+            },
+            virt_text_pos = 'right_align',
+        })
+
+        ::continue::
+    end
+end
+
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --                                   Commands
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
