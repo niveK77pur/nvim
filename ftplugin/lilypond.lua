@@ -108,7 +108,6 @@ function _G.SetMeasureCounts()
     local polyphony_start_measure = nil
 
     for i, line in ipairs(lines) do
-
         -- check for polyphonic passages
         if vim.regex([[<<]]):match_str(line) then
             -- polyphony started
@@ -130,8 +129,15 @@ function _G.SetMeasureCounts()
             goto continue
         end
 
+        -- allow manually setting measure using '| % M.XXX'
+        local specified_measure = line:match([[|%s+%%%s+[mM]%.(%d+)]])
+        if specified_measure then
+            measure = specified_measure
+        else
+            measure = measure + 1
+        end
+
         local line_nr = i - 1
-        measure = measure + 1
 
         vim.api.nvim_buf_set_extmark(0, namespace, line_nr, 0, {
             virt_text = {
