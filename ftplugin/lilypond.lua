@@ -96,14 +96,36 @@ function _G.EditionEngraverProbeVoices() --  {{{
 end --  }}}
 
 function _G.SetMeasureCounts()
+    -- TODO: rewrite as recursive function for more deeply nested polyphony
+    -- voices. Currently it allows 1 level of nesting.
     local lines = vim.api.nvim_buf_get_lines(0, 0, -1, true)
     local namespace = vim.api.nvim_create_namespace('lilypond-measure-count')
 
     vim.api.nvim_buf_clear_namespace(0, namespace, 0, -1)
 
     local measure = 0
+    local in_polyphony = false
+    local polyphony_start_measure = nil
 
     for i, line in ipairs(lines) do
+
+        -- check for polyphonic passages
+        if vim.regex([[<<]]):match_str(line) then
+            -- polyphony started
+            in_polyphony = true
+            polyphony_start_measure = measure
+        end
+        if vim.regex([[\\\\\|\\new\s\+Voice]]):match_str(line) then
+            -- new voice started
+            measure = polyphony_start_measure
+        end
+        if vim.regex([[>>]]):match_str(line) then
+            -- polyphony ended
+            in_polyphony = false
+            polyphony_start_measure = nil
+        end
+
+        -- do not set extmark if not on a barline
         if not vim.regex([[\s\+|]]):match_str(line) then
             goto continue
         end
@@ -113,8 +135,8 @@ function _G.SetMeasureCounts()
 
         vim.api.nvim_buf_set_extmark(0, namespace, line_nr, 0, {
             virt_text = {
-                { '󰽯 ', '' },
-                { string.format([[%s]], measure), '' },
+                in_polyphony and { '󰽯 ' } or { '󰽰 ' },
+                { string.format([[%d]], measure) },
             },
             virt_text_pos = 'right_align',
         })
