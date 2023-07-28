@@ -95,7 +95,7 @@ function _G.EditionEngraverProbeVoices() --  {{{
     vim.fn.append('.', probes)
 end --  }}}
 
-function _G.SetMeasureCounts()
+function _G.SetMeasureCounts() --  {{{
     -- TODO: rewrite as recursive function for more deeply nested polyphony
     -- voices. Currently it allows 1 level of nesting.
     local lines = vim.api.nvim_buf_get_lines(0, 0, -1, true)
@@ -174,7 +174,7 @@ function _G.SetMeasureCounts()
 
         ::continue::
     end
-end
+end --  }}}
 
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --                                   Commands
