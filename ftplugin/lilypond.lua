@@ -6,6 +6,8 @@ vim.wo.relativenumber = false
 vim.wo.number = true
 vim.wo.cursorline = true
 
+local measure_count_namespace = 'lilypond-measure-count'
+
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --                                   Functions
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -99,7 +101,7 @@ function _G.SetMeasureCounts() --  {{{
     -- TODO: rewrite as recursive function for more deeply nested polyphony
     -- voices. Currently it allows 1 level of nesting.
     local lines = vim.api.nvim_buf_get_lines(0, 0, -1, true)
-    local namespace = vim.api.nvim_create_namespace('lilypond-measure-count')
+    local namespace = vim.api.nvim_create_namespace(measure_count_namespace)
 
     vim.api.nvim_buf_clear_namespace(0, namespace, 0, -1)
 
@@ -175,6 +177,29 @@ function _G.SetMeasureCounts() --  {{{
         ::continue::
     end
 end --  }}}
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--                                 AutoCommands
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+local augroup_measure_count = vim.api.nvim_create_augroup('measure_count', {})
+
+vim.api.nvim_create_autocmd({ 'BufEnter', 'TextChanged', 'InsertLeave' }, {
+    group = augroup_measure_count,
+    pattern = { '*.ly' },
+    desc = 'Set/Update measure count virtual text',
+    callback = _G.SetMeasureCounts,
+})
+
+vim.api.nvim_create_autocmd({ 'InsertEnter' }, {
+    group = augroup_measure_count,
+    pattern = { '*.ly' },
+    desc = 'Clear measure count virtual text upon entering insert mode',
+    callback = function()
+        local namespace = vim.api.nvim_create_namespace(measure_count_namespace)
+        vim.api.nvim_buf_clear_namespace(0, namespace, 0, -1)
+    end,
+})
 
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --                                   Commands
