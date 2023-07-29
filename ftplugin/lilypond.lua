@@ -254,6 +254,10 @@ function _G.SetMeasureCounts() --  {{{
     local next_line_comment = false
 
     for i, line in ipairs(lines) do
+        -- check for start of a new music block
+        if vim.regex([[\v\\relative|\\absolute]]):match_str(line) then
+            measure = 0
+        end
         -- check for polyphonic passages
         if vim.regex([[<<]]):match_str(line) then
             -- polyphony started
