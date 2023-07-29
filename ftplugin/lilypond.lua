@@ -333,6 +333,7 @@ function _G.SetMeasureCounts() --  {{{
                 measure_string
             ),
             virt_text_pos = 'right_align',
+            hl_mode = 'combine',
         })
 
         ::continue::
