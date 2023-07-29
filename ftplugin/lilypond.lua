@@ -6,7 +6,8 @@ vim.wo.relativenumber = false
 vim.wo.number = true
 vim.wo.cursorline = true
 
-local measure_count_namespace = vim.api.nvim_create_namespace('lilypond-measure-count')
+local measure_count_namespace =
+    vim.api.nvim_create_namespace('lilypond-measure-count')
 
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --                                   Functions
@@ -113,29 +114,53 @@ function _G.SetMeasureCounts() --  {{{
     )
     vim.api.nvim_set_hl(
         namespace,
-        'LilypondPolyphonyMeasureCountExtmark',
+        'LilypondPolyphony1MeasureCountExtmark',
         { fg = '#aa8888' }
+    )
+    vim.api.nvim_set_hl(
+        namespace,
+        'LilypondPolyphony2MeasureCountExtmark',
+        { fg = '#8888aa' }
     )
 
     local measure = 0
-    local in_polyphony = false
-    local polyphony_start_measure = nil
+    -- stack which stores the measure count before entering a polyphonic passage.
+    -- size of stack also indicates current layer.
+    local polyphony_start_measure = {}
+
+    -- retrieve 'virt_text' for a given layer
+    local virt_text_layer = function(layer, measure_string)
+        if layer == 0 then
+            return {
+                { '󰽰 ', 'LilypondMeasureCountExtmark' },
+                { measure_string, 'LilypondMeasureCountExtmark' },
+            }
+        elseif layer == 1 then
+            return {
+                { '󰽯 ', 'LilypondPolyPhony1MeasureCountExtmark' },
+                { measure_string, 'LilypondPolyPhony1MeasureCountExtmark' },
+            }
+        else
+            return {
+                { '󰽮 ', 'LilypondPolyphony2MeasureCountExtmark' },
+                { measure_string, 'LilypondPolyphony2MeasureCountExtmark' },
+            }
+        end
+    end
 
     for i, line in ipairs(lines) do
         -- check for polyphonic passages
         if vim.regex([[<<]]):match_str(line) then
             -- polyphony started
-            in_polyphony = true
-            polyphony_start_measure = measure
+            table.insert(polyphony_start_measure, 1, measure)
         end
         if vim.regex([[\\\\\|\\new\s\+Voice]]):match_str(line) then
             -- new voice started
-            measure = polyphony_start_measure
+            measure = polyphony_start_measure[1]
         end
         if vim.regex([[>>]]):match_str(line) then
             -- polyphony ended
-            in_polyphony = false
-            polyphony_start_measure = nil
+            table.remove(polyphony_start_measure, 1)
         end
 
         -- do not set extmark if not on a barline
@@ -160,25 +185,13 @@ function _G.SetMeasureCounts() --  {{{
         end
 
         local measure_string = string.format([[%d]], measure)
-        local virt_text
-        if in_polyphony then
-            virt_text = {
-                { '󰽯 ', 'LilypondPolyPhonyMeasureCountExtmark' },
-                -- { ' ', 'LilypondPolyPhonyMeasureCountExtmark' },
-                -- { ' ', 'LilypondPolyPhonyMeasureCountExtmark' },
-                { measure_string, 'LilypondPolyPhonyMeasureCountExtmark' },
-            }
-        else
-            virt_text = {
-                { '󰽰 ', 'LilypondMeasureCountExtmark' },
-                { measure_string, 'LilypondMeasureCountExtmark' },
-            }
-        end
-
         local line_nr = i - 1
 
         vim.api.nvim_buf_set_extmark(0, namespace, line_nr, 0, {
-            virt_text = virt_text,
+            virt_text = virt_text_layer(
+                #polyphony_start_measure,
+                measure_string
+            ),
             virt_text_pos = 'right_align',
         })
 
