@@ -186,6 +186,41 @@ function _G.SetMeasureCounts() --  {{{
     end
 end --  }}}
 
+function _G.GotoMeasureCount(barline) --  {{{
+    -- Jump to a barline given a measure. Jumps based on measure counts
+    -- produced by extmarks from `_G.SetMeasureCounts`.
+    local barline = tonumber(barline)
+    local namespace = vim.api.nvim_create_namespace(measure_count_namespace)
+    local extmarks =
+        vim.api.nvim_buf_get_extmarks(0, namespace, 0, -1, { details = true })
+    for i = 1, #extmarks - 1 do
+        local extmark = extmarks[i]
+        local next_extmark = extmarks[i + 1]
+
+        local measure, next_measure
+        do
+            local _, line_nr, _, details = unpack(extmark)
+            local virt_text = details.virt_text
+            measure = {
+                barline = tonumber(virt_text[#virt_text][1]),
+                line_nr = line_nr,
+            }
+        end
+        do
+            local _, line_nr, _, details = unpack(next_extmark)
+            local virt_text = details.virt_text
+            next_measure = {
+                barline = tonumber(virt_text[#virt_text][1]),
+                line_nr = line_nr,
+            }
+        end
+
+        if barline > measure.barline and barline <= next_measure.barline then
+            vim.api.nvim_win_set_cursor(0, { next_measure.line_nr + 1, 0 })
+        end
+    end
+end -- }}}
+
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --                                 AutoCommands
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -224,6 +259,15 @@ vim.api.nvim_create_user_command(
     [[:lua _G.EditionEngraverProbeVoices()]],
     {
         desc = 'Probe all voices A-Z (excluding R) for the edition engraver',
+    }
+)
+
+vim.api.nvim_create_user_command(
+    'GotoMeasureCount',
+    [[:lua _G.GotoMeasureCount(<f-args>)]],
+    {
+        nargs = 1,
+        desc = 'Jump to a measure with the given count (Requires extmarks to have been set)',
     }
 )
 
