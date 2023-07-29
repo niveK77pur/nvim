@@ -198,7 +198,7 @@ end)
 local measure_count_namespace =
     vim.api.nvim_create_namespace('lilypond-measure-count')
 
- -- namespace highlight groups {{{
+-- namespace highlight groups {{{
 do
     local namespace = measure_count_namespace
     vim.api.nvim_set_hl_ns(namespace)
@@ -249,6 +249,9 @@ function _G.SetMeasureCounts() --  {{{
     -- stack which stores the measure count before entering a polyphonic passage.
     -- size of stack also indicates current layer.
     local polyphony_start_measure = {}
+    local in_multiline_comment = false
+    -- for multi-line comments starting after a barline
+    local next_line_comment = false
 
     for i, line in ipairs(lines) do
         -- check for polyphonic passages
@@ -265,8 +268,26 @@ function _G.SetMeasureCounts() --  {{{
             table.remove(polyphony_start_measure, 1)
         end
 
+        -- check for multi-line comments
+        in_multiline_comment = next_line_comment
+        if vim.regex([[%{.*|]]):match_str(line) then
+            in_multiline_comment = true
+            next_line_comment = true
+        end
+        if in_multiline_comment and vim.regex([[%}.*|]]):match_str(line) then
+            in_multiline_comment = false
+            next_line_comment = false
+        end
+        if vim.regex([[%{]]):match_str(line) then
+            next_line_comment = true
+        end
+        if vim.regex([[%}]]):match_str(line) then
+            next_line_comment = false
+        end
+
         -- do not set extmark if not on a barline
-        if not vim.regex([[\s\+|]]):match_str(line) then
+        -- and if barline is inside single-line comment
+        if not vim.regex([[\%(%[{}]\@!.*\)\@<!\s\+|]]):match_str(line) or in_multiline_comment then
             goto continue
         end
 
