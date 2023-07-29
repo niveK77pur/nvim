@@ -143,12 +143,20 @@ function _G.SetMeasureCounts() --  {{{
             goto continue
         end
 
+        -- count barlines and check if there is a multiplier
+        -- (i.e. 's1*5 |' or 's4*4*5 |' both count 5 bars)
+        local measure_inc = 0
+        local barlines = vim.split(line, [[|]])
+        for _, barline in ipairs({ unpack(barlines, 1, #barlines - 1) }) do
+            measure_inc = measure_inc + (barline:match('*(%d+)%s$') or 1)
+        end
+
         -- allow manually setting measure using '| % M.XXX'
         local specified_measure = line:match([[|%s+%%%s+[mM]%.(%d+)]])
         if specified_measure then
             measure = specified_measure
         else
-            measure = measure + 1
+            measure = measure + measure_inc
         end
 
         local measure_string = string.format([[%d]], measure)
