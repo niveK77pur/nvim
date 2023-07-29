@@ -6,9 +6,6 @@ vim.wo.relativenumber = false
 vim.wo.number = true
 vim.wo.cursorline = true
 
-local measure_count_namespace =
-    vim.api.nvim_create_namespace('lilypond-measure-count')
-
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --                                   Functions
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -98,165 +95,6 @@ function _G.EditionEngraverProbeVoices() --  {{{
     vim.fn.append('.', probes)
 end --  }}}
 
-function _G.SetMeasureCounts() --  {{{
-    -- TODO: rewrite as recursive function for more deeply nested polyphony
-    -- voices. Currently it allows 1 level of nesting.
-    local lines = vim.api.nvim_buf_get_lines(0, 0, -1, true)
-    local namespace = measure_count_namespace
-
-    vim.api.nvim_buf_clear_namespace(0, namespace, 0, -1)
-
-    vim.api.nvim_set_hl_ns(namespace)
-    vim.api.nvim_set_hl(
-        namespace,
-        'LilypondMeasureCountExtmark',
-        { fg = '#88aa88' }
-    )
-    vim.api.nvim_set_hl(
-        namespace,
-        'LilypondPolyphony1MeasureCountExtmark',
-        { fg = '#aa8888' }
-    )
-    vim.api.nvim_set_hl(
-        namespace,
-        'LilypondPolyphony2MeasureCountExtmark',
-        { fg = '#8888aa' }
-    )
-
-    local measure = 0
-    -- stack which stores the measure count before entering a polyphonic passage.
-    -- size of stack also indicates current layer.
-    local polyphony_start_measure = {}
-
-    -- retrieve 'virt_text' for a given layer
-    local virt_text_layer = function(layer, measure_string)
-        if layer == 0 then
-            return {
-                { '󰽰 ', 'LilypondMeasureCountExtmark' },
-                { measure_string, 'LilypondMeasureCountExtmark' },
-            }
-        elseif layer == 1 then
-            return {
-                { '󰽯 ', 'LilypondPolyPhony1MeasureCountExtmark' },
-                { measure_string, 'LilypondPolyPhony1MeasureCountExtmark' },
-            }
-        else
-            return {
-                { '󰽮 ', 'LilypondPolyphony2MeasureCountExtmark' },
-                { measure_string, 'LilypondPolyphony2MeasureCountExtmark' },
-            }
-        end
-    end
-
-    for i, line in ipairs(lines) do
-        -- check for polyphonic passages
-        if vim.regex([[<<]]):match_str(line) then
-            -- polyphony started
-            table.insert(polyphony_start_measure, 1, measure)
-        end
-        if vim.regex([[\\\\\|\\new\s\+Voice]]):match_str(line) then
-            -- new voice started
-            measure = polyphony_start_measure[1]
-        end
-        if vim.regex([[>>]]):match_str(line) then
-            -- polyphony ended
-            table.remove(polyphony_start_measure, 1)
-        end
-
-        -- do not set extmark if not on a barline
-        if not vim.regex([[\s\+|]]):match_str(line) then
-            goto continue
-        end
-
-        -- count barlines and check if there is a multiplier
-        -- (i.e. 's1*5 |' or 's4*4*5 |' both count 5 bars)
-        local measure_inc = 0
-        local barlines = vim.split(line, [[|]])
-        for _, barline in ipairs({ unpack(barlines, 1, #barlines - 1) }) do
-            measure_inc = measure_inc + (barline:match('*(%d+)%s$') or 1)
-        end
-
-        -- allow manually setting measure using '| % M.XXX'
-        local specified_measure = line:match([[|%s+%%%s+[mM]%.(%d+)]])
-        if specified_measure then
-            measure = specified_measure
-        else
-            measure = measure + measure_inc
-        end
-
-        local measure_string = string.format([[%d]], measure)
-        local line_nr = i - 1
-
-        vim.api.nvim_buf_set_extmark(0, namespace, line_nr, 0, {
-            virt_text = virt_text_layer(
-                #polyphony_start_measure,
-                measure_string
-            ),
-            virt_text_pos = 'right_align',
-        })
-
-        ::continue::
-    end
-end --  }}}
-
-function _G.GotoMeasureCount(barline) --  {{{
-    -- Jump to a barline given a measure. Jumps based on measure counts
-    -- produced by extmarks from `_G.SetMeasureCounts`.
-    local barline = tonumber(barline)
-    local namespace = measure_count_namespace
-    local extmarks =
-        vim.api.nvim_buf_get_extmarks(0, namespace, 0, -1, { details = true })
-    for i = 1, #extmarks - 1 do
-        local extmark = extmarks[i]
-        local next_extmark = extmarks[i + 1]
-
-        local measure, next_measure
-        do
-            local _, line_nr, _, details = unpack(extmark)
-            local virt_text = details.virt_text
-            measure = {
-                barline = tonumber(virt_text[#virt_text][1]),
-                line_nr = line_nr,
-            }
-        end
-        do
-            local _, line_nr, _, details = unpack(next_extmark)
-            local virt_text = details.virt_text
-            next_measure = {
-                barline = tonumber(virt_text[#virt_text][1]),
-                line_nr = line_nr,
-            }
-        end
-
-        if barline > measure.barline and barline <= next_measure.barline then
-            vim.api.nvim_win_set_cursor(0, { next_measure.line_nr + 1, 0 })
-        end
-    end
-end -- }}}
-
---~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
---                                 AutoCommands
---~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-local augroup_measure_count = vim.api.nvim_create_augroup('measure_count', {})
-
-vim.api.nvim_create_autocmd({ 'BufEnter', 'TextChanged', 'InsertLeave' }, {
-    group = augroup_measure_count,
-    pattern = { '*.ly' },
-    desc = 'Set/Update measure count virtual text',
-    callback = _G.SetMeasureCounts,
-})
-
-vim.api.nvim_create_autocmd({ 'InsertEnter' }, {
-    group = augroup_measure_count,
-    pattern = { '*.ly' },
-    desc = 'Clear measure count virtual text upon entering insert mode',
-    callback = function()
-        local namespace = measure_count_namespace
-        vim.api.nvim_buf_clear_namespace(0, namespace, 0, -1)
-    end,
-})
-
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --                                   Commands
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -272,15 +110,6 @@ vim.api.nvim_create_user_command(
     [[:lua _G.EditionEngraverProbeVoices()]],
     {
         desc = 'Probe all voices A-Z (excluding R) for the edition engraver',
-    }
-)
-
-vim.api.nvim_create_user_command(
-    'GotoMeasureCount',
-    [[:lua _G.GotoMeasureCount(<f-args>)]],
-    {
-        nargs = 1,
-        desc = 'Jump to a measure with the given count (Requires extmarks to have been set)',
     }
 )
 
@@ -361,5 +190,182 @@ imap(
 nmap('<LocalLeader>a', function()
     _G.AlignCursors()
 end)
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--                               Measure Counting
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+local measure_count_namespace =
+    vim.api.nvim_create_namespace('lilypond-measure-count')
+
+ -- namespace highlight groups {{{
+do
+    local namespace = measure_count_namespace
+    vim.api.nvim_set_hl_ns(namespace)
+    vim.api.nvim_set_hl(
+        namespace,
+        'LilypondMeasureCountExtmark',
+        { fg = '#88aa88' }
+    )
+    vim.api.nvim_set_hl(
+        namespace,
+        'LilypondPolyphony1MeasureCountExtmark',
+        { fg = '#aa8888' }
+    )
+    vim.api.nvim_set_hl(
+        namespace,
+        'LilypondPolyphony2MeasureCountExtmark',
+        { fg = '#8888aa' }
+    )
+end --  }}}
+
+local function virt_text_layer(layer, measure_string) --  {{{
+    -- retrieve 'virt_text' for a given layer
+    if layer == 0 then
+        return {
+            { '󰽰 ', 'LilypondMeasureCountExtmark' },
+            { measure_string, 'LilypondMeasureCountExtmark' },
+        }
+    elseif layer == 1 then
+        return {
+            { '󰽯 ', 'LilypondPolyPhony1MeasureCountExtmark' },
+            { measure_string, 'LilypondPolyPhony1MeasureCountExtmark' },
+        }
+    else
+        return {
+            { '󰽮 ', 'LilypondPolyphony2MeasureCountExtmark' },
+            { measure_string, 'LilypondPolyphony2MeasureCountExtmark' },
+        }
+    end
+end --  }}}
+
+function _G.SetMeasureCounts() --  {{{
+    local lines = vim.api.nvim_buf_get_lines(0, 0, -1, true)
+    local namespace = measure_count_namespace
+
+    vim.api.nvim_buf_clear_namespace(0, namespace, 0, -1)
+
+    local measure = 0
+    -- stack which stores the measure count before entering a polyphonic passage.
+    -- size of stack also indicates current layer.
+    local polyphony_start_measure = {}
+
+    for i, line in ipairs(lines) do
+        -- check for polyphonic passages
+        if vim.regex([[<<]]):match_str(line) then
+            -- polyphony started
+            table.insert(polyphony_start_measure, 1, measure)
+        end
+        if vim.regex([[\\\\\|\\new\s\+Voice]]):match_str(line) then
+            -- new voice started
+            measure = polyphony_start_measure[1]
+        end
+        if vim.regex([[>>]]):match_str(line) then
+            -- polyphony ended
+            table.remove(polyphony_start_measure, 1)
+        end
+
+        -- do not set extmark if not on a barline
+        if not vim.regex([[\s\+|]]):match_str(line) then
+            goto continue
+        end
+
+        -- count barlines and check if there is a multiplier
+        -- (i.e. 's1*5 |' or 's4*4*5 |' both count 5 bars)
+        local measure_inc = 0
+        local barlines = vim.split(line, [[|]])
+        for _, barline in ipairs({ unpack(barlines, 1, #barlines - 1) }) do
+            measure_inc = measure_inc + (barline:match('*(%d+)%s$') or 1)
+        end
+
+        -- allow manually setting measure using '| % M.XXX'
+        local specified_measure = line:match([[|%s+%%%s+[mM]%.(%d+)]])
+        if specified_measure then
+            measure = specified_measure
+        else
+            measure = measure + measure_inc
+        end
+
+        local measure_string = string.format([[%d]], measure)
+        local line_nr = i - 1
+
+        vim.api.nvim_buf_set_extmark(0, namespace, line_nr, 0, {
+            virt_text = virt_text_layer(
+                #polyphony_start_measure,
+                measure_string
+            ),
+            virt_text_pos = 'right_align',
+        })
+
+        ::continue::
+    end
+end --  }}}
+
+function _G.GotoMeasureCount(barline_input) --  {{{
+    -- Jump to a barline given a measure. Jumps based on measure counts
+    -- produced by extmarks from `_G.SetMeasureCounts`.
+    local barline = tonumber(barline_input)
+    local namespace = measure_count_namespace
+    local extmarks =
+        vim.api.nvim_buf_get_extmarks(0, namespace, 0, -1, { details = true })
+
+    for i = 1, #extmarks - 1 do
+        local extmark = extmarks[i]
+        local next_extmark = extmarks[i + 1]
+
+        local measure, next_measure
+        do
+            local _, line_nr, _, details = unpack(extmark)
+            local virt_text = details.virt_text
+            measure = {
+                barline = tonumber(virt_text[#virt_text][1]),
+                line_nr = line_nr,
+            }
+        end
+        do
+            local _, line_nr, _, details = unpack(next_extmark)
+            local virt_text = details.virt_text
+            next_measure = {
+                barline = tonumber(virt_text[#virt_text][1]),
+                line_nr = line_nr,
+            }
+        end
+
+        if barline > measure.barline and barline <= next_measure.barline then
+            vim.api.nvim_win_set_cursor(0, { next_measure.line_nr + 1, 0 })
+        end
+    end
+end -- }}}
+
+-- automatically update/set/clear extmarks {{{
+local augroup_measure_count = vim.api.nvim_create_augroup('measure_count', {})
+
+vim.api.nvim_create_autocmd({ 'BufEnter', 'TextChanged', 'InsertLeave' }, {
+    group = augroup_measure_count,
+    pattern = { '*.ly' },
+    desc = 'Set/Update measure count virtual text',
+    callback = _G.SetMeasureCounts,
+})
+
+vim.api.nvim_create_autocmd({ 'InsertEnter' }, {
+    group = augroup_measure_count,
+    pattern = { '*.ly' },
+    desc = 'Clear measure count virtual text upon entering insert mode',
+    callback = function()
+        local namespace = measure_count_namespace
+        vim.api.nvim_buf_clear_namespace(0, namespace, 0, -1)
+    end,
+})
+--  }}}
+
+-- GotoMeasureCount command {{{
+vim.api.nvim_create_user_command(
+    'GotoMeasureCount',
+    [[:lua _G.GotoMeasureCount(<f-args>)]],
+    {
+        nargs = 1,
+        desc = 'Jump to a measure with the given count (Requires extmarks to have been set)',
+    }
+) --  }}}
 
 -- vim: fdm=marker
