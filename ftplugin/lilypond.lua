@@ -257,14 +257,27 @@ function _G.SetMeasureCounts() --  {{{
         -- check for polyphonic passages
         if vim.regex([[<<]]):match_str(line) then
             -- polyphony started
-            table.insert(polyphony_start_measure, 1, measure)
+            table.insert(polyphony_start_measure, 1, {
+                measure = measure,
+                -- polyphony with uneven measures in each voice, will still
+                -- have lilypond continue with the latest measure number. This
+                -- field will track the highest measure number among all
+                -- voices.
+                highest_local_measure = measure,
+            })
         end
         if vim.regex([[\\\\\|\\new\s\+Voice]]):match_str(line) then
             -- new voice started
-            measure = polyphony_start_measure[1]
+            if measure > polyphony_start_measure[1].highest_local_measure then
+                polyphony_start_measure[1].highest_local_measure = measure
+            end
+            measure = polyphony_start_measure[1].measure
         end
         if vim.regex([[>>]]):match_str(line) then
             -- polyphony ended
+            if measure < polyphony_start_measure[1].highest_local_measure then
+                measure = polyphony_start_measure[1].highest_local_measure
+            end
             table.remove(polyphony_start_measure, 1)
         end
 
