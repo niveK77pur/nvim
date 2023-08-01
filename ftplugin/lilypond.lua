@@ -420,44 +420,45 @@ local job_id
 
 local callbacks = {
     on_stdout = function(job_id, data, event) --  {{{
-        if not (vim.api.nvim_get_mode().mode == 'i') then
-            return
+        local nvim_mode = vim.api.nvim_get_mode().mode
+        if nvim_mode == 'i' then
+            local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+
+            local prev_char_is_space = true
+            local next_char_is_space = true
+            if col > 0 then
+                prev_char_is_space = vim.api
+                    .nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1]
+                    :match('%s')
+            end
+            if col < vim.api.nvim_get_current_line():len() then
+                next_char_is_space = vim.api
+                    .nvim_buf_get_text(0, row - 1, col, row - 1, col + 1, {})[1]
+                    :match('%s')
+            end
+
+            data = string.format(
+                '%s%s%s',
+                prev_char_is_space and '' or ' ',
+                vim.trim(vim.fn.join(data)),
+                next_char_is_space and '' or ' '
+            )
+            print(
+                prev_char_is_space,
+                next_char_is_space,
+                string.format('>%s<', data),
+                col,
+                vim.api.nvim_get_current_line():len()
+            )
+
+            vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { data })
+            vim.api.nvim_win_set_cursor(
+                0,
+                { row, col + data:len() + (next_char_is_space and 0 or -1) }
+            )
+        elseif nvim_mode == 'R' then
+            vim.fn.append(vim.fn.line('$'), 'abc')
         end
-
-        local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-
-        local prev_char_is_space = true
-        local next_char_is_space = true
-        if col > 0 then
-            prev_char_is_space = vim.api
-                .nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1]
-                :match('%s')
-        end
-        if col < vim.api.nvim_get_current_line():len() then
-            next_char_is_space = vim.api
-                .nvim_buf_get_text(0, row - 1, col, row - 1, col + 1, {})[1]
-                :match('%s')
-        end
-
-        data = string.format(
-            '%s%s%s',
-            prev_char_is_space and '' or ' ',
-            vim.trim(vim.fn.join(data)),
-            next_char_is_space and '' or ' '
-        )
-        print(
-            prev_char_is_space,
-            next_char_is_space,
-            string.format('>%s<', data),
-            col,
-            vim.api.nvim_get_current_line():len()
-        )
-
-        vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { data })
-        vim.api.nvim_win_set_cursor(
-            0,
-            { row, col + data:len() + (next_char_is_space and 0 or -1) }
-        )
     end, --  }}}
     on_stderr = function(job_id, data, event) --  {{{
         local msg = vim.fn.join(data)
@@ -479,7 +480,9 @@ for _, mode_name in ipairs({ 'Pedal', 'Chord', 'Single' }) do
         string.format('MidiInputStart%s', mode_name),
         function()
             if job_id then
-                print('A MIDI Input Listener is already running. Restarting ...')
+                print(
+                    'A MIDI Input Listener is already running. Restarting ...'
+                )
                 vim.fn.jobstop(job_id)
                 job_id = nil
             end
