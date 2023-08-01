@@ -20,9 +20,9 @@ parser.add_argument(
 parser.add_argument(
     "-m",
     "--mode",
-    help="Specify mode to be used. Either 'linear' or 'chord'.",
-    choices=["linear", "chord", "mixed"],
-    default="linear",
+    help="Specify mode to be used. Either 'single', 'chord' or 'pedal'.",
+    choices=["single", "chord", "pedal"],
+    default="single",
 )
 parser.add_argument(
     "-l",
@@ -215,22 +215,22 @@ def triggerChordModePedal(msg, data) -> bool:
     return len(pedals) > 0
 
 
-def getMidiData(port, mode="linear", accidentals="sharps"):
+def getMidiData(port, mode="single", accidentals="sharps"):
     """Get midi data from `port` and interpret using `mode`
 
     Argument: mode [String]
-        - 'linear'
+        - 'single'
             Notes are yielded as you press the keys on you midi keyboard.
             This results in one note at a time.
         - 'chord'
             Notes are yielded as chords. When you hold down multiple keys,
             the chord it returned as soon as you release all keys.
     """
-    if mode == "linear":
+    if mode == "single":
         getMixedMode(port, accidentals, lambda m, d: False)
     elif mode == "chord":
         getMixedMode(port, accidentals, lambda m, d: True)
-    elif mode == "mixed":
+    elif mode == "pedal":
         getMixedMode(port, accidentals, triggerChordModePedal)
     else:
         print("Invalid mode. Check '--mode' in '--help.", file=sys.stderr)
