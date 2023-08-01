@@ -7,6 +7,32 @@ from typing import List
 
 import mido
 
+import argparse
+
+parser = argparse.ArgumentParser()
+
+parser.add_argument(
+    "-d",
+    "--device",
+    help="Specify MIDI device to be used. Check --list-devices.",
+    type=str,
+)
+parser.add_argument(
+    "-m",
+    "--mode",
+    help="Specify mode to be used. Either 'linear' or 'chord'.",
+    choices=["linear", "chord", "mixed"],
+    default="linear",
+)
+parser.add_argument(
+    "-l",
+    "--list-devices",
+    help="List available MIDI devices",
+    action="store_true",
+)
+
+args = parser.parse_args()
+
 INPUT_DEVICE = "USB-MIDI:USB-MIDI MIDI 1 24:0"
 
 NOTES = {
@@ -186,5 +212,12 @@ def main(device: str):
 
 
 if __name__ == "__main__":
-    list_devices()
-    main(INPUT_DEVICE)
+    if args.list_devices:
+        list_devices()
+        exit(0)
+    if args.device is None:
+        print(
+            "Device must be specified. Check '--device' in '--help'.", file=sys.stderr
+        )
+        exit(1)
+    main(INPUT_DEVICE, args.mode)
