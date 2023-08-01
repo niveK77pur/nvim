@@ -421,10 +421,38 @@ local callbacks = {
         if not (vim.api.nvim_get_mode().mode == 'i') then
             return
         end
+
         local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-        data = vim.fn.join(data)
+
+        local prev_char_is_space = true
+        local next_char_is_space = true
+        if col > 0 then
+            prev_char_is_space = vim.api
+                .nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1]
+                :match('%s')
+        end
+        if col < vim.api.nvim_get_current_line():len() then
+            next_char_is_space = vim.api
+                .nvim_buf_get_text(0, row - 1, col, row - 1, col + 1, {})[1]
+                :match('%s')
+        end
+
+        data = string.format(
+            '%s%s%s',
+            prev_char_is_space and '' or ' ',
+            vim.trim(vim.fn.join(data)),
+            next_char_is_space and '' or ' '
+        )
+        print(
+            prev_char_is_space,
+            next_char_is_space,
+            string.format('>%s<', data),
+            col,
+            vim.api.nvim_get_current_line():len()
+        )
+
         vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { data })
-        vim.api.nvim_win_set_cursor(0, { row, col + data:len() })
+        vim.api.nvim_win_set_cursor(0, { row, col + data:len() + (next_char_is_space and 0 or -1) })
     end, --  }}}
     on_stderr = function(job_id, data, event) --  {{{
         local msg = vim.fn.join(data)
