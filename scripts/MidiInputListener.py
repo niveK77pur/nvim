@@ -3,7 +3,7 @@
 from time import sleep
 import sys
 import signal
-from typing import List
+from typing import Any, Callable, Dict, List, Optional
 
 import mido
 
@@ -187,8 +187,23 @@ def getChordMode(port, accidentals):
                 notes = set()
 
 
-def getMixedMode(port, accidentals):
-    """Get single notes and, when pedal is pressed, get chords."""
+def getMixedMode(
+    port,
+    accidentals,
+    triggerChordMode: Callable[[mido.Message, Dict[str, Any]], bool],
+):
+    """Get single notes and, when `triggerChordMode` indicates, get chords.
+
+    In chord mode: Get pressed notes as a chord once everything is released.
+
+    In single mode: Get pressed notes one after another.
+
+    The `triggerChordMode` function should return a boolean indicating whether
+    chord mode should be used or not. The additional dictionary can be used to
+    pass information about the environment into the function, in case the
+    decision is not a simple 'always on' or 'always off'. Check
+    `triggerChordModePedal()` as an example.
+    """
     # track notes to be put into chord
     notes = set()
     # track notes being pressed to know when everything was released
@@ -198,17 +213,8 @@ def getMixedMode(port, accidentals):
     # specify whether to use chords or not
     use_chords = False
     for msg in port:
-        if msg.is_cc() and msg.control in [64, 66, 67]:
-            # 64: sustain pedal
-            # 66: sustenuto pedal
-            # 67: damper pedal
-            if msg.value > 0:
-                pedals.add(msg.control)
-            if msg.value == 0:
-                pedals.remove(msg.control)
-            # ensure all pedals are released before exiting chord mode
-            use_chords = len(pedals) > 0
-        elif msg.type == "note_on":
+        use_chords = triggerChordMode(msg, {"pedals": pedals})
+        if msg.type == "note_on":
             pressed.add(msg.note)
             notes.add(msg.note)
         elif msg.type == "note_off":
@@ -233,6 +239,22 @@ def getMixedMode(port, accidentals):
         else:
             if msg.type == "note_on":
                 print(note2Lilypond(msg.note, accidentals))
+
+
+def triggerChordModePedal(msg, data) -> bool:
+    """Trigger chord mode if any pedal is currently held down."""
+    assert data is not None
+    pedals = data["pedals"]  # set is passed by reference
+    if msg.is_cc() and msg.control in [64, 66, 67]:
+        # 64: sustain pedal
+        # 66: sustenuto pedal
+        # 67: damper pedal
+        if msg.value > 0:
+            pedals.add(msg.control)
+        if msg.value == 0:
+            pedals.remove(msg.control)
+    # ensure all pedals are released before exiting chord mode
+    return len(pedals) > 0
 
 
 def getMidiData(port, mode="linear", accidentals="sharps"):
