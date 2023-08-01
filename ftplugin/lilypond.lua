@@ -443,7 +443,7 @@ local job_id
 
 vim.api.nvim_create_user_command('MidiInputStart', function()
     if job_id then
-        print("A MIDI Input Listener is already running.")
+        print('A MIDI Input Listener is already running.')
         return
     end
     job_id = vim.fn.jobstart({
