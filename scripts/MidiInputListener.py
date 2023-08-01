@@ -145,48 +145,6 @@ def clearPort(port):
     print("--------------------------------------------")
 
 
-def getLinearMode(port, accidentals):
-    """Get pressed notes one after another"""
-    for msg in port:
-        if msg.type == "note_on":
-            print(note2Lilypond(msg.note, accidentals))
-
-
-def getChordMode(port, accidentals):
-    """Get pressed notes as a chord once everything is released"""
-    # track notes to be put into chord
-    notes = set()
-    # track notes being pressed to know when everything was released
-    pressed = set()
-    for msg in port:
-        # if msg.type in ["note_on", "note_off"]:
-        if msg.type == "note_on":
-            pressed.add(msg.note)
-            notes.add(msg.note)
-        if msg.type == "note_off":
-            pressed.remove(msg.note)
-            if len(pressed) == 0:
-                if len(notes) > 1:
-                    note_list = list(notes)
-                    note_list.sort()
-                    print(
-                        "<{}>".format(
-                            " ".join(
-                                map(
-                                    note2Lilypond,
-                                    note_list,
-                                    [accidentals] * len(notes),
-                                )
-                            )
-                        )
-                    )
-                if len(notes) == 1:
-                    print(
-                        "{}".format("".join(map(note2Lilypond, notes, [accidentals])))
-                    )
-                notes = set()
-
-
 def getMixedMode(
     port,
     accidentals,
@@ -269,11 +227,11 @@ def getMidiData(port, mode="linear", accidentals="sharps"):
             the chord it returned as soon as you release all keys.
     """
     if mode == "linear":
-        getLinearMode(port, accidentals)
+        getMixedMode(port, accidentals, lambda m, d: False)
     elif mode == "chord":
-        getChordMode(port, accidentals)
+        getMixedMode(port, accidentals, lambda m, d: True)
     elif mode == "mixed":
-        getMixedMode(port, accidentals)
+        getMixedMode(port, accidentals, triggerChordModePedal)
     else:
         print("Invalid mode. Check '--mode' in '--help.", file=sys.stderr)
         exit(2)
