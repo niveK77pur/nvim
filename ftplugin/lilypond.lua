@@ -464,17 +464,25 @@ local callbacks = {
             local e_row, e_col =
                 unpack(vim.fn.searchpos(search_pattern, 'cnWe'))
 
-            print(s_row, s_col, e_row, e_col)
-            data = vim.trim(vim.fn.join(data))
-            vim.api.nvim_buf_set_text(
-                0,
-                s_row - 1,
-                s_col - 1,
-                e_row - 1,
-                e_col,
-                { data }
-            )
-            vim.api.nvim_win_set_cursor(0, { s_row, s_col - 1 + data:len() })
+            if -- a match was found
+                not (s_row == 0 and s_col == 0)
+                and not (e_row == 0 and e_col == 0)
+            then
+                print(s_row, s_col, e_row, e_col)
+                data = vim.trim(vim.fn.join(data))
+                vim.api.nvim_buf_set_text(
+                    0,
+                    s_row - 1,
+                    s_col - 1,
+                    e_row - 1,
+                    e_col,
+                    { data }
+                )
+                vim.api.nvim_win_set_cursor(
+                    0,
+                    { s_row, s_col - 1 + data:len() }
+                )
+            end
         end
     end, --  }}}
     on_stderr = function(job_id, data, event) --  {{{
