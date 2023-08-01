@@ -443,13 +443,6 @@ local callbacks = {
                 vim.trim(vim.fn.join(data)),
                 next_char_is_space and '' or ' '
             )
-            print(
-                prev_char_is_space,
-                next_char_is_space,
-                string.format('>%s<', data),
-                col,
-                vim.api.nvim_get_current_line():len()
-            )
 
             vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { data })
             vim.api.nvim_win_set_cursor(
@@ -468,7 +461,6 @@ local callbacks = {
                 not (s_row == 0 and s_col == 0)
                 and not (e_row == 0 and e_col == 0)
             then
-                print(s_row, s_col, e_row, e_col)
                 data = vim.trim(vim.fn.join(data))
                 vim.api.nvim_buf_set_text(
                     0,
