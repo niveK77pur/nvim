@@ -478,6 +478,10 @@ vim.api.nvim_create_user_command('MidiInputStart', function()
         'python',
         '-u',
         vim.fn.stdpath('config') .. '/scripts/MidiInputListener.py',
+        '--device',
+        'USB-MIDI:USB-MIDI MIDI 1 24:0',
+        '--mode',
+        'pedal',
     }, callbacks)
 end, { desc = 'Start MIDI Input Listener' })
 
