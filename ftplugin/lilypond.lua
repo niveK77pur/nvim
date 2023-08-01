@@ -304,7 +304,10 @@ function _G.SetMeasureCounts() --  {{{
 
         -- do not set extmark if not on a barline
         -- and if barline is inside single-line comment
-        if not vim.regex([[\%(%[{}]\@!.*\)\@<!\s\+|]]):match_str(line) or in_multiline_comment then
+        if
+            not vim.regex([[\%(%[{}]\@!.*\)\@<!\s\+|]]):match_str(line)
+            or in_multiline_comment
+        then
             goto continue
         end
 
