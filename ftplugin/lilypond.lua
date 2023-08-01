@@ -457,7 +457,24 @@ local callbacks = {
                 { row, col + data:len() + (next_char_is_space and 0 or -1) }
             )
         elseif nvim_mode == 'R' then
-            vim.fn.append(vim.fn.line('$'), 'abc')
+            -- search for next note/chord
+            local search_pattern =
+                [[\v\s+\zs[abcdefg]%([ie]?s)*[',]*\=?[',]*|\<[^>]{-}\>]]
+            local s_row, s_col = unpack(vim.fn.searchpos(search_pattern, 'cnW'))
+            local e_row, e_col =
+                unpack(vim.fn.searchpos(search_pattern, 'cnWe'))
+
+            print(s_row, s_col, e_row, e_col)
+            data = vim.trim(vim.fn.join(data))
+            vim.api.nvim_buf_set_text(
+                0,
+                s_row - 1,
+                s_col - 1,
+                e_row - 1,
+                e_col,
+                { data }
+            )
+            vim.api.nvim_win_set_cursor(0, { s_row, s_col - 1 + data:len() })
         end
     end, --  }}}
     on_stderr = function(job_id, data, event) --  {{{
