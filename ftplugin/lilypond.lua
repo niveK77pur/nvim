@@ -454,7 +454,10 @@ local callbacks = {
         )
 
         vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { data })
-        vim.api.nvim_win_set_cursor(0, { row, col + data:len() + (next_char_is_space and 0 or -1) })
+        vim.api.nvim_win_set_cursor(
+            0,
+            { row, col + data:len() + (next_char_is_space and 0 or -1) }
+        )
     end, --  }}}
     on_stderr = function(job_id, data, event) --  {{{
         local msg = vim.fn.join(data)
@@ -463,28 +466,43 @@ local callbacks = {
         end
     end, --  }}}
     on_exit = function(job_id, data, event) --  {{{
-        print('MIDI Input Listener exited.')
+        print(string.format('MIDI Input Listener exited (%s).', job_id))
         job_id = nil
     end, --  }}}
 }
 
 -- Commands --------------------------------------------------------------------
 
-vim.api.nvim_create_user_command('MidiInputStart', function()
-    if job_id then
-        print('A MIDI Input Listener is already running.')
-        return
-    end
-    job_id = vim.fn.jobstart({
-        'python',
-        '-u',
-        vim.fn.stdpath('config') .. '/scripts/MidiInputListener.py',
-        '--device',
-        'USB-MIDI:USB-MIDI MIDI 1 24:0',
-        '--mode',
-        'pedal',
-    }, callbacks)
-end, { desc = 'Start MIDI Input Listener' })
+for _, mode_name in ipairs({ 'Pedal', 'Chord', 'Single' }) do
+    local mode = mode_name:lower()
+    vim.api.nvim_create_user_command(
+        string.format('MidiInputStart%s', mode_name),
+        function()
+            if job_id then
+                print('A MIDI Input Listener is already running. Restarting ...')
+                vim.fn.jobstop(job_id)
+                job_id = nil
+            end
+            job_id = vim.fn.jobstart({
+                'python',
+                '-u',
+                vim.fn.stdpath('config') .. '/scripts/MidiInputListener.py',
+                '--device',
+                'USB-MIDI:USB-MIDI MIDI 1 24:0',
+                '--mode',
+                mode,
+            }, callbacks)
+            print(
+                string.format(
+                    'Started MIDI Input Listener (mode: %s) (%s).',
+                    mode,
+                    job_id
+                )
+            )
+        end,
+        { desc = string.format('Start MIDI Input Listener (mode: %s)', mode) }
+    )
+end
 
 vim.api.nvim_create_user_command('MidiInputStop', function()
     if job_id then
@@ -494,7 +512,7 @@ vim.api.nvim_create_user_command('MidiInputStop', function()
 end, { desc = 'Stop MIDI Input Listener' })
 
 -- AutoCommands ----------------------------------------------------------------
---
+
 local augroup_midideviceinput =
     vim.api.nvim_create_augroup('midideviceinput', {})
 
