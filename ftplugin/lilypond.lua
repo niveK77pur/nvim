@@ -410,4 +410,69 @@ vim.api.nvim_create_user_command(
     }
 ) --  }}}
 
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--                                  MIDI Input
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-- Variables -------------------------------------------------------------------
+
+local callbacks = {
+    on_stdout = function(job_id, data, event) --  {{{
+        if not (vim.api.nvim_get_mode().mode == 'i') then
+            return
+        end
+        local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+        data = vim.fn.join(data)
+        vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { data })
+        vim.api.nvim_win_set_cursor(0, { row, col + data:len() })
+    end, --  }}}
+    on_stderr = function(job_id, data, event) --  {{{
+        local msg = vim.fn.join(data)
+        if not vim.fn.empty(msg) then
+            vim.cmd(string.format('echoerr %s', msg))
+        end
+    end, --  }}}
+    on_exit = function(job_id, data, event) --  {{{
+        print('MIDI Input Listener exited.')
+    end, --  }}}
+}
+
+local job_id
+
+-- Commands --------------------------------------------------------------------
+
+vim.api.nvim_create_user_command('MidiInputStart', function()
+    if job_id then
+        print("A MIDI Input Listener is already running.")
+        return
+    end
+    job_id = vim.fn.jobstart({
+        'python',
+        '-u',
+        vim.fn.stdpath('config') .. '/scripts/MidiInputListener.py',
+    }, callbacks)
+end, { desc = 'Start MIDI Input Listener' })
+
+vim.api.nvim_create_user_command('MidiInputStop', function()
+    if job_id then
+        vim.fn.jobstop(job_id)
+    end
+end, { desc = 'Stop MIDI Input Listener' })
+
+-- AutoCommands ----------------------------------------------------------------
+--
+local augroup_midideviceinput =
+    vim.api.nvim_create_augroup('midideviceinput', {})
+
+vim.api.nvim_create_autocmd({ 'ExitPre', 'QuitPre' }, {
+    group = augroup_midideviceinput,
+    pattern = { '*' },
+    desc = 'Quit the MIDI Input Listener',
+    callback = function()
+        if job_id then
+            vim.fn.jobstop(job_id)
+        end
+    end,
+})
+
 -- vim: fdm=marker
