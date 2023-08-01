@@ -2,12 +2,32 @@
 
 from time import sleep
 import sys
-import signal
 from typing import Any, Callable, Dict, List, Optional
 
 import mido
 
 import argparse
+import signal
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                      Setup
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+def sigterm_handler(signalnum, stackframe):
+    sys.exit(0)
+
+
+signal.signal(signal.SIGTERM, sigterm_handler)
+
+NOTES = {
+    "sharps": ["c", "cis", "d", "dis", "e", "f", "fis", "g", "gis", "a", "ais", "b"],
+    "flats": ["c", "des", "d", "ees", "e", "f", "ges", "g", "aes", "a", "bes", "b"],
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                             Command Line Arguments
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 parser = argparse.ArgumentParser()
 
@@ -33,19 +53,9 @@ parser.add_argument(
 
 args = parser.parse_args()
 
-INPUT_DEVICE = "USB-MIDI:USB-MIDI MIDI 1 24:0"
-
-NOTES = {
-    "sharps": ["c", "cis", "d", "dis", "e", "f", "fis", "g", "gis", "a", "ais", "b"],
-    "flats": ["c", "des", "d", "ees", "e", "f", "ges", "g", "aes", "a", "bes", "b"],
-}
-
-
-def sigterm_handler(signalnum, stackframe):
-    sys.exit(0)
-
-
-signal.signal(signal.SIGTERM, sigterm_handler)
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                     Helpers
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 def list_devices():
@@ -145,6 +155,11 @@ def clearPort(port):
     print("--------------------------------------------")
 
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                Process MIDI Data
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 def getMixedMode(
     port,
     accidentals,
@@ -215,6 +230,11 @@ def triggerChordModePedal(msg, data) -> bool:
     return len(pedals) > 0
 
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                        Tidy wrappers to call everything
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 def getMidiData(port, mode="single", accidentals="sharps"):
     """Get midi data from `port` and interpret using `mode`
 
@@ -252,4 +272,4 @@ if __name__ == "__main__":
             "Device must be specified. Check '--device' in '--help'.", file=sys.stderr
         )
         exit(1)
-    main(INPUT_DEVICE, args.mode)
+    main(args.device, args.mode)
