@@ -187,6 +187,54 @@ def getChordMode(port, accidentals):
                 notes = set()
 
 
+def getMixedMode(port, accidentals):
+    """Get single notes and, when pedal is pressed, get chords."""
+    # track notes to be put into chord
+    notes = set()
+    # track notes being pressed to know when everything was released
+    pressed = set()
+    # track pedals being pressed to know when everything was released
+    pedals = set()
+    # specify whether to use chords or not
+    use_chords = False
+    for msg in port:
+        if msg.is_cc() and msg.control in [64, 66, 67]:
+            # 64: sustain pedal
+            # 66: sustenuto pedal
+            # 67: damper pedal
+            if msg.value > 0:
+                pedals.add(msg.control)
+            if msg.value == 0:
+                pedals.remove(msg.control)
+            # ensure all pedals are released before exiting chord mode
+            use_chords = len(pedals) > 0
+        elif msg.type == "note_on":
+            pressed.add(msg.note)
+            notes.add(msg.note)
+        elif msg.type == "note_off":
+            pressed.remove(msg.note)
+            if not use_chords:
+                notes.remove(msg.note)
+        if use_chords:
+            if len(pressed) == 0:
+                if len(notes) > 1:
+                    note_list = list(notes)
+                    note_list.sort()
+                    print(
+                        "<{}>".format(
+                            " ".join(
+                                [note2Lilypond(note, accidentals) for note in note_list]
+                            )
+                        )
+                    )
+                if len(notes) == 1:
+                    print(note2Lilypond(msg.note, accidentals))
+                notes = set()
+        else:
+            if msg.type == "note_on":
+                print(note2Lilypond(msg.note, accidentals))
+
+
 def getMidiData(port, mode="linear", accidentals="sharps"):
     """Get midi data from `port` and interpret using `mode`
 
@@ -200,15 +248,19 @@ def getMidiData(port, mode="linear", accidentals="sharps"):
     """
     if mode == "linear":
         getLinearMode(port, accidentals)
-    if mode == "chord":
+    elif mode == "chord":
         getChordMode(port, accidentals)
+    elif mode == "mixed":
+        getMixedMode(port, accidentals)
+    else:
+        print("Invalid mode. Check '--mode' in '--help.", file=sys.stderr)
+        exit(2)
 
 
-def main(device: str):
-
+def main(device: str, mode: str):
     with mido.open_input(name=device) as port:
         clearPort(port)
-        getMidiData(port, "chord")
+        getMidiData(port, mode)
 
 
 if __name__ == "__main__":
