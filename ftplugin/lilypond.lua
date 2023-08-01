@@ -416,6 +416,8 @@ vim.api.nvim_create_user_command(
 
 -- Variables -------------------------------------------------------------------
 
+local job_id
+
 local callbacks = {
     on_stdout = function(job_id, data, event) --  {{{
         if not (vim.api.nvim_get_mode().mode == 'i') then
@@ -462,10 +464,9 @@ local callbacks = {
     end, --  }}}
     on_exit = function(job_id, data, event) --  {{{
         print('MIDI Input Listener exited.')
+        job_id = nil
     end, --  }}}
 }
-
-local job_id
 
 -- Commands --------------------------------------------------------------------
 
@@ -488,6 +489,7 @@ end, { desc = 'Start MIDI Input Listener' })
 vim.api.nvim_create_user_command('MidiInputStop', function()
     if job_id then
         vim.fn.jobstop(job_id)
+        job_id = nil
     end
 end, { desc = 'Stop MIDI Input Listener' })
 
@@ -503,6 +505,7 @@ vim.api.nvim_create_autocmd({ 'ExitPre', 'QuitPre' }, {
     callback = function()
         if job_id then
             vim.fn.jobstop(job_id)
+            job_id = nil
         end
     end,
 })
