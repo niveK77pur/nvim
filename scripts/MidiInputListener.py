@@ -25,6 +25,44 @@ NOTES = {
     "flats": ["c", "des", "d", "ees", "e", "f", "ges", "g", "aes", "a", "bes", "b"],
 }
 
+# modify the corresponding elements in `NOTES` to account for specific keys.
+# The list indicates the index in the `NOTES` list, as well as what note to
+# replace it with.
+KEY_NOTES = {"cM": []}
+
+#  Major Keys ------------------------------------------------------------------
+KEY_NOTES["fM"] = KEY_NOTES["cM"] + [(10, "bes")]  # 1 flat
+KEY_NOTES["besM"] = KEY_NOTES["fM"] + [(3, "ees")]  # 2 flat
+KEY_NOTES["eesM"] = KEY_NOTES["besM"] + [(8, "aes")]  # 3 flat
+KEY_NOTES["aesM"] = KEY_NOTES["eesM"] + [(1, "des")]  # 4 flat
+KEY_NOTES["desM"] = KEY_NOTES["aesM"] + [(6, "ges")]  # 5 flat
+KEY_NOTES["gesM"] = KEY_NOTES["desM"] + [(11, "ces")]  # 6 flat
+KEY_NOTES["cesM"] = KEY_NOTES["gesM"] + [(4, "fes")]  # 7 flat
+KEY_NOTES["gM"] = KEY_NOTES["cM"] + [(6, "fis")]  # 1 sharp
+KEY_NOTES["dM"] = KEY_NOTES["gM"] + [(1, "cis")]  # 2 sharp
+KEY_NOTES["aM"] = KEY_NOTES["dM"] + [(8, "gis")]  # 3 sharp
+KEY_NOTES["eM"] = KEY_NOTES["aM"] + [(3, "dis")]  # 4 sharp
+KEY_NOTES["bM"] = KEY_NOTES["eM"] + [(10, "ais")]  # 5 sharp
+KEY_NOTES["fisM"] = KEY_NOTES["bM"] + [(5, "eis")]  # 6 sharp
+KEY_NOTES["cisM"] = KEY_NOTES["fisM"] + [(0, "bis")]  # 7 sharp
+
+#  Harnomic Minor Keys ---------------------------------------------------------
+KEY_NOTES["dm"] = KEY_NOTES["fM"] + [(1, "cis")]  # 1 flat
+KEY_NOTES["gm"] = KEY_NOTES["besM"] + [(6, "fis")]  # 2 flat
+KEY_NOTES["cm"] = KEY_NOTES["eesM"] + [(11, "b")]  # 3 flat
+KEY_NOTES["fm"] = KEY_NOTES["aesM"] + [(4, "e")]  # 4 flat
+KEY_NOTES["besm"] = KEY_NOTES["desM"] + [(9, "a")]  # 5 flat
+KEY_NOTES["eesm"] = KEY_NOTES["gesM"] + [(2, "d")]  # 6 flat
+KEY_NOTES["aesm"] = KEY_NOTES["cesM"] + [(7, "g")]  # 7 flat
+KEY_NOTES["am"] = KEY_NOTES["cM"] + [(8, "gis")]
+KEY_NOTES["em"] = KEY_NOTES["gM"] + [(3, "dis")]  # 1 sharp
+KEY_NOTES["bm"] = KEY_NOTES["dM"] + [(10, "ais")]  # 2 sharp
+KEY_NOTES["fism"] = KEY_NOTES["aM"] + [(5, "eis")]  # 3 sharp
+KEY_NOTES["cism"] = KEY_NOTES["eM"] + [(0, "bis")]  # 4 sharp
+KEY_NOTES["gism"] = KEY_NOTES["bM"] + [(7, "fisis")]  # 5 sharp
+KEY_NOTES["dism"] = KEY_NOTES["fisM"] + [(2, "cisis")]  # 6 sharp
+KEY_NOTES["aism"] = KEY_NOTES["cisM"] + [(9, "gisis")]  # 7 sharp
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #                             Command Line Arguments
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -45,6 +83,12 @@ parser.add_argument(
     default="single",
 )
 parser.add_argument(
+    "-k",
+    "--key-signature",
+    help="Specify key signature to be used.",
+    choices=KEY_NOTES.keys(),
+)
+parser.add_argument(
     "-a",
     "--accidentals",
     help="Specify accidentals to be used for out-of-key notes black keys.",
@@ -59,6 +103,12 @@ parser.add_argument(
 )
 
 args = parser.parse_args()
+
+# change NOTES depending on given key signature
+for index, note in KEY_NOTES[args.key_signature]:
+    for variant in NOTES:
+        NOTES[variant][index] = note
+
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #                                     Helpers
@@ -278,5 +328,8 @@ if __name__ == "__main__":
         print(
             "Device must be specified. Check '--device' in '--help'.", file=sys.stderr
         )
+        exit(1)
+    if args.key_signature is None:
+        print("Key signature must be specified. Check '--help'.", file=sys.stderr)
         exit(1)
     main(args.device, args.mode)
