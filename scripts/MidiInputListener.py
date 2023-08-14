@@ -45,6 +45,13 @@ parser.add_argument(
     default="single",
 )
 parser.add_argument(
+    "-a",
+    "--accidentals",
+    help="Specify accidentals to be used for out-of-key notes black keys.",
+    choices=NOTES.keys(),
+    default="sharps",
+)
+parser.add_argument(
     "-l",
     "--list-devices",
     help="List available MIDI devices",
@@ -260,7 +267,7 @@ def getMidiData(port, mode="single", accidentals="sharps"):
 def main(device: str, mode: str):
     with mido.open_input(name=device) as port:
         clearPort(port)
-        getMidiData(port, mode)
+        getMidiData(port, mode, args.accidentals)
 
 
 if __name__ == "__main__":
