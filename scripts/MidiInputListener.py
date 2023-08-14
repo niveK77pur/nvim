@@ -96,6 +96,10 @@ parser.add_argument(
     default="sharps",
 )
 parser.add_argument(
+    "--alterations",
+    help="Specify custom alterations for interpreting notes; this will overwrite key signature alterations. Expects list of tuples, where the first element is a number corresponding to the key (C is 0, C# is 1, D is 2, ..., A# is 10, B is 11), and the second element is the lilypond note to be placed instead. For example to make a D be interpreted as a E-flat-flat you can pass `(2,'eeses')`. To additionally have a A be interpreted as a G-sharp-sharp you can pass `(2,'eeses'),(9,'gisis')`",
+)
+parser.add_argument(
     "-l",
     "--list-devices",
     help="List available MIDI devices",
@@ -108,6 +112,13 @@ args = parser.parse_args()
 for index, note in KEY_NOTES[args.key_signature]:
     for variant in NOTES:
         NOTES[variant][index] = note
+# change NOTES with the custom alterations
+if args.alterations:
+    import ast
+    alterations = ast.literal_eval(args.alterations)
+    for index, note in alterations:
+        for variant in NOTES:
+            NOTES[variant][index] = note
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
