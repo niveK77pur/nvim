@@ -15,4 +15,5 @@ return require('vimrc.functions').return_gathered_plugins(
         'localrc-plugins.vim-localrc',
         'codeium-vim',
         'codeium-nvim',
+        'wildfire',
     })
