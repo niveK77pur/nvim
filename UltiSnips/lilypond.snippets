@@ -211,3 +211,11 @@ endsnippet
 snippet em "\editionMod ..."
 \editionMod ${1:tweaks} ${2:measure} ${4:moment}/${3:division} music.${5:Voice.${6:A}} ${0:-"Edition!"}
 endsnippet
+
+snippet emt "\editionMod ... (tweaks)"
+\editionMod tweaks ${1:measure} ${3:moment}/${2:4} music.Voice.${4:A} ${0:-"Edition!"}
+endsnippet
+
+snippet emd "\editionMod ... (dynamics)"
+\editionMod dynamics ${1:measure} ${3:moment}/${2:4} music.Dynamics ${0:-"Edition!"}
+endsnippet
