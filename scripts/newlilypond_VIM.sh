@@ -46,6 +46,12 @@ then
     GH_ORGANISATION=VinLudens
     gh repo create --public --template "$GH_ORGANISATION/lilypond-workflow-template" "$GH_ORGANISATION/$PROJECT"
     gh repo clone "$GH_ORGANISATION/$PROJECT"
+    gh variable --repo "$GH_ORGANISATION/$PROJECT" set LILYPOND_VERSION -b "$VERSION" && (
+        cd "$PROJECT" \
+            && sed -i '/LILYPOND_VERSION/s/\[ \]/[x]/' README.md \
+            && git add README.md \
+            && git commit -m "set LILYPOND_VERSION" \
+    )
     gh variable --repo "$GH_ORGANISATION/$PROJECT" set MAIN_FILE -b "$NAME" && (
         cd "$PROJECT" \
             && sed -i '/MAIN_FILE/s/\[ \]/[x]/' README.md \
