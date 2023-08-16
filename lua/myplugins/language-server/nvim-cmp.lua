@@ -45,14 +45,14 @@ return {
                 end,
             },
             window = {
-                -- completion = cmp.config.window.bordered(),
-                -- documentation = cmp.config.window.bordered(),
-                completion = {
-                    winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
-                    -- col_offset = -3,
-                    side_padding = 1,
-
-                },
+                completion = cmp.config.window.bordered(),
+                documentation = cmp.config.window.bordered(),
+                -- completion = {
+                --     winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+                --     -- col_offset = -3,
+                --     side_padding = 1,
+                --
+                -- },
             },
             mapping = cmp.mapping.preset.insert({
                 ['<C-b>'] = cmp.mapping.scroll_docs(-4),
