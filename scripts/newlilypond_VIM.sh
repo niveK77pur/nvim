@@ -23,7 +23,7 @@ then
         exit 1
 fi
 
-VERSION=$(lilypond --version | head -n 1 | awk '{ print $3 }')
+VERSION=$(lilypond --version | grep -oP 'LilyPond \K[0-9.]+')
 PROJECT="$1"
 GLOBALFILE="global.ly"
 
