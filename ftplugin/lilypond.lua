@@ -92,7 +92,7 @@ function _G.EditionEngraverProbeVoices() --  {{{
             )
         )
     end
-    vim.fn.append('.', probes)
+    vim.api.nvim_buf_set_lines(0, curr_linenr, curr_linenr, false, probes)
 end --  }}}
 
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
