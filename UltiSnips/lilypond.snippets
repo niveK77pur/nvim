@@ -108,7 +108,7 @@ snippet gap "\appoggiatura{...}" i
 endsnippet
 
 snippet '(v?)shape' "[-]\shape displacements item" r
-\\`!p snip.rv = match.group(1)`shape #'((0 . 0) (0 . 0) (0 . 0) (0 . 0)) ${1:Slur}
+\\`!p snip.rv = match.group(1)`shape #'((0 . 0) (0 . 0) (0 . 0) (0 . 0)) ${1:PhrasingSlur}
 endsnippet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -212,10 +212,10 @@ snippet em "\editionMod ..."
 \editionMod ${1:tweaks} ${2:measure} ${4:moment}/${3:division} music.${5:Voice.${6:A}} ${0:-"Edition!"}
 endsnippet
 
-snippet emt "\editionMod ... (tweaks)"
+snippet emt "\editionMod ... (tweaks)" bA
 \editionMod tweaks ${1:measure} ${3:moment}/${2:4} music.Voice.${4:A} ${0:-"Edition!"}
 endsnippet
 
-snippet emd "\editionMod ... (dynamics)"
+snippet emd "\editionMod ... (dynamics)" bA
 \editionMod dynamics ${1:measure} ${3:moment}/${2:4} music.Dynamics ${0:-"Edition!"}
 endsnippet
