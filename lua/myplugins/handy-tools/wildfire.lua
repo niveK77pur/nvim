@@ -16,5 +16,16 @@ return {
                 node_decremental = '<BS>',
             },
         })
+
+        local augroup_revert_cr = vim.api.nvim_create_augroup('revert_cr', {})
+
+        vim.api.nvim_create_autocmd({ 'FileType' }, {
+            group = augroup_revert_cr,
+            pattern = { 'qf' },
+            desc = "Revert wildfire's <CR> on filetypes",
+            callback = function()
+                vim.cmd('noremap <CR> <CR>')
+            end,
+        })
     end,
 }
