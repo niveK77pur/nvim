@@ -87,6 +87,7 @@ parser.add_argument(
     "--key-signature",
     help="Specify key signature to be used.",
     choices=KEY_NOTES.keys(),
+    default='cM',
 )
 parser.add_argument(
     "-a",
