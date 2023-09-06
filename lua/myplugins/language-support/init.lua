@@ -9,4 +9,5 @@ return require('vimrc.functions').return_gathered_plugins(
         'vimtex',
         'treesitter-plugins.nvim-treesitter',
         'treesitter-plugins.playground',
+        'neodev',
     })
