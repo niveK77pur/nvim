@@ -74,9 +74,6 @@ return { 'VonHeikemen/lsp-zero.nvim',
 
         lsp.ensure_installed({
             'lua_ls',
-            'pyright',
-            'pylsp',
-            'bashls'
         })
 
         lsp.configure('lua_ls', { -- {{{
