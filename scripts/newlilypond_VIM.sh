@@ -105,7 +105,7 @@ then
                 scale='major'
         fi
 
-        sed -i "s/c \(.\)major/$key \1$scale/" "$GLOBALFILE"
+        sed -i "s/c \(.\)major/$key \1$scale/" -- *.ly
 fi
 
 
