@@ -32,6 +32,7 @@ local skeleton_map = {
     ['*.swift'] = vim.fn.stdpath('config') .. '/skeletons/Swift/foundation.swift',
     ['*.html']  = vim.fn.stdpath('config') .. '/skeletons/HTML/new.html',
     ['description.txt'] = vim.fn.stdpath('config') .. '/skeletons/Miscellaneous/Youtube_description.txt',
+    ['description.adoc'] = vim.fn.stdpath('config') .. '/skeletons/Miscellaneous/Youtube_description.adoc',
 }
 
 for extension, file in pairs(skeleton_map) do
