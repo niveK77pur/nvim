@@ -119,7 +119,7 @@ return { 'VonHeikemen/lsp-zero.nvim',
 
         lsp.configure('ltex', { --  {{{
             filetypes = { -- expanded from default (see :h 'lspconfig-all')
-                "text", "markdown",
+                "text", "markdown", 'asciidoc',
                 "bib", "plaintex", "tex",
                 "gitcommit", "org", "rst", "rnoweb",
             },
