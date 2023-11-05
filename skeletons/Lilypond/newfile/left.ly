@@ -3,6 +3,7 @@
 
 left = \relative c, {
   \global
+  \key c \major
 
   r
 
