@@ -1,4 +1,9 @@
 return {
-    "tommcdo/vim-exchange",
+    'tommcdo/vim-exchange',
     enabled = true,
+    keys = {
+        'cx',
+        'cxx',
+        'X',
+    },
 }

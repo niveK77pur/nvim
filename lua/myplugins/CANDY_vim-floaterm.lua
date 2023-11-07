@@ -1,12 +1,14 @@
-return { 'voldikss/vim-floaterm',
+return {
+    'voldikss/vim-floaterm',
     enabled = true,
     -- cmd = { 'FloatermNew' },
-    config = function()
-        local map = vim.keymap.set
+    keys = {
 
-        map('n', '<Leader><m-l>', ':FloatermNew --width=0.8 --height=0.8 --title=lazygit lazygit<CR>', {
+        {
+            '<Leader><m-l>',
+            ':FloatermNew --width=0.8 --height=0.8 --title=lazygit lazygit<CR>',
             desc = 'FloatTerm with LazyGit',
-        })
-
-    end
+            mode = 'n',
+        },
+    },
 }

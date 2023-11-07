@@ -1,17 +1,28 @@
-return { "anuvyklack/windows.nvim",
+return {
+    'anuvyklack/windows.nvim',
     dependencies = {
-        "anuvyklack/middleclass",
-        "anuvyklack/animation.nvim"
+        'anuvyklack/middleclass',
+        'anuvyklack/animation.nvim',
     },
     enabled = true,
-    cmd = { 'WindowsEnableAutowidth', 'WindowsToggleAutowidth', 'WindowsMaximaze', },
+    keys = {
+        { '<Leader>we', '<cmd>WindowsEnableAutowidth<CR>' },
+        { '<Leader>wd', '<cmd>WindowsDisableAutowidth<CR>' },
+        { '<Leader>wt', '<cmd>WindowsToggleAutowidth<CR>' },
+        { '<Leader>wm', '<cmd>WindowsMaximaze<CR>' },
+    },
+    cmd = {
+        'WindowsEnableAutowidth',
+        'WindowsToggleAutowidth',
+        'WindowsMaximaze',
+    },
     config = function()
         local width = 10
         vim.o.winwidth = width
         vim.o.winminwidth = width
         vim.o.equalalways = false
 
-        require('windows').setup{
+        require('windows').setup({
             autowidth = {
                 winwidth = 0.7,
             },
@@ -19,13 +30,7 @@ return { "anuvyklack/windows.nvim",
                 enable = true,
                 duration = 150,
                 -- fps = 30,
-            }
-        }
-
-        local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
-        nmap('<Leader>we', '<cmd>WindowsEnableAutowidth<CR>')
-        nmap('<Leader>wd', '<cmd>WindowsDisableAutowidth<CR>')
-        nmap('<Leader>wt', '<cmd>WindowsToggleAutowidth<CR>')
-        nmap('<Leader>wm', '<cmd>WindowsMaximaze<CR>')
-    end
+            },
+        })
+    end,
 }
