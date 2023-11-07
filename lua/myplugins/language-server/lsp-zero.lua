@@ -1,4 +1,5 @@
-return { 'VonHeikemen/lsp-zero.nvim',
+return {
+    'VonHeikemen/lsp-zero.nvim',
     dependencies = {
         'neovim/nvim-lspconfig',
         'williamboman/mason.nvim',
@@ -19,11 +20,11 @@ return { 'VonHeikemen/lsp-zero.nvim',
             manage_nvim_cmp = false, -- separate custom configuration
             call_servers = 'local',
             sign_icons = {
-                error = '✘',-- '✘',
-                warn  = '▲',-- '▲',
-                hint  = '⚑',-- '∴',
-                info  = '',-- ''
-            }
+                error = '✘', -- '✘',
+                warn = '▲', -- '▲',
+                hint = '⚑', -- '∴',
+                info = '', -- ''
+            },
         }) -- }}}
 
         -- Mappings --------------------------------------------------------
@@ -36,37 +37,101 @@ return { 'VonHeikemen/lsp-zero.nvim',
             -- Enable completion triggered by <c-x><c-o> {{{
             do
                 -- interferes with vimtex
-                if not ( require('vimrc.functions').plugin_loaded('vimtex') ) then
-                    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+                if not (require('vimrc.functions').plugin_loaded('vimtex')) then
+                    vim.api.nvim_buf_set_option(
+                        bufnr,
+                        'omnifunc',
+                        'v:lua.vim.lsp.omnifunc'
+                    )
                 end
             end --  }}}
 
             -- Diagnostics Mappings. {{{
             -- See `:help vim.diagnostic.*` for documentation on any of the below functions
             local opts = { noremap = true, silent = true }
-            nmap('<Leader>ld', vim.diagnostic.open_float, opts, 'Show diagnostic in float window')
-            nmap('[d', vim.diagnostic.goto_prev, opts, 'Go to previous diagnostic')
+            nmap(
+                '<Leader>ld',
+                vim.diagnostic.open_float,
+                opts,
+                'Show diagnostic in float window'
+            )
+            nmap(
+                '[d',
+                vim.diagnostic.goto_prev,
+                opts,
+                'Go to previous diagnostic'
+            )
             nmap(']d', vim.diagnostic.goto_next, opts, 'Go to next diagnostic')
-            nmap('<Leader>lq', vim.diagnostic.setloclist, opts, 'Add buffer diagnostics to location list')
+            nmap(
+                '<Leader>lq',
+                vim.diagnostic.setloclist,
+                opts,
+                'Add buffer diagnostics to location list'
+            )
             --  }}}
             -- LSP Mappings. {{{
             -- See `:help vim.lsp.*` for documentation on any of the below functions
             local bufopts = { noremap = true, silent = true, buffer = bufnr }
             -- local extopts = function (opt1, opt2) return vim.fn.tbl_deep_extend('force', opt1, opt2) end
 
-            nmap('<Leader>lgD', vim.lsp.buf.declaration, bufopts, 'Go to declaration')
-            nmap('<Leader>lgd', vim.lsp.buf.definition, bufopts, 'Go to definition')
-            nmap('<Leader>lk', vim.lsp.buf.hover, bufopts, 'Display hover information')
-            nmap('<Leader>lgi', vim.lsp.buf.implementation, bufopts, 'List all implementations')
-            nmap('<C-k>', vim.lsp.buf.signature_help, bufopts, 'Display signature information')
+            nmap(
+                '<Leader>lgD',
+                vim.lsp.buf.declaration,
+                bufopts,
+                'Go to declaration'
+            )
+            nmap(
+                '<Leader>lgd',
+                vim.lsp.buf.definition,
+                bufopts,
+                'Go to definition'
+            )
+            nmap(
+                '<Leader>lk',
+                vim.lsp.buf.hover,
+                bufopts,
+                'Display hover information'
+            )
+            nmap(
+                '<Leader>lgi',
+                vim.lsp.buf.implementation,
+                bufopts,
+                'List all implementations'
+            )
+            nmap(
+                '<C-k>',
+                vim.lsp.buf.signature_help,
+                bufopts,
+                'Display signature information'
+            )
             -- nmap('<Leader>lwa', vim.lsp.buf.add_workspace_folder, bufopts)
             -- nmap('<Leader>lwr', vim.lsp.buf.remove_workspace_folder, bufopts)
             -- nmap('<Leader>lwl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, bufopts)
-            nmap('<Leader>lD', vim.lsp.buf.type_definition, bufopts, 'Jump to definition of the type')
-            nmap('<Leader>lrn', vim.lsp.buf.rename, bufopts, 'Rename all references of symbol')
-            nmap('<Leader>lca', vim.lsp.buf.code_action, bufopts, 'Select available code action')
-            nmap('<Leader>lre', vim.lsp.buf.references, bufopts, 'List all references to symbol')
-            nmap('<Leader>lf', function() vim.lsp.buf.format { async = false } end, bufopts, 'Format buffer using LSP')
+            nmap(
+                '<Leader>lD',
+                vim.lsp.buf.type_definition,
+                bufopts,
+                'Jump to definition of the type'
+            )
+            nmap(
+                '<Leader>lrn',
+                vim.lsp.buf.rename,
+                bufopts,
+                'Rename all references of symbol'
+            )
+            nmap(
+                '<Leader>lca',
+                vim.lsp.buf.code_action,
+                bufopts,
+                'Select available code action'
+            )
+            nmap(
+                '<Leader>lre',
+                vim.lsp.buf.references,
+                bufopts,
+                'List all references to symbol'
+            )
+            -- nmap('<Leader>lf', function() vim.lsp.buf.format { async = false } end, bufopts, 'Format buffer using LSP')
             --  }}}
         end) --  }}}
 
@@ -79,7 +144,7 @@ return { 'VonHeikemen/lsp-zero.nvim',
             },
             handlers = {
                 lsp.default_setup,
-            }
+            },
         })
 
         lsp.configure('lua_ls', { -- {{{
@@ -91,7 +156,7 @@ return { 'VonHeikemen/lsp-zero.nvim',
                     telemetry = {
                         enable = false,
                     },
-                }
+                },
             },
         }) -- }}}
 
@@ -116,7 +181,7 @@ return { 'VonHeikemen/lsp-zero.nvim',
         if require('mason-registry').is_installed('pyright') then
             -- additional tweaks to interfere less with 'pyright'
             pylsp_settings = vim.tbl_deep_extend('force', pylsp_settings, {
-                pylsp = { plugins = { pyflakes = { enabled = false } } }
+                pylsp = { plugins = { pyflakes = { enabled = false } } },
             })
         end
         lsp.configure('pylsp', {
@@ -125,9 +190,16 @@ return { 'VonHeikemen/lsp-zero.nvim',
 
         lsp.configure('ltex', { --  {{{
             filetypes = { -- expanded from default (see :h 'lspconfig-all')
-                "text", "markdown", 'asciidoc',
-                "bib", "plaintex", "tex",
-                "gitcommit", "org", "rst", "rnoweb",
+                'text',
+                'markdown',
+                'asciidoc',
+                'bib',
+                'plaintex',
+                'tex',
+                'gitcommit',
+                'org',
+                'rst',
+                'rnoweb',
             },
             settings = {
                 ltex = {
@@ -144,16 +216,16 @@ return { 'VonHeikemen/lsp-zero.nvim',
                     latexFormatter = 'latexindent',
                     latexindent = {
                         modifyLineBreaks = true,
-                    }
-                }
-            }
+                    },
+                },
+            },
         })
 
         lsp.configure('rust_analyzer', { --  {{{
             settings = {
                 ['rust-analyzer'] = {
                     check = {
-                        command = "clippy",
+                        command = 'clippy',
                     },
                 },
             },
@@ -165,7 +237,6 @@ return { 'VonHeikemen/lsp-zero.nvim',
             lsp.setup()
             vim.diagnostic.config(diagnostic_config)
         end
-
     end,
 }
 
