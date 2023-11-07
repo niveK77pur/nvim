@@ -72,8 +72,14 @@ return { 'VonHeikemen/lsp-zero.nvim',
 
         -- LSPs ------------------------------------------------------------
 
-        lsp.ensure_installed({
-            'lua_ls',
+        require('mason').setup({})
+        require('mason-lspconfig').setup({
+            ensure_installed = {
+                'lua_ls',
+            },
+            handlers = {
+                lsp.default_setup,
+            }
         })
 
         lsp.configure('lua_ls', { -- {{{
