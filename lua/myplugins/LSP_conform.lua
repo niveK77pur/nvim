@@ -21,6 +21,7 @@ return {
                 python = { 'isort', 'blue' },
                 latex = { 'latexindent' },
                 rust = { 'rustfmt' },
+                lilypond = { 'ly' },
             },
             format_on_save = function(bufnr) --  {{{
                 -- Disable with a global or buffer-local variable
@@ -56,6 +57,10 @@ return {
                         .. 'wrap_comments=true'
                         .. ','
                         .. 'format_code_in_doc_comments=true',
+                }, --  }}}
+                ly = { --  {{{
+                    command = 'ly',
+                    args = { 'reformat' },
                 }, --  }}}
             },
         })
