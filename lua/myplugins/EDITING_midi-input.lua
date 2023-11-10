@@ -2,6 +2,7 @@ return {
     -- 'niveK77pur/midi-input.nvim',
     dir = '~/Public/midi-input.nvim',
     ft = { 'lilypond' },
+    cmd = { 'MidiInputStart' },
     opts = {
         device = 'USB-MIDI MIDI 1',
         mode = 'pedal-chord',
