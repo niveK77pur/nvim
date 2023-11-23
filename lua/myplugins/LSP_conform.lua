@@ -22,6 +22,7 @@ return {
                 latex = { 'latexindent' },
                 rust = { 'rustfmt' },
                 lilypond = { 'ly' },
+                go = { { 'golines', 'goimports', 'gofmt' } },
             },
             format_on_save = function(bufnr) --  {{{
                 -- Disable with a global or buffer-local variable
