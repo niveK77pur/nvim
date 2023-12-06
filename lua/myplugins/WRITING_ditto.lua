@@ -1,7 +1,9 @@
+local filetypes = { 'tex', 'latex', 'text', 'markdown', 'asciidoc' }
+
 return {
     'dbmrq/vim-ditto',
     enabled = true,
-    ft = { 'tex', 'latex', 'text', 'markdown' },
+    ft = filetypes,
     keys = {
         {
             '<Leader>dt',
@@ -40,11 +42,14 @@ return {
         },
     },
     config = function()
-        vim.cmd([[
-            augroup ditto
-            autocmd!
-            au FileType markdown,text,       tex,latex DittoOn
-            augroup END
-        ]])
+        local augroup_Ditto = vim.api.nvim_create_augroup('Ditto', {})
+        vim.api.nvim_create_autocmd({ 'FileType' }, {
+            group = augroup_Ditto,
+            pattern = filetypes,
+            desc = 'Activate Ditto on filetypes',
+            callback = function()
+                vim.cmd([[DittoOn]])
+            end,
+        })
     end,
 }
