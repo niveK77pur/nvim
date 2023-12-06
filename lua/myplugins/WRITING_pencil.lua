@@ -1,7 +1,12 @@
 return {
     'preservim/vim-pencil',
     enabled = true,
-    ft = { 'tex', 'latex', 'text', 'clipboard' },
+    cmd = {
+        'PencilToggle',
+        'PencilOff',
+        'PencilHard',
+        'PencilSoft',
+    },
     keys = {
         { '<Leader>pt', ':PencilToggle<CR>' },
         { '<Leader>po', ':PencilOff<CR>' },
