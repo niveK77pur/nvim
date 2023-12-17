@@ -7,11 +7,12 @@ return {
     },
     enabled = true,
     config = function()
-        local lsp = require('lsp-zero')
+        local lsp_zero = require('lsp-zero')
+        local lspconfig = require('lspconfig')
 
         -- Preliminary -----------------------------------------------------
         -- lsp.preset('recommended')
-        lsp.set_preferences({ -- {{{
+        lsp_zero.set_preferences({ -- {{{
             suggest_lsp_servers = true,
             setup_servers_on_start = true,
             set_lsp_keymaps = false,
@@ -29,7 +30,7 @@ return {
 
         -- Mappings --------------------------------------------------------
 
-        lsp.on_attach(function(client, bufnr) --  {{{
+        lsp_zero.on_attach(function(client, bufnr) --  {{{
             local nmap = function(LH, RH, opts, desc)
                 opts['desc'] = desc
                 vim.keymap.set('n', LH, RH, opts)
@@ -143,11 +144,11 @@ return {
                 'lua_ls',
             },
             handlers = {
-                lsp.default_setup,
+                lsp_zero.default_setup,
             },
         })
 
-        lsp.configure('lua_ls', { -- {{{
+        lspconfig.lua_ls.setup({ -- {{{
             settings = {
                 Lua = {
                     diagnostics = {
@@ -184,11 +185,11 @@ return {
                 pylsp = { plugins = { pyflakes = { enabled = false } } },
             })
         end
-        lsp.configure('pylsp', {
+        lspconfig.pylsp.setup({
             settings = pylsp_settings,
         }) -- }}}
 
-        lsp.configure('ltex', { --  {{{
+        lspconfig.ltex.setup({ --  {{{
             filetypes = { -- expanded from default (see :h 'lspconfig-all')
                 'text',
                 'markdown',
@@ -208,7 +209,7 @@ return {
             },
         }) --  }}}
 
-        lsp.configure('texlab', {
+        lspconfig.texlab.setup({
             settings = {
                 texlab = {
                     -- formatterLineLength = vim.o.textwidth,
@@ -221,7 +222,7 @@ return {
             },
         })
 
-        lsp.configure('rust_analyzer', { --  {{{
+        lspconfig.rust_analyzer.setup({ --  {{{
             settings = {
                 ['rust-analyzer'] = {
                     check = {
@@ -234,7 +235,7 @@ return {
         -- Setup -----------------------------------------------------------
         do
             local diagnostic_config = vim.diagnostic.config()
-            lsp.setup()
+            lsp_zero.setup()
             vim.diagnostic.config(diagnostic_config)
         end
     end,
