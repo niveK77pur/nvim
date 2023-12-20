@@ -209,7 +209,7 @@ return {
             },
         }) --  }}}
 
-        lspconfig.texlab.setup({
+        lsp.configure('texlab', { --  {{{
             settings = {
                 texlab = {
                     -- formatterLineLength = vim.o.textwidth,
@@ -220,7 +220,7 @@ return {
                     },
                 },
             },
-        })
+        }) --  }}}
 
         lspconfig.rust_analyzer.setup({ --  {{{
             settings = {
