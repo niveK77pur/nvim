@@ -209,7 +209,7 @@ return {
             },
         }) --  }}}
 
-        lsp.configure('texlab', { --  {{{
+        lspconfig.texlab.setup({ --  {{{
             settings = {
                 texlab = {
                     -- formatterLineLength = vim.o.textwidth,
