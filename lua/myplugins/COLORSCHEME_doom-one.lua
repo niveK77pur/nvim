@@ -1,4 +1,5 @@
-return { 'NTBBloodbath/doom-one.nvim',
+return {
+    'NTBBloodbath/doom-one.nvim',
     enabled = false,
     init = function()
         -- Add color to cursor
@@ -32,6 +33,6 @@ return { 'NTBBloodbath/doom-one.nvim',
         vim.g.doom_one_plugin_lspsaga = false
     end,
     config = function()
-        vim.cmd("colorscheme doom-one")
+        vim.cmd('colorscheme doom-one')
     end,
 }

@@ -1,9 +1,10 @@
 -- return { 'scrooloose/nerdcommenter', enabled = false }
 
-return { 'numToStr/Comment.nvim',
+return {
+    'numToStr/Comment.nvim',
     enabled = true,
     config = function()
-        require('Comment').setup {
+        require('Comment').setup({
             -- Enable keybindings
             -- NOTE: If given `false` then the plugin won't create any mappings
             mappings = {
@@ -16,6 +17,6 @@ return { 'numToStr/Comment.nvim',
             },
             -- Changing mappings to use <Leader>c (like NERDCommenter)
             -- makes operator-pending mappings not work
-        }
+        })
     end,
 }

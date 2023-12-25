@@ -1,10 +1,15 @@
-return { 'junegunn/fzf.vim',
+return {
+    'junegunn/fzf.vim',
     enabled = false,
     config = function()
         vim.g.fzf_preview_window = { 'right,50%,<70(up,40%)', 'alt-p' }
 
-        local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
-        local imap = function(LH, RH, args) vim.keymap.set('i', LH, RH, args) end
+        local nmap = function(LH, RH, args)
+            vim.keymap.set('n', LH, RH, args)
+        end
+        local imap = function(LH, RH, args)
+            vim.keymap.set('i', LH, RH, args)
+        end
 
         -- -- FZF Commands (handled by ibhagwan/fzf-lua)
         -- nmap('<Leader>fr', ':Rg<CR>')
@@ -26,13 +31,12 @@ return { 'junegunn/fzf.vim',
         imap('<Leader><c-x><c-l>', '<plug>(fzf-complete-line)')
         imap('<Leader><c-x><c-L>', '<plug>(fzf-complete-buffer-line)')
 
-        vim.cmd[[
+        vim.cmd([[
             " Mapping selecting mappings
             nmap <leader><tab> <plug>(fzf-maps-n)
             imap <leader><tab> <plug>(fzf-maps-i)
             xmap <leader><tab> <plug>(fzf-maps-x)
             omap <leader><tab> <plug>(fzf-maps-o)
-        ]]
-
+        ]])
     end,
 }

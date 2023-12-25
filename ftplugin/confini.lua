@@ -1,1 +1,1 @@
-vim.opt.comments:remove("://")
+vim.opt.comments:remove('://')

@@ -1,4 +1,5 @@
-return { 'jbyuki/instant.nvim',
+return {
+    'jbyuki/instant.nvim',
     enabled = false,
     -- set cmd = ???
     config = function()

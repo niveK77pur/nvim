@@ -61,16 +61,15 @@ vim.opt.list = true
 -- status line set up {{{
 -- see :h stl
 vim.opt.laststatus = 2 -- show statusline: always
-vim.opt.statusline =
-    [[%<]] .. -- truncate long lines
-    [[%F]] .. -- Name of the file
-    [[%=]] .. -- left and right side
-    [[ %m]] .. -- modified flag
-    [[ %Y]] .. -- FileType in the buffer
-    [[ %03l/%L]] .. -- current line and total lines
-    [[,%02c]] .. -- column number
-    [[%V]] .. -- Virtual column number (not displayed if equal to %c)
-    [[ %P]]
+vim.opt.statusline = [[%<]] -- truncate long lines
+    .. [[%F]] -- Name of the file
+    .. [[%=]] -- left and right side
+    .. [[ %m]] -- modified flag
+    .. [[ %Y]] -- FileType in the buffer
+    .. [[ %03l/%L]] -- current line and total lines
+    .. [[,%02c]] -- column number
+    .. [[%V]] -- Virtual column number (not displayed if equal to %c)
+    .. [[ %P]]
 -- }}}
 
 -- status column set up {{{
@@ -114,21 +113,53 @@ function _G.MyFoldText(fc) -- {{{
     local folding_sign = ''
     local num_lines_folded = vim.v.foldend - vim.v.foldstart
     local foldline = {
-        spaces = vim.fn.substitute(vim.fn.getline(vim.v.foldstart), [[^\s*\zs.*]], '', ''),
-        text = vim.fn.substitute(vim.fn.getline(vim.v.foldstart), [[^\s*]], '', ''),
+        spaces = vim.fn.substitute(
+            vim.fn.getline(vim.v.foldstart),
+            [[^\s*\zs.*]],
+            '',
+            ''
+        ),
+        text = vim.fn.substitute(
+            vim.fn.getline(vim.v.foldstart),
+            [[^\s*]],
+            '',
+            ''
+        ),
     }
     local line = {
-        left = string.format("%s%s {lvl.%d} %s ", foldline['spaces'], folding_sign, vim.v.foldlevel,
-            vim.fn.substitute(foldline['text'], string.format([[\s*%s\d*\s*]], vim.fn.split(vim.o.foldmarker,',')[1]), '', '')),
-        right = string.format("[%dL]", num_lines_folded),
+        left = string.format(
+            '%s%s {lvl.%d} %s ',
+            foldline['spaces'],
+            folding_sign,
+            vim.v.foldlevel,
+            vim.fn.substitute(
+                foldline['text'],
+                string.format(
+                    [[\s*%s\d*\s*]],
+                    vim.fn.split(vim.o.foldmarker, ',')[1]
+                ),
+                '',
+                ''
+            )
+        ),
+        right = string.format('[%dL]', num_lines_folded),
     }
     -- Take into account line number column. It breaks when more columns are needed than specified, as there is no way to obtain the "effective" number column width. (i.e. the default value of 4 allows for line numbers up to 999; if you have line number 1000, then it will implicitly use 5 colums. There is no way to tell this. A hack is implemented by conditionally substracting the corresponding value.
     local fillcharcount
     if not lnum_far_right then -- put Line number at 'textwidth'
-        fillcharcount = ((vim.o.textwidth>0) or 80) - #line.left - #line.right
+        fillcharcount = ((vim.o.textwidth > 0) or 80) - #line.left - #line.right
     else -- put Line number at the very right edge
-        fillcharcount = vim.api.nvim_win_get_width(0) - #line.left - #line.right
-           - ( (vim.o.number or vim.o.relativenumber or 0) and math.max(vim.o.numberwidth, vim.o.relativenumber and -1 or #tostring(vim.fn.line('$'))+1 ) )
+        fillcharcount = vim.api.nvim_win_get_width(0)
+            - #line.left
+            - #line.right
+            - (
+                (vim.o.number or vim.o.relativenumber or 0)
+                and math.max(
+                    vim.o.numberwidth,
+                    vim.o.relativenumber and -1
+                        or #tostring(vim.fn.line('$')) + 1
+                )
+            )
         --   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^^^^^^^                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         --   if no line numbers are set, do not substract anything
         --                                                  otherwise try to determine how wide the number column is
@@ -139,7 +170,9 @@ function _G.MyFoldText(fc) -- {{{
     -- being correctly computed.
     fillcharcount = fillcharcount + 2
     -- 'repeat' is a lua keyword, we need to use a different syntax to call the function
-    return line['left'] .. vim.fn['repeat'](fillchar, fillcharcount) .. line['right']
+    return line['left']
+        .. vim.fn['repeat'](fillchar, fillcharcount)
+        .. line['right']
 end -- }}}
 vim.opt.foldtext = 'v:lua.MyFoldText()'
 vim.opt.fillchars = [[fold: ]]

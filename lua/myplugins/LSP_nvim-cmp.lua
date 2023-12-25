@@ -17,14 +17,14 @@ return {
     },
     enabled = true,
     config = function()
-        local cmp = require 'cmp'
+        local cmp = require('cmp')
         local lspkind = require('lspkind')
 
-        cmp.setup { -- {{{
+        cmp.setup({ -- {{{
             formatting = {
                 format = lspkind.cmp_format({
                     -- mode = 'symbol',
-                    symbol_map = { Codeium = "", }
+                    symbol_map = { Codeium = '' },
                 }),
                 -- fields = { "kind", "abbr", "menu" },
                 -- format = function(entry, vim_item)
@@ -41,7 +41,7 @@ return {
             },
             snippet = {
                 expand = function(args)
-                    vim.fn["UltiSnips#Anon"](args.body)
+                    vim.fn['UltiSnips#Anon'](args.body)
                 end,
             },
             window = {
@@ -64,20 +64,17 @@ return {
                     select = true,
                 }),
             }),
-            sources = cmp.config.sources(
-                {
-                    { name = 'nvim_lsp' },
-                    { name = 'ultisnips' },
-                    { name = 'nvim_lsp_signature_help' },
-                    { name = 'codeium' },
-                },
-                {
-                    -- { name = 'path', option = { trailing_slash = true } },
-                    { name = 'buffer' },
-                    { name = 'emoji', option = { insert = true } },
-                }
-            ),
-        } -- }}}
+            sources = cmp.config.sources({
+                { name = 'nvim_lsp' },
+                { name = 'ultisnips' },
+                { name = 'nvim_lsp_signature_help' },
+                { name = 'codeium' },
+            }, {
+                -- { name = 'path', option = { trailing_slash = true } },
+                { name = 'buffer' },
+                { name = 'emoji', option = { insert = true } },
+            }),
+        }) -- }}}
 
         -- -- `/` cmdline setup.
         -- cmp.setup.cmdline({ '/', '?' }, {
@@ -88,26 +85,20 @@ return {
         -- })
 
         cmp.setup.filetype('tex', { -- {{{
-            sources = cmp.config.sources(
-                {
-                    { name = 'nvim_lsp', },
-                    { name = 'ultisnips' },
-                },
-                {
-                    { name = 'omni' },
-                }
-            )
+            sources = cmp.config.sources({
+                { name = 'nvim_lsp' },
+                { name = 'ultisnips' },
+            }, {
+                { name = 'omni' },
+            }),
         }) -- }}}
 
         cmp.setup.filetype('lilypond', { -- {{{
-            sources = (
-            {
+            sources = {
                 { name = 'dictionary', keyword_length = 4 },
                 { name = 'ultisnips' },
-            }
-            )
+            },
         }) -- }}}
-
     end,
 }
 

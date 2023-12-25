@@ -1,4 +1,5 @@
-return { 'matze/vim-move',
+return {
+    'matze/vim-move',
     enabled = false,
     config = function()
         -- vim.g.move_key_modifier = 'S-A'

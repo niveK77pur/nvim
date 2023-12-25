@@ -1,4 +1,5 @@
-return { 'martineausimon/nvim-lilypond-suite',
+return {
+    'martineausimon/nvim-lilypond-suite',
     dependencies = {
         'MunifTanjim/nui.nvim',
         { 'uga-rosa/cmp-dictionary', dependencies = { 'hrsh7th/nvim-cmp' } },
@@ -6,39 +7,40 @@ return { 'martineausimon/nvim-lilypond-suite',
     enabled = true,
     ft = { 'lilypond' },
     config = function()
-        require('nvls').setup {
+        require('nvls').setup({
             lilypond = {
                 mappings = {
-                    player = "<F3>",
-                    compile = "<F5>",
-                    open_pdf = "<F6>",
-                    switch_buffers = "<F2>",
-                    insert_version = "<F4>"
+                    player = '<F3>',
+                    compile = '<F5>',
+                    open_pdf = '<F6>',
+                    switch_buffers = '<F2>',
+                    insert_version = '<F4>',
                 },
                 options = {
-                    pitches_language = "default",
-                    output = "pdf",
+                    pitches_language = 'default',
+                    output = 'pdf',
                     -- main_file = "main.ly"
                     include_dir = {
                         './openlilylib',
                     },
                 },
             },
-        }
+        })
 
         vim.api.nvim_create_autocmd('QuickFixCmdPost', {
-            command = "cwindow",
-            pattern = "*"
+            command = 'cwindow',
+            pattern = '*',
         })
         vim.api.nvim_create_autocmd('BufEnter', {
-            command = "syntax sync fromstart",
-            pattern = { '*.ly', '*.ily', '*.tex' }
+            command = 'syntax sync fromstart',
+            pattern = { '*.ly', '*.ily', '*.tex' },
         })
 
-        local LILYDICTPATH = require('lazy.core.config').plugins['nvim-lilypond-suite'].dir .. '/lilywords'
-        require('cmp_dictionary').setup {
+        local LILYDICTPATH = require('lazy.core.config').plugins['nvim-lilypond-suite'].dir
+            .. '/lilywords'
+        require('cmp_dictionary').setup({
             dic = { --  {{{
-                ["lilypond"] = {
+                ['lilypond'] = {
                     LILYDICTPATH .. '/accidentalsStyles',
                     LILYDICTPATH .. '/articulations',
                     LILYDICTPATH .. '/clefs',
@@ -58,10 +60,10 @@ return { 'martineausimon/nvim-lilypond-suite',
                     LILYDICTPATH .. '/repeatTypes',
                     LILYDICTPATH .. '/scales',
                     LILYDICTPATH .. '/translators',
-                }
-            } --  }}}
-        }
-    end
+                },
+            }, --  }}}
+        })
+    end,
 }
 
 -- vim: fdm=marker

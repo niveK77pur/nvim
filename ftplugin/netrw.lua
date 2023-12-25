@@ -1,11 +1,11 @@
 -- https://vonheikemen.github.io/devlog/tools/using-netrw-vim-builtin-file-explorer/
 
-vim.keymap.set("n", "<Leader>ee", ":Lexplore %:p:h<CR>")
-vim.keymap.set("n", "<Leader>ep", ":Lexplore<CR>")
-vim.keymap.set("n", "qq", ":Lexplore<CR>")
+vim.keymap.set('n', '<Leader>ee', ':Lexplore %:p:h<CR>')
+vim.keymap.set('n', '<Leader>ep', ':Lexplore<CR>')
+vim.keymap.set('n', 'qq', ':Lexplore<CR>')
 
 -- go back in history
-vim.keymap.set("n", "H", "u", { buffer = true })
+vim.keymap.set('n', 'H', 'u', { buffer = true })
 
 -- move up a directory
 vim.keymap.set('n', 'h', '-^', { buffer = true })

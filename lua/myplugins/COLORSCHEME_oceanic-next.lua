@@ -1,4 +1,5 @@
-return { 'mhartington/oceanic-next',
+return {
+    'mhartington/oceanic-next',
     enabled = false,
     init = function()
         vim.g.oceanic_next_terminal_bold = 1
@@ -13,6 +14,6 @@ return { 'mhartington/oceanic-next',
         -- ]]
     end,
     config = function()
-        vim.cmd 'colorscheme OceanicNext'
+        vim.cmd('colorscheme OceanicNext')
     end,
 }

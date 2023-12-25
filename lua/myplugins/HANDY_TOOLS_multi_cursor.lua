@@ -1,4 +1,6 @@
-return { 'mg979/vim-visual-multi', branch = 'master',
+return {
+    'mg979/vim-visual-multi',
+    branch = 'master',
     enabled = true,
     config = function()
         vim.g.VM_leader = [[\]]
@@ -10,8 +12,8 @@ return { 'mg979/vim-visual-multi', branch = 'master',
         vim.keymap.set('n', '<M-C-RightMouse>', '<Plug>(VM-Mouse-Column)')
         vim.g.VM_maps = {
             -- https://github.com/mg979/vim-visual-multi/wiki/Quick-start#undoredo
-            ["Undo"] = 'u',
-            ["Redo"] = '<C-r>',
+            ['Undo'] = 'u',
+            ['Redo'] = '<C-r>',
         }
     end,
 }

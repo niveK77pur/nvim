@@ -1,4 +1,5 @@
-return { 'tpope/vim-surround',
+return {
+    'tpope/vim-surround',
     enabled = false,
     config = function()
         local map = vim.keymap.set
@@ -6,5 +7,5 @@ return { 'tpope/vim-surround',
         vim.g.surround_no_mappings = true
         map('n', 'ds', '<Plug>Dsurround')
         map('n', 'cs', '<Plug>Csurround')
-    end
+    end,
 }

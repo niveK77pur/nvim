@@ -1,6 +1,7 @@
-return { 'yonlu/omni.vim',
+return {
+    'yonlu/omni.vim',
     enabled = false,
     config = function()
-        vim.cmd 'colorscheme omni'
-    end
+        vim.cmd('colorscheme omni')
+    end,
 }

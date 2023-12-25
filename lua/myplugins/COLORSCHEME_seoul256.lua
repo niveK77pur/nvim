@@ -1,4 +1,5 @@
-return { 'shaunsingh/seoul256.nvim',
+return {
+    'shaunsingh/seoul256.nvim',
     enabled = false,
     -- init = function()
     --     vim.g.seoul256_italic_comments = true

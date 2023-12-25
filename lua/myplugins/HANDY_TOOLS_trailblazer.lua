@@ -1,11 +1,11 @@
 local new_trail_mark_key = '<A-l>'
 return {
-    "LeonHeidelbach/trailblazer.nvim",
+    'LeonHeidelbach/trailblazer.nvim',
     -- dependencies =  { 'colorscheme' },
     enabled = true,
     keys = { new_trail_mark_key },
     config = function()
-        require("trailblazer").setup({
+        require('trailblazer').setup({
             force_mappings = {
                 nv = { -- Mode union: normal & visual mode. Can be extended by adding i, x, ...
                     motions = {
@@ -33,13 +33,13 @@ return {
             },
             trail_options = {
                 -- https://github.com/LeonHeidelbach/trailblazer.nvim/discussions/3#discussioncomment-4765300
-                newest_mark_symbol   = "󰎔",
-                cursor_mark_symbol   = "󰁖",
-                next_mark_symbol     = "󰙡",
-                previous_mark_symbol = "󰙣",
+                newest_mark_symbol = '󰎔',
+                cursor_mark_symbol = '󰁖',
+                next_mark_symbol = '󰙡',
+                previous_mark_symbol = '󰙣',
                 multiple_mark_symbol_counters_enabled = false,
                 trail_mark_symbol_line_indicators_enabled = true,
-            }
+            },
         })
     end,
 }

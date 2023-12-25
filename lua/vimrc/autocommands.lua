@@ -15,7 +15,7 @@
 --         au BufNewFile *.swift 0r $HOME/.vim/skeletons/Swift/foundation.swift
 --         au BufNewFile *.html  0r $HOME/.vim/skeletons/HTML/new.html
 --         "au BufNewFile *.ly  call NewLilypond()
--- 
+--
 --         au BufNewFile description.txt 0r $HOME/.vim/skeletons/Miscellaneous/Youtube_description.txt
 -- augroup END
 -- "}}}
@@ -23,23 +23,27 @@
 local augroup_skeletons = vim.api.nvim_create_augroup('skeletons', {})
 
 local skeleton_map = {
-    ['*.pas']   = vim.fn.stdpath('config') .. '/skeletons/Pascal/template_consoleApp.pas',
-    ['*.py']    = vim.fn.stdpath('config') .. '/skeletons/Python/HashBang.py',
-    ['*.lua']   = vim.fn.stdpath('config') .. '/skeletons/Lua/HashBang.py',
-    ['*.sh']    = vim.fn.stdpath('config') .. '/skeletons/Bash/HashBang.sh',
-    ['*.yml']   = vim.fn.stdpath('config') .. '/skeletons/Yaml/new.yml',
-    ['*.tex']   = vim.fn.stdpath('config') .. '/skeletons/Latex/new.tex',
-    ['*.swift'] = vim.fn.stdpath('config') .. '/skeletons/Swift/foundation.swift',
-    ['*.html']  = vim.fn.stdpath('config') .. '/skeletons/HTML/new.html',
-    ['description.txt'] = vim.fn.stdpath('config') .. '/skeletons/Miscellaneous/Youtube_description.txt',
-    ['description.adoc'] = vim.fn.stdpath('config') .. '/skeletons/Miscellaneous/Youtube_description.adoc',
+    ['*.pas'] = vim.fn.stdpath('config')
+        .. '/skeletons/Pascal/template_consoleApp.pas',
+    ['*.py'] = vim.fn.stdpath('config') .. '/skeletons/Python/HashBang.py',
+    ['*.lua'] = vim.fn.stdpath('config') .. '/skeletons/Lua/HashBang.py',
+    ['*.sh'] = vim.fn.stdpath('config') .. '/skeletons/Bash/HashBang.sh',
+    ['*.yml'] = vim.fn.stdpath('config') .. '/skeletons/Yaml/new.yml',
+    ['*.tex'] = vim.fn.stdpath('config') .. '/skeletons/Latex/new.tex',
+    ['*.swift'] = vim.fn.stdpath('config')
+        .. '/skeletons/Swift/foundation.swift',
+    ['*.html'] = vim.fn.stdpath('config') .. '/skeletons/HTML/new.html',
+    ['description.txt'] = vim.fn.stdpath('config')
+        .. '/skeletons/Miscellaneous/Youtube_description.txt',
+    ['description.adoc'] = vim.fn.stdpath('config')
+        .. '/skeletons/Miscellaneous/Youtube_description.adoc',
 }
 
 for extension, file in pairs(skeleton_map) do
     vim.api.nvim_create_autocmd({ 'BufNewFile' }, {
         group = augroup_skeletons,
         pattern = { extension },
-        desc = ("Insert skeleton on %s"):format(extension),
+        desc = ('Insert skeleton on %s'):format(extension),
         command = ('0r %s'):format(file),
     })
 end
@@ -69,22 +73,27 @@ do -- lua/vimrc/functions.lua {{{
         local tree = parser:parse()
         local root = tree[1]:root()
 
-        local query = vim.treesitter.parse_query(parser:lang(), [[
+        local query = vim.treesitter.parse_query(
+            parser:lang(),
+            [[
             (function_declaration) @fnblock
-        ]])
+        ]]
+        )
 
-        for _, match, _ in query:iter_captures(root,0) do
+        for _, match, _ in query:iter_captures(root, 0) do
             local r1, c1, r2, c2 = match:range()
-            local fold_level = setFoldLevelRegion(1, lnum, r1+1, r2+1)
+            local fold_level = setFoldLevelRegion(1, lnum, r1 + 1, r2 + 1)
             if fold_level then
                 return fold_level
             end
         end
         return '='
     end
-    vim.api.nvim_create_autocmd({ "BufRead" }, {
+    vim.api.nvim_create_autocmd({ 'BufRead' }, {
         group = augroup_MyVIMRC,
-        pattern = { ('%s/lua/vimrc/functions.lua'):format(vim.fn.stdpath('config')) },
+        pattern = {
+            ('%s/lua/vimrc/functions.lua'):format(vim.fn.stdpath('config')),
+        },
         desc = "Set foldexpr for 'vimrc.function' module file",
         callback = function()
             vim.wo.foldmethod = 'expr'
@@ -187,10 +196,10 @@ end -- }}}
 -- end -- }}}
 
 do -- UltiSnips snippet files {{{
-    vim.api.nvim_create_autocmd({ "BufRead" }, {
+    vim.api.nvim_create_autocmd({ 'BufRead' }, {
         group = augroup_MyVIMRC,
-        pattern = { "*.snippets" },
-        desc = "Set foldexpr for UltiSnips snippet files",
+        pattern = { '*.snippets' },
+        desc = 'Set foldexpr for UltiSnips snippet files',
         callback = function()
             vim.wo.foldlevel = 0
         end,

@@ -1,4 +1,5 @@
-return { 'ggandor/leap.nvim',
+return {
+    'ggandor/leap.nvim',
     enabled = true,
     config = function()
         local l = require('leap')
@@ -28,5 +29,5 @@ return { 'ggandor/leap.nvim',
         --             "target"
         --     }
         -- )
-    end
+    end,
 }

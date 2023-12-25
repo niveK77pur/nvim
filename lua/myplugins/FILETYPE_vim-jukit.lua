@@ -1,4 +1,5 @@
-return { 'luk400/vim-jukit',
+return {
+    'luk400/vim-jukit',
     enabled = true,
     event = 'BufRead *.ipynb',
     init = function()
@@ -6,7 +7,7 @@ return { 'luk400/vim-jukit',
         vim.g.jukit_mappings = 0
     end,
     config = function()
-        vim.cmd[[
+        vim.cmd([[
             " Splits
             nnoremap <LocalLeader>os :call jukit#splits#output()<cr>
             nnoremap <LocalLeader>od :call jukit#splits#close_output_split()<cr>
@@ -33,7 +34,6 @@ return { 'luk400/vim-jukit',
             nnoremap <LocalLeader>cj :call jukit#cells#move_down()<cr>
             " ipynb conversion
             nnoremap <LocalLeader>np :call jukit#convert#notebook_convert("jupyter-notebook")<cr>
-        ]]
+        ]])
     end,
-
 }

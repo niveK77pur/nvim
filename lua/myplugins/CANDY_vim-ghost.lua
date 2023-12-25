@@ -1,9 +1,10 @@
-return { 'raghur/vim-ghost',
+return {
+    'raghur/vim-ghost',
     enabled = false,
     build = ':GhostInstall',
     cmd = { 'GhostInstall', 'GhostStart' },
     config = function()
-        vim.cmd [[
+        vim.cmd([[
             function! s:SetupGhostBuffer()
                 " mappings
                 nmap <buffer> ZZ :%bdelete!<CR>
@@ -30,6 +31,6 @@ return { 'raghur/vim-ghost',
                 au!
                 au User vim-ghost#connected call s:SetupGhostBuffer()
             augroup END
-        ]]
+        ]])
     end,
 }

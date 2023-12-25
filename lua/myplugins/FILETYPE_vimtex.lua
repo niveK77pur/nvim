@@ -1,8 +1,11 @@
-return { 'lervag/vimtex',
+return {
+    'lervag/vimtex',
     enabled = true,
     ft = { 'latex', 'tex', 'plaintex', 'context', 'bib' },
     config = function()
-        local nmap = function(LH, RH, args) vim.keymap.set('n', LH, RH, args) end
+        local nmap = function(LH, RH, args)
+            vim.keymap.set('n', LH, RH, args)
+        end
         -- Settings --
         vim.g.vimtex_view_method = 'zathura'
         vim.g.vimtex_fold_enabled = 1

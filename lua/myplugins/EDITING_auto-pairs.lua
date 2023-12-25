@@ -1,7 +1,9 @@
-return { 'LunarWatcher/auto-pairs',
+return {
+    'LunarWatcher/auto-pairs',
     enabled = true,
     config = function()
-        local augroup = vim.api.nvim_create_augroup('AutoPairsVim', { clear = false })
+        local augroup =
+            vim.api.nvim_create_augroup('AutoPairsVim', { clear = false })
         vim.api.nvim_create_autocmd('FileType', {
             group = augroup,
             pattern = { 'lilypond' },

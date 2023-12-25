@@ -93,7 +93,8 @@ function _G.EditionEngraverProbeVoices() --  {{{
         )
     end
     local curr_linenr = vim.api.nvim_win_get_cursor(0)[1]
-    local next_line = vim.api.nvim_buf_get_lines(0, curr_linenr, curr_linenr+1, false)[1]
+    local next_line =
+        vim.api.nvim_buf_get_lines(0, curr_linenr, curr_linenr + 1, false)[1]
     if vim.fn.empty(next_line) == 0 then
         -- insert blank line for easy delition with dap
         table.insert(probes, '')

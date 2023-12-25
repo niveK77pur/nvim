@@ -1,4 +1,5 @@
-return { 'sainnhe/everforest',
+return {
+    'sainnhe/everforest',
     enabled = false,
     init = function()
         vim.g.everforest_transparent_background = 1
