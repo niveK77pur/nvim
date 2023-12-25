@@ -94,6 +94,32 @@ return {
         nmap('<Leader>f/', function()
             fzflua.search_history()
         end, { desc = 'FZF: serach history' })
+        nmap('<Leader>ft', function()
+            fzflua.fzf_live(function(query)
+                local todo_patterns = { 'TODO', 'todo!' }
+                local lines = {}
+                local process = io.popen(
+                    string.format(
+                        [[rg --smart-case --column --color=always -- '%s']],
+                        query
+                    )
+                )
+                if not process then
+                    return { 'Failed to execute ripgrep command' }
+                end
+                for line in process:lines() do
+                    for _, pattern in ipairs(todo_patterns) do
+                        if line:match(pattern) then
+                            table.insert(lines, line)
+                        end
+                    end
+                end
+                return lines
+            end, {
+                prompt = 'TODO> ',
+                exec_empty_query = true,
+            })
+        end, { desc = 'FZF: search TODOs' })
 
         -- suggestions
         nmap('z=', function()
