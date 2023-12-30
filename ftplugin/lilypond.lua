@@ -277,14 +277,17 @@ function _G.SetMeasureCounts() --  {{{
                 highest_local_measure = measure,
             })
         end
-        if vim.regex([[\\\\\|\\new\s\+Voice]]):match_str(line) then
+        if
+            vim.regex([[\\\\\|\\new\s\+Voice]]):match_str(line)
+            and polyphony_start_measure[1]
+        then
             -- new voice started
             if measure > polyphony_start_measure[1].highest_local_measure then
                 polyphony_start_measure[1].highest_local_measure = measure
             end
             measure = polyphony_start_measure[1].measure
         end
-        if vim.regex([[>>]]):match_str(line) then
+        if vim.regex([[>>]]):match_str(line) and polyphony_start_measure[1] then
             -- polyphony ended
             if measure < polyphony_start_measure[1].highest_local_measure then
                 measure = polyphony_start_measure[1].highest_local_measure
