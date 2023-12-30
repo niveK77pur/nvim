@@ -1,7 +1,9 @@
+local cmd_name_disable = 'ConformDisable'
+local cmd_name_enable = 'ConformEnable'
 return {
     'stevearc/conform.nvim',
     event = { 'BufWritePre' },
-    cmd = { 'ConformInfo' },
+    cmd = { 'ConformInfo', cmd_name_disable, cmd_name_enable },
     keys = {
         {
             -- Customize or remove this keymap to your liking
@@ -71,7 +73,7 @@ return {
         })
         -- Command to toggle format-on-save {{{
         -- https://github.com/stevearc/conform.nvim/blob/master/doc/recipes.md#command-to-toggle-format-on-save
-        vim.api.nvim_create_user_command('ConformDisable', function(args)
+        vim.api.nvim_create_user_command(cmd_name_disable, function(args)
             if args.bang then
                 -- ConformDisable! will disable formatting just for this buffer
                 vim.b.disable_autoformat = true
@@ -82,7 +84,7 @@ return {
             desc = 'Disable autoformat-on-save',
             bang = true,
         })
-        vim.api.nvim_create_user_command('ConformEnable', function()
+        vim.api.nvim_create_user_command(cmd_name_enable, function()
             vim.b.disable_autoformat = false
             vim.g.disable_autoformat = false
         end, {
