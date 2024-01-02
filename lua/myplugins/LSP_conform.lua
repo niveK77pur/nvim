@@ -25,6 +25,7 @@ return {
                 rust = { 'rustfmt' },
                 lilypond = { 'ly' },
                 go = { { 'golines', 'goimports', 'gofmt' } },
+                sh = { { 'shfmt' } },
             },
             format_on_save = function(bufnr) --  {{{
                 -- Disable with a global or buffer-local variable
@@ -37,7 +38,7 @@ return {
             end, --  }}}
             formatters = {
                 shfmt = { --  {{{
-                    prepend_args = { '-i', '2' },
+                    prepend_args = { '-i', 4, '-s' },
                 }, --  }}}
                 stylua = { --  {{{
                     prepend_args = {
