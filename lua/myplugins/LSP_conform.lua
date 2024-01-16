@@ -55,15 +55,15 @@ return {
                         '--edition',
                         '2021',
                         '--config',
-                        'max_width='
-                            .. column_width
+                        'format_code_in_doc_comments=true'
                             .. ','
-                            .. 'comment_width='
-                            .. column_width
-                            .. ','
-                            .. 'wrap_comments=true'
-                            .. ','
-                            .. 'format_code_in_doc_comments=true',
+                            .. 'wrap_comments=true',
+                        -- .. ','
+                        -- .. 'max_width='
+                        -- .. column_width
+                        -- .. ','
+                        -- .. 'comment_width='
+                        -- .. column_width,
                     },
                 }, --  }}}
                 ly = { --  {{{
