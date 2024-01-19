@@ -121,6 +121,10 @@ return {
 
         -- `:help vim.ui.select` for more info
         fzflua.register_ui_select()
+        vim.cmd([[
+            augroup fzflua
+            au fzflua FileType java lua require('fzf-lua').deregister_ui_select()
+        ]])
     end,
 }
 
