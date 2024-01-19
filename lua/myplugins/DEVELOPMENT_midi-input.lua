@@ -1,6 +1,7 @@
 return {
     -- 'niveK77pur/midi-input.nvim',
     dir = '~/Public/midi-input.nvim',
+    enabled = true,
     ft = { 'lilypond' },
     cmd = { 'MidiInputStart' },
     opts = {

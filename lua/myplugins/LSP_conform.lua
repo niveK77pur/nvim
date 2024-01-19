@@ -2,6 +2,7 @@ local cmd_name_disable = 'ConformDisable'
 local cmd_name_enable = 'ConformEnable'
 return {
     'stevearc/conform.nvim',
+    enabled = true,
     event = { 'BufWritePre' },
     cmd = { 'ConformInfo', cmd_name_disable, cmd_name_enable },
     keys = {
@@ -26,6 +27,7 @@ return {
                 lilypond = { 'ly' },
                 go = { { 'golines', 'goimports', 'gofmt' } },
                 sh = { { 'shfmt' } },
+                java = { 'google-java-format' },
             },
             format_on_save = function(bufnr) --  {{{
                 -- Disable with a global or buffer-local variable

@@ -1,1 +1,6 @@
-return { 'folke/neodev.nvim', ft = 'lua', opts = {} }
+return {
+    'folke/neodev.nvim',
+    enabled = true,
+    ft = 'lua',
+    opts = {},
+}
