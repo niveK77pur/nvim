@@ -232,6 +232,21 @@ return {
             },
         }) --  }}}
 
+        lspconfig.jdtls.setup({
+            settings = {
+                redhat = { telemetry = { enabled = false } },
+            },
+            -- handlers = {
+            --     -- https://www.reddit.com/r/neovim/comments/1172p03/comment/j9e37o9/?utm_source=share&utm_medium=web2x&context=3
+            --     ['language/status'] = function(_, result)
+            --         -- disable status updates.
+            --     end,
+            --     ['$/progress'] = function(_, result, ctx)
+            --         -- disable progress updates.
+            --     end,
+            -- },
+        })
+
         -- Setup -----------------------------------------------------------
         do
             local diagnostic_config = vim.diagnostic.config()
