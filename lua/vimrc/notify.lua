@@ -13,3 +13,5 @@ local function my_notify(msg, level, opts)
 end
 
 vim.notify = my_notify
+
+vim.g.notify_log_level = vim.log.levels.INFO
