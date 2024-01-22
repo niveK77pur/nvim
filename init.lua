@@ -11,6 +11,7 @@ local vimrc_files = {
     'vimrc.settings',
     'vimrc.commands',
     'vimrc.autocommands',
+    'vimrc.notify',
 }
 
 for _, vfile in pairs(vimrc_files) do
