@@ -102,6 +102,88 @@ function _G.EditionEngraverProbeVoices() --  {{{
     vim.api.nvim_buf_set_lines(0, curr_linenr, curr_linenr, false, probes)
 end --  }}}
 
+---Collect, sort and regroup all `\editionMod` statements at the end of the file
+function _G.EditionEngraverSortStatements()
+    ---@class (exact) EditionMod
+    ---@field ln_start number? Start line number of statement
+    ---@field ln_end number? End line number of statement
+    ---@field lines string[] Lines of the statement
+    ---@field name string? Name of the edition
+    ---@field measure number? Measure number of the edition
+
+    ---@type EditionMod[]
+    local edition_mods = {}
+    ---@type boolean Needed to track multi-line `\editionMod`
+    local in_block
+    ---@type boolean Needed to track empty lines after `\editionMod`
+    local after_block = false
+    for i, line in ipairs(vim.api.nvim_buf_get_lines(0, 0, -1, true)) do
+        local name, measure = line:match([[^%s*\editionMod%s+(%w+)%s+(%d+)]])
+        local line_nr = i - 1
+        if name ~= nil and measure ~= nil then
+            table.insert(edition_mods, {
+                ln_start = line_nr,
+                ln_end = line_nr + 1,
+                lines = { line },
+                name = name,
+                measure = tonumber(measure),
+            })
+            if line:match('{') then
+                in_block = true
+                after_block = false
+            else
+                in_block = false
+                after_block = true
+            end
+        end
+        local last_edition = edition_mods[#edition_mods]
+        if in_block and line_nr > last_edition.ln_start then
+            -- do not include the lin
+            table.insert(last_edition.lines, line)
+        end
+        if in_block and line:match('}') then
+            in_block = false
+            after_block = true
+            last_edition.ln_end = line_nr + 1
+        end
+        -- also keep track of trailing empty lines
+        if after_block and line_nr >= last_edition.ln_end then
+            if vim.fn.empty(vim.trim(line)) == 1 then
+                last_edition.ln_end = line_nr + 1
+            else
+                -- we hit a non-empty line which was not a `\editionMod`
+                after_block = false
+            end
+        end
+    end
+    -- Remove the `\editionMod` statements.
+    -- List needs to be reversed, as otherwise the line numbers after
+    -- deleted lines will be incorrect. So we essentially go bottom to top.
+    for _, entry in ipairs(vim.fn.reverse(edition_mods)) do
+        vim.api.nvim_buf_set_lines(0, entry.ln_start, entry.ln_end, true, {})
+    end
+    -- Sort the `\editionMod`
+    table.sort(edition_mods, function(a, b)
+        if a.measure == b.measure then
+            return a.name < b.name
+        end
+        return a.measure < b.measure
+    end)
+    -- Regroup the `\editionMod` statemnts by paragraphs
+    local prev_measure = edition_mods[1].measure
+    for i, entry in ipairs(edition_mods) do
+        local curr_measure = entry.measure
+        if prev_measure ~= curr_measure then
+            prev_measure = curr_measure
+            table.insert(edition_mods, i, { lines = { '' } })
+        end
+    end
+    -- Put the `\editionMod` statements at the end of the file
+    for _, edition in ipairs(edition_mods) do
+        vim.api.nvim_buf_set_lines(0, -1, -1, true, edition.lines)
+    end
+end
+
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --                                   Commands
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -117,6 +199,14 @@ vim.api.nvim_create_user_command(
     [[:lua _G.EditionEngraverProbeVoices()]],
     {
         desc = 'Probe all voices A-Z (excluding R) for the edition engraver',
+    }
+)
+
+vim.api.nvim_create_user_command(
+    'SortEditionMod',
+    [[:lua _G.EditionEngraverSortStatements()]],
+    {
+        desc = [[Collect, sort and regroup all `\editionMod` statements at the end of the file]],
     }
 )
 
