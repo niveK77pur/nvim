@@ -4,6 +4,7 @@ return {
         'neovim/nvim-lspconfig',
         'williamboman/mason.nvim',
         'williamboman/mason-lspconfig.nvim',
+        'folke/neodev.nvim', -- neodev needs to be setup before lspconfig
     },
     enabled = true,
     config = function()
