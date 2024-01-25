@@ -6,7 +6,8 @@ return {
         -- vim.cmd([[TSUpdate]])
     end,
     config = function()
-        require('nvim-treesitter.configs').setup({
+        ---@diagnostic disable-next-line: missing-fields
+        require('nvim-treesitter.configs').setup({ --  {{{1
             -- A list of parser names, or "all"
             -- ensure_installed = { "c", "lua", "rust" },
 
@@ -31,5 +32,8 @@ return {
             indent = { enable = false },
             -- textobjects = { enable = true },
         })
+        --  }}}1
     end,
 }
+
+-- vim: fdm=marker
