@@ -3,7 +3,7 @@ return {
     enabled = true,
     build = function()
         require('nvim-treesitter.install').update({ with_sync = true })
-        vim.cmd([[TSUpdateSync]])
+        -- vim.cmd([[TSUpdate]])
     end,
     config = function()
         require('nvim-treesitter.configs').setup({
