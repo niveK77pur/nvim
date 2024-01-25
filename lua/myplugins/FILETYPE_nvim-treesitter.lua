@@ -6,6 +6,8 @@ return {
         -- vim.cmd([[TSUpdate]])
     end,
     config = function()
+        local parser_config =
+            require('nvim-treesitter.parsers').get_parser_configs()
         ---@diagnostic disable-next-line: missing-fields
         require('nvim-treesitter.configs').setup({ --  {{{1
             -- A list of parser names, or "all"
@@ -32,6 +34,18 @@ return {
             indent = { enable = false },
             -- textobjects = { enable = true },
         })
+        ---@diagnostic disable-next-line: inject-field
+        parser_config.lilypond = { --  {{{1
+            install_info = {
+                url = 'https://github.com/tristanperalta/tree-sitter-lilypond',
+                files = { 'src/parser.c' },
+                -- optional entries:
+                -- branch = 'main', -- default branch in case of git repo if different from master
+                -- generate_requires_npm = false, -- if stand-alone parser without npm dependencies
+                -- requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
+            },
+            -- filetype = 'lilypond', -- if filetype does not match the parser name
+        }
         --  }}}1
     end,
 }
