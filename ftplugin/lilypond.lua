@@ -103,7 +103,7 @@ function _G.EditionEngraverProbeVoices() --  {{{
 end --  }}}
 
 ---Collect, sort and regroup all `\editionMod` statements at the end of the file
-function _G.EditionEngraverSortStatements()
+function _G.EditionEngraverSortStatements() --  {{{
     ---@class (exact) EditionMod
     ---@field ln_start number? Start line number of statement
     ---@field ln_end number? End line number of statement
@@ -182,7 +182,7 @@ function _G.EditionEngraverSortStatements()
     for _, edition in ipairs(edition_mods) do
         vim.api.nvim_buf_set_lines(0, -1, -1, true, edition.lines)
     end
-end
+end --  }}}
 
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --                                   Commands
