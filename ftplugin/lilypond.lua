@@ -75,7 +75,7 @@ end --  }}}
 function _G.EditionEngraverProbeVoices() --  {{{
     local command, edition, measure, moment, context = vim.api
         .nvim_get_current_line()
-        :match([[(\editionMod)%s+(%w+)%s+(%d+)%s+(%d+/%d+)%s+(%w+%.Voice)]])
+        :match([[(\editionMod)%s+(%w+)%s+(%d+)%s+(%d+/%d+)%s+(%w+%.%w+)]])
     local probes = { '' }
     for voice in string.gmatch('ABCDEFGHIJKLMNOPQSTUVWXYZ', '%w') do
         table.insert(
