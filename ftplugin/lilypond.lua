@@ -163,11 +163,15 @@ function _G.EditionEngraverSortStatements() --  {{{
         vim.api.nvim_buf_set_lines(0, entry.ln_start, entry.ln_end, true, {})
     end
     -- Sort the `\editionMod`
-    table.sort(edition_mods, function(a, b)
+    edition_mods = vim.fn.sort(edition_mods, function(a, b)
         if a.measure == b.measure then
-            return a.name < b.name
+            if a.name == b.name then
+                return 0
+            else
+                return a.name > b.name and 1 or -1
+            end
         end
-        return a.measure < b.measure
+        return a.measure > b.measure and 1 or -1
     end)
     -- Regroup the `\editionMod` statemnts by paragraphs
     local prev_measure = edition_mods[1].measure
