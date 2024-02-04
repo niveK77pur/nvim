@@ -77,9 +77,18 @@ return {
 
         -- require('telescope.sorters').get_fzy_sorter()
         -- https://github.com/nvim-telescope/telescope-fzy-native.nvim
+        local actions = require('telescope.actions')
         require('telescope').setup({
             defaults = {
                 layout_strategy = 'flex',
+                mappings = {
+                    i = {
+                        ['<C-u>'] = actions.results_scrolling_up,
+                        ['<C-d>'] = actions.results_scrolling_down,
+                        ['<C-b>'] = actions.preview_scrolling_up,
+                        ['<C-f>'] = actions.preview_scrolling_down,
+                    },
+                },
             },
             extensions = {
                 fzy_native = {
