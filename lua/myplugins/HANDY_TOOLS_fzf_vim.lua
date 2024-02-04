@@ -11,18 +11,18 @@ return {
             vim.keymap.set('i', LH, RH, args)
         end
 
-        -- -- FZF Commands (handled by ibhagwan/fzf-lua)
-        -- nmap('<Leader>fr', ':Rg<CR>')
-        -- nmap('<Leader>ff', ':Files<CR>')
-        -- nmap('<Leader>fg', ':GFiles<CR>')
-        -- nmap('<Leader>fb', ':Buffers<CR>')
-        -- nmap('<Leader>fl', ':BLines<CR>')
-        -- nmap('<Leader>fL', ':Lines<CR>')
-        -- nmap('<Leader>fh', ':Helptags<CR>')
-        -- nmap('<Leader>fm', ':Marks<CR>')
-        -- nmap('<Leader>f:', ':History:<CR>')
-        -- nmap('<Leader>f/', ':History/:<CR>')
-        -- nmap('<Leader>fs', ':Snippets:<CR>')
+        -- FZF Commands
+        nmap('<Leader>fr', ':Rg<CR>')
+        nmap('<Leader>ff', ':Files<CR>')
+        nmap('<Leader>fg', ':GFiles<CR>')
+        nmap('<Leader>fb', ':Buffers<CR>')
+        nmap('<Leader>fl', ':BLines<CR>')
+        nmap('<Leader>fL', ':Lines<CR>')
+        nmap('<Leader>fh', ':Helptags<CR>')
+        nmap('<Leader>fm', ':Marks<CR>')
+        nmap('<Leader>f:', ':History:<CR>')
+        nmap('<Leader>f/', ':History/:<CR>')
+        nmap('<Leader>fs', ':Snippets:<CR>')
 
         -- Insert mode completion
         imap('<Leader><c-x><c-k>', '<plug>(fzf-complete-word)')
