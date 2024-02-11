@@ -22,7 +22,7 @@ return {
             formatters_by_ft = {
                 lua = { 'stylua' },
                 python = { 'isort', 'blue' },
-                latex = { 'latexindent' },
+                tex = { 'latexindent' },
                 rust = { 'rustfmt' },
                 lilypond = { 'ly' },
                 go = { { 'golines', 'goimports', 'gofmt' } },
