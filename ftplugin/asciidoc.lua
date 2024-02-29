@@ -39,7 +39,7 @@ vim.api.nvim_create_user_command('MDSectionID', function()
     local cursor_line = vim.api.nvim_win_get_cursor(0)[1]
     local title_line = vim.api.nvim_get_current_line()
     local github_id =
-        vim.fn.substitute(title_line, '\\v[[:space:]]+', [[-]], 'g')
+        vim.fn.substitute(title_line, '\\v[[:space:][:punct:]]+', [[-]], 'g')
     local github_id = github_id:lower():match('^[=-]+(.*)')
     vim.api.nvim_buf_set_lines(
         0,
