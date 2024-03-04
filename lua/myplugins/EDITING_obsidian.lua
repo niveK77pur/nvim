@@ -23,5 +23,8 @@ return {
                 path = vim.loop.cwd(),
             },
         },
+        daily_notes = {
+            folder = 'daily-notes',
+        },
     },
 }
