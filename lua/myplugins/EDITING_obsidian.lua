@@ -11,6 +11,13 @@ return {
         return not (vim.fn.empty(vim.fn.glob('.obsidian')) == 1)
     end,
     ft = 'markdown',
+    keys = {
+        { '<LocalLeader>oq', '<Cmd>ObsidianQuickSwitch<CR>' },
+        { '<LocalLeader>oo', '<Cmd>ObsidianOpen<CR>' },
+        { '<LocalLeader>ot', '<Cmd>ObsidianToday<CR>' },
+        { '<LocalLeader>oT', '<Cmd>ObsidianTomorrow<CR>' },
+        { '<LocalLeader>os', '<Cmd>ObsidianSearch<CR>' },
+    },
     init = function()
         vim.opt.conceallevel = 2
     end,
