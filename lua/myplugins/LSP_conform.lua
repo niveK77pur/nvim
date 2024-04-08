@@ -28,6 +28,7 @@ return {
                 go = { { 'golines', 'goimports', 'gofmt' } },
                 sh = { { 'shfmt' } },
                 java = { 'google-java-format' },
+                nix = { { 'alejandra', 'nixpkgs-fmt' } },
             },
             format_on_save = function(bufnr) --  {{{
                 -- Disable with a global or buffer-local variable
