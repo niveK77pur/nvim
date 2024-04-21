@@ -21,7 +21,7 @@ return {
             -- Define your formatters
             formatters_by_ft = {
                 lua = { 'stylua' },
-                python = { 'isort', 'blue' },
+                python = { 'isort', { 'ruff_format', 'blue', 'black' } },
                 tex = { 'latexindent' },
                 rust = { 'rustfmt' },
                 lilypond = { 'ly' },
@@ -73,6 +73,20 @@ return {
                     command = 'ly',
                     args = { 'reformat' },
                 }, --  }}}
+                ruff_format = {
+                    -- prepend_args does no work here. See https://github.com/stevearc/conform.nvim/blob/master/lua/conform/formatters/ruff_format.lua
+                    args = {
+                        'format',
+                        '--config',
+                        'format.quote-style = "single"',
+                        '--config',
+                        string.format('line-length = %s', column_width),
+                        '--force-exclude',
+                        '--stdin-filename',
+                        '$FILENAME',
+                        '-',
+                    },
+                },
             },
         })
         -- Command to toggle format-on-save {{{
