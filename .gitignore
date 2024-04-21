@@ -2,3 +2,4 @@ plugin/packer_compiled.lua
 .init.vim
 Ditto/dittofile.txt
 spell
+.direnv/
