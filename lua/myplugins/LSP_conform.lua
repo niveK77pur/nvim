@@ -17,6 +17,7 @@ return {
     },
     config = function()
         local column_width = tonumber(vim.wo.colorcolumn) or 80
+        vim.g.disable_autoformat = false -- enable auto formatting by default
         require('conform').setup({
             -- Define your formatters
             formatters_by_ft = {
