@@ -250,6 +250,8 @@ return {
             -- },
         }) --  }}}
 
+        lspconfig.nixd.setup({})
+
         -- Setup -----------------------------------------------------------
         do
             local diagnostic_config = vim.diagnostic.config()
