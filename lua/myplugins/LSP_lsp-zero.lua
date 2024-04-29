@@ -235,7 +235,7 @@ return {
             },
         }) --  }}}
 
-        lspconfig.jdtls.setup({
+        lspconfig.jdtls.setup({ --  {{{
             settings = {
                 redhat = { telemetry = { enabled = false } },
             },
@@ -248,7 +248,7 @@ return {
             --         -- disable progress updates.
             --     end,
             -- },
-        })
+        }) --  }}}
 
         -- Setup -----------------------------------------------------------
         do
