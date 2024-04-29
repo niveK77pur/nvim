@@ -251,6 +251,7 @@ return {
         }) --  }}}
 
         lspconfig.nixd.setup({})
+        lspconfig.nil_ls.setup({})
 
         -- Setup -----------------------------------------------------------
         do
