@@ -3,20 +3,24 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    utils.url = "github:numtide/flake-utils";
   };
 
   outputs = {
     self,
     nixpkgs,
-  }: let
-    system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
-  in {
-    devShells.${system}.default = pkgs.mkShell {
-      packages = with pkgs; [
-        stylua
-        lua-language-server
-      ];
-    };
-  };
+    utils,
+  }:
+    utils.lib.eachDefaultSystem (
+      system: let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in {
+        devShell = pkgs.mkShell {
+          packages = with pkgs; [
+            stylua
+            lua-language-server
+          ];
+        };
+      }
+    );
 }
