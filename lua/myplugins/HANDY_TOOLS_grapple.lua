@@ -7,6 +7,7 @@ end
 
 return {
     'cbochs/grapple.nvim',
+    enabled = true,
     dependencies = {
         { 'nvim-tree/nvim-web-devicons', lazy = true },
     },
