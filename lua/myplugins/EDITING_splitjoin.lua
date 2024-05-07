@@ -5,4 +5,7 @@ return {
         'gS',
         'gJ',
     },
+    config = function()
+        vim.cmd([[do FileType]])
+    end,
 }
