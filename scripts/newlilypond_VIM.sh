@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eo pipefail
+
 # $1 : name (words seperated with dashes "-")
 # $2 : key  (the key with M for major or m for minor, i.e. aM for a major)
 # $3 : time signature
