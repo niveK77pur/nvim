@@ -5,12 +5,6 @@ return {
         'anuvyklack/animation.nvim',
     },
     enabled = true,
-    keys = {
-        { '<Leader>we', '<cmd>WindowsEnableAutowidth<CR>' },
-        { '<Leader>wd', '<cmd>WindowsDisableAutowidth<CR>' },
-        { '<Leader>wt', '<cmd>WindowsToggleAutowidth<CR>' },
-        { '<Leader>wm', '<cmd>WindowsMaximaze<CR>' },
-    },
     cmd = {
         'WindowsEnableAutowidth',
         'WindowsToggleAutowidth',
