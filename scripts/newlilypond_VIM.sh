@@ -83,6 +83,13 @@ mkdir openlilylib &&
     && git commit -m "Add edition engraver"
 cp "$HOME/.config/nvim/skeletons/Lilypond/newfile"/* .
 
+# set .envrc file to use flake.nix
+[[ -f _envrc ]] \
+    && mv {_,.}envrc \
+    && git add .envrc flake.nix \
+    && echo ".direnv" >> .gitignore \
+    && git commit -m "Add flake.nix"
+
 # set nvim-lilypond-suite main file
 [[ -f _nvim.lua ]] \
     && mv {_,.}nvim.lua \
