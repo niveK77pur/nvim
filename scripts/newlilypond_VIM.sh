@@ -117,3 +117,5 @@ if [[ -n "$3" ]]
 then
         sed -i "s#4/4#$3#" "$GLOBALFILE"
 fi
+
+git add . && git commit -m "Initial template project"
