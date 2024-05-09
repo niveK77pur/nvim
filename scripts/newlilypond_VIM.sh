@@ -84,8 +84,11 @@ mkdir openlilylib &&
 cp "$HOME/.config/nvim/skeletons/Lilypond/newfile"/* .
 
 # set nvim-lilypond-suite main file
-mv {,.}nvim.lua
-sed -i "s/MAINFILE/$MAINFILE/" .nvim.lua
+[[ -f _nvim.lua ]] \
+    && mv {_,.}nvim.lua \
+    && sed -i "s/MAINFILE/$MAINFILE/" .nvim.lua \
+    && git add .nvim.lua \
+    && git commit -m "Add .nvim.lua for nvim-lilypond-suite"
 
 # Put lilypond's version in every file
 sed -i "s/\(.version \).*/\1\"$VERSION\"/" -- *.ly
