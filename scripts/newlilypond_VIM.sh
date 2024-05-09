@@ -65,7 +65,7 @@ then
     ( cd "$PROJECT" && git checkout -b dev )
 else
     # simply make a directory
-    mkdir -p "$PROJECT"
+    ( mkdir -p "$PROJECT" && cd "$PROJECT" && git init )
 fi
 
 # put all the files in place
