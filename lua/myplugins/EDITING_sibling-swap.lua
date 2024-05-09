@@ -1,8 +1,8 @@
 local keys = {
-    ['<Leader>n'] = 'swap_with_right',
-    ['<Leader>N'] = 'swap_with_left',
-    ['<Leader>t.'] = 'swap_with_right_with_opp',
-    ['<Leader>t,'] = 'swap_with_left_with_opp',
+    ['<Leader>tl'] = 'swap_with_right',
+    ['<Leader>th'] = 'swap_with_left',
+    ['<Leader>tL'] = 'swap_with_right_with_opp',
+    ['<Leader>tH'] = 'swap_with_left_with_opp',
 }
 
 return {
