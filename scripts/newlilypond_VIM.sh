@@ -77,6 +77,7 @@ mkdir openlilylib &&
             && git submodule add 'https://github.com/openlilylib/oll-core.git' \
             && git submodule add 'https://github.com/openlilylib/edition-engraver.git'
     ) \
+    && [ -f README.md ] \
     && sed -i '/openlilylib/s/\[ \]/[x]/' README.md \
     && git add README.md \
     && git commit -m "Add edition engraver"
