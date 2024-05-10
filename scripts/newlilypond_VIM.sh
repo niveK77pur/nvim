@@ -44,8 +44,9 @@ fi
 # make sure the project does not exist
 [[ -n "$(find "$PROJECT" -name "*.ly")" ]] && { echo "'$PROJECT' already exists. Aborting."; exit 1; }
 
-if type gh;
+if type gh &>/dev/null;
 then
+    echo "Using 'gh' to create repository ..."
     # use github-cli if available
     GH_ORGANISATION=VinLudens
     gh repo create --public --template "$GH_ORGANISATION/lilypond-workflow-template" "$GH_ORGANISATION/$PROJECT"
@@ -66,6 +67,7 @@ then
     # new branch to avoid accidentally pushing to 'main'
     ( cd "$PROJECT" && git checkout -b dev )
 else
+    echo "Preparing project folder ..."
     # simply make a directory
     ( mkdir -p "$PROJECT" && cd "$PROJECT" && git init )
 fi
