@@ -29,6 +29,8 @@ VERSION=$(lilypond --version | grep -oP 'LilyPond \K[0-9.]+')
 PROJECT="$1"
 GLOBALFILE="global.ly"
 
+echo "Using lilypond version ${VERSION} ..."
+
 # set the name of the project
 if [[ "$1" = "_" ]]
 then
