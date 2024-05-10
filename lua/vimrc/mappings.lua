@@ -245,4 +245,33 @@ map('i', '<a-l>', '<right>')
 -- map('n', '<CR>', [[:buffer #<CR>]])
 -- map('x', '<CR>', [[:buffer #<CR>]])
 
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--                                  Diagnostics
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+local diagnostic_opts = { noremap = true, silent = true }
+vim.keymap.set(
+    'n',
+    '<Leader>ld',
+    vim.diagnostic.open_float,
+    { unpack(diagnostic_opts), desc = 'Show diagnostic in float window' }
+)
+vim.keymap.set(
+    'n',
+    '[d',
+    vim.diagnostic.goto_prev,
+    { unpack(diagnostic_opts), desc = 'Go to previous diagnostic' }
+)
+vim.keymap.set(
+    'n',
+    ']d',
+    vim.diagnostic.goto_next,
+    { unpack(diagnostic_opts), desc = 'Go to next diagnostic' }
+)
+vim.keymap.set('n', '<Leader>lq', vim.diagnostic.setloclist, {
+    unpack(diagnostic_opts),
+    desc = 'Add buffer diagnostics to location list',
+})
+
 -- vim: fdm=marker

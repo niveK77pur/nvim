@@ -47,30 +47,6 @@ return {
                     )
                 end
             end --  }}}
-
-            -- Diagnostics Mappings. {{{
-            -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-            local opts = { noremap = true, silent = true }
-            nmap(
-                '<Leader>ld',
-                vim.diagnostic.open_float,
-                opts,
-                'Show diagnostic in float window'
-            )
-            nmap(
-                '[d',
-                vim.diagnostic.goto_prev,
-                opts,
-                'Go to previous diagnostic'
-            )
-            nmap(']d', vim.diagnostic.goto_next, opts, 'Go to next diagnostic')
-            nmap(
-                '<Leader>lq',
-                vim.diagnostic.setloclist,
-                opts,
-                'Add buffer diagnostics to location list'
-            )
-            --  }}}
             -- LSP Mappings. {{{
             -- See `:help vim.lsp.*` for documentation on any of the below functions
             local bufopts = { noremap = true, silent = true, buffer = bufnr }
