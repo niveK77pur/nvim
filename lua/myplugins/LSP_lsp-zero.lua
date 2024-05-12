@@ -163,6 +163,7 @@ return {
             })
             lspconfig.pyright.setup({})
         end
+        lspconfig.pyright.setup({})
         lspconfig.pylsp.setup({
             settings = pylsp_settings,
         }) -- }}}
