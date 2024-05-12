@@ -153,11 +153,10 @@ return {
                 },
             },
         }
-        if require('mason-registry').is_installed('pyright') then
-            vim.notify(
-                'TODO: More generic way to check if LSP is available',
-                vim.log.levels.WARN
-            )
+        if
+            require('mason-registry').is_installed('pyright')
+            or vim.fn.executable('pyright')
+        then
             -- additional tweaks to interfere less with 'pyright'
             pylsp_settings = vim.tbl_deep_extend('force', pylsp_settings, {
                 pylsp = { plugins = { pyflakes = { enabled = false } } },
