@@ -45,7 +45,7 @@ return {
     config = function()
         local lint = require('lint')
 
-        lint.linters.lilypond = lilypond_parser('./openlilylib_path')
+        lint.linters.lilypond = lilypond_parser('./openlilylib')
 
         lint.linters_by_ft = linters
         vim.api.nvim_create_autocmd({ 'BufWritePost', 'BufEnter' }, {
