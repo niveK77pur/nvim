@@ -118,7 +118,7 @@ function _G.EditionEngraverSortStatements() --  {{{
     ---@type boolean Needed to track empty lines after `\editionMod`
     local after_block = false
     for i, line in ipairs(vim.api.nvim_buf_get_lines(0, 0, -1, true)) do
-        local name, measure = line:match([[^%s*\editionMod%s+(%w+)%s+(%d+)]])
+        local name, measure = line:match([[^%s*\editionMod%s+([A-Za-z-]+)%s+(%d+)]])
         local line_nr = i - 1
         if name ~= nil and measure ~= nil then
             table.insert(edition_mods, {
