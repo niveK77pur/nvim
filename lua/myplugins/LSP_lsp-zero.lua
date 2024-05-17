@@ -238,6 +238,9 @@ return {
             local diagnostic_config = vim.diagnostic.config()
             lsp_zero.setup()
             vim.diagnostic.config(diagnostic_config)
+            if vim.lsp.inlay_hint then
+                vim.lsp.inlay_hint.enable()
+            end
         end
     end,
 }
