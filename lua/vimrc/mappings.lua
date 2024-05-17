@@ -251,24 +251,26 @@ map('i', '<a-l>', '<right>')
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local diagnostic_opts = { noremap = true, silent = true }
-vim.keymap.set(
-    'n',
-    '<Leader>ld',
-    vim.diagnostic.open_float,
-    { unpack(diagnostic_opts), desc = 'Show diagnostic in float window' }
-)
-vim.keymap.set(
-    'n',
-    '[d',
-    vim.diagnostic.goto_prev,
-    { unpack(diagnostic_opts), desc = 'Go to previous diagnostic' }
-)
-vim.keymap.set(
-    'n',
-    ']d',
-    vim.diagnostic.goto_next,
-    { unpack(diagnostic_opts), desc = 'Go to next diagnostic' }
-)
+if vim.version.lt(vim.version(), { 0, 10, 0 }) then
+    vim.keymap.set(
+        'n',
+        '<c-w>d',
+        vim.diagnostic.open_float,
+        { unpack(diagnostic_opts), desc = 'Show diagnostic in float window' }
+    )
+    vim.keymap.set(
+        'n',
+        '[d',
+        vim.diagnostic.goto_prev,
+        { unpack(diagnostic_opts), desc = 'Go to previous diagnostic' }
+    )
+    vim.keymap.set(
+        'n',
+        ']d',
+        vim.diagnostic.goto_next,
+        { unpack(diagnostic_opts), desc = 'Go to next diagnostic' }
+    )
+end
 vim.keymap.set('n', '<Leader>lq', vim.diagnostic.setloclist, {
     unpack(diagnostic_opts),
     desc = 'Add buffer diagnostics to location list',
