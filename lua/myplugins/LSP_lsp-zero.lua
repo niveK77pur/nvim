@@ -64,12 +64,14 @@ return {
                 bufopts,
                 'Go to definition'
             )
-            nmap(
-                '<Leader>lk',
-                vim.lsp.buf.hover,
-                bufopts,
-                'Display hover information'
-            )
+            if vim.version.lt(vim.version(), { 0, 10, 0 }) then
+                nmap(
+                    'K',
+                    vim.lsp.buf.hover,
+                    bufopts,
+                    'Display hover information'
+                )
+            end
             nmap(
                 '<Leader>lgi',
                 vim.lsp.buf.implementation,
