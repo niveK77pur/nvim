@@ -58,12 +58,14 @@ return {
                 bufopts,
                 'Go to declaration'
             )
-            nmap(
-                '<Leader>lgd',
-                vim.lsp.buf.definition,
-                bufopts,
-                'Go to definition'
-            )
+            if vim.version.lt(vim.version(), { 0, 10, 0 }) then
+                nmap(
+                    '<C-]>',
+                    vim.lsp.buf.definition,
+                    bufopts,
+                    'Go to definition'
+                )
+            end
             if vim.version.lt(vim.version(), { 0, 10, 0 }) then
                 nmap(
                     'K',
