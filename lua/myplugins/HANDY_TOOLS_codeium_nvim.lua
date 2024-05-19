@@ -5,6 +5,7 @@ return {
         'hrsh7th/nvim-cmp',
     },
     enabled = true,
+    cmd = { 'CodiumLoad' },
     config = function()
         require('codeium').setup({})
     end,
