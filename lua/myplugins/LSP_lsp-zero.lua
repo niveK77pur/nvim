@@ -230,6 +230,23 @@ return {
             -- },
         }) --  }}}
 
+        lspconfig.gopls.setup({ --  {{{
+            settings = {
+                gopls = {
+                    hints = {
+                        -- See https://github.com/golang/tools/blob/master/gopls/doc/inlayHints.md
+                        assignVariableTypes = true,
+                        compositeLiteralFields = true,
+                        compositeLiteralTypes = true,
+                        constantValues = true,
+                        functionTypeParameters = true,
+                        parameterNames = true,
+                        rangeVariableTypes = true,
+                    },
+                },
+            },
+        }) --  }}}
+
         lspconfig.nixd.setup({})
         lspconfig.nil_ls.setup({})
 
