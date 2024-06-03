@@ -16,6 +16,7 @@ local function lilypond_parser(openlilylib_path) --  {{{
         stdin = true,
         args = {
             string.format('--include=%s', openlilylib_path),
+            '--output=/dev/null',
             '-dbackend=null',
             '-dno-print-pages',
             '-dcompile-scheme-code',
