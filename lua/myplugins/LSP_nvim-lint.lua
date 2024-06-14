@@ -1,6 +1,7 @@
 local linters = {
     sh = { 'shellcheck' },
     lilypond = { 'lilypond' },
+    nix = { 'statix' },
 }
 
 local function lilypond_parser(openlilylib_path) --  {{{
