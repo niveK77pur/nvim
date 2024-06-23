@@ -16,6 +16,7 @@
         pkgs = nixpkgs.legacyPackages.${system};
       in {
         devShell = pkgs.mkShell {
+          name = "neovim";
           packages = with pkgs; [
             stylua
             lua-language-server
