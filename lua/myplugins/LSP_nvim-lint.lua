@@ -2,6 +2,7 @@ local linters = {
     sh = { 'shellcheck' },
     lilypond = { 'lilypond' },
     nix = { 'statix' },
+    lua = { 'luacheck' },
 }
 
 local function lilypond_parser(openlilylib_path) --  {{{

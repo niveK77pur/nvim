@@ -20,6 +20,7 @@
           packages = with pkgs; [
             stylua
             lua-language-server
+            luajitPackages.luacheck
           ];
         };
       }
