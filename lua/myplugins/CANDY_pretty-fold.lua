@@ -51,3 +51,5 @@ return {
         }) -- }}}
     end,
 }
+
+-- vim: fdm=marker
