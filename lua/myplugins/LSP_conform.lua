@@ -16,7 +16,6 @@ return {
         },
     },
     config = function()
-        local column_width = tonumber(vim.wo.colorcolumn) or 80
         vim.g.disable_autoformat = false -- enable auto formatting by default
         require('conform').setup({
             -- Define your formatters
@@ -46,8 +45,6 @@ return {
                 }, --  }}}
                 stylua = { --  {{{
                     prepend_args = {
-                        '--column-width',
-                        column_width,
                         '--indent-type',
                         'Spaces',
                         '--quote-style',
@@ -62,12 +59,6 @@ return {
                         'format_code_in_doc_comments=true'
                             .. ','
                             .. 'wrap_comments=true',
-                        -- .. ','
-                        -- .. 'max_width='
-                        -- .. column_width
-                        -- .. ','
-                        -- .. 'comment_width='
-                        -- .. column_width,
                     },
                 }, --  }}}
                 ly = { --  {{{
@@ -80,8 +71,6 @@ return {
                         'format',
                         '--config',
                         'format.quote-style = "single"',
-                        '--config',
-                        string.format('line-length = %s', column_width),
                         '--force-exclude',
                         '--stdin-filename',
                         '$FILENAME',
