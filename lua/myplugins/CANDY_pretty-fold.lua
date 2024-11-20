@@ -27,15 +27,8 @@ return {
         local function ft_setup(lang, options) -- {{{
             local opts = vim.tbl_deep_extend('force', global_setup, options)
             -- combine global and ft specific matchup_patterns
-            if
-                opts
-                and opts.matchup_patterns
-                and global_setup.matchup_patterns
-            then
-                opts.matchup_patterns = vim.list_extend(
-                    opts.matchup_patterns,
-                    global_setup.matchup_patterns
-                )
+            if opts and opts.matchup_patterns and global_setup.matchup_patterns then
+                opts.matchup_patterns = vim.list_extend(opts.matchup_patterns, global_setup.matchup_patterns)
             end
             require('pretty-fold').ft_setup(lang, opts)
         end -- }}}
