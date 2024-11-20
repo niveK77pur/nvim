@@ -1,5 +1,5 @@
 return {
-    'anuvyklack/pretty-fold.nvim',
+    'bbjornstad/pretty-fold.nvim',
     enabled = true,
     config = function()
         local global_setup = {
