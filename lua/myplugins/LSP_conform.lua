@@ -1,5 +1,27 @@
 local cmd_name_disable = 'ConformDisable'
 local cmd_name_enable = 'ConformEnable'
+local function pick_formatters(...)
+    local formatters = {}
+    for _, f in ipairs({ ... }) do
+        if type(f) == 'string' then
+            table.insert(formatters, f)
+        elseif type(f) == 'table' then
+            for _, formatter in ipairs(f) do
+                if require('conform').get_formatter_info(formatter, bufnr).available then
+                    table.insert(formatters, formatter)
+                    break
+                end
+            end
+        else
+            vim.notify(
+                string.format('Invalid type for formatter picking: %s (%s)', f, type(f)),
+                vim.log.levels.ERROR,
+                { group = 'conform.nvim', title = 'conform.nvim' }
+            )
+        end
+    end
+    return formatters
+end
 return {
     'stevearc/conform.nvim',
     enabled = true,
@@ -21,14 +43,14 @@ return {
             -- Define your formatters
             formatters_by_ft = {
                 lua = { 'stylua' },
-                python = { 'isort', { 'ruff_format', 'blue', 'black' } },
+                python = pick_formatters('isort', { 'ruff_format', 'blue', 'black' }),
                 tex = { 'latexindent' },
                 rust = { 'rustfmt' },
                 lilypond = { 'ly' },
-                go = { { 'golines', 'goimports', 'gofmt' } },
-                sh = { { 'shfmt' } },
+                go = pick_formatters({ 'golines', 'goimports', 'gofmt' }),
+                sh = { 'shfmt' },
                 java = { 'google-java-format' },
-                nix = { { 'alejandra', 'nixpkgs-fmt' } },
+                nix = pick_formatters({ 'alejandra', 'nixpkgs-fmt' }),
             },
             format_on_save = function(bufnr) --  {{{
                 -- Disable with a global or buffer-local variable
