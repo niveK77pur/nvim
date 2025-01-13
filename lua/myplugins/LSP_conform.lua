@@ -51,6 +51,8 @@ return {
                 sh = { 'shfmt' },
                 java = { 'google-java-format' },
                 nix = pick_formatters({ 'alejandra', 'nixpkgs-fmt' }),
+                c = { 'clang-format' },
+                cpp = { 'clang-format' },
             },
             format_on_save = function(bufnr) --  {{{
                 -- Disable with a global or buffer-local variable
