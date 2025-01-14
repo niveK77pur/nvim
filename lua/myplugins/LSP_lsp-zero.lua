@@ -40,11 +40,7 @@ return {
             do
                 -- interferes with vimtex
                 if not (require('vimrc.functions').plugin_loaded('vimtex')) then
-                    vim.api.nvim_buf_set_option(
-                        bufnr,
-                        'omnifunc',
-                        'v:lua.vim.lsp.omnifunc'
-                    )
+                    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
                 end
             end --  }}}
             -- LSP Mappings. {{{
@@ -52,67 +48,22 @@ return {
             local bufopts = { noremap = true, silent = true, buffer = bufnr }
             -- local extopts = function (opt1, opt2) return vim.fn.tbl_deep_extend('force', opt1, opt2) end
 
-            nmap(
-                '<Leader>lgD',
-                vim.lsp.buf.declaration,
-                bufopts,
-                'Go to declaration'
-            )
+            nmap('<Leader>lgD', vim.lsp.buf.declaration, bufopts, 'Go to declaration')
             if vim.version.lt(vim.version(), { 0, 10, 0 }) then
-                nmap(
-                    '<C-]>',
-                    vim.lsp.buf.definition,
-                    bufopts,
-                    'Go to definition'
-                )
+                nmap('<C-]>', vim.lsp.buf.definition, bufopts, 'Go to definition')
             end
             if vim.version.lt(vim.version(), { 0, 10, 0 }) then
-                nmap(
-                    'K',
-                    vim.lsp.buf.hover,
-                    bufopts,
-                    'Display hover information'
-                )
+                nmap('K', vim.lsp.buf.hover, bufopts, 'Display hover information')
             end
-            nmap(
-                '<Leader>lgi',
-                vim.lsp.buf.implementation,
-                bufopts,
-                'List all implementations'
-            )
-            nmap(
-                '<C-k>',
-                vim.lsp.buf.signature_help,
-                bufopts,
-                'Display signature information'
-            )
+            nmap('<Leader>lgi', vim.lsp.buf.implementation, bufopts, 'List all implementations')
+            nmap('<C-k>', vim.lsp.buf.signature_help, bufopts, 'Display signature information')
             -- nmap('<Leader>lwa', vim.lsp.buf.add_workspace_folder, bufopts)
             -- nmap('<Leader>lwr', vim.lsp.buf.remove_workspace_folder, bufopts)
             -- nmap('<Leader>lwl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, bufopts)
-            nmap(
-                '<Leader>lD',
-                vim.lsp.buf.type_definition,
-                bufopts,
-                'Jump to definition of the type'
-            )
-            nmap(
-                '<Leader>lrn',
-                vim.lsp.buf.rename,
-                bufopts,
-                'Rename all references of symbol'
-            )
-            nmap(
-                '<Leader>lca',
-                vim.lsp.buf.code_action,
-                bufopts,
-                'Select available code action'
-            )
-            nmap(
-                '<Leader>lre',
-                vim.lsp.buf.references,
-                bufopts,
-                'List all references to symbol'
-            )
+            nmap('<Leader>lD', vim.lsp.buf.type_definition, bufopts, 'Jump to definition of the type')
+            nmap('<Leader>lrn', vim.lsp.buf.rename, bufopts, 'Rename all references of symbol')
+            nmap('<Leader>lca', vim.lsp.buf.code_action, bufopts, 'Select available code action')
+            nmap('<Leader>lre', vim.lsp.buf.references, bufopts, 'List all references to symbol')
             -- nmap('<Leader>lf', function() vim.lsp.buf.format { async = false } end, bufopts, 'Format buffer using LSP')
             --  }}}
         end) --  }}}
