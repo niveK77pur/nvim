@@ -108,17 +108,15 @@ return {
                 },
             },
         }
-        if
-            require('mason-registry').is_installed('pyright')
-            or vim.fn.executable('pyright')
-        then
+        if require('mason-registry').is_installed('basedpyright') or vim.fn.executable('basedpyright') then
+            lspconfig.basedpyright.setup({})
+        elseif require('mason-registry').is_installed('pyright') or vim.fn.executable('pyright') then
             -- additional tweaks to interfere less with 'pyright'
             pylsp_settings = vim.tbl_deep_extend('force', pylsp_settings, {
                 pylsp = { plugins = { pyflakes = { enabled = false } } },
             })
             lspconfig.pyright.setup({})
         end
-        lspconfig.pyright.setup({})
         lspconfig.pylsp.setup({
             settings = pylsp_settings,
         }) -- }}}
