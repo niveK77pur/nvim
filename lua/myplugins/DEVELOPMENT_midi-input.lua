@@ -1,6 +1,5 @@
 return {
-    -- 'niveK77pur/midi-input.nvim',
-    dir = '~/Public/midi-input.nvim',
+    'niveK77pur/midi-input.nvim',
     enabled = true,
     ft = { 'lilypond' },
     cmd = { 'MidiInputStart' },
