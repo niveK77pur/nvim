@@ -31,14 +31,9 @@ local function lilypond_parser(openlilylib_path) --  {{{
         },
         stream = 'stderr',
         ignore_exitcode = true,
-        parser = require('lint.parser').from_pattern(
-            pattern,
-            groups,
-            severity_map,
-            {
-                severity = vim.diagnostic.severity.INFO,
-            }
-        ),
+        parser = require('lint.parser').from_pattern(pattern, groups, severity_map, {
+            severity = vim.diagnostic.severity.INFO,
+        }),
     }
 end --  }}}
 
