@@ -94,9 +94,11 @@ return {
         nmap('<Leader>f/', function()
             fzflua.search_history()
         end, { desc = 'FZF: serach history' })
-        nmap('<Leader>ft', function()
-            fzflua.grep({ search = 'TODO|todo!', no_esc = true })
-        end, { desc = 'FZF: search TODOs' })
+        if require('lazy.core.config').plugins['todo-comments.nvim'] == nil then
+            nmap('<Leader>ft', function()
+                fzflua.grep({ search = 'TODO|todo!', no_esc = true })
+            end, { desc = 'FZF: search TODOs' })
+        end
 
         -- suggestions
         nmap('z=', function()

@@ -52,6 +52,7 @@
   "printer.nvim": { "branch": "master", "commit": "bdd5310075f9d4fe5d4270b7dc75188347fa9353" },
   "sibling-swap.nvim": { "branch": "main", "commit": "4d3b8a9d80a8b3c8d76e74c2bdd13b6e7c4f8258" },
   "splitjoin.vim": { "branch": "main", "commit": "f7a688c6b444dd159919da38c53e9fa64f109f18" },
+  "todo-comments.nvim": { "branch": "main", "commit": "304a8d204ee787d2544d8bc23cd38d2f929e7cc5" },
   "trailblazer.nvim": { "branch": "main", "commit": "674bb6254a376a234d0d243366224122fc064eab" },
   "treesj": { "branch": "main", "commit": "ec234a9a13d61a7b95900abdb02fabaea1afd9f3" },
   "ultisnips": { "branch": "master", "commit": "35252b3327bf0cb55136399dfe615637093a8291" },
