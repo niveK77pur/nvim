@@ -66,14 +66,6 @@ return {
                 shfmt = { --  {{{
                     prepend_args = { '-i', 4, '-s' },
                 }, --  }}}
-                stylua = { --  {{{
-                    prepend_args = {
-                        '--indent-type',
-                        'Spaces',
-                        '--quote-style',
-                        'AutoPreferSingle',
-                    },
-                }, --  }}}
                 rustfmt = { --  {{{
                     prepend_args = {
                         '--edition',
