@@ -1,6 +1,7 @@
 return {
     'Wansmer/treesj',
     enabled = true,
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
     keys = {
         {
             '<Leader>tm',
@@ -24,7 +25,6 @@ return {
             desc = 'treesj: split',
         },
     },
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
     opts = {
         use_default_keymaps = false,
     },
