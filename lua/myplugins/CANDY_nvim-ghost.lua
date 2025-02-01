@@ -9,8 +9,7 @@ return {
     end,
     config = function()
         -- All autocommands should be in 'nvim_ghost_user_autocommands' group
-        local augroup_nvim_ghost_user_autocommands =
-            vim.api.nvim_create_augroup('nvim_ghost_user_autocommands', {})
+        local augroup_nvim_ghost_user_autocommands = vim.api.nvim_create_augroup('nvim_ghost_user_autocommands', {})
         local function addWebsiteSettings(opts) --  {{{
             vim.api.nvim_create_autocmd({ 'User' }, {
                 group = augroup_nvim_ghost_user_autocommands,
@@ -38,10 +37,7 @@ return {
                 -- taken from markdown ftplugin
                 for _, key in pairs({ 'j', 'k', '0', '$' }) do
                     vim.keymap.set('n', key, 'g' .. key, {
-                        desc = string.format(
-                            'remap %s for better text editing',
-                            key
-                        ),
+                        desc = string.format('remap %s for better text editing', key),
                     })
                 end
             end, --  }}}

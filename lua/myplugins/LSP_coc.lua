@@ -62,12 +62,7 @@ return {
 
         -- GoTo code navigation.
         map('n', '<Leader>Cgd', '<Plug>(coc-definition)', { silent = true })
-        map(
-            'n',
-            '<Leader>Cgy',
-            '<Plug>(coc-type-definition)',
-            { silent = true }
-        )
+        map('n', '<Leader>Cgy', '<Plug>(coc-type-definition)', { silent = true })
         map('n', '<Leader>Cgi', '<Plug>(coc-implementation)', { silent = true })
         map('n', '<Leader>Cgr', '<Plug>(coc-references)', { silent = true })
 

@@ -11,8 +11,7 @@ vim.wo.cursorline = true
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 function _G.MakeOctave(pitch) -- {{{
-    local match_pattern =
-        [[\v(\s+)([abcdefg]{1}%([ie]?s)*)([',]*\=?[',]*)|\ze\<.{-}\>\zs]]
+    local match_pattern = [[\v(\s+)([abcdefg]{1}%([ie]?s)*)([',]*\=?[',]*)|\ze\<.{-}\>\zs]]
     local replace = ([[\=empty(submatch(2)) ? '' : submatch(1).'<'.submatch(2).submatch(3).' '.submatch(2)."%s".'>']]):format(
         pitch
     )
@@ -35,10 +34,7 @@ function _G.SwitchNotes(notelist) -- {{{
           i.e. _G.SwitchNotes{'a','b'} : ais -> bis
     --}}} ]]
         local accidental = (cnote == cnote:upper()) and '' or [[\1]]
-        vim.api.nvim_exec(
-            ([[s#\v<%s(%%([ie]s)*)#%s%s#gie]]):format(cnote, nnote, accidental),
-            false
-        )
+        vim.api.nvim_exec(([[s#\v<%s(%%([ie]s)*)#%s%s#gie]]):format(cnote, nnote, accidental), false)
     end
 end -- }}}
 
@@ -61,40 +57,23 @@ function _G.AlignCursors() --  {{{
             for _ = 1, (maxpos - linenr), 1 do
                 table.insert(newlines, '')
             end
-            vim.api.nvim_buf_set_lines(
-                buf[window],
-                linenr,
-                linenr,
-                true,
-                newlines
-            )
+            vim.api.nvim_buf_set_lines(buf[window], linenr, linenr, true, newlines)
         end)
     end
 end --  }}}
 
 function _G.EditionEngraverProbeVoices() --  {{{
-    local command, edition, measure, moment, context = vim.api
-        .nvim_get_current_line()
-        :match([[(\editionMod)%s+(%w+)%s+(%d+)%s+(%d+/%d+)%s+(%w+%.%w+)]])
+    local command, edition, measure, moment, context =
+        vim.api.nvim_get_current_line():match([[(\editionMod)%s+(%w+)%s+(%d+)%s+(%d+/%d+)%s+(%w+%.%w+)]])
     local probes = { '' }
     for voice in string.gmatch('ABCDEFGHIJKLMNOPQSTUVWXYZ', '%w') do
         table.insert(
             probes,
-            string.format(
-                [[%s %s %s %s %s.%s -"%s"]],
-                command,
-                edition,
-                measure,
-                moment,
-                context,
-                voice,
-                voice
-            )
+            string.format([[%s %s %s %s %s.%s -"%s"]], command, edition, measure, moment, context, voice, voice)
         )
     end
     local curr_linenr = vim.api.nvim_win_get_cursor(0)[1]
-    local next_line =
-        vim.api.nvim_buf_get_lines(0, curr_linenr, curr_linenr + 1, false)[1]
+    local next_line = vim.api.nvim_buf_get_lines(0, curr_linenr, curr_linenr + 1, false)[1]
     if vim.fn.empty(next_line) == 0 then
         -- insert blank line for easy delition with dap
         table.insert(probes, '')
@@ -198,21 +177,13 @@ vim.api.nvim_create_user_command('Switch', [[:lua _G.SwitchNotes{<f-args>}]], {
     desc = 'Change note into another (i.e. c -> d)',
 })
 
-vim.api.nvim_create_user_command(
-    'ProbeVoices',
-    [[:lua _G.EditionEngraverProbeVoices()]],
-    {
-        desc = 'Probe all voices A-Z (excluding R) for the edition engraver',
-    }
-)
+vim.api.nvim_create_user_command('ProbeVoices', [[:lua _G.EditionEngraverProbeVoices()]], {
+    desc = 'Probe all voices A-Z (excluding R) for the edition engraver',
+})
 
-vim.api.nvim_create_user_command(
-    'SortEditionMod',
-    [[:lua _G.EditionEngraverSortStatements()]],
-    {
-        desc = [[Collect, sort and regroup all `\editionMod` statements at the end of the file]],
-    }
-)
+vim.api.nvim_create_user_command('SortEditionMod', [[:lua _G.EditionEngraverSortStatements()]], {
+    desc = [[Collect, sort and regroup all `\editionMod` statements at the end of the file]],
+})
 
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --                                   Mappings
@@ -241,10 +212,7 @@ for _, align_command in ipairs({ 'zt', 'zz', 'zb' }) do
         )
 
         vim.api.nvim_exec(
-            ('silent windo %d | normal %s'):format(
-                math.min(curpos[1], lowestLineNumberInWindows),
-                align_command
-            ),
+            ('silent windo %d | normal %s'):format(math.min(curpos[1], lowestLineNumberInWindows), align_command),
             false
         )
 
@@ -252,9 +220,7 @@ for _, align_command in ipairs({ 'zt', 'zz', 'zb' }) do
         vim.api.nvim_set_current_win(curwin)
         vim.api.nvim_win_set_cursor(0, curpos)
     end, {
-        desc = ('Align windows on current line number (%s)'):format(
-            align_command
-        ),
+        desc = ('Align windows on current line number (%s)'):format(align_command),
     })
 end -- }}}
 
@@ -274,18 +240,10 @@ end
 
 -- add barline | at the end
 nmap('<LocalLeader>b', [[A |<ESC>]])
-imap(
-    '<LocalLeader>b',
-    ([[<C-O>%sb]]):format(vim.g.maplocalleader),
-    { remap = true }
-)
+imap('<LocalLeader>b', ([[<C-O>%sb]]):format(vim.g.maplocalleader), { remap = true })
 -- add barline with tie ~ | at the end
 nmap('<LocalLeader>B', [[A ~ |<ESC>]])
-imap(
-    '<LocalLeader>B',
-    ([[<C-O>%sB]]):format(vim.g.maplocalleader),
-    { remap = true }
-)
+imap('<LocalLeader>B', ([[<C-O>%sB]]):format(vim.g.maplocalleader), { remap = true })
 
 -- align lines
 nmap('<LocalLeader>a', function()
@@ -296,28 +254,15 @@ end)
 --                               Measure Counting
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-local measure_count_namespace =
-    vim.api.nvim_create_namespace('lilypond-measure-count')
+local measure_count_namespace = vim.api.nvim_create_namespace('lilypond-measure-count')
 
 -- namespace highlight groups {{{
 do
     local namespace = measure_count_namespace
     vim.api.nvim_set_hl_ns(namespace)
-    vim.api.nvim_set_hl(
-        namespace,
-        'LilypondMeasureCountExtmark',
-        { fg = '#88aa88' }
-    )
-    vim.api.nvim_set_hl(
-        namespace,
-        'LilypondPolyphony1MeasureCountExtmark',
-        { fg = '#aa8888' }
-    )
-    vim.api.nvim_set_hl(
-        namespace,
-        'LilypondPolyphony2MeasureCountExtmark',
-        { fg = '#8888aa' }
-    )
+    vim.api.nvim_set_hl(namespace, 'LilypondMeasureCountExtmark', { fg = '#88aa88' })
+    vim.api.nvim_set_hl(namespace, 'LilypondPolyphony1MeasureCountExtmark', { fg = '#aa8888' })
+    vim.api.nvim_set_hl(namespace, 'LilypondPolyphony2MeasureCountExtmark', { fg = '#8888aa' })
 end --  }}}
 
 local function virt_text_layer(layer, measure_string) --  {{{
@@ -371,10 +316,7 @@ function _G.SetMeasureCounts() --  {{{
                 highest_local_measure = measure,
             })
         end
-        if
-            vim.regex([[\\\\\|\\new\s\+Voice]]):match_str(line)
-            and polyphony_start_measure[1]
-        then
+        if vim.regex([[\\\\\|\\new\s\+Voice]]):match_str(line) and polyphony_start_measure[1] then
             -- new voice started
             if measure > polyphony_start_measure[1].highest_local_measure then
                 polyphony_start_measure[1].highest_local_measure = measure
@@ -408,10 +350,7 @@ function _G.SetMeasureCounts() --  {{{
 
         -- do not set extmark if not on a barline
         -- and if barline is inside single-line comment
-        if
-            not vim.regex([[\%(%[{}]\@!.*\)\@<!\s\+|]]):match_str(line)
-            or in_multiline_comment
-        then
+        if not vim.regex([[\%(%[{}]\@!.*\)\@<!\s\+|]]):match_str(line) or in_multiline_comment then
             goto continue
         end
 
@@ -435,10 +374,7 @@ function _G.SetMeasureCounts() --  {{{
         local line_nr = i - 1
 
         vim.api.nvim_buf_set_extmark(0, namespace, line_nr, 0, {
-            virt_text = virt_text_layer(
-                #polyphony_start_measure,
-                measure_string
-            ),
+            virt_text = virt_text_layer(#polyphony_start_measure, measure_string),
             virt_text_pos = 'right_align',
             hl_mode = 'combine',
         })
@@ -452,8 +388,7 @@ function _G.GotoMeasureCount(barline_input) --  {{{
     -- produced by extmarks from `_G.SetMeasureCounts`.
     local barline = tonumber(barline_input)
     local namespace = measure_count_namespace
-    local extmarks =
-        vim.api.nvim_buf_get_extmarks(0, namespace, 0, -1, { details = true })
+    local extmarks = vim.api.nvim_buf_get_extmarks(0, namespace, 0, -1, { details = true })
 
     for i = 1, #extmarks - 1 do
         local extmark = extmarks[i]
@@ -505,13 +440,9 @@ vim.api.nvim_create_autocmd({ 'InsertEnter' }, {
 --  }}}
 
 -- GotoMeasureCount command {{{
-vim.api.nvim_create_user_command(
-    'GotoMeasureCount',
-    [[:lua _G.GotoMeasureCount(<f-args>)]],
-    {
-        nargs = 1,
-        desc = 'Jump to a measure with the given count (Requires extmarks to have been set)',
-    }
-) --  }}}
+vim.api.nvim_create_user_command('GotoMeasureCount', [[:lua _G.GotoMeasureCount(<f-args>)]], {
+    nargs = 1,
+    desc = 'Jump to a measure with the given count (Requires extmarks to have been set)',
+}) --  }}}
 
 -- vim: fdm=marker

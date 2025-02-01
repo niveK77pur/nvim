@@ -6,8 +6,7 @@ return {
         -- vim.cmd([[TSUpdate]])
     end,
     config = function()
-        local parser_config =
-            require('nvim-treesitter.parsers').get_parser_configs()
+        local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
         ---@diagnostic disable-next-line: missing-fields
         require('nvim-treesitter.configs').setup({ --  {{{1
             -- A list of parser names, or "all"

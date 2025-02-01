@@ -16,8 +16,7 @@ return {
             -- move_cursor = false,
         })
 
-        local augroup_nvimsurround =
-            vim.api.nvim_create_augroup('nvimsurround', {})
+        local augroup_nvimsurround = vim.api.nvim_create_augroup('nvimsurround', {})
         vim.api.nvim_create_autocmd({ 'FileType' }, {
             group = augroup_nvimsurround,
             pattern = { 'lua' },

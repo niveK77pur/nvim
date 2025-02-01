@@ -113,18 +113,8 @@ function _G.MyFoldText(fc) -- {{{
     local folding_sign = ''
     local num_lines_folded = vim.v.foldend - vim.v.foldstart
     local foldline = {
-        spaces = vim.fn.substitute(
-            vim.fn.getline(vim.v.foldstart),
-            [[^\s*\zs.*]],
-            '',
-            ''
-        ),
-        text = vim.fn.substitute(
-            vim.fn.getline(vim.v.foldstart),
-            [[^\s*]],
-            '',
-            ''
-        ),
+        spaces = vim.fn.substitute(vim.fn.getline(vim.v.foldstart), [[^\s*\zs.*]], '', ''),
+        text = vim.fn.substitute(vim.fn.getline(vim.v.foldstart), [[^\s*]], '', ''),
     }
     local line = {
         left = string.format(
@@ -134,10 +124,7 @@ function _G.MyFoldText(fc) -- {{{
             vim.v.foldlevel,
             vim.fn.substitute(
                 foldline['text'],
-                string.format(
-                    [[\s*%s\d*\s*]],
-                    vim.fn.split(vim.o.foldmarker, ',')[1]
-                ),
+                string.format([[\s*%s\d*\s*]], vim.fn.split(vim.o.foldmarker, ',')[1]),
                 '',
                 ''
             )
@@ -154,11 +141,7 @@ function _G.MyFoldText(fc) -- {{{
             - #line.right
             - (
                 (vim.o.number or vim.o.relativenumber or 0)
-                and math.max(
-                    vim.o.numberwidth,
-                    vim.o.relativenumber and -1
-                        or #tostring(vim.fn.line('$')) + 1
-                )
+                and math.max(vim.o.numberwidth, vim.o.relativenumber and -1 or #tostring(vim.fn.line('$')) + 1)
             )
         --   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^^^^^^^                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         --   if no line numbers are set, do not substract anything
@@ -170,9 +153,7 @@ function _G.MyFoldText(fc) -- {{{
     -- being correctly computed.
     fillcharcount = fillcharcount + 2
     -- 'repeat' is a lua keyword, we need to use a different syntax to call the function
-    return line['left']
-        .. vim.fn['repeat'](fillchar, fillcharcount)
-        .. line['right']
+    return line['left'] .. vim.fn['repeat'](fillchar, fillcharcount) .. line['right']
 end -- }}}
 vim.opt.foldtext = 'v:lua.MyFoldText()'
 vim.opt.fillchars = [[fold: ]]

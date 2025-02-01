@@ -11,11 +11,7 @@ return {
             -- end,
             formatters = {
                 python = function(inside, variable)
-                    return string.format(
-                        [[print(f'%s = {%s}')]],
-                        inside,
-                        variable
-                    )
+                    return string.format([[print(f'%s = {%s}')]], inside, variable)
                 end,
             },
         })

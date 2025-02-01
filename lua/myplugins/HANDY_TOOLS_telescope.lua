@@ -17,17 +17,9 @@ return {
         nmap('<leader>ff', function()
             tb.find_files({ no_ignore = true })
         end, { desc = 'Telescope: Navigate files' })
-        nmap(
-            '<leader>fg',
-            tb.find_files,
-            { desc = 'Telescope: Navigate git files' }
-        )
+        nmap('<leader>fg', tb.find_files, { desc = 'Telescope: Navigate git files' })
         nmap('<leader>fb', tb.buffers, { desc = 'Telescope: Navigate buffers' })
-        nmap(
-            '<leader>fl',
-            tb.current_buffer_fuzzy_find,
-            { desc = 'Telescope: Navigate lines in buffer' }
-        )
+        nmap('<leader>fl', tb.current_buffer_fuzzy_find, { desc = 'Telescope: Navigate lines in buffer' })
         nmap('<leader>fL', function()
             tb.live_grep({ grep_open_files = true })
         end, {
@@ -42,27 +34,12 @@ return {
         end, { desc = 'Telescope: `:changes`' })
         nmap('<leader>fm', tb.marks, { desc = 'Telescope: marks' })
         nmap('<leader>fR', tb.registers, { desc = 'Telescope: registers' })
-        nmap(
-            '<leader>f:',
-            tb.command_history,
-            { desc = 'Telescope: command history' }
-        )
-        nmap(
-            '<leader>f/',
-            tb.search_history,
-            { desc = 'Telescope: serach history' }
-        )
+        nmap('<leader>f:', tb.command_history, { desc = 'Telescope: command history' })
+        nmap('<leader>f/', tb.search_history, { desc = 'Telescope: serach history' })
         nmap('<leader>ft', function()
-            vim.notify(
-                'Telescope cannot list filter for TODOs',
-                vim.log.levels.ERROR
-            )
+            vim.notify('Telescope cannot list filter for TODOs', vim.log.levels.ERROR)
         end, { desc = 'Telescope: search TODOs (TODO)' })
-        nmap(
-            '<leader>fT',
-            tb.treesitter,
-            { desc = 'Telescope: treesitter picker' }
-        )
+        nmap('<leader>fT', tb.treesitter, { desc = 'Telescope: treesitter picker' })
         -- nmap('<leader>ft', function() tb.filetypes() end)
 
         -- Suggestions ---------------------------------------------------------

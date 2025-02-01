@@ -4,12 +4,7 @@ return {
     enabled = false,
     config = function()
         require('ts-node-action').setup({})
-        vim.keymap.set(
-            { 'n' },
-            '<Leader>ta',
-            require('ts-node-action').node_action,
-            { desc = 'Trigger Node Action' }
-        )
+        vim.keymap.set({ 'n' }, '<Leader>ta', require('ts-node-action').node_action, { desc = 'Trigger Node Action' })
         require('null-ls').register({
             name = 'more_actions',
             method = { require('null-ls').methods.CODE_ACTION },

@@ -36,54 +36,19 @@ return {
                 -- Actions {{{1
                 map({ 'n', 'v' }, '<leader>ghs', ':Gitsigns stage_hunk<CR>')
                 map({ 'n', 'v' }, '<leader>ghr', ':Gitsigns reset_hunk<CR>')
-                map(
-                    'n',
-                    '<leader>ghS',
-                    gs.stage_buffer,
-                    { desc = 'Gitsigns: Stage buffer' }
-                )
-                map(
-                    'n',
-                    '<leader>ghR',
-                    gs.reset_buffer,
-                    { desc = 'Gitsigns: Reset buffer' }
-                )
-                map(
-                    'n',
-                    '<leader>ghu',
-                    gs.undo_stage_hunk,
-                    { desc = 'Gitsigns: undo stage hunk' }
-                )
-                map(
-                    'n',
-                    '<leader>ghp',
-                    gs.preview_hunk,
-                    { desc = 'Gitsigns: preview hunk' }
-                )
+                map('n', '<leader>ghS', gs.stage_buffer, { desc = 'Gitsigns: Stage buffer' })
+                map('n', '<leader>ghR', gs.reset_buffer, { desc = 'Gitsigns: Reset buffer' })
+                map('n', '<leader>ghu', gs.undo_stage_hunk, { desc = 'Gitsigns: undo stage hunk' })
+                map('n', '<leader>ghp', gs.preview_hunk, { desc = 'Gitsigns: preview hunk' })
                 map('n', '<leader>ghb', function()
                     gs.blame_line({ full = true })
                 end, { desc = 'Gitsigns: Blame line' })
-                map(
-                    'n',
-                    '<leader>gtb',
-                    gs.toggle_current_line_blame,
-                    { desc = 'Gitsigns: toggle current line blame' }
-                )
-                map(
-                    'n',
-                    '<leader>ghd',
-                    gs.diffthis,
-                    { desc = 'Gitsigns: diff this' }
-                )
+                map('n', '<leader>gtb', gs.toggle_current_line_blame, { desc = 'Gitsigns: toggle current line blame' })
+                map('n', '<leader>ghd', gs.diffthis, { desc = 'Gitsigns: diff this' })
                 map('n', '<leader>ghD', function()
                     gs.diffthis('~')
                 end, { desc = 'Gitsigns: diff this ~' })
-                map(
-                    'n',
-                    '<leader>gtd',
-                    gs.toggle_deleted,
-                    { desc = 'Gitsigns: toggle showing deleted lines' }
-                )
+                map('n', '<leader>gtd', gs.toggle_deleted, { desc = 'Gitsigns: toggle showing deleted lines' })
 
                 -- Text object {{{1
                 map({ 'o', 'x' }, 'gih', ':<C-U>Gitsigns select_hunk<CR>')

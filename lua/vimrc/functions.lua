@@ -103,24 +103,14 @@ function myfs.GetCommentCharacter()
 end
 
 function myfs.MakeHeader(text)
-    local indent =
-        vim.fn.substitute(vim.fn.getline('.'), [[^\s*\zs\S.*]], '', '')
+    local indent = vim.fn.substitute(vim.fn.getline('.'), [[^\s*\zs\S.*]], '', '')
     local comment_character = myfs.GetCommentCharacter()
     local textwidth = (vim.o.textwidth > 0) and vim.o.textwidth or 80
     local width = textwidth - #indent - #comment_character
     local space = (' '):rep(vim.fn.round(width / 2 - #text / 2))
 
-    local banner = ('%s%s%s'):format(
-        indent,
-        comment_character,
-        ('~'):rep(width)
-    )
-    local text_line = ('%s%s%s%s'):format(
-        indent,
-        comment_character,
-        space,
-        text
-    )
+    local banner = ('%s%s%s'):format(indent, comment_character, ('~'):rep(width))
+    local text_line = ('%s%s%s%s'):format(indent, comment_character, space, text)
     vim.fn.append('.', {
         banner,
         text_line,
@@ -129,20 +119,14 @@ function myfs.MakeHeader(text)
 end
 
 function myfs.MakeSection(text)
-    local indent =
-        vim.fn.substitute(vim.fn.getline('.'), [[^\s*\zs\S.*]], '', '')
+    local indent = vim.fn.substitute(vim.fn.getline('.'), [[^\s*\zs\S.*]], '', '')
     local comment_character = myfs.GetCommentCharacter()
     local textwidth = (vim.o.textwidth > 0) and vim.o.textwidth or 80
     local width = textwidth - #indent - #comment_character
     text = (' %s '):format(text)
 
     local banner = ('-'):rep(width - #text)
-    local text_line = ('%s%s%s%s'):format(
-        indent,
-        comment_character,
-        text,
-        banner
-    )
+    local text_line = ('%s%s%s%s'):format(indent, comment_character, text, banner)
     vim.fn.append('.', {
         text_line,
     })
@@ -165,10 +149,7 @@ end
 function myfs.return_gathered_plugins(require_path, require_names)
     local plugin_specs = {}
     for _, r in ipairs(require_names) do
-        table.insert(
-            plugin_specs,
-            require(string.format('%s.%s', require_path, r))
-        )
+        table.insert(plugin_specs, require(string.format('%s.%s', require_path, r)))
     end
     return plugin_specs
 end

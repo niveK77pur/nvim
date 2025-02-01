@@ -28,12 +28,7 @@ end, {
 })
 
 map('n', '<Leader>F', function()
-    vim.cmd(
-        ('tabnew %s/ftplugin/%s.lua'):format(
-            vim.fn.stdpath('config'),
-            vim.o.filetype
-        )
-    )
+    vim.cmd(('tabnew %s/ftplugin/%s.lua'):format(vim.fn.stdpath('config'), vim.o.filetype))
 end, {
     desc = 'edit filetype plugin of current filetype',
 })
@@ -66,12 +61,7 @@ end, { desc = 'save files' })
 
 -- File Manipulation -----------------------------------------------------------
 
-map(
-    'n',
-    '<Leader>gf',
-    ':e <cfile><CR>',
-    { desc = "'gf' but make it create new file if not existant" }
-)
+map('n', '<Leader>gf', ':e <cfile><CR>', { desc = "'gf' but make it create new file if not existant" })
 
 -- Handy Mappings --------------------------------------------------------------
 
@@ -100,12 +90,7 @@ vim.cmd([[nnoremap <Leader><c-space> /\[>VIM<\]<CR>v//e<CR>s]])
 --                                   Registers
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-map(
-    'i',
-    '<A-p>',
-    '<c-r>"',
-    { desc = 'paste text in " register more easily in insert mode' }
-)
+map('i', '<A-p>', '<c-r>"', { desc = 'paste text in " register more easily in insert mode' })
 
 -- Macros ----------------------------------------------------------------------
 
@@ -134,14 +119,7 @@ map('x', 'Q', function() -- {{{
                 text = 'Regex',
                 default = [[^..*$]],
                 on_submit = function(regex)
-                    vim.cmd(
-                        ([[%d,%dg#%s#normal @%s]]):format(
-                            v_start[2],
-                            v_end[2],
-                            regex,
-                            register
-                        )
-                    )
+                    vim.cmd(([[%d,%dg#%s#normal @%s]]):format(v_start[2], v_end[2], regex, register))
                 end,
             })
         end,
@@ -158,12 +136,7 @@ end, {
 --                                   Settings
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-map(
-    { 'n', 'v', 'o' },
-    '<F5>',
-    ':set wrap! wrap?<CR>',
-    { desc = 'Toggle line wrapping' }
-)
+map({ 'n', 'v', 'o' }, '<F5>', ':set wrap! wrap?<CR>', { desc = 'Toggle line wrapping' })
 
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --                                   Interface
@@ -183,45 +156,15 @@ map('n', '<F12>', [[:echo '\°O°/'<CR>]])
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -- navigate windows with CTRL+ALT+{h,j,k,l} {{{
-map(
-    { 't', 'i', 'n' },
-    '<C-A-h>',
-    [[<C-\><C-N><C-w>h]],
-    { desc = 'Navigate window using ALT+h' }
-)
-map(
-    { 't', 'i', 'n' },
-    '<C-A-j>',
-    [[<C-\><C-N><C-w>j]],
-    { desc = 'Navigate window using ALT+j' }
-)
-map(
-    { 't', 'i', 'n' },
-    '<C-A-k>',
-    [[<C-\><C-N><C-w>k]],
-    { desc = 'Navigate window using ALT+k' }
-)
-map(
-    { 't', 'i', 'n' },
-    '<C-A-l>',
-    [[<C-\><C-N><C-w>l]],
-    { desc = 'Navigate window using ALT+l' }
-)
+map({ 't', 'i', 'n' }, '<C-A-h>', [[<C-\><C-N><C-w>h]], { desc = 'Navigate window using ALT+h' })
+map({ 't', 'i', 'n' }, '<C-A-j>', [[<C-\><C-N><C-w>j]], { desc = 'Navigate window using ALT+j' })
+map({ 't', 'i', 'n' }, '<C-A-k>', [[<C-\><C-N><C-w>k]], { desc = 'Navigate window using ALT+k' })
+map({ 't', 'i', 'n' }, '<C-A-l>', [[<C-\><C-N><C-w>l]], { desc = 'Navigate window using ALT+l' })
 -- }}}
 
 -- use ALT+{, .} to navigate tabs {{{
-map(
-    { 't', 'i', 'n' },
-    '<A-,>',
-    [[<C-\><C-N>:tabprevious<CR>]],
-    { desc = 'Navigate tabs using ALT+,' }
-)
-map(
-    { 't', 'i', 'n' },
-    '<A-.>',
-    [[<C-\><C-N>:tabnext<CR>]],
-    { desc = 'Navigate tabs using ALT+.' }
-)
+map({ 't', 'i', 'n' }, '<A-,>', [[<C-\><C-N>:tabprevious<CR>]], { desc = 'Navigate tabs using ALT+,' })
+map({ 't', 'i', 'n' }, '<A-.>', [[<C-\><C-N>:tabnext<CR>]], { desc = 'Navigate tabs using ALT+.' })
 -- }}}
 
 -- use arrow keys to move linewise on wrapped lines {{{
@@ -258,18 +201,8 @@ if vim.version.lt(vim.version(), { 0, 10, 0 }) then
         vim.diagnostic.open_float,
         { unpack(diagnostic_opts), desc = 'Show diagnostic in float window' }
     )
-    vim.keymap.set(
-        'n',
-        '[d',
-        vim.diagnostic.goto_prev,
-        { unpack(diagnostic_opts), desc = 'Go to previous diagnostic' }
-    )
-    vim.keymap.set(
-        'n',
-        ']d',
-        vim.diagnostic.goto_next,
-        { unpack(diagnostic_opts), desc = 'Go to next diagnostic' }
-    )
+    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { unpack(diagnostic_opts), desc = 'Go to previous diagnostic' })
+    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { unpack(diagnostic_opts), desc = 'Go to next diagnostic' })
 end
 vim.keymap.set('n', '<Leader>lq', vim.diagnostic.setloclist, {
     unpack(diagnostic_opts),
