@@ -199,6 +199,8 @@ return {
         lspconfig.nixd.setup({})
         lspconfig.nil_ls.setup({})
 
+        lspconfig.dockerls.setup({})
+
         -- Setup -----------------------------------------------------------
         do
             local diagnostic_config = vim.diagnostic.config()
