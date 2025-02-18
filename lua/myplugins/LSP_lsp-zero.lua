@@ -201,6 +201,8 @@ return {
 
         lspconfig.dockerls.setup({})
 
+        lspconfig.gitlab_ci_ls.setup({})
+
         -- Setup -----------------------------------------------------------
         do
             local diagnostic_config = vim.diagnostic.config()

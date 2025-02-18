@@ -13,6 +13,7 @@ local vimrc_files = {
     'vimrc.commands',
     'vimrc.autocommands',
     'vimrc.neovide',
+    'vimrc.filetypes',
 }
 
 for _, vfile in pairs(vimrc_files) do
