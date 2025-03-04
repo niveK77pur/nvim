@@ -41,7 +41,7 @@
 
           # viewers
           pkgs.zathura
-          pkgs.okular
+          pkgs.kdePackages.okular
         ];
       };
     });
