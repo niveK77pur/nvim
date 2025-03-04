@@ -20,6 +20,17 @@
       naersk' = pkgs.callPackage naersk {};
     in {
       packages.default = pkgs.stdenvNoCC.mkDerivation {
+        FONTCONFIG_FILE = pkgs.makeFontsConf {
+          fontDirectories = [
+            "${pkgs.lilypond}/share/lilypond/${pkgs.lilypond.version}/fonts/otf"
+            # TODO: Ghostscript URW
+            "${pkgs.gyre-fonts}/share/fonts/truetype"
+            # "${pkgs.dejavu_fonts.passthru.minimal}/share/fonts/truetype"
+            "${pkgs.dejavu_fonts}/share/fonts/truetype"
+            "${pkgs.noto-fonts-cjk-serif}/share/fonts/opentype/noto-cjk"
+          ];
+        };
+
         buildPhase = ''
           mkdir --parent $out
           lilypond --include=./openlilylib --output=$out Enshrouded-Horizon.ly || :
