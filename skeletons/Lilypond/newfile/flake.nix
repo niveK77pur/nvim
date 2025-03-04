@@ -19,6 +19,19 @@
       pkgs = nixpkgs.legacyPackages.${system};
       naersk' = pkgs.callPackage naersk {};
     in {
+      packages.default = pkgs.stdenvNoCC.mkDerivation {
+        buildPhase = ''
+          mkdir --parent $out
+          lilypond --include=./openlilylib --output=$out Enshrouded-Horizon.ly || :
+        '';
+
+        name = "lilypond-score";
+        nativeBuildInputs = [
+          pkgs.lilypond
+        ];
+        src = ./.;
+      };
+
       devShell = pkgs.mkShell {
         packages = [
           # working with lilypond
