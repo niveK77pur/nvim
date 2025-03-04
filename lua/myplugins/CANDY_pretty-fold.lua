@@ -1,6 +1,6 @@
 return {
     'bbjornstad/pretty-fold.nvim',
-    enabled = true,
+    enabled = false,
     config = function()
         local global_setup = {
             sections = {

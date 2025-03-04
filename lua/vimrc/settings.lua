@@ -109,45 +109,87 @@ local fold_fill_char = '.'
 local lnum_far_right = false
 function _G.MyFoldText(fc) -- {{{
     -- https://www.reddit.com/r/neovim/comments/opznf4/custom_foldtext_in_lua/
+
+    ---Get the text on the line that should be placed into the foldtext
+    ---@param line string The line on which to find the desired text
+    ---@return string
+    local function get_line_text(line) --  {{{
+        -- remove the fold marker
+        -- TODO: Remove closing marker
+        line =
+            vim.fn.substitute(line, string.format([[\s*%s\s*\d*\s*]], vim.fn.split(vim.o.foldmarker, ',')[1]), '', '')
+        -- remove the comment characters
+        line = vim.fn.substitute(
+            line,
+            -- assemble 'comments' into a regex pattern where each value is 'OR'ed
+            vim.fn.substitute(vim.o.comments, [[\%(^\|,\)[^:]*:]], [[\\|]], 'g'):gsub([[^\|]], ''),
+            '',
+            'g'
+        )
+        -- remove surrounding spaces
+        line = vim.trim(line)
+        return line
+    end --  }}}
+
+    ---Continue getting the next line until a non-empty fold text line is found
+    ---@param linenr integer The line number to start searching from
+    ---@return string
+    local function get_next_non_empty_line_text(linenr) --  {{{
+        local line
+        while line == nil or line == '' or linenr < vim.fn.line('$') do
+            line = vim.fn.getline(linenr)
+            if get_line_text(line) == '' then
+                line = nil
+            else
+                return line
+            end
+            linenr = linenr + 1
+        end
+        return '(EOL)'
+    end --  }}}
+
     local fillchar = fc or fold_fill_char
     local folding_sign = ''
     local num_lines_folded = vim.v.foldend - vim.v.foldstart
+    local next_non_empty_line = get_next_non_empty_line_text(vim.v.foldstart)
     local foldline = {
-        spaces = vim.fn.substitute(vim.fn.getline(vim.v.foldstart), [[^\s*\zs.*]], '', ''),
-        text = vim.fn.substitute(vim.fn.getline(vim.v.foldstart), [[^\s*]], '', ''),
+        indent = vim.fn.substitute(next_non_empty_line, [[^\s*\zs.*]], '', ''),
+        text = get_line_text(next_non_empty_line),
     }
     local line = {
         left = string.format(
-            '%s%s {lvl.%d} %s ',
-            foldline['spaces'],
+            '%s%s {lvl.%d} %s%s ',
+            foldline['indent'],
             folding_sign,
             vim.v.foldlevel,
-            vim.fn.substitute(
-                foldline['text'],
-                string.format([[\s*%s\d*\s*]], vim.fn.split(vim.o.foldmarker, ',')[1]),
-                '',
-                ''
-            )
+            vim.fn['repeat']('  ', vim.v.foldlevel - 1),
+            foldline['text']
         ),
         right = string.format('[%dL]', num_lines_folded),
     }
-    -- Take into account line number column. It breaks when more columns are needed than specified, as there is no way to obtain the "effective" number column width. (i.e. the default value of 4 allows for line numbers up to 999; if you have line number 1000, then it will implicitly use 5 colums. There is no way to tell this. A hack is implemented by conditionally substracting the corresponding value.
+    -- Take into account line number column. It breaks when more columns are
+    -- needed than specified, as there is no way to obtain the "effective"
+    -- number column width. (i.e. the default value of 4 allows for line
+    -- numbers up to 999; if you have line number 1000, then it will implicitly
+    -- use 5 colums. There is no way to tell this. A hack is implemented by
+    -- conditionally substracting the corresponding value.
     local fillcharcount
     if not lnum_far_right then -- put Line number at 'textwidth'
-        fillcharcount = ((vim.o.textwidth > 0) or 80) - #line.left - #line.right
+        fillcharcount = ((vim.o.textwidth > 0) and vim.o.textwidth or 100) - #line.left - #line.right
     else -- put Line number at the very right edge
         fillcharcount = vim.api.nvim_win_get_width(0)
             - #line.left
             - #line.right
-            - (
+            - ( -- if no line numbers are set, do not substract anything
                 (vim.o.number or vim.o.relativenumber or 0)
-                and math.max(vim.o.numberwidth, vim.o.relativenumber and -1 or #tostring(vim.fn.line('$')) + 1)
+                -- otherwise try to determine how wide the number column is
+                and math.max(
+                    -- if relative number is used, then 'numberwidth' should be fine (?)
+                    vim.o.numberwidth,
+                    -- otherwise, take the number of lines in the buffer (+1; see :h numberwidth)
+                    vim.o.relativenumber and -1 or #tostring(vim.fn.line('$')) + 1
+                )
             )
-        --   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^^^^^^^                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        --   if no line numbers are set, do not substract anything
-        --                                                  otherwise try to determine how wide the number column is
-        --                                                                              if relative number is used, then 'numberwidth' should be fine (?)
-        --                                                                              otherwise, take the number of lines in the buffer (+1; see :h numberwidth)
     end
     -- Hard-coded value adjustment due to Nerd Font icon character length not
     -- being correctly computed.
@@ -157,7 +199,6 @@ function _G.MyFoldText(fc) -- {{{
 end -- }}}
 vim.opt.foldtext = 'v:lua.MyFoldText()'
 vim.opt.fillchars = [[fold: ]]
--- vim.opt.fillchars = [[fold:·]]
 
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --                                    Editor
