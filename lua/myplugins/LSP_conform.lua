@@ -78,18 +78,6 @@ return {
                     command = 'ly',
                     args = { 'reformat' },
                 }, --  }}}
-                ruff_format = {
-                    -- prepend_args does no work here. See https://github.com/stevearc/conform.nvim/blob/master/lua/conform/formatters/ruff_format.lua
-                    args = {
-                        'format',
-                        '--config',
-                        'format.quote-style = "single"',
-                        '--force-exclude',
-                        '--stdin-filename',
-                        '$FILENAME',
-                        '-',
-                    },
-                },
             },
         })
         -- Command to toggle format-on-save {{{
