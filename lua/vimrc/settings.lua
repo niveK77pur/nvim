@@ -84,7 +84,7 @@ function _G.generateStatusColumn()
     -- line numbers
     local linenumbers = false
     if vim.o.relativenumber and not vim.o.number then
-        table.insert(elements, [[%r]])
+        table.insert(elements, [[%{v:relnum}]])
         linenumbers = true
     elseif not vim.o.relativenumber and vim.o.number then
         table.insert(elements, [[%l]])
