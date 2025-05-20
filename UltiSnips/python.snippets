@@ -2,7 +2,7 @@
 #                                  Print stuff
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-post_jump "if snip.tabstop == 2: snip.expand_anon(''.join( ( '$'+str(i+1)+'\{\}' for i in range(len(snip.tabstops[1].current_text.split(','))) ) ))"
+post_jump "if snip.tabstop == 2: snip.expand_anon(''.join( ( '$'+str(i+1)+r'\{\}' for i in range(len(snip.tabstops[1].current_text.split(','))) ) ))"
 snippet pf "print format : print('...'.format(...))"
 print("$2".format($1))$0
 endsnippet
