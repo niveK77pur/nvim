@@ -15,7 +15,7 @@ return {
         -- 'hrsh7th/cmp-path',
         -- 'saadparwaiz1/cmp_luasnip',
     },
-    enabled = true,
+    enabled = vim.version.lt(vim.version(), { 0, 11, 0 }),
     config = function()
         local cmp = require('cmp')
         local lspkind = require('lspkind')

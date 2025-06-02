@@ -6,7 +6,7 @@ return {
         'williamboman/mason-lspconfig.nvim',
         'folke/neodev.nvim', -- neodev needs to be setup before lspconfig
     },
-    enabled = true,
+    enabled = vim.version.lt(vim.version(), { 0, 11, 0 }),
     config = function()
         local lsp_zero = require('lsp-zero')
         local lspconfig = require('lspconfig')
