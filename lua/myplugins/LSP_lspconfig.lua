@@ -2,6 +2,8 @@ return {
     'neovim/nvim-lspconfig',
     enabled = vim.version.ge(vim.version(), { 0, 11, 0 }),
     config = function()
+        vim.lsp.inlay_hint.enable()
+
         -- enable all LSPs for which there are files in lsp/
         local lsp_dir = vim.fn.stdpath('config') .. '/lsp'
         local original_package_path = package.path

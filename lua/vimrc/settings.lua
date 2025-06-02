@@ -231,6 +231,9 @@ vim.diagnostic.config({
     virtual_text = {
         source = 'if_many',
     },
+    virtual_lines = {
+        current_line = true,
+    },
     severity_sort = true,
     signs = true,
 })
