@@ -32,11 +32,11 @@ return {
             default = {
                 'lazydev',
                 'lsp',
-                'path',
+                'omni',
                 'snippets',
                 'nerdfont',
                 'latex',
-                'omni',
+                'path',
                 'buffer',
             },
             per_filetype = {
