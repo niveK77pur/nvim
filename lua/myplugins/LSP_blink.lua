@@ -8,6 +8,7 @@ return {
         'rafamadriz/friendly-snippets',
         'MahanRahmati/blink-nerdfont.nvim',
         'Kaiser-Yang/blink-cmp-dictionary',
+        'erooke/blink-cmp-latex',
     },
     version = '1.*',
     ---@module 'blink.cmp'
@@ -34,6 +35,7 @@ return {
                 'path',
                 'snippets',
                 'nerdfont',
+                'latex',
                 'omni',
                 'buffer',
             },
@@ -70,6 +72,22 @@ return {
                             end
                             local LILYDICTPATH = nls_lazy.dir .. '/lilywords'
                             return vim.fn.glob(LILYDICTPATH .. '/*', true, true)
+                        end,
+                    },
+                },
+                latex = { -- {{{1
+                    name = 'Latex',
+                    module = 'blink-cmp-latex',
+                    opts = {
+                        insert_command = function(ctx)
+                            local ft = vim.api.nvim_get_option_value('filetype', {
+                                scope = 'local',
+                                buf = ctx.bufnr,
+                            })
+                            if ft == 'tex' then
+                                return true
+                            end
+                            return false
                         end,
                     },
                 },
