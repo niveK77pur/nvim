@@ -1,1 +1,1 @@
-{"module":{"prefix":"module","body":["{","  lib,","  config,","  ...","}: let","  modname = \"$1\";","  cfg = config.\\${modname};","in {","  options.\\${modname} = {","    enable = lib.mkEnableOption \"\\${modname}\";","  };","","  config = lib.mkIf cfg.enable {","    $2","  };","}"]}}
+{"module":{"prefix":"module","body":["{","  lib,","  config,","  ...","}: let","  modname = \"$1\";","  cfg = config.\\${modname};","in {","  options.\\${modname} = {","    enable = lib.mkEnableOption \"\\${modname}\";","  };","","  config = lib.mkIf cfg.enable {","    $0","  };","}"]}}
