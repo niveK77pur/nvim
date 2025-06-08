@@ -19,6 +19,23 @@ local function NixGetCursorAttributeNode() --  {{{1
     return cursor_node
 end -- }}}1
 
+---Find the surrounding `attrset_expression` scope of the node
+---@param node TSNode
+---@return TSNode?
+local function NixGetAttrssetScopeNode(node) -- {{{1
+    -- Here we traverse up the tree until we find the surrounding
+    -- `attrset_expression` node
+    repeat
+        local parent = node:parent()
+        if parent == nil then
+            notify('Could not find surrounding `attrset_expression` on cursor position', vim.log.levels.ERROR)
+            return nil
+        end
+        node = parent
+    until node:type() == 'attrset_expression'
+    return node
+end -- }}}1
+
 function M.nix_nest_attributes() -- {{{1
 end -- }}}1
 
