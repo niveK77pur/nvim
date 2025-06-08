@@ -1,6 +1,6 @@
 return {
     'matsuuu/pinkmare',
-    enabled = true,
+    enabled = false,
     config = function()
         vim.g.pinkmare_transparent_background = true
         vim.g.pinkmare_overwrite_groups = {
