@@ -36,6 +36,34 @@ local function NixGetAttrssetScopeNode(node) -- {{{1
     return node
 end -- }}}1
 
+---Collect the attributes in the attribute path that follow the attribute at the node; left of the `=`
+---@param node TSNode
+---@return string?
+local function NixGetAttributesAfterNode(node) -- {{{1
+    local node_attrs = {}
+    local sibling = node:next_named_sibling()
+    while sibling ~= nil do
+        table.insert(node_attrs, vim.treesitter.get_node_text(sibling, 0))
+        sibling = sibling:next_named_sibling()
+    end
+    if #node_attrs == 0 then
+        return nil
+    end
+    return vim.fn.join(node_attrs, '.')
+end -- }}}1
+
+---Collect the remaining nodes of the attribute path on the cursor; right of the `=`
+---@param node TSNode
+---@return TSNode?
+local function NixGetAttributePathValueAfterNode(node) --  {{{
+    local node_value = node:parent():next_named_sibling()
+    if node_value == nil then
+        notify('Current attribute does not seem to have any value assigned', vim.log.levels.ERROR)
+        return
+    end
+    return node_value
+end --  }}}
+
 function M.nix_nest_attributes() -- {{{1
 end -- }}}1
 
