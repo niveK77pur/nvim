@@ -52,7 +52,7 @@ return {
                 nerdfont = { -- {{{1
                     module = 'blink-nerdfont',
                     name = 'Nerd Fonts',
-                    score_offset = 15, -- Tune by preference
+                    score_offset = -10, -- Tune by preference
                     opts = { insert = true }, -- Insert nerdfont icon (default) or complete its name
                 },
                 lilypond_dict = { -- {{{1
