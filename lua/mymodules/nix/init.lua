@@ -83,6 +83,11 @@ function M.nix_nest_attributes() -- {{{1
     local buffer = vim.api.nvim_get_current_buf()
 
     -- get text of nix attribute cursor is at
+    -- TODO: Get common denominator of selected node. This is important when we
+    -- have `x.y.z` with our cursor on `y` or `z`. This should be achieved by
+    -- capturing `x.y` or `x.y.z` respectively. Accordingly, merging of
+    -- attributes should take this into account and further reformat the given
+    -- attribute set in order to accomodate for everything.
     local cursor_node = NixGetCursorAttributeNode()
     if cursor_node == nil then
         return
@@ -111,6 +116,7 @@ function M.nix_nest_attributes() -- {{{1
 
     -- capture all repeated nodes information for modifying the buffer
     local _, first_node = query_captures()
+    -- TODO: Check if first node has a known value assigned for the insertion
     local first_node_value = NixGetAttributePathValueAfterNode(first_node)
     if first_node_value == nil then
         return
@@ -148,6 +154,7 @@ function M.nix_nest_attributes() -- {{{1
         })
         -- INFO: Insert in reverse to insert at same position in buffer; this
         -- avoids having to recalculate the column numbers
+        -- TODO: Capture comments attached to the node in question?
         table.insert(add_list, 1, {
             node_attrs_text,
             vim.treesitter.get_node_text(node_value, 0),
@@ -163,6 +170,7 @@ function M.nix_nest_attributes() -- {{{1
     -- insert text into first node
     for _, entries in ipairs(add_list) do
         local attr, val = unpack(entries)
+        -- TODO: Refactor into a table to capture known types more easily
         if first_node_type == 'attrset_expression' then
             vim.api.nvim_buf_set_text(buffer, fer, fec - 1, fer, fec - 1, { string.format('%s = %s;', attr, val) })
         else
