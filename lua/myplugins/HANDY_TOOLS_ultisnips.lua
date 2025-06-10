@@ -1,6 +1,6 @@
 return {
     'SirVer/ultisnips',
-    enabled = true,
+    enabled = false,
     config = function()
         vim.g.UltiSnipsEditSplit = 'tabdo'
         vim.g.UltiSnipsSnippetDirectories = { vim.fn.stdpath('config') .. '/UltiSnips' }

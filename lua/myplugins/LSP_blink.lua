@@ -29,6 +29,10 @@ return {
             },
         },
 
+        snippets = {
+            preset = 'luasnip',
+        },
+
         sources = {
             default = {
                 'lazydev',
