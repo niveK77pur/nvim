@@ -11,6 +11,7 @@ return {
         'erooke/blink-cmp-latex',
     },
     version = '1.*',
+    event = { 'InsertEnter' },
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
