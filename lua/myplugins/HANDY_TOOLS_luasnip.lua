@@ -29,5 +29,9 @@ return {
         vim.keymap.set({ 'i', 's' }, '<C-M-l>', function()
             require('luasnip.extras.select_choice')()
         end, { desc = 'Select choice for a choice node', silent = true })
+
+        vim.keymap.set({ 'n' }, '<Leader>vs', function()
+            require('luasnip.loaders').edit_snippet_files()
+        end, { desc = 'LuaSnip: Edit snippets' })
     end,
 }
