@@ -24,7 +24,7 @@ return {
             --  }}}
             {
                 modname = c(1, {
-                    t(vim.fn.expand('%:r')),
+                    p(vim.fn.expand, '%:t:r'),
                     i(1),
                 }),
                 path = c(2, {
