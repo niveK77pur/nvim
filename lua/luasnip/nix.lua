@@ -9,11 +9,10 @@ return {
               config,
               ...
             }: let
-              modname = "<modname>";
-              cfg = config<path>.${modname};
+              cfg = config<path>.<modname>;
             in {
-              options<path>.${modname} = {
-                enable = lib.mkEnableOption "${modname}";
+              options<path>.<modname> = {
+                enable = lib.mkEnableOption "<modname>";
               };
 
               config = lib.mkIf cfg.enable {
