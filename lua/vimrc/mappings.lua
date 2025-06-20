@@ -204,7 +204,7 @@ if vim.version.lt(vim.version(), { 0, 10, 0 }) then
     vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { unpack(diagnostic_opts), desc = 'Go to previous diagnostic' })
     vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { unpack(diagnostic_opts), desc = 'Go to next diagnostic' })
 end
-vim.keymap.set('n', '<Leader>lq', vim.diagnostic.setloclist, {
+vim.keymap.set('n', 'gdl', vim.diagnostic.setloclist, {
     unpack(diagnostic_opts),
     desc = 'Add buffer diagnostics to location list',
 })
