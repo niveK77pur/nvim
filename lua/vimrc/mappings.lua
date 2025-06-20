@@ -208,5 +208,16 @@ vim.keymap.set('n', 'gdl', vim.diagnostic.setloclist, {
     unpack(diagnostic_opts),
     desc = 'Add buffer diagnostics to location list',
 })
+vim.keymap.set('n', 'gdt', function()
+    vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+    if vim.diagnostic.is_enabled() then
+        vim.notify('Diagnostics enabled')
+    else
+        vim.notify('Diagnostics disabled')
+    end
+end, {
+    desc = 'Toggle diagnostics',
+    noremap = true,
+})
 
 -- vim: fdm=marker
