@@ -224,4 +224,9 @@ end, {
 --                                 Miscellaneous
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+vim.keymap.set('n', 'grd', '<c-]>', {
+    desc = '<c-]> but matching the default LSP mappings',
+    noremap = false,
+})
+
 -- vim: fdm=marker
