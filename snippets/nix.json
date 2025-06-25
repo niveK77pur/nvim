@@ -1,1 +1,1 @@
-{}
+{"mkOption":{"body":["${1:var} = lib.mkOption {","  type = lib.types.${2:string};","  default = ${3:null};","  description = \"${4:My Option}\";","};"],"prefix":"mkOption"}}
