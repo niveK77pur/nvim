@@ -21,6 +21,8 @@
             stylua
             lua-language-server
             luajitPackages.luacheck
+            shfmt
+            shellcheck
           ];
         };
       }
