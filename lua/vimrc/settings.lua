@@ -239,7 +239,21 @@ vim.diagnostic.config({
         current_line = true,
     },
     severity_sort = true,
-    signs = true,
+    signs = {
+        text = {
+            -- 'nf-fa' class
+            [vim.diagnostic.severity.ERROR] = '',
+            [vim.diagnostic.severity.WARN] = '',
+            [vim.diagnostic.severity.INFO] = '',
+            [vim.diagnostic.severity.HINT] = '',
+        },
+        numhl = {
+            [vim.diagnostic.severity.ERROR] = 'DiagnosticSignError',
+            [vim.diagnostic.severity.WARN] = 'DiagnosticSignWarn',
+            [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
+            [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
+        },
+    },
 })
 -- avoid sign column to make text area jump around
 vim.opt.signcolumn = 'yes'
