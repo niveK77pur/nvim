@@ -10,8 +10,8 @@ if [[ -z $1 ]]; then
     echo "Usage: $(basename "$0") NAME [KEY] [TIME]"
     echo
     echo "NAME - seperate words with dashes (-); prefix categorie seperated by underscore (_)"
-    echo 'KEY  - set the key signature (default: C major, see in `global.ly` file)'
-    echo 'TIME - set time signature (default: 4/4, see in `global.ly` file)'
+    echo "KEY  - set the key signature (default: C major, see in 'global.ly' file)"
+    echo "TIME - set time signature (default: 4/4, see in 'global.ly' file)"
     echo
     echo "Examples ..."
     echo "NAME : 'ARR-000_the-title-of-the-song' or simply 'the-title-of-the-song'"
