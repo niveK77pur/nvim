@@ -99,6 +99,25 @@ return {
             fzflua.complete_bline()
         end, { desc = 'FZF: Complete line (buffer local)' })
 
+        -- treesitter / LSP / diagnostics
+        vim.keymap.set('n', '<Leader>fgt', fzflua.treesitter, {
+            desc = 'FZF: treesitter',
+        })
+        vim.keymap.set('n', 'grr', fzflua.lsp_references, {
+            desc = 'FZF: lsp_references',
+        })
+        vim.keymap.set('n', 'gri', fzflua.lsp_implementations, {
+            desc = 'FZF: lsp_implementations',
+        })
+        vim.keymap.set('n', 'gO', fzflua.lsp_document_symbols, {
+            desc = 'FZF: lsp_document_symbols',
+        })
+        vim.keymap.set('n', 'gdl', fzflua.diagnostics_document, {
+            desc = 'FZF: diagnostics_document',
+        })
+        vim.keymap.set('n', 'gdL', fzflua.diagnostics_workspace, {
+            desc = 'FZF: diagnostics_workspace',
+        })
 
         -- `:help vim.ui.select` for more info
         fzflua.register_ui_select()
