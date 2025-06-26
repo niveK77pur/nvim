@@ -77,7 +77,7 @@ else
 fi
 
 # put all the files in place
-cd "$PROJECT" || exit 2
+cd "$PROJECT" || { echo "Could not 'cd' into $PROJECT. Aborting." exit 2; }
 
 mkdir openlilylib &&
     (
