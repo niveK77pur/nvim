@@ -44,58 +44,51 @@ return {
             },
         })
 
-        local nmap = function(LH, RH, args)
-            vim.keymap.set('n', LH, RH, args)
-        end
-        local imap = function(LH, RH, args)
-            vim.keymap.set('i', LH, RH, args)
-        end
-
         vim.keymap.set('n', '<Leader>fF', fzflua.builtin, {
             desc = 'FZF: builtin commands',
         })
 
         -- files
-        -- nmap('<Leader>fr', function() fzflua.grep_project() end)
-        nmap('<Leader>fr', function()
+        -- vim.keymap.set('n', '<Leader>fr', function() fzflua.grep_project() end)
+        vim.keymap.set('n', '<Leader>fr', function()
             fzflua.live_grep_native({ exec_empty_query = true })
         end, { desc = 'FZF: Live grep' })
-        nmap('<Leader>ff', function()
+        vim.keymap.set('n', '<Leader>ff', function()
             fzflua.files()
         end, { desc = 'FZF: Navigate files' })
-        nmap('<Leader>fb', function()
+        vim.keymap.set('n', '<Leader>fb', function()
             fzflua.buffers()
         end, { desc = 'FZF: Navigate buffers' })
-        nmap('<Leader>fl', function()
+        vim.keymap.set('n', '<Leader>fl', function()
             fzflua.blines()
         end, { desc = 'FZF: Navigate lines in buffer' })
-        nmap('<Leader>fL', function()
+        vim.keymap.set('n', '<Leader>fL', function()
             fzflua.lines()
         end, { desc = 'FZF: Navigate lines in all open buffers' })
 
         -- lists
-        nmap('<Leader>fh', function()
+        vim.keymap.set('n', '<Leader>fh', function()
             fzflua.helptags()
         end, { desc = 'FZF: Help tags' })
         if require('lazy.core.config').plugins['todo-comments.nvim'] == nil then
-            nmap('<Leader>ft', function()
+            vim.keymap.set('n', '<Leader>ft', function()
                 fzflua.grep({ search = 'TODO|todo!', no_esc = true })
             end, { desc = 'FZF: search TODOs' })
         end
 
         -- suggestions
-        nmap('z=', function()
+        vim.keymap.set('n', 'z=', function()
             fzflua.spell_suggest()
         end, { desc = 'FZF: spell suggestions' })
 
         -- Insert mode completion (also check junegunn/fzf.vim config)
-        imap('<Leader><c-x><c-f>', function()
+        vim.keymap.set('i', '<Leader><c-x><c-f>', function()
             fzflua.complete_path()
         end, { desc = 'FZF: Complete path' })
-        imap('<Leader><c-x><c-l>', function()
+        vim.keymap.set('i', '<Leader><c-x><c-l>', function()
             fzflua.complete_line()
         end, { desc = 'FZF: Complete line' })
-        imap('<Leader><c-x><c-L>', function()
+        vim.keymap.set('i', '<Leader><c-x><c-L>', function()
             fzflua.complete_bline()
         end, { desc = 'FZF: Complete line (buffer local)' })
 
