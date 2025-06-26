@@ -24,6 +24,10 @@ if [[ -z $1 ]]; then
     exit 1
 fi
 
+if ! command -v lilypond >/dev/null; then
+    echo "'lilypond' command not found. Exiting."
+    exit 255
+fi
 VERSION=$(lilypond --version | grep -oP 'LilyPond \K[0-9.]+')
 PROJECT="$1"
 GLOBALFILE="global.ly"
