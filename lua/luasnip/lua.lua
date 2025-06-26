@@ -1,6 +1,6 @@
 return {
     s(
-        { trig = '(.+)map', trigEngine = 'pattern' },
+        { trig = '([nvxsoilct]*)map', trigEngine = 'pattern' },
         fmta(
             [[
             vim.keymap.set(<mode>, '<lhs>', <rhs>, {
@@ -13,7 +13,9 @@ return {
                     local modes = vim.tbl_map(function(letter)
                         return string.format("'%s'", vim.fn.list2str({ letter }))
                     end, vim.fn.str2list(snippet.captures[1]))
-                    if #modes == 1 then
+                    if #modes == 0 then
+                        return "''"
+                    elseif #modes == 1 then
                         return modes[1]
                     elseif #modes > 1 then
                         return string.format('{%s}', vim.fn.join(modes, ','))
