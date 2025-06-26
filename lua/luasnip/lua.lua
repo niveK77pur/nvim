@@ -5,7 +5,6 @@ return {
             [[
             vim.keymap.set(<mode>, '<lhs>', <rhs>, {
                 desc = '<desc>',
-                <noremap>
             })
             ]],
             {
@@ -25,10 +24,6 @@ return {
                 end),
                 lhs = i(1, '<lhs>'),
                 desc = i(2, 'My Super Cool Mapping'),
-                noremap = c(3, {
-                    t('noremap = true,'),
-                    t(''),
-                }),
                 rhs = i(0, "'<rhs>'"),
             }
         )
