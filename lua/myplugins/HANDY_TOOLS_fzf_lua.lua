@@ -51,6 +51,10 @@ return {
             vim.keymap.set('i', LH, RH, args)
         end
 
+        vim.keymap.set('n', '<Leader>fF', fzflua.builtin, {
+            desc = 'FZF: builtin commands',
+        })
+
         -- files
         -- nmap('<Leader>fr', function() fzflua.grep_project() end)
         nmap('<Leader>fr', function()
@@ -59,9 +63,6 @@ return {
         nmap('<Leader>ff', function()
             fzflua.files()
         end, { desc = 'FZF: Navigate files' })
-        nmap('<Leader>fg', function()
-            fzflua.git_files()
-        end, { desc = 'FZF: Navigate git files' })
         nmap('<Leader>fb', function()
             fzflua.buffers()
         end, { desc = 'FZF: Navigate buffers' })
@@ -76,24 +77,6 @@ return {
         nmap('<Leader>fh', function()
             fzflua.help_tags()
         end, { desc = 'FZF: Help tags' })
-        nmap('<Leader>fj', function()
-            fzflua.jumps()
-        end, { desc = 'FZF: :jumps' })
-        nmap('<Leader>fc', function()
-            fzflua.changes()
-        end, { desc = 'FZF: :changes' })
-        nmap('<Leader>fm', function()
-            fzflua.marks()
-        end, { desc = 'FZF: marks' })
-        nmap('<Leader>fR', function()
-            fzflua.registers()
-        end, { desc = 'FZF: registers' })
-        nmap('<Leader>f:', function()
-            fzflua.command_history()
-        end, { desc = 'FZF: command history' })
-        nmap('<Leader>f/', function()
-            fzflua.search_history()
-        end, { desc = 'FZF: serach history' })
         if require('lazy.core.config').plugins['todo-comments.nvim'] == nil then
             nmap('<Leader>ft', function()
                 fzflua.grep({ search = 'TODO|todo!', no_esc = true })
@@ -116,10 +99,6 @@ return {
             fzflua.complete_bline()
         end, { desc = 'FZF: Complete line (buffer local)' })
 
-        -- Mapping selecting mappings
-        vim.keymap.set({ 'n', 'i', 'c' }, '<Leader><tab>', function()
-            fzflua.keymaps()
-        end, { desc = 'FZF: Select mappings' })
 
         -- `:help vim.ui.select` for more info
         fzflua.register_ui_select()
