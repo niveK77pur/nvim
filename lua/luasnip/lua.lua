@@ -22,8 +22,8 @@ return {
                         return 'ERROR'
                     end
                 end),
-                lhs = i(1, '<lhs>'),
-                desc = i(2, 'My Super Cool Mapping'),
+                desc = i(1, 'My Super Cool Mapping'),
+                lhs = i(2, '<lhs>'),
                 rhs = i(0, "'<rhs>'"),
             }
         )
