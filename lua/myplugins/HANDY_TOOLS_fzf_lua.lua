@@ -75,7 +75,7 @@ return {
 
         -- lists
         nmap('<Leader>fh', function()
-            fzflua.help_tags()
+            fzflua.helptags()
         end, { desc = 'FZF: Help tags' })
         if require('lazy.core.config').plugins['todo-comments.nvim'] == nil then
             nmap('<Leader>ft', function()
