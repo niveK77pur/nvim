@@ -13,7 +13,7 @@ return {
             pattern = { 'nix' },
             desc = 'Disable treesitter context plugin for given FileTypes',
             callback = function()
-                vim.cmd([[TSContextDisable]])
+                vim.cmd([[TSContext disable]])
             end,
         })
     end,
