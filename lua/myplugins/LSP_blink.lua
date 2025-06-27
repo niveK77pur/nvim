@@ -63,7 +63,7 @@ return {
                 lilypond_dict = { -- {{{1
                     module = 'blink-cmp-dictionary',
                     name = 'nvim-lilpond-suite dictionary',
-                    min_keyword_length = 3,
+                    min_keyword_length = 0,
                     max_items = 8,
                     opts = {
                         dictionary_files = function()
