@@ -201,22 +201,23 @@ for _, align_command in ipairs({ 'zt', 'zz', 'zb' }) do
         local curpos = vim.api.nvim_win_get_cursor(0)
         local curwin = vim.api.nvim_get_current_win()
 
-        local lowestLineNumberInWindows = vim.api.nvim_exec(
-            [[
-                let s:lineNumbers = []
-                windo call add(s:lineNumbers, line("$"))
-                echo min(s:lineNumbers)
-                unlet s:lineNumbers
-            ]],
-            true
-        )
+        local window_buffer_ids = vim.tbl_filter(function(win)
+            -- filter out windows without buffer attached
+            local buf = vim.api.nvim_win_get_buf(win)
+            local res, bufname = pcall(vim.api.nvim_buf_get_name, buf)
+            return res and (vim.fn.empty(bufname) == 0)
+        end, vim.api.nvim_tabpage_list_wins(vim.api.nvim_get_current_tabpage()))
 
-        vim.api.nvim_exec(
-            ('silent windo %d | normal %s'):format(math.min(curpos[1], lowestLineNumberInWindows), align_command),
-            false
-        )
+        local lowestLineNumberInWindows = math.min(unpack(vim.tbl_map(function(win)
+            return vim.api.nvim_buf_line_count(vim.api.nvim_win_get_buf(win))
+        end, window_buffer_ids)))
 
-        -- cursor moves after the :windo; reset its position
+        for _, win in ipairs(window_buffer_ids) do
+            vim.api.nvim_win_set_cursor(win, { math.min(curpos[1], lowestLineNumberInWindows), 0 })
+            vim.api.nvim_set_current_win(win)
+            vim.api.nvim_cmd({ cmd = 'normal', args = { align_command }, bang = true }, {})
+        end
+
         vim.api.nvim_set_current_win(curwin)
         vim.api.nvim_win_set_cursor(0, curpos)
     end, {
