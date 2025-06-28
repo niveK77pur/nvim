@@ -31,9 +31,18 @@ return {
             },
         })
 
-        vim.api.nvim_create_autocmd('QuickFixCmdPost', {
-            command = 'cwindow',
-            pattern = '*',
+        vim.api.nvim_create_autocmd({ 'DiagnosticChanged' }, {
+            desc = 'Notify when there are diagnostics',
+            callback = function(args)
+                vim.notify(
+                    ('There are %d diagnostics in %s'):format(
+                        vim.tbl_count(args.data.diagnostics),
+                        vim.fs.basename(args.file)
+                    ),
+                    vim.log.levels.WARN,
+                    { group = 'lilypond', annote = 'NVLS' }
+                )
+            end,
         })
         vim.api.nvim_create_autocmd('BufEnter', {
             command = 'syntax sync fromstart',
