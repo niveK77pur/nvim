@@ -28,4 +28,29 @@ return {
             }
         )
     ),
+    s(
+        { trig = 'luasnip', desc = 'Snippet template for LuaSnip' },
+        fmta(
+            [=[
+            s(
+                { trig = '<trig>', desc = '<desc>' },
+                <fmt>(
+                    [[
+                    <snip>
+                    ]],
+                    {
+                        <keys>
+                    }
+                )
+            )
+            ]=],
+            {
+                trig = i(1),
+                desc = i(2),
+                fmt = c(3, { t('fmt'), t('fmta') }),
+                snip = i(4),
+                keys = i(5),
+            }
+        )
+    ),
 }
