@@ -15,7 +15,7 @@ return {
             exit_roots = false,
         })
 
-        vim.keymap.set({ 'i' }, '<C-j>', function()
+        vim.keymap.set({ 'i', 's' }, '<C-j>', function()
             ls.expand_or_jump()
         end, { desc = 'Expand or jump in the snippet', silent = true })
         vim.keymap.set({ 'i', 's' }, '<C-M-j>', function()
