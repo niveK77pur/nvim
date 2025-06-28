@@ -4,7 +4,7 @@ return {
     version = 'v2.*',
     -- install jsregexp (optional!).
     build = 'make install_jsregexp',
-    event = { 'InsertEnter' },
+    event = { 'InsertEnter', [[ModeChanged *:[vV\x16]*]] },
     config = function()
         require('luasnip.loaders.from_vscode').lazy_load()
         require('luasnip.loaders.from_vscode').lazy_load({ paths = { vim.fn.stdpath('config') .. '/snippets' } })
@@ -13,6 +13,7 @@ return {
         local ls = require('luasnip')
         ls.setup({
             exit_roots = false,
+            cut_selection_keys = '<tab>',
         })
 
         vim.keymap.set({ 'i', 's' }, '<C-j>', function()
