@@ -1,1 +1,1 @@
-{"L":{"body":"<Leader>","prefix":"L"}}
+{"L":{"prefix":"L","body":"<Leader>"},"au":{"body":["vim.api.nvim_create_autocmd({ ${1:'FileType'} }, {","    group = ${2:nil},","    pattern = { $3 },","    desc = '$4',","    callback = function()","        ${5:vim.print('Hello')}","    end,","})"],"prefix":"au"},"aug":{"prefix":"aug","body":"local augroup_${1:name} = vim.api.nvim_create_augroup('$1', {})"}}
