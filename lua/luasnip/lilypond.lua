@@ -1,3 +1,27 @@
+local shape_displacement_node = function(pos) --  {{{1
+    return sn(pos, {
+        -- `({ax} . {ay}) ({bx} . {by}) ({cx} . {cy}) ({dx} . {dy})`
+        t('('),
+        i(1, '0'),
+        t(' . '),
+        i(2, '0'),
+        t(') ('),
+        i(3, '0'),
+        t(' . '),
+        i(4, '0'),
+        t(') ('),
+        i(5, '0'),
+        t(' . '),
+        i(6, '0'),
+        t(') ('),
+        i(7, '0'),
+        t(' . '),
+        i(8, '0'),
+        t(')'),
+    })
+end
+--  }}}1
+
 return {
     s(
         --  {{{
@@ -79,7 +103,7 @@ return {
     s(
         --  {{{
         { trig = '(v?)shape', trigEngine = 'pattern', desc = [[\vshape or \shape]] },
-        fmt([[\{v}shape #'(({ax} . {ay}) ({bx} . {by}) ({cx} . {cy}) ({dx} . {dy})) {item}]], {
+        fmt([[\{v}shape #'({displacements}) {item}]], {
             v = f(function(_, snippet, _)
                 return snippet.captures[1] or ''
             end),
@@ -90,14 +114,16 @@ return {
                 t('RepeatTie'),
                 t('LaissezVibrerTie'),
             }),
-            ax = i(2, '0'),
-            ay = i(3, '0'),
-            bx = i(4, '0'),
-            by = i(5, '0'),
-            cx = i(6, '0'),
-            cy = i(7, '0'),
-            dx = i(8, '0'),
-            dy = i(9, '0'),
+            displacements = c(2, {
+                shape_displacement_node(1),
+                sn(1, {
+                    t('('),
+                    shape_displacement_node(1),
+                    t(') ('),
+                    shape_displacement_node(2),
+                    t(')'),
+                }),
+            }),
         })
         --  }}}
     ),
