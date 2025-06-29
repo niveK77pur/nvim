@@ -5,6 +5,17 @@ return {
     -- install jsregexp (optional!).
     build = 'make install_jsregexp',
     event = { 'InsertEnter', [[ModeChanged *:[vV\x16]*]] },
+    init = function()
+        local augroup_luasnip = vim.api.nvim_create_augroup('luasnip', {})
+        vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+            group = augroup_luasnip,
+            pattern = { vim.fn.stdpath('config') .. '/lua/luasnip/*.lua' },
+            desc = 'Disable diagnostics in LuaSnip files',
+            callback = function()
+                vim.diagnostic.enable(false)
+            end,
+        })
+    end,
     config = function()
         require('luasnip.loaders.from_vscode').lazy_load()
         require('luasnip.loaders.from_vscode').lazy_load({ paths = { vim.fn.stdpath('config') .. '/snippets' } })
