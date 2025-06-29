@@ -6,7 +6,7 @@ return {
             [[
             {
               lib,
-              config,
+              config,<inputs>
               ...
             }: let
               cfg = config<path>.<modname>;
@@ -16,7 +16,7 @@ return {
               };
 
               config = lib.mkIf cfg.enable {
-                  <_end>
+                  <conf><_end>
               };
             }
             ]],
@@ -31,6 +31,18 @@ return {
                     sn(nil, {
                         t('.'),
                         i(1),
+                    }),
+                }),
+                inputs = c(3, {
+                    i(1),
+                    t('pkgs,'),
+                }),
+                conf = c(4, {
+                    i(1),
+                    sn(1, {
+                        t('home.packages = ['),
+                        i(1),
+                        t('];'),
                     }),
                 }),
                 _end = i(0),
