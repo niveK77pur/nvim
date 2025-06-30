@@ -11,7 +11,7 @@ Some other usefull commands
 Staves -------------------------------------------------------------------------
 
 Use this to put notes into another staff
-  \change Staff = "left" \voiceOne 
+  \change Staff = "left" \voiceOne
 
 Notes --------------------------------------------------------------------------
 
@@ -63,9 +63,9 @@ use: \ignore { ... }
 
 Ottavation ---------------------------------------------------------------------
 
-http://lilypond.org/doc/v2.18/Documentation/notation/displaying-pitches#ottava-brackets 
+http://lilypond.org/doc/v2.18/Documentation/notation/displaying-pitches#ottava-brackets
 Use this if you have multiple voices and an ottava that makes unwanted displacements.
-     
+
   --> normal music
   \set Staff.ottavation = #"8vb"
   \once \override Staff.OttavaBracket.direction = #DOWN
