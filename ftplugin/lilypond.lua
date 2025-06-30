@@ -6,6 +6,10 @@ vim.wo.relativenumber = false
 vim.wo.number = true
 vim.wo.cursorline = true
 
+if require('vimrc.functions').plugin_loaded('smear-cursor.nvim') then
+    require('smear_cursor').enabled = false
+end
+
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --                                   Functions
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
