@@ -40,19 +40,28 @@ date = #(strftime "%B %d %Y" (localtime (current-time)))
     instrumentName = "Piano"
   } <<
     \accidentalStyle piano
-    \new Staff = "right" \with {
-      midiInstrument = "acoustic grand"
-    } \right
+    \new Staff = "right" \right
     \new Dynamics = "Dynamics" \dynamics
-    \new Staff = "left" \with {
-      midiInstrument = "acoustic grand"
-    } { \clef bass \left }
+    \new Staff = "left" { \clef bass \left }
   >>
   \layout {
     \context {
       \Score
       \editionID ##f music
     }
+  }
+}
+\score {
+  \new PianoStaff {
+    <<
+      \new Staff = "right" \with {
+        midiInstrument = "acoustic grand"
+      } \right
+      \new Dynamics = "Dynamics" \dynamics
+      \new Staff = "left" \with {
+        midiInstrument = "acoustic grand"
+      } { \clef bass \left }
+    >>
   }
   \midi {
     %\tempo 4=80
