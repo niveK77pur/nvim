@@ -72,19 +72,11 @@ return {
     ),
     s(
         --  {{{
-        { trig = 'ch([lr])', trigEngine = 'pattern', desc = 'change staff' },
+        { trig = 'ch', trigEngine = 'pattern', desc = 'change staff' },
         fmt([[\change Staff = "{staff}"]], {
             staff = c(1, {
-                f(function(_, snippet, _)
-                    local staff = snippet.captures[1]
-                    if staff == nil then
-                        return '?'
-                    elseif staff == 'l' then
-                        return 'left'
-                    elseif staff == 'r' then
-                        return 'right'
-                    end
-                end),
+                t'left',
+                t'right',
                 i(1),
             }),
         })
