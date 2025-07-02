@@ -69,8 +69,6 @@ return {
                 }, --  }}}
                 rustfmt = { --  {{{
                     prepend_args = {
-                        '--edition',
-                        '2021',
                         '--config',
                         'format_code_in_doc_comments=true' .. ',' .. 'wrap_comments=true',
                     },
