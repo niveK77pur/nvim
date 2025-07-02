@@ -3,7 +3,7 @@ return {
     enabled = true,
     keys = {
         -- https://github.com/junegunn/vim-easy-align#1-plug-mappings-interactive-mode
-        { '<Leader>a', '<Plug>(EasyAlign)', mode = { 'n', 'x' } },
+        { 'ga', '<Plug>(EasyAlign)', mode = { 'n', 'x' } },
     },
     config = function()
         -- https://github.com/junegunn/vim-easy-align#disabling-foldmethod-during-alignment
