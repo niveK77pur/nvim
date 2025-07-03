@@ -18,7 +18,6 @@ return {
 
         -- see ':h autopairs-shortcut' and ':h autopairs-options-contents'
         vim.g.AutoPairsMoveCharater = ''
-        vim.g.AutoPairsPrefix = '<Leader><C-p>'
 
         -- backspace behaviour
         vim.g.AutoPairsMapBS = 1

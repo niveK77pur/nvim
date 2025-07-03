@@ -55,7 +55,7 @@ map('n', '<F2>', ':set paste! paste?<CR>', { desc = "toggle 'paste'" })
 
 map('i', 'jk', '<esc>', { desc = 'exit intert mode more comfortably' })
 
-map({ 'i', 'n' }, '<Leader>s', function()
+map({ 'n' }, '<Leader>s', function()
     vim.cmd('wa')
 end, { desc = 'save files' })
 
@@ -74,7 +74,7 @@ end, {
 })
 
 -- the custom [>VIM<] tag "{{{
-map('i', '<Leader>j', '[>VIM<] ', { desc = 'insert a [>VIM<] to jump to' })
+map('n', '<Leader>J', '<cmd>normal! i[>VIM<]<esc> ', { desc = 'insert a [>VIM<] to jump to' })
 
 map('n', '<Leader>j', [[/\[>VIM<\]<CR>]], { desc = 'jump to next [>VIM<] tag' })
 

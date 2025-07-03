@@ -82,13 +82,13 @@ return {
         end, { desc = 'FZF: spell suggestions' })
 
         -- Insert mode completion (also check junegunn/fzf.vim config)
-        vim.keymap.set('i', '<Leader><c-x><c-f>', function()
+        vim.keymap.set('i', '<c-x><c-f>', function()
             fzflua.complete_path()
         end, { desc = 'FZF: Complete path' })
-        vim.keymap.set('i', '<Leader><c-x><c-l>', function()
+        vim.keymap.set('i', '<c-x><c-l>', function()
             fzflua.complete_line()
         end, { desc = 'FZF: Complete line' })
-        vim.keymap.set('i', '<Leader><c-x><c-L>', function()
+        vim.keymap.set('i', '<c-x><c-L>', function()
             fzflua.complete_bline()
         end, { desc = 'FZF: Complete line (buffer local)' })
 
