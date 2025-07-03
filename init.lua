@@ -1,8 +1,5 @@
-vim.g.mapleader = 'é'
-vim.g.maplocalleader = 'è'
-
-vim.keymap.set({ 'n' }, [[<Leader><Leader>]], [[<Leader>]])
-vim.keymap.set({ 'i', 'n' }, [[<LocalLeader><LocalLeader>]], [[<LocalLeader>]])
+vim.g.mapleader = [[ ]]
+vim.g.maplocalleader = [[  ]]
 
 local vimrc_files = {
     'vimrc.notify',
