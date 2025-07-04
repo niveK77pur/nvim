@@ -191,9 +191,6 @@ vim.api.nvim_create_user_command('SortEditionMod', [[:lua _G.EditionEngraverSort
 local nmap = function(LH, RH, args)
     vim.keymap.set('n', LH, RH, args)
 end
-local imap = function(LH, RH, args)
-    vim.keymap.set('i', LH, RH, args)
-end
 
 -- Align lines on which the cursor is positioned {{{
 for _, align_command in ipairs({ 'zt', 'zz', 'zb' }) do
@@ -241,10 +238,8 @@ end
 
 -- add barline | at the end
 nmap('<LocalLeader>b', [[A |<ESC>]])
-imap('<LocalLeader>b', ([[<C-O>%sb]]):format(vim.g.maplocalleader), { remap = true })
 -- add barline with tie ~ | at the end
 nmap('<LocalLeader>B', [[A ~ |<ESC>]])
-imap('<LocalLeader>B', ([[<C-O>%sB]]):format(vim.g.maplocalleader), { remap = true })
 
 -- align lines
 nmap('<LocalLeader>a', function()
