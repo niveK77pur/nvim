@@ -1,5 +1,6 @@
 return {
     'echasnovski/mini.indentscope',
+    enable = true,
     version = false,
     opts = function(_, opts)
         opts.draw = {
