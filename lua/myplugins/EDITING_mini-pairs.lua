@@ -2,23 +2,22 @@ return {
     'echasnovski/mini.pairs',
     enable = true,
     version = false,
-    event = 'VeryLazy',
-    config = function()
-        local ft, _ = vim.filetype.match({ buf = vim.api.nvim_get_current_buf() })
-
-        if ft == 'lilypond' then
-            -- Set which LilyPond characters should not be auto-paired.
-            require('mini.pairs').setup({
-                mappings = {
-                    ['('] = false,
-                    [')'] = false,
-                    ['['] = false,
-                    [']'] = false,
-                    ["'"] = false,
-                },
-            })
-        else
-            require('mini.pairs').setup()
-        end
+    event = 'InsertEnter',
+    opts = {},
+    init = function()
+        local augroup_mini_pairs = vim.api.nvim_create_augroup('mini_pairs', {})
+        vim.api.nvim_create_autocmd({ 'FileType' }, {
+            group = augroup_mini_pairs,
+            pattern = { 'lilypond' },
+            desc = 'Set which LilyPond characters should not be auto-paired.',
+            callback = function()
+                local pairs = require('mini.pairs')
+                pairs.unmap('i', '(', '()')
+                pairs.unmap('i', ')', '()')
+                pairs.unmap('i', '[', '[]')
+                pairs.unmap('i', ']', '[]')
+                pairs.unmap('i', "'", "''")
+            end,
+        })
     end,
 }
