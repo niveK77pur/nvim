@@ -75,8 +75,8 @@ return {
         { trig = 'ch', trigEngine = 'pattern', desc = 'change staff' },
         fmt([[\change Staff = "{staff}"]], {
             staff = c(1, {
-                t'left',
-                t'right',
+                t('left'),
+                t('right'),
                 i(1),
             }),
         })
