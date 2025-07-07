@@ -175,7 +175,7 @@ return {
     ),
     s(
         --  {{{
-        { trig = 'em', desc = [[\editionMod]] },
+        { trig = [[\vem(\d+)?]], trigEngine = 'vim', desc = [[\editionMod]] },
         fmt([[\editionMod {edition} {measure} {moment}/{division} music.{context}{voice} {edit}]], {
             edition = c(1, {
                 t('tweaks'),
@@ -183,7 +183,14 @@ return {
                 t('fingering'),
                 i(1, 'other'),
             }, { key = 'edition' }),
-            measure = i(2, 'measure'),
+            measure = d(2, function(_, snip, _)
+                local measure = snip.captures[1]
+                if vim.fn.empty(measure) == 1 then
+                    return sn(nil, { i(1, 'measure') })
+                else
+                    return sn(nil, { t(measure) })
+                end
+            end),
             moment = i(3, 'moment'),
             division = i(4, '4'),
             context = d(5, function(args)
