@@ -54,7 +54,10 @@ return {
                 c = { 'clang-format' },
                 cpp = { 'clang-format' },
                 xml = { 'xmlformatter' },
-                html = { 'prettier' },
+                html = { 'prettierd' },
+                javascript = { 'prettierd' },
+                typescript = { 'prettierd' },
+                typescriptreact = { 'prettierd' },
             },
             format_on_save = function(bufnr) --  {{{
                 -- Disable with a global or buffer-local variable
