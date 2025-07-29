@@ -1,6 +1,6 @@
 return {
     'jinh0/eyeliner.nvim',
-    enabled = true,
+    enabled = false,
     keys = { 'f', 'F' },
     config = function()
         require('eyeliner').setup({
