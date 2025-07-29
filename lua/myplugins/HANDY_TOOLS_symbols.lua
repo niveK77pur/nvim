@@ -1,6 +1,9 @@
 return {
     'oskarrrrrrr/symbols.nvim',
     enabled = true,
+    keys = {
+        { '<Leader>ls', '<cmd>SymbolsToggle<CR>', desc = 'symbols.nvim: Toggle' },
+    },
     config = function()
         local r = require('symbols.recipes')
         require('symbols').setup(r.DefaultFilters, r.AsciiSymbols, {
@@ -19,7 +22,5 @@ return {
                 show_inline_details = true,
             },
         })
-
-        vim.keymap.set('n', '<Leader>ls', '<cmd>SymbolsToggle<CR>')
     end,
 }

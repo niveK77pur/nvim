@@ -11,22 +11,42 @@ return {
     dependencies = {
         { 'nvim-tree/nvim-web-devicons', lazy = true },
     },
+    keys = {
+        {
+            '<leader>m',
+            function()
+                local grapple = require('grapple')
+                -- manually implement toggle to include notifications
+                if grapple.exists() then
+                    notify('Removing tag')
+                    grapple.untag()
+                else
+                    notify('Adding tag')
+                    grapple.tag()
+                end
+            end,
+        },
+        {
+            '<leader>M',
+            function()
+                require('grapple').toggle_tags()
+            end,
+        },
+        {
+            '<leader><A-m>',
+            function()
+                require('grapple').toggle_scopes()
+            end,
+        },
+        {
+            '<leader><C-m>',
+            function()
+                require('grapple').toggle_loaded()
+            end,
+        },
+    },
     config = function()
         local grapple = require('grapple')
-
-        vim.keymap.set('n', '<leader>m', function()
-            -- manually implement toggle to include notifications
-            if grapple.exists() then
-                notify('Removing tag')
-                grapple.untag()
-            else
-                notify('Adding tag')
-                grapple.tag()
-            end
-        end)
-        vim.keymap.set('n', '<leader>M', grapple.toggle_tags)
-        vim.keymap.set('n', '<leader><A-m>', grapple.toggle_scopes)
-        vim.keymap.set('n', '<leader><C-m>', grapple.toggle_loaded)
 
         grapple.define_scope({
             name = 'nvim',

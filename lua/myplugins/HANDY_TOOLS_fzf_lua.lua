@@ -5,6 +5,136 @@ return {
         { 'junegunn/fzf', build = './install --xdg --all --no-fish' },
     },
     enabled = true,
+    keys = {
+
+        {
+            '<Leader>fF',
+            function()
+                require('fzf-lua').builtin()
+            end,
+            desc = 'FZF: builtin commands',
+        },
+
+        -- files
+        -- {'<Leader>fr', function() fzflua.grep_project() end},
+        {
+            '<Leader>fr',
+            function()
+                require('fzf-lua').live_grep_native({ exec_empty_query = true })
+            end,
+            desc = 'FZF: Live grep',
+        },
+        {
+            '<Leader>ff',
+            function()
+                require('fzf-lua').files()
+            end,
+            desc = 'FZF: Navigate files',
+        },
+        {
+            '<Leader>fb',
+            function()
+                require('fzf-lua').buffers()
+            end,
+            desc = 'FZF: Navigate buffers',
+        },
+        {
+            '<Leader>fl',
+            function()
+                require('fzf-lua').blines()
+            end,
+            desc = 'FZF: Navigate lines in buffer',
+        },
+        {
+            '<Leader>fL',
+            function()
+                require('fzf-lua').lines()
+            end,
+            desc = 'FZF: Navigate lines in all open buffers',
+        },
+
+        -- lists
+        {
+            '<Leader>fh',
+            function()
+                require('fzf-lua').helptags()
+            end,
+            desc = 'FZF: Help tags',
+        },
+        -- '<Leader>ft',
+
+        -- suggestions
+        {
+            'z=',
+            function()
+                require('fzf-lua').spell_suggest()
+            end,
+            desc = 'FZF: spell suggestions',
+        },
+
+        -- Insert mode completion (also check junegunn/fzf.vim config)
+        {
+            '<c-x><c-f>',
+            function()
+                require('fzf-lua').complete_path()
+            end,
+            mode = 'i',
+            desc = 'FZF: Complete path',
+        },
+        {
+            '<c-x><c-l>',
+            function()
+                require('fzf-lua').complete_line()
+            end,
+            mode = 'i',
+            desc = 'FZF: Complete line',
+        },
+        {
+            '<c-x><c-L>',
+            function()
+                require('fzf-lua').complete_bline()
+            end,
+            mode = 'i',
+            desc = 'FZF: Complete line (buffer local)',
+        },
+
+        -- LSP / diagnostics
+        {
+            'grr',
+            function()
+                require('fzf-lua').lsp_references()
+            end,
+            desc = 'FZF: lsp_references',
+        },
+        {
+            'gri',
+            function()
+                require('fzf-lua').lsp_implementations()
+            end,
+            desc = 'FZF: lsp_implementations',
+        },
+        {
+            'gO',
+            function()
+                require('fzf-lua').lsp_document_symbols()
+            end,
+            desc = 'FZF: lsp_document_symbols',
+        },
+        {
+            'gdl',
+            function()
+                require('fzf-lua').diagnostics_document()
+            end,
+            desc = 'FZF: diagnostics_document',
+        },
+        {
+            'gdL',
+            function()
+                require('fzf-lua').diagnostics_workspace()
+            end,
+            desc = 'FZF: diagnostics_workspace',
+        },
+    },
     config = function()
         local fzflua = require('fzf-lua')
         fzflua.setup({
@@ -44,73 +174,12 @@ return {
             },
         })
 
-        vim.keymap.set('n', '<Leader>fF', fzflua.builtin, {
-            desc = 'FZF: builtin commands',
-        })
-
-        -- files
-        -- vim.keymap.set('n', '<Leader>fr', function() fzflua.grep_project() end)
-        vim.keymap.set('n', '<Leader>fr', function()
-            fzflua.live_grep_native({ exec_empty_query = true })
-        end, { desc = 'FZF: Live grep' })
-        vim.keymap.set('n', '<Leader>ff', function()
-            fzflua.files()
-        end, { desc = 'FZF: Navigate files' })
-        vim.keymap.set('n', '<Leader>fb', function()
-            fzflua.buffers()
-        end, { desc = 'FZF: Navigate buffers' })
-        vim.keymap.set('n', '<Leader>fl', function()
-            fzflua.blines()
-        end, { desc = 'FZF: Navigate lines in buffer' })
-        vim.keymap.set('n', '<Leader>fL', function()
-            fzflua.lines()
-        end, { desc = 'FZF: Navigate lines in all open buffers' })
-
         -- lists
-        vim.keymap.set('n', '<Leader>fh', function()
-            fzflua.helptags()
-        end, { desc = 'FZF: Help tags' })
         if require('lazy.core.config').plugins['todo-comments.nvim'] == nil then
             vim.keymap.set('n', '<Leader>ft', function()
                 fzflua.grep({ search = 'TODO|todo!', no_esc = true })
             end, { desc = 'FZF: search TODOs' })
         end
-
-        -- suggestions
-        vim.keymap.set('n', 'z=', function()
-            fzflua.spell_suggest()
-        end, { desc = 'FZF: spell suggestions' })
-
-        -- Insert mode completion (also check junegunn/fzf.vim config)
-        vim.keymap.set('i', '<c-x><c-f>', function()
-            fzflua.complete_path()
-        end, { desc = 'FZF: Complete path' })
-        vim.keymap.set('i', '<c-x><c-l>', function()
-            fzflua.complete_line()
-        end, { desc = 'FZF: Complete line' })
-        vim.keymap.set('i', '<c-x><c-L>', function()
-            fzflua.complete_bline()
-        end, { desc = 'FZF: Complete line (buffer local)' })
-
-        -- treesitter / LSP / diagnostics
-        vim.keymap.set('n', '<Leader>fgt', fzflua.treesitter, {
-            desc = 'FZF: treesitter',
-        })
-        vim.keymap.set('n', 'grr', fzflua.lsp_references, {
-            desc = 'FZF: lsp_references',
-        })
-        vim.keymap.set('n', 'gri', fzflua.lsp_implementations, {
-            desc = 'FZF: lsp_implementations',
-        })
-        vim.keymap.set('n', 'gO', fzflua.lsp_document_symbols, {
-            desc = 'FZF: lsp_document_symbols',
-        })
-        vim.keymap.set('n', 'gdl', fzflua.diagnostics_document, {
-            desc = 'FZF: diagnostics_document',
-        })
-        vim.keymap.set('n', 'gdL', fzflua.diagnostics_workspace, {
-            desc = 'FZF: diagnostics_workspace',
-        })
 
         -- `:help vim.ui.select` for more info
         fzflua.register_ui_select()
