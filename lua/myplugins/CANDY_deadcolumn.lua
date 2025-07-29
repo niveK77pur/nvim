@@ -7,7 +7,7 @@ return {
         modes = { 'i', 'n' },
         blending = {
             threshold = 2 / 3,
-            colorcode = '#202330', -- pinkmare s:palette.bg0
+            -- colorcode = '#202330', -- pinkmare s:palette.bg0
         },
         extra = {
             follow_tw = '+1',
