@@ -50,7 +50,7 @@ return {
                 go = pick_formatters({ 'golines', 'goimports', 'gofmt' }),
                 sh = { 'shfmt' },
                 java = { 'google-java-format' },
-                nix = pick_formatters({ 'alejandra', 'nixpkgs-fmt' }),
+                nix = pick_formatters({ 'nixfmt', 'alejandra' }),
                 c = { 'clang-format' },
                 cpp = { 'clang-format' },
                 xml = { 'xmlformatter' },
