@@ -7,7 +7,7 @@ local function pick_formatters(...)
             table.insert(formatters, f)
         elseif type(f) == 'table' then
             for _, formatter in ipairs(f) do
-                if require('conform').get_formatter_info(formatter, bufnr).available then
+                if require('conform').get_formatter_info(formatter).available then
                     table.insert(formatters, formatter)
                     break
                 end
