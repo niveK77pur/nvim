@@ -107,6 +107,13 @@ return {
             desc = 'FZF: lsp_references',
         },
         {
+            'gra',
+            function()
+                require('fzf-lua').lsp_code_actions()
+            end,
+            desc = 'FZF: lsp_code_actions',
+        },
+        {
             'gri',
             function()
                 require('fzf-lua').lsp_implementations()
