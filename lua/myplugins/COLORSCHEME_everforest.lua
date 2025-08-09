@@ -1,6 +1,6 @@
 return {
     'sainnhe/everforest',
-    enabled = false,
+    enabled = true,
     init = function()
         vim.g.everforest_transparent_background = 1
         -- treesitter highlighting seem to interfere with everforest
