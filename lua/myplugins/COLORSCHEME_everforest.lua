@@ -9,6 +9,6 @@ return {
         vim.g.everforest_diagnostic_virtual_text = 'highlighted'
     end,
     config = function()
-        vim.cmd([[colorscheme everforest]])
+        vim.cmd.colorscheme('everforest')
     end,
 }
