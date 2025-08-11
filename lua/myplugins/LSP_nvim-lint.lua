@@ -1,6 +1,8 @@
 local linters_by_ft = {
     sh = { 'shellcheck' },
     nix = { 'statix' },
+    python = {},
+    markdown = {},
 }
 
 for ft, _ in pairs(linters_by_ft) do
