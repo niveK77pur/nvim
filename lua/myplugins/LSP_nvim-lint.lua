@@ -3,6 +3,11 @@ local linters_by_ft = {
     nix = { 'statix' },
 }
 
+for ft, _ in pairs(linters_by_ft) do
+    -- Add 'typos' linter everywhere
+    table.insert(linters_by_ft[ft], 'typos')
+end
+
 return {
     'mfussenegger/nvim-lint',
     enabled = true,
