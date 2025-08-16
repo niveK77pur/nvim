@@ -213,7 +213,7 @@ vim.opt.shiftround = true
 vim.opt.modeline = true
 vim.opt.writebackup = true
 vim.opt.backup = true
-vim.opt.backupdir = '/tmp'
+vim.opt.backupdir = '/tmp/nvim-backupdir'
 
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --                         Settings for auto-completion
