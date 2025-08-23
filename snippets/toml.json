@@ -1,0 +1,1 @@
+{"venv":{"body":["[tool.pyright]","venvPath = \".\"","venv = \".venv\""],"prefix":"venv"}}
