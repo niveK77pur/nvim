@@ -20,7 +20,7 @@
           packages = with pkgs; [
             stylua
             lua-language-server
-            luajitPackages.luacheck
+            selene
             shfmt
             shellcheck
           ];
