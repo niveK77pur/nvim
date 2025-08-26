@@ -1,6 +1,7 @@
 local linters_by_ft = {
     sh = { 'shellcheck' },
     nix = { 'statix' },
+    lua = { 'luacheck', 'selene' },
     python = {},
     markdown = {},
 }
