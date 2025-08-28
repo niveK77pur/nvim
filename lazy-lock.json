@@ -70,6 +70,7 @@
   "snacks.nvim": { "branch": "main", "commit": "bc0630e43be5699bb94dadc302c0d21615421d93" },
   "splitjoin.vim": { "branch": "main", "commit": "d6e48fb035c90262bbe6276e6b83d35cb641c014" },
   "symbols.nvim": { "branch": "main", "commit": "62cd4236b3eeabf3b970f225b1cc3379e11dc99c" },
+  "tiny-glimmer.nvim": { "branch": "main", "commit": "60a632536e0741c9cecb892f89fbe65a270dc7c7" },
   "todo-comments.nvim": { "branch": "main", "commit": "304a8d204ee787d2544d8bc23cd38d2f929e7cc5" },
   "trailblazer.nvim": { "branch": "main", "commit": "5c0e3ac01e227bb9afe428583f29f0ec34801408" },
   "treesj": { "branch": "main", "commit": "3b4a2bc42738a63de17e7485d4cc5e49970ddbcc" },
