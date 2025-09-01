@@ -1,5 +1,5 @@
 return {
-    'echasnovski/mini.indentscope',
+    'nvim-mini/mini.indentscope',
     enable = true,
     version = false,
     opts = function(_, opts)
