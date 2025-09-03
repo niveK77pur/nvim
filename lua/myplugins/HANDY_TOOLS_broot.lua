@@ -8,5 +8,8 @@ return {
     end,
     config = function()
         vim.keymap.set('n', '<Leader>b', '<cmd>Broot<cr>', { desc = 'broot.vim: Open :Broot' })
+        vim.keymap.set('n', '<Leader>vv', function()
+            vim.fn['g:OpenBrootInPathInWindow'](vim.fn.stdpath('config'))
+        end, { desc = 'broot.vim: Browse and edit nvim config folder' })
     end,
 }
