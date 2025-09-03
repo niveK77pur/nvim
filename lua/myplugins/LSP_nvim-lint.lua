@@ -4,6 +4,7 @@ local linters_by_ft = {
     lua = { 'luacheck', 'selene' },
     python = {},
     markdown = {},
+    jjdescription = {},
 }
 
 for ft, _ in pairs(linters_by_ft) do
