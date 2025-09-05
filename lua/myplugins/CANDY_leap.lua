@@ -6,5 +6,12 @@ return {
         vim.schedule(function()
             vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Conceal' })
         end)
+
+        require('leap').opts.equivalence_classes = {
+            ' \t\r\n',
+            '([{',
+            ')]}',
+            [['"`]],
+        }
     end,
 }
