@@ -13,5 +13,12 @@ return {
             ')]}',
             [['"`]],
         }
+
+        -- treesitter integration
+        vim.keymap.set({ 'x', 'o' }, 'S', function()
+            require('leap.treesitter').select({
+                opts = require('leap.user').with_traversal_keys('R', 'r'),
+            })
+        end)
     end,
 }
