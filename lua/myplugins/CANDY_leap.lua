@@ -20,5 +20,21 @@ return {
                 opts = require('leap.user').with_traversal_keys('R', 'r'),
             })
         end)
+
+        -- remote actions
+        vim.keymap.set({ 'n', 'x', 'o' }, 'gs', function()
+            require('leap.remote').action()
+        end)
+        -- automatic paste after remote yanking
+        vim.api.nvim_create_autocmd('User', {
+            pattern = 'RemoteOperationDone',
+            group = vim.api.nvim_create_augroup('LeapRemote', {}),
+            callback = function(event)
+                -- Do not paste if some special register was in use.
+                if vim.v.operator == 'y' and event.data.register == '"' then
+                    vim.cmd('normal! p')
+                end
+            end,
+        })
     end,
 }
