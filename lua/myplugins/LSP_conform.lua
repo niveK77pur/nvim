@@ -71,12 +71,6 @@ return {
                 shfmt = { --  {{{
                     prepend_args = { '-i', 4, '-s' },
                 }, --  }}}
-                rustfmt = { --  {{{
-                    prepend_args = {
-                        '--config',
-                        'format_code_in_doc_comments=true' .. ',' .. 'wrap_comments=true',
-                    },
-                }, --  }}}
                 ly = { --  {{{
                     command = 'ly',
                     args = { 'reformat' },
