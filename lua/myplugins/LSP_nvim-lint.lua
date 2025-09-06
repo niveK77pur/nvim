@@ -5,6 +5,7 @@ local linters_by_ft = {
     python = { 'ruff' },
     markdown = {},
     jjdescription = {},
+    rust = {},
 }
 
 for ft, _ in pairs(linters_by_ft) do
