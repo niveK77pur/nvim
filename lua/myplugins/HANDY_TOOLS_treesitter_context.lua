@@ -14,5 +14,7 @@ return {
             desc = 'Disable treesitter context plugin for given FileTypes',
             callback = require('treesitter-context').disable,
         })
+
+        vim.keymap.set('n', '<Leader>tc', require('treesitter-context').toggle)
     end,
 }
