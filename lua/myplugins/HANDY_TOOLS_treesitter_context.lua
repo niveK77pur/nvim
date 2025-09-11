@@ -12,9 +12,7 @@ return {
             group = augroup_nvim_treesitter_context,
             pattern = { 'nix' },
             desc = 'Disable treesitter context plugin for given FileTypes',
-            callback = function()
-                vim.cmd([[TSContext disable]])
-            end,
+            callback = require('treesitter-context').disable,
         })
     end,
 }
