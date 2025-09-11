@@ -18,6 +18,44 @@
     utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
       naersk' = pkgs.callPackage naersk {};
+      gsfonts = pkgs.callPackage ( #  {{{
+        # Adapted from AUR: https://aur.archlinux.org/packages/gsfonts-emojiless
+        {
+          lib,
+          stdenvNoCC,
+          fetchFromGitHub,
+        }:
+          stdenvNoCC.mkDerivation rec {
+            name = "gsfonts";
+            version = "3c0ba3b5687632dfc66526544a4e811fe0ec0cd9";
+            src = fetchFromGitHub {
+              repo = "urw-base35-fonts";
+              owner = "ArtifexSoftware";
+              rev = version;
+              sha256 = "sha256-WD5q5ajG2F5aIZJB8tJL0X+YsL++ysIBrBKgq0ROrIY=";
+            };
+            preInstall = "mkdir -p $out";
+            installPhase = ''
+              runHook preInstall
+
+              install -Dt "$out/usr/share/fonts/gsfonts" -m644 fonts/*.otf
+              install -Dt "$out/usr/share/metainfo" -m644 appstream/*.xml
+
+              install -d "$out"/etc/fonts/conf.{avail,d}
+              for _f in fontconfig/*.conf; do
+                _fn="$out/etc/fonts/conf.avail/69-''${_f##*/}"
+                install -m644 ''${_f} "''${_fn}"
+                ln -srt "$out/etc/fonts/conf.d" "''${_fn}"
+              done
+
+              runHook postInstall
+            '';
+            meta = {
+              description = "(URW)++ Core Font Set [Level 2] without characters listed as emoji, in order not to override color fonts";
+              license = lib.licenses.agpl3Only;
+            };
+          }
+      ) {}; #  }}}
     in {
       devShell = pkgs.mkShell {
         packages = [
@@ -46,3 +84,5 @@
       };
     });
 }
+# vim: fdm=marker
+
