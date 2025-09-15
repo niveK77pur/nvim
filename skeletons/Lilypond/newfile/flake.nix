@@ -56,7 +56,43 @@
             };
           }
       ) {}; #  }}}
+      #  {{{
+      lilypond-build-module = {
+        stdenvNoCC,
+        lilypond,
+        makeFontsConf,
+        gsfonts,
+      }:
+        stdenvNoCC.mkDerivation rec {
+          name = "NAME";
+          src = self;
+          # Provide URW fonts to the build
+          FONTCONFIG_FILE = makeFontsConf {
+            fontDirectories = [gsfonts];
+          };
+          buildPhase = ''
+            runHook preBuild
+            ${lilypond}/bin/lilypond \
+              -I ./openlilylib \
+              ${name}.ly
+            runHook postBuild
+          '';
+          installPhase = ''
+            runHook preInstall
+            mkdir -p $out
+            cp -a ${name}.pdf $out/
+            cp -a ${name}.midi $out/
+            cp -a ${name}.*.log $out/
+            runHook postInstall
+          '';
+        }; #  }}}
     in {
+      packages = {
+        default = pkgs.callPackage lilypond-build-module {
+          inherit gsfonts;
+        };
+      };
+
       devShell = pkgs.mkShell {
         packages = [
           # working with lilypond

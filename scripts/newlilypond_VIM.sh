@@ -96,6 +96,7 @@ cp "$HOME/.config/nvim/skeletons/Lilypond/newfile"/* .
     mv {_,.}envrc &&
     git add .envrc flake.nix &&
     echo ".direnv" >>.gitignore &&
+    echo "result" >>.gitignore &&
     git commit -m "Add flake.nix"
 
 # set nvim-lilypond-suite main file
