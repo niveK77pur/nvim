@@ -59,7 +59,9 @@
       #  {{{
       lilypond-build-module = {
         stdenvNoCC,
+        lib,
         lilypond,
+        makeRelease ? false,
         makeFontsConf,
         gsfonts,
       }:
@@ -74,6 +76,7 @@
             runHook preBuild
             ${lilypond}/bin/lilypond \
               -I ./openlilylib \
+              ${lib.optionalString makeRelease "-dno-point-and-click"} \
               ${name}.ly
             runHook postBuild
           '';
@@ -89,6 +92,10 @@
     in {
       packages = {
         default = pkgs.callPackage lilypond-build-module {
+          inherit gsfonts;
+        };
+        release = pkgs.callPackage lilypond-build-module {
+          makeRelease = true;
           inherit gsfonts;
         };
       };
