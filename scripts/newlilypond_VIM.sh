@@ -94,6 +94,7 @@ cp "$HOME/.config/nvim/skeletons/Lilypond/newfile"/* .
 # set .envrc file to use flake.nix
 [[ -f _envrc ]] &&
     mv {_,.}envrc &&
+    sed -i "s/NAME/$NAME/" flake.nix &&
     git add .envrc flake.nix &&
     echo ".direnv" >>.gitignore &&
     echo "result" >>.gitignore &&
