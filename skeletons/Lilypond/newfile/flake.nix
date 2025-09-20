@@ -83,9 +83,8 @@
           installPhase = ''
             runHook preInstall
             mkdir -p $out
-            cp -a ${name}.pdf $out/
-            cp -a ${name}.midi $out/
-            cp -a ${name}.*.log $out/
+            shopt -s extglob
+            cp -a ${name}.!(ly) $out/
             runHook postInstall
           '';
         }; #  }}}
