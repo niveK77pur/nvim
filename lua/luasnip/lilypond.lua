@@ -195,7 +195,7 @@ return {
                 local moment = snip.captures[2]
                 vim.notify(vim.inspect({ moment, vim.fn.empty(moment) }))
                 if vim.fn.empty(moment) == 1 then
-                    return sn(nil, { i(1, 'moment') })
+                    return sn(nil, { i(1, '0') })
                 else
                     return sn(nil, { t(moment) })
                 end
