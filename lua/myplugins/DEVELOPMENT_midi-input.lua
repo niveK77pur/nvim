@@ -6,6 +6,7 @@ return {
     opts = {
         device = 'USB-MIDI MIDI 1',
         mode = 'pedal-chord',
+        octave_entry = 'relative',
         -- replace_q = true,
         -- replace_in_comment = true,
         -- debug = 'replace mode',
