@@ -56,11 +56,11 @@ date = #(strftime "%B %d %Y" (localtime (current-time)))
     <<
       \new Staff = "right" \with {
         midiInstrument = "acoustic grand"
-      } \right
+      } \unfoldRepeats \right
       \new Dynamics = "Dynamics" \dynamics
       \new Staff = "left" \with {
         midiInstrument = "acoustic grand"
-      } { \clef bass \left }
+      } { \clef bass \unfoldRepeats \left }
     >>
   }
   \midi {
