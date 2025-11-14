@@ -1,3 +1,13 @@
+local lspconfig_filetypes = vim.iter(vim.api.nvim_get_runtime_file('lsp/ltex.lua', true))
+    :filter(function(path)
+        return path:match('nvim%-lspconfig')
+    end)
+    :map(dofile)
+    :map(function(config)
+        return config.filetypes
+    end)
+    :totable()
+
 return {
     settings = {
         ltex = {
@@ -5,12 +15,12 @@ return {
         },
     },
     filetypes = vim.iter({
-        require('lspconfig').ltex.config_def.default_config.filetypes,
+        lspconfig_filetypes,
         {
             'asciidoc',
             'jjdescription',
         },
     })
-        :flatten()
+        :flatten(math.huge)
         :totable(),
 }
