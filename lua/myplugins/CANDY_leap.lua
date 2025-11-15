@@ -27,6 +27,10 @@ return {
         vim.keymap.set({ 'n', 'x', 'o' }, 'gs', function()
             require('leap.remote').action()
         end)
+        vim.keymap.set({ 'n', 'o' }, 'gS', function()
+            -- leap into visual mode
+            require('leap.remote').action({ input = 'v' })
+        end)
         -- automatic paste after remote yanking
         vim.api.nvim_create_autocmd('User', {
             pattern = 'RemoteOperationDone',
