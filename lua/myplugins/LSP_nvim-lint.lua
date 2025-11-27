@@ -6,7 +6,12 @@ local linters_by_ft = {
     markdown = {},
     jjdescription = {},
     rust = {},
+    typescript = { 'eslint_d' },
 }
+
+linters_by_ft.typescriptreact = linters_by_ft.typescript
+linters_by_ft.javascript = linters_by_ft.typescript
+linters_by_ft.javascriptreact = linters_by_ft.typescript
 
 for ft, _ in pairs(linters_by_ft) do
     -- Add 'typos' linter everywhere
