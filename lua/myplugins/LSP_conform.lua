@@ -22,6 +22,7 @@ local function pick_formatters(...)
     end
     return formatters
 end
+
 return {
     'stevearc/conform.nvim',
     enabled = true,
@@ -38,28 +39,32 @@ return {
         },
     },
     config = function()
+        local formatters_by_ft = {
+            lua = { 'stylua' },
+            python = pick_formatters('isort', { 'ruff_format', 'blue', 'black' }),
+            tex = { 'latexindent' },
+            rust = { 'rustfmt' },
+            lilypond = { 'ly' },
+            go = pick_formatters({ 'golines', 'goimports', 'gofmt' }),
+            sh = { 'shfmt' },
+            java = { 'google-java-format' },
+            nix = pick_formatters({ 'nixfmt', 'alejandra' }),
+            c = { 'clang-format' },
+            xml = { 'xmlformatter' },
+            typescript = { 'prettierd' },
+            json = pick_formatters('fixjson', { 'yq', 'jq' }),
+        }
+
+        formatters_by_ft.typescriptreact = formatters_by_ft.typescript
+        formatters_by_ft.javascript = formatters_by_ft.typescript
+        formatters_by_ft.javascriptreact = formatters_by_ft.typescript
+        formatters_by_ft.html = formatters_by_ft.typescript
+        formatters_by_ft.cpp = formatters_by_ft.c
+
         vim.g.disable_autoformat = false -- enable auto formatting by default
         require('conform').setup({
             -- Define your formatters
-            formatters_by_ft = {
-                lua = { 'stylua' },
-                python = pick_formatters('isort', { 'ruff_format', 'blue', 'black' }),
-                tex = { 'latexindent' },
-                rust = { 'rustfmt' },
-                lilypond = { 'ly' },
-                go = pick_formatters({ 'golines', 'goimports', 'gofmt' }),
-                sh = { 'shfmt' },
-                java = { 'google-java-format' },
-                nix = pick_formatters({ 'nixfmt', 'alejandra' }),
-                c = { 'clang-format' },
-                cpp = { 'clang-format' },
-                xml = { 'xmlformatter' },
-                html = { 'prettierd' },
-                javascript = { 'prettierd' },
-                typescript = { 'prettierd' },
-                typescriptreact = { 'prettierd' },
-                json = pick_formatters('fixjson', { 'yq', 'jq' }),
-            },
+            formatters_by_ft = formatters_by_ft,
             format_on_save = function(bufnr) --  {{{
                 -- Disable with a global or buffer-local variable
                 if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
