@@ -11,8 +11,6 @@ return {
             }: let
               cfg = config<path>.<modname>;
             in {
-              <imports>
-
               options<path>.<modname> = {
                 enable = lib.mkEnableOption "<modname>";
               };
@@ -39,21 +37,6 @@ return {
                     i(1),
                     t('pkgs,'),
                 }),
-                imports = c(4, {
-                    t(''),
-                    t({
-                        'imports = lib.fileset.toList (',
-                        'lib.fileset.fileFilter',
-                        '(file: (file.hasExt "nix") && (file.name != "default.nix"))',
-                        './.',
-                        ');',
-                    }),
-                    sn(1, {
-                        t('imports = ['),
-                        i(1),
-                        t('];'),
-                    }),
-                }),
                 conf = c(5, {
                     i(1),
                     sn(1, {
@@ -69,6 +52,31 @@ return {
             }
         )
     ),
+    s('imports', {
+        t('imports = '),
+        c(1, {
+
+            sn(1, {
+                t({ '[', '' }),
+                i(1),
+                t({ '', '];' }),
+            }),
+            t({
+                'map',
+                '(file: ./. + "/${file}")',
+                '(lib.filter',
+                '(file: file != "default.nix")',
+                '(lib.attrNames (builtins.readDir ./.)));',
+            }),
+            t({
+                'lib.fileset.toList (',
+                'lib.fileset.fileFilter',
+                '(file: (file.hasExt "nix") && (file.name != "default.nix"))',
+                './.',
+                ');',
+            }),
+        }),
+    }),
 }
 
 -- vim: fdm=marker
