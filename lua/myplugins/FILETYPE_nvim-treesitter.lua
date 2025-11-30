@@ -47,7 +47,7 @@ return {
                 --  }}}1
                 require('nvim-treesitter.parsers').lilypond = lilypond_parser_config
                 require('nvim-treesitter.parsers')['lilypond-scheme'] =
-                    vim.tbl_extend('force', lilypond_parser_config, {
+                    vim.tbl_deep_extend('force', lilypond_parser_config, {
                         install_info = {
                             location = 'lilypond-scheme',
                         },
