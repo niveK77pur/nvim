@@ -11,7 +11,10 @@ return {
             group = augroup_treesitter,
             pattern = vim.tbl_keys(require('nvim-treesitter.parsers')),
             callback = function()
-                vim.treesitter.start()
+                require('nvim-treesitter.install').install(vim.bo.filetype)
+                if vim.treesitter.language.add(vim.bo.filetype) then
+                    vim.treesitter.start()
+                end
             end,
         })
 
@@ -19,7 +22,10 @@ return {
             group = augroup_treesitter,
             pattern = 'tex',
             callback = function(args)
-                vim.treesitter.start(args.buf)
+                require('nvim-treesitter.install').install('tex')
+                if vim.treesitter.language.add('tex') then
+                    vim.treesitter.start(args.buf)
+                end
                 vim.bo[args.buf].syntax = 'on' -- only if additional legacy syntax is needed
             end,
         })
