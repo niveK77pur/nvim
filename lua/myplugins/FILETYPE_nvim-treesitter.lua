@@ -40,7 +40,6 @@ return {
                         url = 'https://github.com/nwhetsell/tree-sitter-lilypond',
                         revision = '23eb50341020381521c5bc7f6895dc50ab482b25',
                         location = 'lilypond',
-                        queries = 'queries',
                     },
                     tier = 3,
                 }
