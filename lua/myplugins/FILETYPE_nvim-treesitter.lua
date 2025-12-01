@@ -9,11 +9,26 @@ return {
 
         vim.api.nvim_create_autocmd({ 'FileType' }, {
             group = augroup_treesitter,
-            pattern = vim.tbl_keys(require('nvim-treesitter.parsers')),
-            callback = function()
-                require('nvim-treesitter.install').install(vim.bo.filetype)
-                if vim.treesitter.language.add(vim.bo.filetype) then
-                    vim.treesitter.start()
+            pattern = vim.iter(vim.tbl_keys(require('nvim-treesitter.parsers')))
+                :map(function(lang)
+                    return vim.treesitter.language.get_filetypes(lang)
+                end)
+                :flatten()
+                :totable(),
+            callback = function(args)
+                local filetype = vim.bo[args.buf].filetype
+                local lang = vim.treesitter.language.get_lang(filetype)
+                if lang == nil then
+                    vim.notify(
+                        string.format('Could not find treesitter parser for filetype %s', filetype),
+                        vim.log.levels.WARN(),
+                        { title = 'nvim-treesitter' }
+                    )
+                    return
+                end
+                require('nvim-treesitter.install').install(lang)
+                if vim.treesitter.language.add(lang) then
+                    vim.treesitter.start(args.buf, lang)
                 end
             end,
         })
