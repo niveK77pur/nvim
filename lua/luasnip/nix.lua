@@ -37,7 +37,7 @@ return {
                     i(1),
                     t('pkgs,'),
                 }),
-                conf = c(5, {
+                conf = c(4, {
                     i(1),
                     sn(1, {
                         t('home.packages = ['),
