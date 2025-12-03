@@ -13,10 +13,24 @@ return {
         { '<Leader>ph', ':PencilHard<CR>' },
         { '<Leader>ps', ':PencilSoft<CR>' },
     },
+    event = {
+        'FileType jjdescription',
+    },
     config = function()
-        -- vim.g['pencil#autoformat'] = 1
-        -- vim.g['pencil#wrapModeDefault'] = 'hard'   -- default is 'hard'
-        -- vim.g['pencil#textwidth'] = 74
-        -- vim.g['pencil#cursorwrap'] = 1     -- 0=disable, 1=enable (def)
+        local augroup_pencil = vim.api.nvim_create_augroup('pencil', {})
+
+        vim.api.nvim_create_autocmd({ 'FileType' }, {
+            group = augroup_pencil,
+            pattern = { 'jjdescription' },
+            desc = 'Setup pencil for jujutsu description',
+            callback = function(args)
+                local textwidth = vim.bo[args.buf].textwidth
+                vim.fn['pencil#init']({
+                    -- textwidth = 12, -- does not seem to work?
+                    wrap = 'hard',
+                })
+                vim.bo[args.buf].textwidth = textwidth
+            end,
+        })
     end,
 }
