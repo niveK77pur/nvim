@@ -53,6 +53,7 @@ return {
             xml = { 'xmlformatter' },
             typescript = { 'prettierd' },
             json = pick_formatters('fixjson', { 'yq', 'jq' }),
+            kotlin = { 'ktfmt' },
         }
 
         formatters_by_ft.typescriptreact = formatters_by_ft.typescript
