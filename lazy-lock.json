@@ -33,6 +33,7 @@
   "gitsigns.nvim": { "branch": "main", "commit": "5813e4878748805f1518cee7abb50fd7205a3a48" },
   "grapple.nvim": { "branch": "main", "commit": "b41ddfc1c39f87f3d1799b99c2f0f1daa524c5f7" },
   "keymap-amend.nvim": { "branch": "master", "commit": "b8bf9d820878d5497fdd11d6de55dea82872d98e" },
+  "krust.nvim": { "branch": "main", "commit": "899b65851d25d6eb250833709ab5b27c760171dd" },
   "lazy.nvim": { "branch": "main", "commit": "85c7ff3711b730b4030d03144f6db6375044ae82" },
   "lazydev.nvim": { "branch": "main", "commit": "5231c62aa83c2f8dc8e7ba957aa77098cda1257d" },
   "leap.nvim": { "branch": "main", "commit": "3c49d309d49d66a9feb0dd824353f186b3ee5efa" },
