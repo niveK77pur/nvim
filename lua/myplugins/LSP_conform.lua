@@ -40,21 +40,21 @@ return {
     },
     config = function()
         local formatters_by_ft = {
-            lua = { 'stylua' },
-            python = pick_formatters('isort', { 'ruff_format', 'blue', 'black' }),
-            tex = { 'latexindent' },
-            rust = { 'rustfmt' },
-            lilypond = { 'ly' },
-            go = pick_formatters({ 'golines', 'goimports', 'gofmt' }),
-            sh = { 'shfmt' },
-            java = { 'google-java-format' },
-            nix = pick_formatters({ 'nixfmt', 'alejandra' }),
             c = { 'clang-format' },
-            xml = { 'xmlformatter' },
-            typescript = { 'prettierd' },
+            fish = { 'fish_indent' },
+            go = pick_formatters({ 'golines', 'goimports', 'gofmt' }),
+            java = { 'google-java-format' },
             json = pick_formatters('fixjson', { 'yq', 'jq' }),
             kotlin = { 'ktfmt' },
-            fish = { 'fish_indent' },
+            lilypond = { 'ly' },
+            lua = { 'stylua' },
+            nix = pick_formatters({ 'nixfmt', 'alejandra' }),
+            python = pick_formatters('isort', { 'ruff_format', 'blue', 'black' }),
+            rust = { 'rustfmt' },
+            sh = { 'shfmt' },
+            tex = { 'latexindent' },
+            typescript = { 'prettierd' },
+            xml = { 'xmlformatter' },
         }
 
         formatters_by_ft.typescriptreact = formatters_by_ft.typescript
