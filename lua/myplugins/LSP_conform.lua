@@ -54,6 +54,7 @@ return {
             typescript = { 'prettierd' },
             json = pick_formatters('fixjson', { 'yq', 'jq' }),
             kotlin = { 'ktfmt' },
+            fish = { 'fish_indent' },
         }
 
         formatters_by_ft.typescriptreact = formatters_by_ft.typescript
