@@ -6,6 +6,10 @@ return {
     init = function()
         -- vim.g.nvim_ghost_super_quiet = 1
         vim.g.nvim_ghost_autostart = 0
+        if vim.env.NVIM_GHOST_PYTHON_EXECUTABLE ~= nil then
+            vim.g.nvim_ghost_use_script = 1
+            vim.g.nvim_ghost_python_executable = vim.env.NVIM_GHOST_PYTHON_EXECUTABLE
+        end
     end,
     config = function()
         -- All autocommands should be in 'nvim_ghost_user_autocommands' group
