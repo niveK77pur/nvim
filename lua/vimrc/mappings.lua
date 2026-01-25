@@ -61,7 +61,7 @@ end, { desc = 'save files' })
 
 -- File Manipulation -----------------------------------------------------------
 
-map('n', '<Leader>gf', ':e <cfile><CR>', { desc = "'gf' but make it create new file if not existant" })
+map('n', '<Leader>gf', ':e <cfile><CR>', { desc = "'gf' but make it create new file if not existent" })
 
 -- Handy Mappings --------------------------------------------------------------
 

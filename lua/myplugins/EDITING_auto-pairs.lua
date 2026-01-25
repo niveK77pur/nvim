@@ -17,7 +17,7 @@ return {
         })
 
         -- see ':h autopairs-shortcut' and ':h autopairs-options-contents'
-        vim.g.AutoPairsMoveCharater = ''
+        vim.g.AutoPairsMoveCharacter = ''
 
         -- backspace behaviour
         vim.g.AutoPairsMapBS = 1

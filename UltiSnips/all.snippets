@@ -22,7 +22,7 @@ def compute_space(text, mode, exclude=(0,0)):
 	if mode == 'center-front':
 		return compute_space(text, 'center', exclude)
 	if mode == 'center-rear':
-		# a more sensitive centering (especially for placment after text)
+		# a more sensitive centering (especially for placement after text)
 		return compute_space(text, 'center', exclude) - (1 if len(t[1])%2 != 0 else 0)
 	elif mode == 'fill':
 		# spaces needed to fill until "end of the line"

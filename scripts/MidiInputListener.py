@@ -158,9 +158,9 @@ def note2Lilypond(note, accidentals):
 def clearPort(port):
     """This function clears all pending messages from the port.
 
-    If the port is not emtpy upon starting this application, then there may be
+    If the port is not empty upon starting this application, then there may be
     issues. This function is supposed to empty the port. If it turns out that
-    the port is not emtpy at the end of this function call, please consult the
+    the port is not empty at the end of this function call, please consult the
     following in an attempt to fix it.
 
     In case something is not working:

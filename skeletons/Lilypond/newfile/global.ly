@@ -6,7 +6,7 @@ global = {
 }
 
 %{
-Some other usefull commands
+Some other useful commands
 
 Staves -------------------------------------------------------------------------
 

@@ -36,7 +36,7 @@ DispatchSemaphore(value:$1)
 endsnippet
 
 snippet DS "DispatchSemaphore(value: ...)" b
-let $1Sempahore = DispatchSemaphore(value:$2)
+let $1Semaphore = DispatchSemaphore(value:$2)
 endsnippet
 
 snippet '(\S.+).ws' "xxx.wait() ... xxx.signal()" br
@@ -231,7 +231,7 @@ snippet .done "finishing block for promise" i
 .done { ${1:"returned promise"} in
 	$0
 }.catch { error in
-	print("Error occured for promise: \(error)")
+	print("Error occurred for promise: \(error)")
 }
 endsnippet
 
@@ -239,7 +239,7 @@ snippet .DONE "finishing block for promise (explicit)" i
 .done { (${1:"returned promise"}) in
 	$0
 }.catch { error in
-	print("Error occured for promise: \(error)")
+	print("Error occurred for promise: \(error)")
 }
 endsnippet
 

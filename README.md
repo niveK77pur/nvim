@@ -25,7 +25,7 @@ Initially, plugins were managed using [packer.nvim][packer] but there were some 
 
 ### Windows
 
-Use `ALT+{hjkl}` to nagivate the open windows. Works from normal, insert and terminal mode!
+Use `ALT+{hjkl}` to navigate the open windows. Works from normal, insert and terminal mode!
 
 ### Tabs
 

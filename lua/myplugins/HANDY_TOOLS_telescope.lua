@@ -35,7 +35,7 @@ return {
         nmap('<leader>fm', tb.marks, { desc = 'Telescope: marks' })
         nmap('<leader>fR', tb.registers, { desc = 'Telescope: registers' })
         nmap('<leader>f:', tb.command_history, { desc = 'Telescope: command history' })
-        nmap('<leader>f/', tb.search_history, { desc = 'Telescope: serach history' })
+        nmap('<leader>f/', tb.search_history, { desc = 'Telescope: search history' })
         nmap('<leader>ft', function()
             vim.notify('Telescope cannot list filter for TODOs', vim.log.levels.ERROR)
         end, { desc = 'Telescope: search TODOs (TODO)' })

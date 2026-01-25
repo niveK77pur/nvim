@@ -3,14 +3,14 @@
 set -eo pipefail
 set -o xtrace
 
-# $1 : name (words seperated with dashes "-")
+# $1 : name (words separated with dashes "-")
 # $2 : key  (the key with M for major or m for minor, i.e. aM for a major)
 # $3 : time signature
 
 if [[ -z $1 ]]; then
     echo "Usage: $(basename "$0") NAME [KEY] [TIME]"
     echo
-    echo "NAME - seperate words with dashes (-); prefix categorie seperated by underscore (_)"
+    echo "NAME - separate words with dashes (-); prefix category separated by underscore (_)"
     echo "KEY  - set the key signature (default: C major, see in 'global.ly' file)"
     echo "TIME - set time signature (default: 4/4, see in 'global.ly' file)"
     echo

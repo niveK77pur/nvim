@@ -4,7 +4,7 @@
 
 -- " templates/skeletons for new files "{{{
 -- augroup script_templates
---         "insert templete on :new *.filetype
+--         "insert template on :new *.filetype
 --         autocmd!
 --         au BufNewFile *.pas   0r $HOME/.vim/skeletons/Pascal/template_consoleApp.pas
 --         au BufNewFile *.py    0r $HOME/.vim/skeletons/Python/HashBang.py
@@ -99,7 +99,7 @@ do -- lua/vimrc/functions.lua {{{
 end -- }}}
 
 -- TODO optimize loops??
--- Idea: seperate query_use to seperately query 'startup' and then 'use' (similar to query_usearg is done)
+-- Idea: separate query_use to separately query 'startup' and then 'use' (similar to query_usearg is done)
 -- do -- lua/vimrc/plugins.lua {{{
 --     function _G.foldexprVIMRCplugins(lnum)
 --         local parser = vim.treesitter.get_parser(0)

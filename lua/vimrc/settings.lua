@@ -171,8 +171,8 @@ function _G.MyFoldText(fc) -- {{{
     -- needed than specified, as there is no way to obtain the "effective"
     -- number column width. (i.e. the default value of 4 allows for line
     -- numbers up to 999; if you have line number 1000, then it will implicitly
-    -- use 5 colums. There is no way to tell this. A hack is implemented by
-    -- conditionally substracting the corresponding value.
+    -- use 5 columns. There is no way to tell this. A hack is implemented by
+    -- conditionally subtracting the corresponding value.
     local fillcharcount
     if not lnum_far_right then -- put Line number at 'textwidth'
         fillcharcount = ((vim.o.textwidth > 0) and vim.o.textwidth or 100) - #line.left - #line.right
@@ -180,7 +180,7 @@ function _G.MyFoldText(fc) -- {{{
         fillcharcount = vim.api.nvim_win_get_width(0)
             - #line.left
             - #line.right
-            - ( -- if no line numbers are set, do not substract anything
+            - ( -- if no line numbers are set, do not subtract anything
                 (vim.o.number or vim.o.relativenumber or 0)
                 -- otherwise try to determine how wide the number column is
                 and math.max(

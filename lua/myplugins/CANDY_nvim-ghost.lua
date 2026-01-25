@@ -31,7 +31,7 @@ return {
                 vim.opt.foldenable = false
                 vim.opt.wrap = true
 
-                -- avoid being overwriten by ftplugin
+                -- avoid being overwritten by ftplugin
                 vim.schedule(function()
                     vim.opt.textwidth = 0
                     vim.opt.tabstop = 4

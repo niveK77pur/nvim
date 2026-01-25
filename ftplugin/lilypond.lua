@@ -156,7 +156,7 @@ function _G.EditionEngraverSortStatements() --  {{{
         end
         return a.measure > b.measure and 1 or -1
     end)
-    -- Regroup the `\editionMod` statemnts by paragraphs
+    -- Regroup the `\editionMod` statements by paragraphs
     local prev_measure = edition_mods[1].measure
     for i, entry in ipairs(edition_mods) do
         local curr_measure = entry.measure
