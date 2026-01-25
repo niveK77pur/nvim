@@ -23,6 +23,7 @@
             selene
             shfmt
             shellcheck
+            typos
           ];
         };
       }
