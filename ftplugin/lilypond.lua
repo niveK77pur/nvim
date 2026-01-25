@@ -19,7 +19,7 @@ function _G.MakeOctave(pitch) -- {{{
     local replace = ([[\=empty(submatch(2)) ? '' : submatch(1).'<'.submatch(2).submatch(3).' '.submatch(2)."%s".'>']]):format(
         pitch
     )
-    vim.api.nvim_exec(([[s#%s#%s#g]]):format(match_pattern, replace), false)
+    vim.api.nvim_exec2(([[s#%s#%s#g]]):format(match_pattern, replace), {})
     print('done pitching')
 end -- }}}
 
@@ -38,7 +38,7 @@ function _G.SwitchNotes(notelist) -- {{{
           i.e. _G.SwitchNotes{'a','b'} : ais -> bis
     --}}} ]]
         local accidental = (cnote == cnote:upper()) and '' or [[\1]]
-        vim.api.nvim_exec(([[s#\v<%s(%%([ie]s)*)#%s%s#gie]]):format(cnote, nnote, accidental), false)
+        vim.api.nvim_exec2(([[s#\v<%s(%%([ie]s)*)#%s%s#gie]]):format(cnote, nnote, accidental), {})
     end
 end -- }}}
 
