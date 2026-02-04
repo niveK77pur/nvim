@@ -1,0 +1,1 @@
+{"Host":{"prefix":"Host","body":["Host ${1:hostName}","    HostName ${2:ip}","    User ${3:user}","    IdentityFile ${4:/path/to/private/key}","    AddKeysToAgent yes","    ForwardX11 yes","    ForwardAgent yes"]}}
