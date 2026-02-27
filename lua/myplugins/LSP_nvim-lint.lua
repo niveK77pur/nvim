@@ -7,6 +7,7 @@ local linters_by_ft = {
     jjdescription = {},
     rust = {},
     typescript = { 'eslint_d' },
+    go = { 'golangcilint' },
 }
 
 linters_by_ft.typescriptreact = linters_by_ft.typescript
