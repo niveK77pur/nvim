@@ -72,7 +72,7 @@ function myfs.getvpos()
 
         This function is primarily intended to be used in a visual mode mapping. To be used as follows.
             vim.keymap.set('x', LH, function()
-                local v_start, v_end = require('vimrc.functions').getvpos()
+                local v_start, v_end = require('utils.functions').getvpos()
                 -- Do things;
                 -- These variables two variables hold start and end positions of the selection
             end)

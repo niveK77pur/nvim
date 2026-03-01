@@ -1,4 +1,4 @@
-local vfn = require('vimrc.functions')
+local vfn = require('utils.functions')
 
 vim.api.nvim_create_user_command('MakeTitle', function(opts)
     print(('..%s.. ..%s.. ..%s..'):format(opts.count, opts.args, opts.fargs))

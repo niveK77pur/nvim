@@ -63,7 +63,7 @@ local function setFoldLevelRegion(level, row_nr, row_start, row_end)
     return nil
 end
 
-do -- lua/vimrc/functions.lua {{{
+do -- lua/utils/functions.lua {{{
     function _G.foldexprVIMRCfunctions(lnum)
         local parser = vim.treesitter.get_parser(0)
         local tree = parser:parse()
@@ -88,9 +88,9 @@ do -- lua/vimrc/functions.lua {{{
     vim.api.nvim_create_autocmd({ 'BufRead' }, {
         group = augroup_MyVIMRC,
         pattern = {
-            ('%s/lua/vimrc/functions.lua'):format(vim.fn.stdpath('config')),
+            ('%s/lua/utils/functions.lua'):format(vim.fn.stdpath('config')),
         },
-        desc = "Set foldexpr for 'vimrc.function' module file",
+        desc = "Set foldexpr for 'utils.functions' module file",
         callback = function()
             vim.wo.foldmethod = 'expr'
             vim.wo.foldexpr = 'v:lua.foldexprVIMRCfunctions(v:lnum)'

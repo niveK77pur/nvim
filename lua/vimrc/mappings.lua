@@ -8,11 +8,11 @@ local map = vim.keymap.set
 
 map('n', '<Leader>ve', function()
     -- for telescope: https://github.com/nvim-telescope/telescope.nvim#lists-picker
-    if require('vimrc.functions').plugin_loaded('fzf-lua') then
+    if require('utils.functions').plugin_loaded('fzf-lua') then
         require('fzf-lua').files({
             cwd = vim.fn.stdpath('config') .. '/lua/vimrc',
         })
-    elseif require('vimrc.functions').plugin_loaded('fzf.vim') then
+    elseif require('utils.functions').plugin_loaded('fzf.vim') then
         vim.cmd(('Files %s/lua/vimrc'):format(vim.fn.stdpath('config')))
     end
 end, {
@@ -100,10 +100,10 @@ map('x', 'Q', function() -- {{{
     --  https://stackoverflow.com/a/3338360
     --  https://medium.com/@schtoeffel/you-don-t-need-more-than-one-cursor-in-vim-2c44117d51db#.10y7wvl5y
 
-    local v_start, v_end = require('vimrc.functions').getvpos()
+    local v_start, v_end = require('utils.functions').getvpos()
     vim.api.nvim_feedkeys('\027', 'nt', false) -- <ESC> to finish visual selection before opening NUI input field
 
-    require('vimrc.functions').nuiInput({
+    require('utils.functions').nuiInput({
         text = 'Register',
         on_change = function(value)
             if #value > 0 then
@@ -115,7 +115,7 @@ map('x', 'Q', function() -- {{{
                 return
             end
 
-            require('vimrc.functions').nuiInput({
+            require('utils.functions').nuiInput({
                 text = 'Regex',
                 default = [[^..*$]],
                 on_submit = function(regex)

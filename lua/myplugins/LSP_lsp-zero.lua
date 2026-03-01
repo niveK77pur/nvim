@@ -39,7 +39,7 @@ return {
             -- Enable completion triggered by <c-x><c-o> {{{
             do
                 -- interferes with vimtex
-                if not (require('vimrc.functions').plugin_loaded('vimtex')) then
+                if not (require('utils.functions').plugin_loaded('vimtex')) then
                     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
                 end
             end --  }}}
