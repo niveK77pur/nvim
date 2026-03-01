@@ -1,5 +1,6 @@
 return {
     'TheNoeTrevino/haunt.nvim',
+    enabled = true,
     ---@class HauntConfig
     opts = {},
     init = function()

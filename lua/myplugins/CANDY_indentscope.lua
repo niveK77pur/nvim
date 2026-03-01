@@ -1,6 +1,6 @@
 return {
     'nvim-mini/mini.indentscope',
-    enable = true,
+    enabled = true,
     version = false,
     opts = function(_, opts)
         opts.draw = {

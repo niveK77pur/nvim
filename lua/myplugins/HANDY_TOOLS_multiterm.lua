@@ -1,5 +1,6 @@
 return {
     'imranzero/multiterm.nvim',
+    enabled = true,
     event = 'VeryLazy',
     opts = {
         keymaps = {
