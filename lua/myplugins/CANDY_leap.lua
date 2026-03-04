@@ -1,5 +1,5 @@
 return {
-    'ggandor/leap.nvim',
+    'https://codeberg.org/andyg/leap.nvim',
     enabled = true,
     config = function()
         vim.schedule(function()
