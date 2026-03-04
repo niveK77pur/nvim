@@ -3,9 +3,6 @@ return {
     enabled = true,
     config = function()
         require('nvim-surround').setup({
-            keymaps = {
-                visual = '<Leader>s',
-            },
             aliases = {
                 ['a'] = false,
                 ['b'] = false,
