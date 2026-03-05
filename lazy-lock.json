@@ -51,7 +51,7 @@
   "nightfox.nvim": { "branch": "main", "commit": "ba47d4b4c5ec308718641ba7402c143836f35aa9" },
   "nui.nvim": { "branch": "main", "commit": "de740991c12411b663994b2860f1a4fd0937c130" },
   "nvim-cmp": { "branch": "main", "commit": "b5311ab3ed9c846b585c0c15b7559be131ec4be9" },
-  "nvim-colorizer.lua": { "branch": "master", "commit": "1ace5df4a1e55e5bbd8c2b310284d8264aede0fe" },
+  "nvim-colorizer.lua": { "branch": "master", "commit": "a267072fa3d0c79c90c4d1af5e3871e51180aa5c" },
   "nvim-ghost.nvim": { "branch": "main", "commit": "bdba2a8ad0eec84379d65e7aa9b76a17b11b653a" },
   "nvim-hlslens": { "branch": "main", "commit": "e22f8448b571b56d6140427e27e02406bcf4e059" },
   "nvim-lilypond-suite": { "branch": "main", "commit": "a1a313fd6028a196cc9aaa8c8501838fe8cc8e2a" },
