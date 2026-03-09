@@ -5,4 +5,9 @@ return {
     },
     enabled = true,
     ft = 'qf',
+    opts = {
+        preview = {
+            winblend = 0,
+        },
+    },
 }
