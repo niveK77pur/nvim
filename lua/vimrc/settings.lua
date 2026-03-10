@@ -54,6 +54,7 @@ vim.opt.lazyredraw = true -- especially for macros
 vim.opt.wrap = false
 vim.opt.sidescroll = 20
 vim.opt.sidescrolloff = 5
+vim.opt.scrolloff = 5
 vim.opt.listchars = [[tab:>-,trail:×,extends:>,precedes:<]]
 -- vim.opt.listchars = [[eol:¶,tab:>-,space:∙,trail:×,extends:>,precedes:<]]
 vim.opt.list = true
