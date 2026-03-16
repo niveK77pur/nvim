@@ -19,11 +19,11 @@ return {
             require('haunt.picker').show()
         end, { desc = 'Show Picker' })
 
-        vim.keymap.set('n', '<Leader>' .. prefix .. '[', function()
+        vim.keymap.set('n', '[h', function()
             require('haunt.api').prev()
         end, { desc = 'Previous bookmark' })
 
-        vim.keymap.set('n', '<Leader>' .. prefix .. ']', function()
+        vim.keymap.set('n', ']h', function()
             require('haunt.api').next()
         end, { desc = 'Next bookmark' })
 
