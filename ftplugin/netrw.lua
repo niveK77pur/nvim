@@ -1,5 +1,9 @@
 -- https://vonheikemen.github.io/devlog/tools/using-netrw-vim-builtin-file-explorer/
 
+vim.g.netrw_keepdir = 0
+vim.g.netrw_winsize = 30
+-- vim.g.netrw_localcopydircmd = 'cp -r'
+
 vim.keymap.set('n', '<Leader>ee', ':Lexplore %:p:h<CR>')
 vim.keymap.set('n', '<Leader>ep', ':Lexplore<CR>')
 vim.keymap.set('n', 'qq', ':Lexplore<CR>')
