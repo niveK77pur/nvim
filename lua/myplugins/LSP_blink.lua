@@ -1,9 +1,6 @@
 return {
     'saghen/blink.cmp',
-    enabled = function()
-        -- only enable when nvim-cmp is not enabled
-        return require('lazy.core.config').plugins['nvim-cmp'] == nil
-    end,
+    enabled = true,
     dependencies = {
         'rafamadriz/friendly-snippets',
         'MahanRahmati/blink-nerdfont.nvim',

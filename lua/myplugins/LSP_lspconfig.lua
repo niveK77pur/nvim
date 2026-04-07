@@ -1,6 +1,6 @@
 return {
     'neovim/nvim-lspconfig',
-    enabled = vim.version.ge(vim.version(), { 0, 11, 0 }),
+    enabled = true,
     config = function()
         vim.lsp.inlay_hint.enable()
 
