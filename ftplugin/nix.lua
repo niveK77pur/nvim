@@ -1,4 +1,5 @@
 vim.o.tabstop = 2
+vim.keymap.set({ 'n' }, '<LocalLeader>b', '<esc>A;<esc>')
 
 do
     local preferred_ls = 'nil_ls'
