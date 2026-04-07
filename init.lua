@@ -2,7 +2,6 @@ vim.g.mapleader = [[ ]]
 vim.g.maplocalleader = [[  ]]
 
 local vimrc_files = {
-    'vimrc.notify',
     'vimrc.mappings',
     'vimrc.plugins',
     'vimrc.settings',
