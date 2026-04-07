@@ -1,15 +1,10 @@
 vim.g.mapleader = [[ ]]
 vim.g.maplocalleader = [[  ]]
 
-local vimrc_files = {
-    'vimrc.mappings',
-    'vimrc.plugins',
-    'vimrc.settings',
-    'vimrc.autocommands',
-    'vimrc.neovide',
-    'vimrc.filetypes',
-}
-
-for _, vfile in pairs(vimrc_files) do
-    require(vfile)
+for fname, type in vim.fs.dir('lua/vimrc', { depth = math.huge }) do
+    if type == 'file' and vim.fs.ext(fname) == 'lua' then
+        local name = string.gsub(fname, '%.lua$', '')
+        name = string.gsub(name, '/', '.')
+        require('vimrc.' .. name)
+    end
 end
