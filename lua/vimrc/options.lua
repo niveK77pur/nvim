@@ -32,6 +32,9 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.infercase = false
 
+-- Completions
+vim.opt.completeopt:append('noselect')
+
 -- Everything else...
 vim.opt.autowrite = true
 vim.opt.exrc = true
