@@ -33,6 +33,7 @@ local skeleton_map = {
     ['*.html'] = vim.fn.stdpath('config') .. '/skeletons/HTML/new.html',
     ['description.txt'] = vim.fn.stdpath('config') .. '/skeletons/Miscellaneous/Youtube_description.txt',
     ['description.adoc'] = vim.fn.stdpath('config') .. '/skeletons/Miscellaneous/Youtube_description.adoc',
+    ['flake.nix'] = vim.fn.stdpath('config') .. '/skeletons/Nix/new-flake.nix',
 }
 
 for extension, file in pairs(skeleton_map) do
