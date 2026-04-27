@@ -30,3 +30,5 @@ vim.keymap.set('n', 'gdv', function()
         vim.notify('Diagnostic virtual text/lines config restored')
     end
 end, { desc = 'Toggle virtual text/lines only' })
+
+vim.keymap.set('n', 'gdq', vim.diagnostic.setqflist, { desc = 'Open diagnostics in quickfix' })
