@@ -45,7 +45,7 @@ return {
             go = pick_formatters({ 'golines', 'goimports', 'gofmt' }),
             java = { 'google-java-format' },
             json = pick_formatters('fixjson', { 'prettierd', 'yq', 'jq' }),
-            jsonc = { 'prettierd' },
+            jsonc = { 'fixjson', 'prettierd' },
             kotlin = { 'ktfmt' },
             lilypond = { 'ly' },
             lua = { 'stylua' },
