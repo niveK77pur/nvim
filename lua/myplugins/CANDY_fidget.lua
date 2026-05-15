@@ -8,8 +8,7 @@ return {
         notification = {
             override_vim_notify = true,
             window = {
-                winblend = 0,
-                border = 'double',
+                winblend = 20,
             },
         },
     },
