@@ -19,6 +19,10 @@ return {
             require('haunt.picker').show()
         end, { desc = 'Show Picker' })
 
+        vim.keymap.set('n', '<Leader>' .. prefix .. 'q', function()
+            require('haunt.api').to_quickfix()
+        end, { desc = 'All haunts to quickfix list' })
+
         vim.keymap.set('n', '[h', function()
             require('haunt.api').prev()
         end, { desc = 'Previous bookmark' })
