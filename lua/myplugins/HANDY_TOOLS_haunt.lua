@@ -15,6 +15,10 @@ return {
             require('haunt.api').delete()
         end, { desc = 'Delete bookmark' })
 
+        vim.keymap.set('n', '<Leader>' .. prefix .. 'D', function()
+            require('haunt.api').clear_all()
+        end, { desc = 'Delete all bookmarks' })
+
         vim.keymap.set('n', '<Leader>' .. prefix .. 'f', function()
             require('haunt.picker').show()
         end, { desc = 'Show Picker' })
