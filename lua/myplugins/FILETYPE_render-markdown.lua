@@ -10,5 +10,8 @@ return {
             blink = { enabled = true },
             lsp = { enabled = true },
         },
+        html = {
+            comment = { conceal = false },
+        },
     },
 }
