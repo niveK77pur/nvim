@@ -19,5 +19,13 @@ return {
                 pairs.unmap('i', "'", "''")
             end,
         })
+        vim.api.nvim_create_autocmd({ 'FileType' }, {
+            group = augroup_mini_pairs,
+            pattern = require('myplugins.HANDY_TOOLS_parinfer').ft,
+            desc = 'mini.pairs interferes with parinfer',
+            callback = function(args)
+                vim.b[args.buf].minipairs_disable = true
+            end,
+        })
     end,
 }
