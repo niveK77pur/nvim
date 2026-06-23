@@ -21,4 +21,7 @@ return {
         'yuck',
         'dune',
     },
+    config = function()
+        vim.bo.tabstop = 2
+    end,
 }
