@@ -1,4 +1,4 @@
--- Templates/Skeletons for new files
+-- Templates/Skeletons for new files {{{1
 
 local skeleton_map = {
     ['*.pas'] = vim.fn.stdpath('config') .. '/skeletons/Pascal/template_consoleApp.pas',
@@ -23,3 +23,16 @@ for extension, file in pairs(skeleton_map) do
         command = ('0r %s'):format(file),
     })
 end
+
+-- scmindent {{{1
+local augroup_scmindent = vim.api.nvim_create_augroup('scmindent', {})
+vim.api.nvim_create_autocmd('FileType', {
+    group = augroup_scmindent,
+    pattern = { 'scheme' },
+    desc = 'Set equalprg to scmindent for formatting',
+    callback = function()
+        vim.bo.equalprg = 'scmindent.lua'
+    end,
+})
+
+--  }}}1
