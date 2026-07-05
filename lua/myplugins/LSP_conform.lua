@@ -52,6 +52,7 @@ return {
             nix = pick_formatters({ 'nixfmt', 'alejandra' }),
             python = pick_formatters('isort', { 'ruff_format', 'blue', 'black' }),
             rust = { 'rustfmt' },
+            scheme = { 'scmindent' },
             sh = { 'shfmt' },
             tex = { 'latexindent' },
             typescript = { 'prettierd' },
@@ -82,6 +83,9 @@ return {
                 ly = { --  {{{1
                     command = 'ly',
                     args = { 'reformat' },
+                },
+                scmindent = { --  {{{1
+                    command = 'scmindent.lua',
                 },
                 --  }}}1
             },
