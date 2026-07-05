@@ -76,13 +76,14 @@ return {
                 return { timeout_ms = 500, lsp_fallback = true }
             end, --  }}}
             formatters = {
-                shfmt = { --  {{{
+                shfmt = { --  {{{1
                     prepend_args = { '-i', 4, '-s' },
-                }, --  }}}
-                ly = { --  {{{
+                },
+                ly = { --  {{{1
                     command = 'ly',
                     args = { 'reformat' },
-                }, --  }}}
+                },
+                --  }}}1
             },
         })
         -- Command to toggle format-on-save {{{
