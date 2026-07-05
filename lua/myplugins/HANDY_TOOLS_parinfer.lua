@@ -23,5 +23,6 @@ return {
     },
     config = function()
         vim.bo.tabstop = 2
+        vim.opt_local.shiftround = false
     end,
 }
