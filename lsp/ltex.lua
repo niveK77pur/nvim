@@ -11,7 +11,7 @@ local lspconfig_filetypes = vim.iter(vim.api.nvim_get_runtime_file('lsp/ltex.lua
 return {
     settings = {
         ltex = {
-            language = 'en-GB',
+            language = os.getenv('LTEX_LANG') or 'en-GB',
         },
     },
     filetypes = vim.iter({
