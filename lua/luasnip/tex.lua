@@ -18,4 +18,14 @@ return {
             long = i(1),
         }, { delimiters = '<>' })
     ),
+    s(
+        'gls',
+        fmt([[\<cmd>{<label>}]], {
+            cmd = c(2, {
+                t('gls'),
+                t('acrshort'),
+            }),
+            label = i(1),
+        }, { delimiters = '<>' })
+    ),
 }
